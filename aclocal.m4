@@ -1,4 +1,4 @@
-# aclocal.m4 generated automatically by aclocal 1.4e
+# ./aclocal.m4 generated automatically by aclocal 1.4e
 
 # Copyright 1994, 1995, 1996, 1997, 1998, 1999, 2000
 # Free Software Foundation, Inc.
