@@ -1,4 +1,4 @@
-AC_DEFUN(hs_ULONG_CONST,
+AC_DEFUN([hs_ULONG_CONST],
 [ AH_TEMPLATE(ULONG_CONST, [How do we create unsigned long constants?])
 AC_EGREP_CPP(Circus,
  [#define ACAT(a,b)a ## b
@@ -25,7 +25,7 @@ dnl
 dnl @version $Id: acinclude.m4,v 1.3 2000/08/04 03:26:22 stenn Exp $
 dnl @author Alexandre Oliva <oliva@lsd.ic.unicamp.br>
 
-AC_DEFUN(AC_DEFINE_DIR, [
+AC_DEFUN([AC_DEFINE_DIR], [
 	ac_expanded=`(
 	    test "x$prefix" = xNONE && prefix="$ac_default_prefix"
 	    test "x$exec_prefix" = xNONE && exec_prefix="${prefix}"
