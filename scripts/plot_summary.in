@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#! @PATH_PERL@ -w
 # $Id$
 #
 # Use Gnuplot to display data in summary files produced by summary.pl.
