@@ -1,5 +1,6 @@
 AC_DEFUN(hs_ULONG_CONST,
-[ AC_EGREP_CPP(Circus,
+[ AH_TEMPLATE(ULONG_CONST, [How do we create unsigned long constants?])
+AC_EGREP_CPP(Circus,
  [#define ACAT(a,b)a ## b
 ACAT(Cir,cus)
 ], AC_DEFINE([ULONG_CONST(a)], [a ## UL]),
