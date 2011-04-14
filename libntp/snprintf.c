@@ -803,6 +803,7 @@ rpl_vsnprintf(char *str, size_t size, const char *format, va_list args)
 				/* FALLTHROUGH */
 			case 'F':
 				flags |= PRINT_F_UP;
+				/* FALLTHROUGH */
 			case 'a':
 				/* Not yet supported, we'll use "%f". */
 				/* FALLTHROUGH */
