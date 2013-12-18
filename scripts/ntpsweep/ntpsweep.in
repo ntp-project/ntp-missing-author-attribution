@@ -17,10 +17,12 @@
 # products derived from this software without prior written permission.
 #
 # Hans Lambermont <ntpsweep@lambermont.dyndns.org>
+
 package ntpsweep;
 use 5.006_000;
 use strict;
 use lib "@PERLLIBDIR@";
+use lib "@abs_top_srcdir@/scripts/lib";
 use NTP::Util qw(do_dns ntp_read_vars ntp_peers ntp_sntp_line);
 
 (my $program = $0) =~ s%.*/(.+?)(.pl)?$%$1%;
