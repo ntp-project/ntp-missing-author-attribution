@@ -19,6 +19,7 @@
 (4.2.8p2-RC3) 2015/04/03 Released by Harlan Stenn <stenn@ntp.org>
 
 * [Bug 2763] Fix for different thresholds for forward and backward steps.
+* Initial import of the Unity test framework.
 ---
 (4.2.8p2-RC2) 2015/04/03 Released by Harlan Stenn <stenn@ntp.org>
 
