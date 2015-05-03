@@ -35,7 +35,7 @@ bug_2803_SOURCES = 				\
 TESTS =
 
 if !NTP_CROSSCOMPILE
-TESTS += $(CHECK_PROGRAMS)
+TESTS += $(check_PROGRAMS)
 endif
 
 ## check-libntp.mf - automake fragment
