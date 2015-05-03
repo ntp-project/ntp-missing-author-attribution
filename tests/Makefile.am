@@ -7,3 +7,6 @@ SUBDIRS +=	libntp	\
 		$(NULL)
 endif
 
+SUBDIRS +=	bug-2803	\
+		$(NULL)
+

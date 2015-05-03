@@ -53,8 +53,8 @@ sbin_PROGRAMS =		@SNTP_DS@
 ## recursive make dist in sntp including libevent.
 ##
 
-SUBDIRS = include scripts
-DIST_SUBDIRS = include scripts
+SUBDIRS = include scripts unity
+DIST_SUBDIRS = include scripts unity
 
 if BUILD_LIBEVENT
 SUBDIRS += libevent

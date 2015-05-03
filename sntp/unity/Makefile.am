@@ -1,0 +1,15 @@
+AUTOMAKE_OPTIONS = foreign 1.9 subdir-objects
+NULL =
+BUILT_SOURCES =
+CLEANFILES =
+
+noinst_LIBRARIES = libunity.a
+
+libunity_a_SOURCES =		\
+	unity.c			\
+	unity.h			\
+	unity_internals.h	\
+	$(NULL)
+
+include $(top_srcdir)/depsver.mf
+include $(top_srcdir)/includes.mf

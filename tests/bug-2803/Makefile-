@@ -1,0 +1,10 @@
+TARGET = test-2803
+
+OBJS = $(TARGET).o
+
+CFLAGS += -Wall
+
+all: $(TARGET)
+
+clean:
+	rm -f *.o $(TARGET)
