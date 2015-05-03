@@ -1,6 +1,10 @@
+#include <config.h>
 
 #include <stdio.h>
 #include <sys/time.h>
+
+#include <ntp_fp.h>
+#include <timevalops.h>
 
 /* microseconds per second */
 #define MICROSECONDS 1000000
@@ -8,140 +12,6 @@
 
 static int verbose = 1;        // if not 0, also print results if test passed
 static int exit_on_err = 0;    // if not 0, exit if test failed
-
-
-/*
- * Inline functions below copied from NTP 4.source code,
-
-/* make sure microseconds are in nominal range */
-static inline struct timeval
-normalize_tval(
-	struct timeval	x
-	)
-{
-	long		z;
-
-	/*
-	 * If the fraction becomes excessive denormal, we use division
-	 * to do first partial normalisation. The normalisation loops
-	 * following will do the remaining cleanup. Since the size of
-	 * tv_usec has a peculiar definition by the standard the range
-	 * check is coded manually. And labs() is intentionally not used
-	 * here: it has implementation-defined behaviour when applied
-	 * to LONG_MIN.
-	 */
-	if (x.tv_usec < -3l * MICROSECONDS ||
-	    x.tv_usec >  3l * MICROSECONDS  ) {
-		z = x.tv_usec / MICROSECONDS;
-		x.tv_usec -= z * MICROSECONDS;
-		x.tv_sec += z;
-	}
-
-	/*
-	 * Do any remaining normalisation steps in loops. This takes 3
-	 * steps max, and should outperform a division even if the
-	 * mul-by-inverse trick is employed. (It also does the floor
-	 * division adjustment if the above division was executed.)
-	 */
-	if (x.tv_usec < 0)
-		do {
-			x.tv_usec += MICROSECONDS;
-			x.tv_sec--;
-		} while (x.tv_usec < 0);
-	else if (x.tv_usec >= MICROSECONDS)
-		do {
-			x.tv_usec -= MICROSECONDS;
-			x.tv_sec++;
-		} while (x.tv_usec >= MICROSECONDS);
-
-	return x;
-}
-
-
-
-/* x = a + b */
-static inline struct timeval
-add_tval(
-	struct timeval	a,
-	struct timeval	b
-	)
-{
-	struct timeval	x;
-
-	x = a;
-	x.tv_sec += b.tv_sec;
-	x.tv_usec += b.tv_usec;
-
-	return normalize_tval(x);
-}
-
-/* x = a + b, b is fraction only */
-static inline struct timeval
-add_tval_us(
-	struct timeval	a,
-	long		b
-	)
-{
-	struct timeval x;
-
-	x = a;
-	x.tv_usec += b;
-
-	return normalize_tval(x);
-}
-
-/* x = a - b */
-static inline struct timeval
-sub_tval(
-	struct timeval	a,
-	struct timeval	b
-	)
-{
-	struct timeval	x;
-
-	x = a;
-	x.tv_sec -= b.tv_sec;
-	x.tv_usec -= b.tv_usec;
-
-	return normalize_tval(x);
-}
-
-/* x = a - b, b is fraction only */
-static inline struct timeval
-sub_tval_us(
-	struct timeval	a,
-	long		b
-	)
-{
-	struct timeval x;
-
-	x = a;
-	x.tv_usec -= b;
-
-	return normalize_tval(x);
-}
-
-/* x = abs(a) */
-static inline struct timeval
-abs_tval(
-	struct timeval	a
-	)
-{
-	struct timeval	c;
-
-	c = normalize_tval(a);
-	if (c.tv_sec < 0) {
-		if (c.tv_usec != 0) {
-			c.tv_sec = -c.tv_sec - 1;
-			c.tv_usec = MICROSECONDS - c.tv_usec;
-		} else {
-			c.tv_sec = -c.tv_sec;
-		}
-	}
-
-	return c;
-}
-
 
 
 /*

@@ -150,5 +150,6 @@ AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([include/Makefile])
 AC_CONFIG_FILES([scripts/Makefile])
 AC_CONFIG_FILES([tests/Makefile])
+AC_CONFIG_FILES([unity/Makefile])
 
 AC_OUTPUT
