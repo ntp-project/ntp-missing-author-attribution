@@ -19,6 +19,7 @@
 * [Bug 2800] refclock_true.c true_debug() can't open debug log because
   of incompatible open/fdopen parameters.
 * [Bug 2804] install-local-data assumes GNU 'find' semantics.
+* [Bug 2805] ntpd fails to join multicast group.
 * [Bug 2806] refclock_jjy.c supports the Telephone JJY.
 * [Bug 2808] GPSD_JSON driver enhancements, step 1.
   Fix crash during cleanup if GPS device not present and char device.
