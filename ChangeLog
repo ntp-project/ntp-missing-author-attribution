@@ -39,6 +39,10 @@
 * [Bug 2821] Add a missing NTP_PRINTF and a missing const.
 * [Bug 2822] New leap column in sntp broke NTP::Util.pm.
 * [Bug 2825] Quiet file installation in html/ .
+* [Bug 2830] ntpd doesn't always transfer the correct TAI offset via autokey
+   NTP does *not* transfer the TAI offset, but a leap second announcement.
+   Handling of these announcements and stepping over leap seconds
+   needed improvement.
 * Add an assert to the ntpq ifstats code.
 * Clean up the RLIMIT_STACK code.
 * Improve the ntpq documentation around the controlkey keyid.
