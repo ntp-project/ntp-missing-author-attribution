@@ -85,7 +85,7 @@ int test_loop( long long start_sec, long start_usec,
 
 
 
-int main( void )
+int main2( void )
 {
 
 	// loop from {0.0} to {1.1000000} stepping by tv_sec by 1 and tv_usec by 100000

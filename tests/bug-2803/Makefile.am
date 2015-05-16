@@ -24,8 +24,10 @@ AM_CPPFLAGS += $(CPPFLAGS_NTP)
 
 AM_LDFLAGS = $(LDFLAGS_NTP)
 
-bug_2803_SOURCES = 				\
-	bug-2803.c				\
+bug_2803_SOURCES = 			\
+	bug-2803.c			\
+	TestProductionCode_Runner.c	\
+	ut-2803.c			\
 	$(NULL)
 
 # HMS: we may not need some of these:
