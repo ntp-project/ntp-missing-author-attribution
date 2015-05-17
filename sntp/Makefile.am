@@ -54,7 +54,7 @@ sbin_PROGRAMS =		@SNTP_DS@
 ##
 
 SUBDIRS = include scripts unity
-DIST_SUBDIRS = include scripts unity
+DIST_SUBDIRS = include libpkgver scripts unity
 
 if BUILD_LIBEVENT
 SUBDIRS += libevent

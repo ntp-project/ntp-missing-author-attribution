@@ -6,6 +6,7 @@ CLEANFILES =
 noinst_LIBRARIES = libunity.a
 
 libunity_a_SOURCES =		\
+	../libpkgver/colcomp.c	\
 	unity.c			\
 	unity.h			\
 	unity_internals.h	\
