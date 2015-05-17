@@ -3,6 +3,8 @@ NULL =
 BUILT_SOURCES =
 CLEANFILES =
 
+run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
+
 check_PROGRAMS = bug-2803
 
 # HMS: we may not need some of these:
@@ -26,9 +28,12 @@ AM_LDFLAGS = $(LDFLAGS_NTP)
 
 bug_2803_SOURCES = 			\
 	bug-2803.c			\
-	TestProductionCode_Runner.c	\
+	run-bug-2803.c			\
 	ut-2803.c			\
 	$(NULL)
+
+$(srcdir)/run-bug-2803.c: $(srcdir)/bug-2803.c $(std_unity_list)
+	$(run_unity) bug-2803.c run-bug-2803.c
 
 # HMS: we may not need some of these:
 #noinst_HEADERS =	ntpdtest.h	\

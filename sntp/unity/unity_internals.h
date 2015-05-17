@@ -380,6 +380,11 @@ struct _Unity
     UNITY_COUNTER_TYPE CurrentTestFailed;
     UNITY_COUNTER_TYPE CurrentTestIgnored;
     jmp_buf AbortFrame;
+	int isExpectingFail;
+	UNITY_COUNTER_TYPE TestXFAILS;
+	UNITY_COUNTER_TYPE TestPasses;
+	UNITY_COUNTER_TYPE TestXPASSES;
+	const char* XFAILMessage;
 };
 
 extern struct _Unity Unity;
@@ -690,3 +695,9 @@ extern const char UnityStrErr64[];
 
 //End of UNITY_INTERNALS_H
 #endif
+
+//#define TEST_EXPECT_FAIL()			Unity.isExpectingFail = 1;
+//#define TEST_EXPECT_FAIL_MESSAGE(message)	Unity.isExpectingFail = 1; Unity.XFAILMessage = message; //PROBLEM : does this work on all compilers?
+
+#define TEST_EXPECT_FAIL()			UnityExpectFail();
+#define TEST_EXPECT_FAIL_MESSAGE(message)	UnityExpectFailMessage( (message) );

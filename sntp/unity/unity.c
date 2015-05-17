@@ -18,6 +18,8 @@ const char UnityStrOk[]                     = "OK";
 const char UnityStrPass[]                   = "PASS";
 const char UnityStrFail[]                   = "FAIL";
 const char UnityStrIgnore[]                 = "IGNORE";
+const char UnityStrXPASS[]                  = "XPASS";
+const char UnityStrXFAIL[]                  = "XFAIL";
 const char UnityStrNull[]                   = "NULL";
 const char UnityStrSpacer[]                 = ". ";
 const char UnityStrExpected[]               = " Expected ";
@@ -39,9 +41,13 @@ const char UnityStrErrFloat[]               = "Unity Floating Point Disabled";
 const char UnityStrErrDouble[]              = "Unity Double Precision Disabled";
 const char UnityStrErr64[]                  = "Unity 64-bit Support Disabled";
 const char UnityStrBreaker[]                = "-----------------------";
-const char UnityStrResultsTests[]           = " Tests ";
+const char UnityStrResultsTests[]           = " Tests: ";
 const char UnityStrResultsFailures[]        = " Failures ";
 const char UnityStrResultsIgnored[]         = " Ignored ";
+const char UnityStrResultsXFAIL[]           = " XFAIL ";
+const char UnityStrResultsXPASS[]           = " XPASS ";
+const char UnityStrResultsPass[]            = " PASS ";
+
 
 #ifndef UNITY_EXCLUDE_FLOAT
 // Dividing by these constants produces +/- infinity.
@@ -285,21 +291,77 @@ static void UnityTestResultsBegin(const char* file, const UNITY_LINE_TYPE line)
 static void UnityTestResultsFailBegin(const UNITY_LINE_TYPE line)
 {
     UnityTestResultsBegin(Unity.TestFile, line);
-    UnityPrint(UnityStrFail);
+	if (Unity.isExpectingFail)
+	{
+		UnityPrint(UnityStrXFAIL);
+	}
+	else
+	{
+		UnityPrint(UnityStrFail);
+	}
+
     UNITY_OUTPUT_CHAR(':');
 }
 
 //-----------------------------------------------
 void UnityConcludeTest(void)
 {
+#if 0
+	if (Unity.isExpectingFail == 1 && Unity.CurrentTestFailed == 0)
+	{
+		printf("FAIL WAS EXPECTED, BUT IT DIDN'T HAPPEN?!");
+		Unity.TestXPASSES++;
+	}
+
+	else
+#endif
+	//cant be ignored and accepting fail at the same time!
+	if (Unity.isExpectingFail == 1 && Unity.CurrentTestFailed == 1)
+	{
+		Unity.TestXFAILS++; //error message?!
+		if (Unity.XFAILMessage != NULL)
+		{
+			if (Unity.XFAILMessage[0] != ' ')
+			{
+				printf(" ");
+			}
+
+			printf("| ");
+			printf(Unity.XFAILMessage);
+			Unity.XFAILMessage = NULL;
+		}
+		else
+		{
+			printf(" - EXPECTED FAIL!");
+		}
+
+	}
+
+	else
+
     if (Unity.CurrentTestIgnored)
     {
         Unity.TestIgnores++;
     }
     else if (!Unity.CurrentTestFailed)
     {
-        UnityTestResultsBegin(Unity.TestFile, Unity.CurrentTestLineNumber);
-        UnityPrint(UnityStrPass);
+	if(Unity.isExpectingFail == 0) {
+		UnityTestResultsBegin(Unity.TestFile, Unity.CurrentTestLineNumber);
+		UnityPrint(UnityStrPass);
+		Unity.TestPasses++;
+	}
+
+	//probably should remove the if... part
+	else if (Unity.isExpectingFail == 1 && Unity.CurrentTestFailed == 0)
+	{
+
+		UnityTestResultsBegin(Unity.TestFile, Unity.CurrentTestLineNumber);
+		UnityPrint(UnityStrXPASS);
+		Unity.TestXPASSES++;
+
+		printf(" - FAIL WAS EXPECTED, BUT DIDN'T HAPPEN?!");
+		//if (Unity.TestPasses > 0) { Unity.TestPasses--; }
+	}
     }
     else
     {
@@ -308,6 +370,8 @@ void UnityConcludeTest(void)
 
     Unity.CurrentTestFailed = 0;
     Unity.CurrentTestIgnored = 0;
+    Unity.isExpectingFail = 0;
+
     UNITY_PRINT_EOL;
 }
 
@@ -1100,6 +1164,23 @@ void UnityIgnore(const char* msg, const UNITY_LINE_TYPE line)
     UNITY_IGNORE_AND_BAIL;
 }
 
+//----------------------------------------------
+
+void UnityExpectFail(){
+
+	Unity.isExpectingFail = 1;
+
+}
+
+void UnityExpectFailMessage(const char* msg, const UNITY_LINE_TYPE line ){
+
+	Unity.isExpectingFail = 1;
+	  if (msg != NULL)
+    {
+		Unity.XFAILMessage = msg;
+    }
+}
+
 //-----------------------------------------------
 #if defined(UNITY_WEAK_ATTRIBUTE)
     void setUp(void);
@@ -1115,12 +1196,14 @@ void UnityIgnore(const char* msg, const UNITY_LINE_TYPE line)
     void setUp(void);
     void tearDown(void);
 #endif
+
 //-----------------------------------------------
 void UnityDefaultTestRun(UnityTestFunction Func, const char* FuncName, const int FuncLineNum)
 {
     Unity.CurrentTestName = FuncName;
     Unity.CurrentTestLineNumber = (UNITY_LINE_TYPE)FuncLineNum;
     Unity.NumberOfTests++;
+
     if (TEST_PROTECT())
     {
         setUp();
@@ -1130,8 +1213,10 @@ void UnityDefaultTestRun(UnityTestFunction Func, const char* FuncName, const int
     {
         tearDown();
     }
+
     UnityConcludeTest();
 }
+
 
 //-----------------------------------------------
 void UnityBegin(const char* filename)
@@ -1144,9 +1229,15 @@ void UnityBegin(const char* filename)
     Unity.TestIgnores = 0;
     Unity.CurrentTestFailed = 0;
     Unity.CurrentTestIgnored = 0;
+    Unity.TestXFAILS = 0;
+    Unity.isExpectingFail = 0;
+    Unity.TestPasses = 0;
+    Unity.TestXPASSES = 0;
+    Unity.XFAILMessage = NULL;
 
     UNITY_OUTPUT_START();
 }
+
 
 //-----------------------------------------------
 int UnityEnd(void)
@@ -1156,12 +1247,25 @@ int UnityEnd(void)
     UNITY_PRINT_EOL;
     UnityPrintNumber((_U_SINT)(Unity.NumberOfTests));
     UnityPrint(UnityStrResultsTests);
+    UNITY_PRINT_EOL;
+    UnityPrintNumber((_U_SINT)(Unity.TestPasses));
+    UnityPrint(UnityStrResultsPass);
+    UNITY_PRINT_EOL;
+    UnityPrintNumber((_U_SINT)(Unity.TestXFAILS));
+    UnityPrint(UnityStrResultsXFAIL);
+    UNITY_PRINT_EOL;
     UnityPrintNumber((_U_SINT)(Unity.TestFailures));
     UnityPrint(UnityStrResultsFailures);
+    UNITY_PRINT_EOL;
+    UnityPrintNumber((_U_SINT)(Unity.TestXPASSES));
+    UnityPrint(UnityStrResultsXPASS);
+    UNITY_PRINT_EOL;
     UnityPrintNumber((_U_SINT)(Unity.TestIgnores));
     UnityPrint(UnityStrResultsIgnored);
     UNITY_PRINT_EOL;
-    if (Unity.TestFailures == 0U)
+
+    UNITY_PRINT_EOL;
+    if (Unity.TestFailures == 0U && Unity.TestXPASSES == 0U)
     {
         UnityPrintOk();
     }
@@ -1173,5 +1277,6 @@ int UnityEnd(void)
     UNITY_OUTPUT_COMPLETE();
     return (int)(Unity.TestFailures);
 }
+
 
 //-----------------------------------------------
