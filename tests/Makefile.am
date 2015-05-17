@@ -8,5 +8,6 @@ SUBDIRS +=	libntp	\
 endif
 
 SUBDIRS +=	bug-2803	\
+		sandbox		\
 		$(NULL)
 
