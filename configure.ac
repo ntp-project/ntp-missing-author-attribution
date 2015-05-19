@@ -4343,7 +4343,7 @@ esac
 AM_CONDITIONAL([SAVECONFIG_ENABLED], [test x$ntp_saveconfig_enabled = x1])
 AC_MSG_RESULT([$ntp_ok])
 
-NTP_UNITYTEST
+NTP_UNITYBUILD
 
 dnl  gtest is needed for our tests subdirs. It would be nice if we could
 dnl  require a C++ compiler only if we will use gtest, but AC_PROG_CXX

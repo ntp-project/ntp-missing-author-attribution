@@ -4,7 +4,7 @@ dnl shared by top-level and sntp/configure.ac
 AC_DEFUN([NTP_UNITYBUILD], [
 # We may not need have_unity
 have_unity=false
-AC_PATH_PROG([ruby])
+AC_PATH_PROG([PATH_RUBY], [ruby])
 case "$PATH_RUBY" in
  /*)
     have_unity=true
