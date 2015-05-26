@@ -4,7 +4,12 @@ CLEANFILES =
 
 run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
-check_PROGRAMS = test-libntp tests
+check_PROGRAMS = test-libntp
+if GTEST_AVAILABLE
+check_PROGRAMS += tests
+else
+EXTRA_PROGRAMS = tests
+endif
 
 LDADD =					\
 	$(top_builddir)/libntp/libntp.a	\
