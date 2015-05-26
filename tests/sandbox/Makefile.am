@@ -1,11 +1,11 @@
-#AUTOMAKE_OPTIONS = foreign 1.9 subdir-objects
+#AUTOMAKE_OPTIONS = foreign 2.9 subdir-objects
 NULL =
 BUILT_SOURCES =
 CLEANFILES =
 
 run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
-check_PROGRAMS = bug-2803
+check_PROGRAMS = bug-2803 first-test second-test
 
 # HMS: we may not need some of these:
 LDADD =					\
@@ -28,12 +28,29 @@ AM_LDFLAGS = $(LDFLAGS_NTP)
 
 bug_2803_SOURCES = 			\
 	bug-2803.c			\
-	run-bug-2803.c			\
+	run-ut-2803.c			\
 	ut-2803.c			\
 	$(NULL)
 
-$(srcdir)/run-bug-2803.c: $(srcdir)/bug-2803.c $(std_unity_list)
-	$(run_unity) bug-2803.c run-bug-2803.c
+$(srcdir)/run-ut-2803.c: $(srcdir)/ut-2803.c $(std_unity_list)
+	$(run_unity) ut-2803.c run-ut-2803.c
+
+first_test_SOURCES =   			\
+	uglydate.c			\
+	run-first-test.c		\
+	$(NULL)
+
+$(srcdir)/run-first-test.c: $(srcdir)/uglydate.c $(std_unity_list)
+	$(run_unity) uglydate.c run-first-test.c
+
+second_test_SOURCES =                    \
+        modetoa.c                      \
+        run-second-test.c                \
+        $(NULL)
+
+$(srcdir)/run-second-test.c: $(srcdir)/modetoa.c $(std_unity_list)
+	$(run_unity) modetoa.c run-second-test.c
+
 
 # HMS: we may not need some of these:
 #noinst_HEADERS =	ntpdtest.h	\
