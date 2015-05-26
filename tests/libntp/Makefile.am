@@ -2,13 +2,19 @@ NULL =
 BUILT_SOURCES =
 CLEANFILES =
 
-check_PROGRAMS = tests
+run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
+
+check_PROGRAMS = test-libntp tests
 
 LDADD =					\
 	$(top_builddir)/libntp/libntp.a	\
 	$(LDADD_LIBNTP)			\
 	$(PTHREAD_LIBS)			\
 	$(LDADD_NTP)			\
+	$(NULL)
+
+tests_LDADD =				\
+	$(LDADD)			\
 	$(GTEST_LDFLAGS)		\
 	$(GTEST_LIBS)			\
 	$(NULL)
@@ -41,7 +47,7 @@ tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		humandate.cpp		\
 		lfpfunc.cpp		\
 		lfptostr.cpp		\
-		modetoa.cpp		\
+		g_modetoa.cpp		\
 		msyslog.cpp		\
 		netof.cpp		\
 		numtoa.cpp		\
@@ -60,34 +66,61 @@ tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		timevalops.cpp		\
 		tstotv.cpp		\
 		tvtots.cpp		\
-		uglydate.cpp		\
+		g_uglydate.cpp		\
 		vi64ops.cpp		\
 		ymd2yd.cpp		\
 		$(NULL)
 
-noinst_HEADERS =	lfptest.h	\
-			libntptest.h	\
-			sockaddrtest.h	\
-			timestructs.h	\
-			$(NULL)
+noinst_HEADERS =	\
+	lfptest.h	\
+	libntptest.h	\
+	sockaddrtest.h	\
+	timestructs.h	\
+	$(NULL)
+
+$(srcdir)/run-test-libntp.c: $(srcdir)/test-libntp.c $(std_unity_list)
+	$(run_unity) test-libntp.c run-test-libntp.c
+
+test_libntp_CFLAGS = 			\
+	-I$(top_srcdir)/sntp/unity	\
+	$(NULL)
+
+test_libntp_LDADD =  				\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	$(NULL)
+
+test_libntp_SOURCES =  			\
+	modetoa.c			\
+	uglydate.c			\
+	test-libntp.c			\
+	test-libntp.h			\
+	run-test-libntp.c		\
+	$(NULL)
 
 TESTS =
 
 if !NTP_CROSSCOMPILE
-TESTS += tests
+TESTS += $(check_PROGRAMS)
 endif
 
 ## check-libntp.mf - automake fragment
 ## slightly adapted for deeper directory
 
-BUILT_SOURCES	+= check-libntp
-CLEANFILES	+= check-libntp
+BUILT_SOURCES	+= check-libntp check-libunity
+CLEANFILES	+= check-libntp check-libunity
 
 check-libntp: ../../libntp/libntp.a
 	@echo stamp > $@
 
 ../../libntp/libntp.a:
 	cd ../../libntp && $(MAKE) $(AM_MAKEFLAGS) libntp.a
+
+check-libunity: ../../sntp/unity/libunity.a
+	@echo stamp > $@
+
+../../sntp/unity/libunity.a:
+	cd ../../libunity && $(MAKE) $(AM_MAKEFLAGS) libunity.a
 
 include $(top_srcdir)/depsver.mf
 include $(top_srcdir)/includes.mf
