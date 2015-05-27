@@ -4,7 +4,8 @@ CLEANFILES =
 
 run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
-check_PROGRAMS = test-libntp
+#removed test-libntp
+check_PROGRAMS = test-modetoa test-uglydate
 if GTEST_AVAILABLE
 check_PROGRAMS += tests
 else
@@ -83,18 +84,38 @@ noinst_HEADERS =	\
 	timestructs.h	\
 	$(NULL)
 
-$(srcdir)/run-test-libntp.c: $(srcdir)/test-libntp.c $(std_unity_list)
-	$(run_unity) test-libntp.c run-test-libntp.c
+#$(srcdir)/run-test-libntp.c: $(srcdir)/test-libntp.c $(std_unity_list)
+#	$(run_unity) test-libntp.c run-test-libntp.c
 
-test_libntp_CFLAGS = 			\
+#test_libntp_CFLAGS = 			\
+#	-I$(top_srcdir)/sntp/unity	\
+#	$(NULL)
+
+#test_libntp_LDADD =  				\
+#	$(LDADD)				\
+#	$(top_builddir)/sntp/unity/libunity.a	\
+#	$(NULL)
+
+test_modetoa_CFLAGS = 			\
 	-I$(top_srcdir)/sntp/unity	\
 	$(NULL)
 
-test_libntp_LDADD =  				\
+
+test_modetoa_LDADD = 				\
 	$(LDADD)				\
 	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
 
+test_uglydate_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
+	$(NULL)
+
+test_uglydate_LDADD = 				\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	$(NULL)
+
+#removed one combined test, because unity devs suggested we use one program per test
 test_libntp_SOURCES =  			\
 	modetoa.c			\
 	uglydate.c			\
@@ -102,6 +123,24 @@ test_libntp_SOURCES =  			\
 	test-libntp.h			\
 	run-test-libntp.c		\
 	$(NULL)
+
+test_modetoa_SOURCES = 			\
+	modetoa.c			\
+	run-test-modetoa.c		\
+	$(NULL)
+
+test_uglydate_SOURCES = 		\
+	uglydate.c			\
+	run-test-uglydate.c			\
+	$(NULL)
+
+$(srcdir)/run-test-modetoa.c: $(srcdir)/modetoa.c $(std_unity_list)
+	$(run_unity) modetoa.c run-test-modetoa.c
+
+$(srcdir)/run-test-uglydate.c: $(srcdir)/uglydate.c $(std_unity_list)
+	$(run_unity) uglydate.c run-test-uglydate.c
+
+
 
 TESTS =
 
