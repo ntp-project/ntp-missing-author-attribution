@@ -41,7 +41,7 @@ void resetTest()
 int main(void)
 {
   Unity.TestFile = "uglydate.c";
-  UnityBegin("");
+  UnityBegin("uglydate.c");
   RUN_TEST(test_ConstantDateTime, 9);
 
   return (UnityEnd());

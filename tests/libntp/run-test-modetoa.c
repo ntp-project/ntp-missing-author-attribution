@@ -42,7 +42,7 @@ void resetTest()
 int main(void)
 {
   Unity.TestFile = "modetoa.c";
-  UnityBegin("");
+  UnityBegin("modetoa.c");
   RUN_TEST(test_KnownMode, 8);
   RUN_TEST(test_UnknownMode, 15);
 
