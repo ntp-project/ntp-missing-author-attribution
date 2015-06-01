@@ -992,34 +992,43 @@ crypto_recv(
 			    XEVNT_OK)
 				break;
 
-			/*
-			 * If the packet leap values are more recent
-			 * than the stored ones, install the new leap
-			 * values and recompute the signatures.
+			/* Check if we can update the basic TAI offset
+			 * for our current leap frame. This is a hack
+			 * and ignores the time stamps in the autokey
+			 * message.
 			 */
-			if (leapsec_add_fix(ntohl(ep->pkt[0]),
-					    ntohl(ep->pkt[1]),
-					    ntohl(ep->pkt[2]),
-					    NULL))
+			if (vallen == 0) {
+				/* NOP */
+			} else if (vallen != 3*sizeof(uint32_t)) {
+#ifdef DEBUG
+				if (debug)
+					printf("crypto_recv: CRYPTO_LEAP: bad value size %u\n", vallen);
+#endif
+			} else if (sys_leap == LEAP_NOTINSYNC) {
+#ifdef DEBUG
+				if (debug)
+					printf("crypto_recv: CRYPTO_LEAP: not in sync, TAI ignored\n");
+#endif
+			} else if ( ! leapsec_autokey_tai(ntohl(ep->pkt[0]),
+						rbufp->recv_time.l_ui, NULL))
 			{
-				leap_signature_t lsig;
-
-				leapsec_getsig(&lsig);
-				tai_leap.tstamp = ep->tstamp;
-				tai_leap.fstamp = ep->fstamp;
-				tai_leap.vallen = ep->vallen;
-				crypto_update();
-				mprintf_event(EVNT_TAI, peer,
-				    "%d leap %s expire %s", lsig.taiof,
-				    fstostr(lsig.ttime),
-				    fstostr(lsig.etime));
+#ifdef DEBUG
+				if (debug)
+					printf("crypto_recv: CRYPTO_LEAP: TAI not updated\n");
+#endif
 			}
+			
+			tai_leap.tstamp = ep->tstamp;
+			tai_leap.fstamp = ep->fstamp;
+			crypto_update();
+			mprintf_event(EVNT_TAI, peer,
+				      "%d seconds", ntohl(ep->pkt[0]));
 			peer->crypto |= CRYPTO_FLAG_LEAP;
 			peer->flash &= ~TEST8;
 			snprintf(statstr, sizeof(statstr),
-			    "leap TAI offset %d at %u expire %u fs %u",
-			    ntohl(ep->pkt[0]), ntohl(ep->pkt[1]),
-			    ntohl(ep->pkt[2]), ntohl(ep->fstamp));
+				 "leap TAI offset %d at %u expire %u fs %u",
+				 ntohl(ep->pkt[0]), ntohl(ep->pkt[1]),
+				 ntohl(ep->pkt[2]), ntohl(ep->fstamp));
 			record_crypto_stats(&peer->srcadr, statstr);
 #ifdef DEBUG
 			if (debug)
@@ -1858,7 +1867,7 @@ crypto_update(void)
 	char	statstr[NTP_MAXSTRLEN]; /* statistics for filegen */
 	u_int32	*ptr;
 	u_int	len;
-	leap_signature_t lsig;
+	leap_result_t leap_data;
 
 	hostval.tstamp = htonl(crypto_time());
 	if (hostval.tstamp == 0)
@@ -1906,15 +1915,28 @@ crypto_update(void)
 	 */
 	tai_leap.tstamp = hostval.tstamp;
 	tai_leap.fstamp = hostval.fstamp;
-	len = 3 * sizeof(u_int32);
-	if (tai_leap.ptr == NULL)
-		tai_leap.ptr = emalloc(len);
-	tai_leap.vallen = htonl(len);
-	ptr = (u_int32 *)tai_leap.ptr;
-	leapsec_getsig(&lsig);
-	ptr[0] = htonl(lsig.taiof);
-	ptr[1] = htonl(lsig.ttime);
-	ptr[2] = htonl(lsig.etime);
+	if ( ! leapsec_frame(&leap_data))
+		leap_data.tai_offs = 0;
+
+	if (leap_data.tai_offs != 0) { /* might be better with > 10... */
+		len = 3 * sizeof(u_int32);
+		if (tai_leap.ptr == NULL || ntohl(tai_leap.vallen) != len) {
+			free(tai_leap.ptr);
+			tai_leap.ptr = emalloc(len);
+			tai_leap.vallen = htonl(len);
+		}
+		ptr = (u_int32 *)tai_leap.ptr;
+		ptr[0] = htonl(leap_data.tai_offs);
+		ptr[1] = htonl(leap_data.ebase.d_s.lo);
+		if (leap_data.ttime.d_s.hi >= 0)
+			ptr[2] = htonl(leap_data.ttime.D_s.lo -  7*86400);
+		else
+			ptr[2] = htonl(leap_data.ebase.D_s.lo + 25*86400);
+	} else {
+		free(tai_leap.ptr);
+		tai_leap.ptr = NULL;
+		tai_leap.vallen = 0;
+	}
 	if (tai_leap.sig == NULL)
 		tai_leap.sig = emalloc(sign_siglen);
 	EVP_SignInit(&ctx, sign_digest);
@@ -1922,8 +1944,7 @@ crypto_update(void)
 	EVP_SignUpdate(&ctx, tai_leap.ptr, len);
 	if (EVP_SignFinal(&ctx, tai_leap.sig, &len, sign_pkey))
 		tai_leap.siglen = htonl(sign_siglen);
-	if (lsig.ttime > 0)
-		crypto_flags |= CRYPTO_FLAG_TAI;
+	crypto_flags |= CRYPTO_FLAG_TAI;
 	snprintf(statstr, sizeof(statstr), "signature update ts %u",
 	    ntohl(hostval.tstamp)); 
 	record_crypto_stats(NULL, statstr);

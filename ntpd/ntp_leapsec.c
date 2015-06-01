@@ -89,6 +89,8 @@ static char * get_line(leapsec_reader, void*, char*, size_t);
 static char * skipws(const char*);
 static int    parsefail(const char * cp, const char * ep);
 static void   reload_limits(leap_table_t*, const vint64*);
+static void   fetch_leap_era(leap_era_t*, const leap_table_t*,
+			     const vint64*);
 static int    betweenu32(uint32_t, uint32_t, uint32_t);
 static void   reset_times(leap_table_t*);
 static int    leapsec_add(leap_table_t*, const vint64*, int);
@@ -335,6 +337,8 @@ leapsec_query(
 	}
 
 	qr->tai_offs = pt->head.this_tai;
+	qr->ebase    = pt->head.ebase;
+	qr->ttime    = pt->head.ttime;
 
 	/* If before the next scheduling alert, we're done. */
 	if (ucmpv64(&ts64, &pt->head.stime) < 0)
@@ -344,7 +348,6 @@ leapsec_query(
 	due32 = pt->head.dtime.D_s.lo;
 
 	qr->tai_diff  = pt->head.next_tai - pt->head.this_tai;
-	qr->ttime     = pt->head.ttime;
 	qr->ddist     = due32 - ts32;
 	qr->dynamic   = pt->head.dynls;
 	qr->proximity = LSPROX_SCHEDULE;
@@ -364,6 +367,22 @@ leapsec_query(
 
 /* ------------------------------------------------------------------ */
 int/*BOOL*/
+leapsec_query_era(
+	leap_era_t *   qr   ,
+	uint32_t       ntpts,
+	const time_t * pivot)
+{
+	const leap_table_t * pt;
+	vint64               ts64;
+	
+	pt   = leapsec_get_table(FALSE);
+	ts64 = ntpcal_ntp_to_ntp(ntpts, pivot);
+	fetch_leap_era(qr, pt, &ts64);
+	return TRUE;
+}
+
+/* ------------------------------------------------------------------ */
+int/*BOOL*/
 leapsec_frame(
         leap_result_t *qr)
 {
@@ -376,6 +395,7 @@ leapsec_frame(
 
 	qr->tai_offs = pt->head.this_tai;
 	qr->tai_diff = pt->head.next_tai - pt->head.this_tai;
+	qr->ebase    = pt->head.ebase;
 	qr->ttime    = pt->head.ttime;
 	qr->dynamic  = pt->head.dynls;
 
@@ -574,6 +594,7 @@ leapsec_daystolive(
 }
 
 /* ------------------------------------------------------------------ */
+#if 0 /* currently unused -- possibly revived later */
 int/*BOOL*/
 leapsec_add_fix(
 	int            total,
@@ -606,6 +627,7 @@ leapsec_add_fix(
 
 	return leapsec_set_table(pt);
 }
+#endif
 
 /* ------------------------------------------------------------------ */
 int/*BOOL*/
@@ -622,6 +644,68 @@ leapsec_add_dyn(
 	return (   leapsec_add(pt, &now64, (insert != 0))
 		&& leapsec_set_table(pt));
 }
+
+/* ------------------------------------------------------------------ */
+int/*BOOL*/
+leapsec_autokey_tai(
+	int            tai_offset,
+	uint32_t       ntpnow    ,
+	const time_t * pivot     )
+{
+	leap_table_t * pt;
+	leap_era_t     era;
+	vint64         now64;
+	int            idx;
+	
+	(void)tai_offset;
+	pt = leapsec_get_table(FALSE);
+	
+	/* Bail out if the basic offset is not zero */
+	if (pt->head.base_tai != 0)
+		return FALSE;
+
+	/* If there's already data in the table, check if an update is
+	 * possible. Update is impossible if there are static entries
+	 * (since this indicates a valid leapsecond file) or if we're
+	 * too close to a leapsecond transition: We do not know on what
+	 * side the transition the sender might have been, so we use a
+	 * dead zone around the transition.
+	 */
+		
+	/* Check for static entries */
+	for (idx = 0; idx != pt->head.size; idx++)
+		if ( ! pt->info[idx].dynls)
+			return FALSE;
+
+	/* get the fulll time stamp and leap era for it */
+	now64 = ntpcal_ntp_to_ntp(ntpnow, pivot);
+	fetch_leap_era(&era, pt, &now64);
+	
+	/* check the limits with 20s dead band */
+	era.ebase = addv64i32(&era.ebase,  20);
+	if (ucmpv64(&now64, &era.ebase) < 0)
+		return FALSE;
+
+	era.ttime = addv64i32(&era.ttime, -20);
+	if (ucmpv64(&now64, &era.ttime) > 0)
+		return FALSE;
+	
+	/* Here we can proceed. Calculate the delta update. */
+	tai_offset -= era.taiof;
+
+	/* Shift the header info offsets. */
+	pt->head.base_tai += tai_offset;
+	pt->head.this_tai += tai_offset;
+	pt->head.next_tai += tai_offset;
+
+	/* Shift table entry offsets (if any) */
+	for (idx = 0; idx != pt->head.size; idx++)
+		pt->info[idx].taiof += tai_offset;
+
+	/* claim success... */
+	return TRUE;
+}
+
 
 /* =====================================================================
  * internal helpers
@@ -798,6 +882,37 @@ reload_limits(
 		pt->head.next_tai = pt->head.this_tai;
 		pt->head.dynls    = 0;
 	}
+}
+
+/* [internal] fetch the leap era for a given time stamp.
+ * This is a cut-down version the algorithm used to reload the table
+ * limits, but it does not update any global state and provides just the
+ * era information for a given time stamp.
+ */
+static void
+fetch_leap_era(
+	leap_era_t         * into,
+	const leap_table_t * pt  ,
+	const vint64       * ts  )
+{
+	int idx;
+
+	/* Simple search loop, also works with empty table. */
+	for (idx = 0; idx != pt->head.size; idx++)
+		if (ucmpv64(ts, &pt->info[idx].ttime) >= 0)
+			break;
+	/* fetch era data, keeping an eye on boundary conditions */
+	if (idx >= pt->head.size) {
+		memset(&into->ebase, 0x00, sizeof(vint64));
+		into->taiof = pt->head.base_tai;
+	} else {
+		into->ebase = pt->info[idx].ttime;
+		into->taiof = pt->info[idx].taiof;
+	}
+	if (--idx >= 0)
+		into->ttime = pt->info[idx].ttime;
+	else
+		memset(&into->ttime, 0xFF, sizeof(vint64));
 }
 
 /* [internal] Take a time stamp and create a leap second frame for
