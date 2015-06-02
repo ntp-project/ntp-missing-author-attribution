@@ -95,7 +95,7 @@ static int    betweenu32(uint32_t, uint32_t, uint32_t);
 static void   reset_times(leap_table_t*);
 static int    leapsec_add(leap_table_t*, const vint64*, int);
 static int    leapsec_raw(leap_table_t*, const vint64 *, int, int);
-static char * lstostr(const vint64 * ts);
+static const char * lstostr(const vint64 * ts);
 
 /* =====================================================================
  * Get & Set the current leap table
@@ -189,11 +189,16 @@ leapsec_load(
 	struct calendar build;
 
 	leapsec_clear(pt);
-	if (use_build_limit && ntpcal_get_build_date(&build))
+	if (use_build_limit && ntpcal_get_build_date(&build)) {
+		/* don't prune everything -- permit the last 10yrs
+		 * before build.
+		 */
+		build.year -= 10;
 		limit = ntpcal_date_to_ntp64(&build);
-	else
+	} else {
 		memset(&limit, 0, sizeof(limit));
-
+	}
+	
 	while (get_line(func, farg, linebuf, sizeof(linebuf))) {
 		cp = linebuf;
 		if (*cp == '#') {
@@ -390,8 +395,6 @@ leapsec_frame(
 
         memset(qr, 0, sizeof(leap_result_t));
 	pt = leapsec_get_table(FALSE);
-	if (ucmpv64(&pt->head.ttime, &pt->head.stime) <= 0)
-                return FALSE;
 
 	qr->tai_offs = pt->head.this_tai;
 	qr->tai_diff = pt->head.next_tai - pt->head.this_tai;
@@ -399,7 +402,7 @@ leapsec_frame(
 	qr->ttime    = pt->head.ttime;
 	qr->dynamic  = pt->head.dynls;
 
-        return TRUE;
+	return ucmpv64(&pt->head.ttime, &pt->head.stime) >= 0;
 }
 
 /* ------------------------------------------------------------------ */
@@ -660,8 +663,11 @@ leapsec_autokey_tai(
 	(void)tai_offset;
 	pt = leapsec_get_table(FALSE);
 	
-	/* Bail out if the basic offset is not zero */
-	if (pt->head.base_tai != 0)
+	/* Bail out if the basic offset is not zero and the putative
+	 * offset is bigger than 10s. That was in 1972 -- we don't want
+	 * to go back that far!
+	 */
+	if (pt->head.base_tai != 0 || tai_offset < 10)
 		return FALSE;
 
 	/* If there's already data in the table, check if an update is
@@ -1147,19 +1153,22 @@ leapsec_validate(
 /*
  * lstostr - prettyprint NTP seconds
  */
-static char * lstostr(
+static const char *
+lstostr(
 	const vint64 * ts)
 {
 	char *		buf;
 	struct calendar tm;
 
+	LIB_GETBUF(buf);
+
 	if ( ! (ts->d_s.hi >= 0 && ntpcal_ntp64_to_date(&tm, ts) >= 0))
-		return "9999-12-31T23:59:59Z";
-	
-	LIB_GETBUF(buf);	
-	snprintf(buf, LIB_BUFLENGTH, "%04d-%02d-%02dT%02d:%02d:%02dZ",
-		 tm.year, tm.month, tm.monthday,
-		 tm.hour, tm.minute, tm.second);
+		snprintf(buf, LIB_BUFLENGTH, "%s", "9999-12-31T23:59:59Z");
+	else
+		snprintf(buf, LIB_BUFLENGTH, "%04d-%02d-%02dT%02d:%02d:%02dZ",
+			tm.year, tm.month, tm.monthday,
+			tm.hour, tm.minute, tm.second);
+
 	return buf;
 }
 
