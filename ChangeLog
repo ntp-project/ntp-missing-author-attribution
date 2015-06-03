@@ -1,5 +1,6 @@
 ---
 
+  Increased the debug level at which a tiny debug message is printed.
 * [Bug 2824] Convert update-leap to perl. (also see 2769)
 * [Bug 2832] refclock_jjy.c supports the TDC-300.
 * [Bug 2834] Correct a broken html tag in html/refclock.html
