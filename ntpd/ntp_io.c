@@ -3597,7 +3597,7 @@ io_handler(void)
 	else if (debug > 4) {
 		msyslog(LOG_DEBUG, "select(): nfound=%d, error: %m", nfound);
 	} else {
-		DPRINTF(1, ("select() returned %d: %m\n", nfound));
+		DPRINTF(3, ("select() returned %d: %m\n", nfound));
 	}
 #   endif /* DEBUG */
 #  else /* HAVE_SIGNALED_IO */
