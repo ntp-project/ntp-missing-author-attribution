@@ -6,7 +6,7 @@
 #
 # EDIT THIS FILE WITH CAUTION  (invoke-ntp.conf.texi)
 #
-# It has been AutoGen-ed  June  4, 2015 at 03:36:00 AM by AutoGen 5.18.5
+# It has been AutoGen-ed  June  5, 2015 at 11:56:53 AM by AutoGen 5.18.5
 # From the definitions    ntp.conf.def
 # and the template file   agtexi-file.tpl
 @end ignore
@@ -2570,11 +2570,11 @@ option).
 The default is 32 megabytes. Setting this to zero will prevent any attemp to lock memory.
 @item @code{stacksize} @kbd{N4kPages}
 Specifies the maximum size of the process stack on systems with the
-@item @code{filenum} @kbd{Nfiledescriptors}
-Specifies the maximum number of file descriptors ntpd may have open at once. Defaults to the system default.
 @code{mlockall()}
 function.
 Defaults to 50 4k pages (200 4k pages in OpenBSD).
+@item @code{filenum} @kbd{Nfiledescriptors}
+Specifies the maximum number of file descriptors ntpd may have open at once. Defaults to the system default.
 @end table
 @item @code{trap} @kbd{host_address} @code{[@code{port} @kbd{port_number}]} @code{[@code{interface} @kbd{interface_address}]}
 This command configures a trap receiver at the given host

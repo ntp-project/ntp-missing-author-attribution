@@ -10,11 +10,11 @@
 .ds B-Font B
 .ds I-Font I
 .ds R-Font R
-.TH ntp.conf 5 "04 Jun 2015" "4.3.34" "File Formats"
+.TH ntp.conf 5 "05 Jun 2015" "4.3.35" "File Formats"
 .\"
-.\" EDIT THIS FILE WITH CAUTION (/tmp/.ag-H8aWnL/ag-T8aOmL)
+.\" EDIT THIS FILE WITH CAUTION (/tmp/.ag-NFaaIr/ag-ZFa4Gr)
 .\"
-.\" It has been AutoGen-ed June 4, 2015 at 03:35:46 AM by AutoGen 5.18.5
+.\" It has been AutoGen-ed June 5, 2015 at 11:56:40 AM by AutoGen 5.18.5
 .\" From the definitions ntp.conf.def
 .\" and the template file agman-cmd.tpl
 .SH NAME
@@ -2888,12 +2888,12 @@ The default is 32 megabytes. Setting this to zero will prevent any attemp to loc
 .TP 7
 .NOP \f\*[B-Font]stacksize\f[] \f\*[I-Font]N4kPages\f[]
 Specifies the maximum size of the process stack on systems with the
-.TP 7
-.NOP \f\*[B-Font]filenum\f[] \f\*[I-Font]Nfiledescriptors\f[]
-Specifies the maximum number of file descriptors ntpd may have open at once. Defaults to the system default.
 \fBmlockall\fR()\f[]
 function.
 Defaults to 50 4k pages (200 4k pages in OpenBSD).
+.TP 7
+.NOP \f\*[B-Font]filenum\f[] \f\*[I-Font]Nfiledescriptors\f[]
+Specifies the maximum number of file descriptors ntpd may have open at once. Defaults to the system default.
 .RE
 .TP 7
 .NOP \f\*[B-Font]trap\f[] \f\*[I-Font]host_address\f[] [\f\*[B-Font]port\f[] \f\*[I-Font]port_number\f[]] [\f\*[B-Font]interface\f[] \f\*[I-Font]interface_address\f[]]
