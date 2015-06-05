@@ -7,6 +7,7 @@
 * [Bug 2832] refclock_jjy.c supports the TDC-300.
 * [Bug 2834] Correct a broken html tag in html/refclock.html
 * [Bug 2837] Allow a configurable DSCP value.
+* [Bug 2837] add test for DSCP to ntpd/complete.conf.in
 * [Bug 2842] Glitch in ntp.conf.def documentation stanza.
 * Report select() debug messages at debug level 3 now.
 ---
