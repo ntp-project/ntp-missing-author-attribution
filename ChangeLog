@@ -1,6 +1,8 @@
+Below are from 4.2.8p3:
 * [Bug 2830] ntpd doesn't always transfer the correct TAI offset via autokey
    NTPD transfers the current TAI (instead of an announcement) now.
    This might still needed improvement.
+* [Bug 2837] add test for DSCP to ntpd/complete.conf.in
 * [Bug 2842] Glitch in ntp.conf.def documentation stanza.
 * Report select() debug messages at debug level 3 now.
 (4.3.34) 2015/06/04 Released by Harlan Stenn <stenn@ntp.org>
