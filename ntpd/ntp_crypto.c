@@ -988,38 +988,30 @@ crypto_recv(
 			 * compare the value timestamps here, as they
 			 * can be updated by different servers.
 			 */
-			if ((rval = crypto_verify(ep, NULL, peer)) !=
-			    XEVNT_OK)
+			rval = crypto_verify(ep, NULL, peer);
+			if ((rval   != XEVNT_OK          ) ||
+			    (vallen != 3*sizeof(uint32_t))  )
 				break;
 
-			/*
-			 * If the packet leap values are more recent
-			 * than the stored ones, install the new leap
-			 * values and recompute the signatures.
+			/* Check if we can update the basic TAI offset
+			 * for our current leap frame. This is a hack
+			 * and ignores the time stamps in the autokey
+			 * message.
 			 */
-			if (leapsec_add_fix(ntohl(ep->pkt[0]),
-					    ntohl(ep->pkt[1]),
-					    ntohl(ep->pkt[2]),
-					    NULL))
-			{
-				leap_signature_t lsig;
-
-				leapsec_getsig(&lsig);
-				tai_leap.tstamp = ep->tstamp;
-				tai_leap.fstamp = ep->fstamp;
-				tai_leap.vallen = ep->vallen;
-				crypto_update();
-				mprintf_event(EVNT_TAI, peer,
-				    "%d leap %s expire %s", lsig.taiof,
-				    fstostr(lsig.ttime),
-				    fstostr(lsig.etime));
-			}
+			if (sys_leap != LEAP_NOTINSYNC)
+				leapsec_autokey_tai(ntohl(ep->pkt[0]),
+						    rbufp->recv_time.l_ui, NULL);
+			tai_leap.tstamp = ep->tstamp;
+			tai_leap.fstamp = ep->fstamp;
+			crypto_update();
+			mprintf_event(EVNT_TAI, peer,
+				      "%d seconds", ntohl(ep->pkt[0]));
 			peer->crypto |= CRYPTO_FLAG_LEAP;
 			peer->flash &= ~TEST8;
 			snprintf(statstr, sizeof(statstr),
-			    "leap TAI offset %d at %u expire %u fs %u",
-			    ntohl(ep->pkt[0]), ntohl(ep->pkt[1]),
-			    ntohl(ep->pkt[2]), ntohl(ep->fstamp));
+				 "leap TAI offset %d at %u expire %u fs %u",
+				 ntohl(ep->pkt[0]), ntohl(ep->pkt[1]),
+				 ntohl(ep->pkt[2]), ntohl(ep->fstamp));
 			record_crypto_stats(&peer->srcadr, statstr);
 #ifdef DEBUG
 			if (debug)
@@ -1858,7 +1850,7 @@ crypto_update(void)
 	char	statstr[NTP_MAXSTRLEN]; /* statistics for filegen */
 	u_int32	*ptr;
 	u_int	len;
-	leap_signature_t lsig;
+	leap_result_t leap_data;
 
 	hostval.tstamp = htonl(crypto_time());
 	if (hostval.tstamp == 0)
@@ -1906,24 +1898,48 @@ crypto_update(void)
 	 */
 	tai_leap.tstamp = hostval.tstamp;
 	tai_leap.fstamp = hostval.fstamp;
+
+	/* Get the leap second era. We might need a full lookup early
+	 * after start, when the cache is not yet loaded.
+	 */
+	leapsec_frame(&leap_data);
+	if ( ! memcmp(&leap_data.ebase, &leap_data.ttime, sizeof(vint64))) {
+		time_t   now   = time(NULL);
+		uint32_t nowntp = (uint32_t)now + JAN_1970;
+		leapsec_query(&leap_data, nowntp, &now);
+	}
+
+	/* Create the data block. The protocol does not work without. */
 	len = 3 * sizeof(u_int32);
-	if (tai_leap.ptr == NULL)
+	if (tai_leap.ptr == NULL || ntohl(tai_leap.vallen) != len) {
+		free(tai_leap.ptr);
 		tai_leap.ptr = emalloc(len);
-	tai_leap.vallen = htonl(len);
+		tai_leap.vallen = htonl(len);
+	}
 	ptr = (u_int32 *)tai_leap.ptr;
-	leapsec_getsig(&lsig);
-	ptr[0] = htonl(lsig.taiof);
-	ptr[1] = htonl(lsig.ttime);
-	ptr[2] = htonl(lsig.etime);
+	if (leap_data.tai_offs > 10) {
+		/* create a TAI / leap era block. The end time is a
+		 * fake -- maybe we can do better.
+		 */
+		ptr[0] = htonl(leap_data.tai_offs);
+		ptr[1] = htonl(leap_data.ebase.d_s.lo);
+		if (leap_data.ttime.d_s.hi >= 0)
+			ptr[2] = htonl(leap_data.ttime.D_s.lo +  7*86400);
+		else
+			ptr[2] = htonl(leap_data.ebase.D_s.lo + 25*86400);
+	} else {
+		/* no leap era available */
+		memset(ptr, 0, len);
+	}
 	if (tai_leap.sig == NULL)
 		tai_leap.sig = emalloc(sign_siglen);
 	EVP_SignInit(&ctx, sign_digest);
 	EVP_SignUpdate(&ctx, (u_char *)&tai_leap, 12);
 	EVP_SignUpdate(&ctx, tai_leap.ptr, len);
 	if (EVP_SignFinal(&ctx, tai_leap.sig, &len, sign_pkey))
-		tai_leap.siglen = htonl(sign_siglen);
-	if (lsig.ttime > 0)
-		crypto_flags |= CRYPTO_FLAG_TAI;
+		tai_leap.siglen = htonl(len);
+	crypto_flags |= CRYPTO_FLAG_TAI;
+
 	snprintf(statstr, sizeof(statstr), "signature update ts %u",
 	    ntohl(hostval.tstamp)); 
 	record_crypto_stats(NULL, statstr);
