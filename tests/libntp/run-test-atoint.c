@@ -26,8 +26,12 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_KnownMode(void);
-extern void test_UnknownMode(void);
+extern void test_RegularPositive(void);
+extern void test_RegularNegative(void);
+extern void test_PositiveOverflowBoundary(void);
+extern void test_NegativeOverflowBoundary(void);
+extern void test_PositiveOverflowBig(void);
+extern void test_IllegalCharacter(void);
 
 
 //=======Test Reset Option=====
@@ -41,10 +45,14 @@ void resetTest()
 //=======MAIN=====
 int main(void)
 {
-  Unity.TestFile = "modetoa.c";
-  UnityBegin("modetoa.c");
-  RUN_TEST(test_KnownMode, 8);
-  RUN_TEST(test_UnknownMode, 14);
+  Unity.TestFile = "atoint.c";
+  UnityBegin("atoint.c");
+  RUN_TEST(test_RegularPositive, 3);
+  RUN_TEST(test_RegularNegative, 11);
+  RUN_TEST(test_PositiveOverflowBoundary, 19);
+  RUN_TEST(test_NegativeOverflowBoundary, 26);
+  RUN_TEST(test_PositiveOverflowBig, 33);
+  RUN_TEST(test_IllegalCharacter, 40);
 
   return (UnityEnd());
 }

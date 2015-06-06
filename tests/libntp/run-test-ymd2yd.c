@@ -26,8 +26,10 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_KnownMode(void);
-extern void test_UnknownMode(void);
+extern void test_NonLeapYearFebruary(void);
+extern void test_NonLeapYearJune(void);
+extern void test_LeapYearFebruary(void);
+extern void test_LeapYearDecember(void);
 
 
 //=======Test Reset Option=====
@@ -41,10 +43,12 @@ void resetTest()
 //=======MAIN=====
 int main(void)
 {
-  Unity.TestFile = "modetoa.c";
-  UnityBegin("modetoa.c");
-  RUN_TEST(test_KnownMode, 8);
-  RUN_TEST(test_UnknownMode, 14);
+  Unity.TestFile = "ymd2yd.c";
+  UnityBegin("ymd2yd.c");
+  RUN_TEST(test_NonLeapYearFebruary, 12);
+  RUN_TEST(test_NonLeapYearJune, 16);
+  RUN_TEST(test_LeapYearFebruary, 21);
+  RUN_TEST(test_LeapYearDecember, 25);
 
   return (UnityEnd());
 }

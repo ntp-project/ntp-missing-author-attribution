@@ -5,7 +5,9 @@ CLEANFILES =
 run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
 #removed test-libntp
-check_PROGRAMS = test-modetoa test-uglydate
+check_PROGRAMS = test-modetoa test-uglydate test-ymd2yd test-statestr test-numtoa test-numtohost \
+test-hextoint test-atoint
+
 if GTEST_AVAILABLE
 check_PROGRAMS += tests
 else
@@ -25,6 +27,11 @@ tests_LDADD =				\
 	$(GTEST_LIBS)			\
 	$(NULL)
 
+unity_tests_LDADD =				\
+	$(LDADD)                                \
+	$(top_builddir)/sntp/unity/libunity.a   \
+	$(NULL)
+
 AM_CFLAGS   = $(CFLAGS_NTP)
 AM_CXXFLAGS = $(GTEST_CXXFLAGS)
 
@@ -38,7 +45,7 @@ AM_LDFLAGS = $(LDFLAGS_NTP)
 tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		libntptest.cpp		\
 		a_md5encrypt.cpp	\
-		atoint.cpp		\
+		g_atoint.cpp		\
 		atouint.cpp		\
 		authkeys.cpp		\
 		buftvtots.cpp		\
@@ -48,7 +55,7 @@ tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		calyearstart.cpp	\
 		clocktime.cpp		\
 		decodenetnum.cpp	\
-		hextoint.cpp		\
+		g_hextoint.cpp		\
 		hextolfp.cpp		\
 		humandate.cpp		\
 		lfpfunc.cpp		\
@@ -56,8 +63,8 @@ tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		g_modetoa.cpp		\
 		msyslog.cpp		\
 		netof.cpp		\
-		numtoa.cpp		\
-		numtohost.cpp		\
+		g_numtoa.cpp		\
+		g_numtohost.cpp		\
 		octtoint.cpp		\
 		prettydate.cpp		\
 		recvbuff.cpp		\
@@ -65,7 +72,7 @@ tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		sfptostr.cpp		\
 		socktoa.cpp		\
 		ssl_init.cpp		\
-		statestr.cpp		\
+		g_statestr.cpp		\
 		strtolfp.cpp		\
 		timespecops.cpp		\
 		timestructs.cpp		\
@@ -74,7 +81,7 @@ tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		tvtots.cpp		\
 		g_uglydate.cpp		\
 		vi64ops.cpp		\
-		ymd2yd.cpp		\
+		g_ymd2yd.cpp		\
 		$(NULL)
 
 noinst_HEADERS =	\
@@ -100,7 +107,6 @@ test_modetoa_CFLAGS = 			\
 	-I$(top_srcdir)/sntp/unity	\
 	$(NULL)
 
-
 test_modetoa_LDADD = 				\
 	$(LDADD)				\
 	$(top_builddir)/sntp/unity/libunity.a	\
@@ -115,14 +121,64 @@ test_uglydate_LDADD = 				\
 	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
 
-#removed one combined test, because unity devs suggested we use one program per test
-test_libntp_SOURCES =  			\
-	modetoa.c			\
-	uglydate.c			\
-	test-libntp.c			\
-	test-libntp.h			\
-	run-test-libntp.c		\
+test_ymd2yd_CFLAGS =                  \
+	-I$(top_srcdir)/sntp/unity      \
 	$(NULL)
+
+test_ymd2yd_LDADD =                           \
+	$(LDADD)                                \
+	$(top_builddir)/sntp/unity/libunity.a   \
+	$(NULL)
+
+test_statestr_CFLAGS =                  \
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
+
+test_statestr_LDADD =                           \
+	$(LDADD)                                \
+	$(top_builddir)/sntp/unity/libunity.a   \
+	$(NULL)
+
+test_numtoa_CFLAGS =                  \
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
+
+test_numtoa_LDADD =                           \
+	$(unity_tests_LDADD)    
+
+test_numtohost_CFLAGS =                  \
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
+
+test_numtohost_LDADD =                  \
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
+test_hextoint_CFLAGS =                  \
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
+
+test_hextoint_LDADD =                   \
+	$(unity_tests_LDADD)
+	$(NULL)
+
+test_atoint_CFLAGS =                  \
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
+
+test_atoint_LDADD =                   \
+	$(unity_tests_LDADD)
+	$(NULL)
+
+
+#removed one combined test, because unity devs suggested we use one program per test
+#test_libntp_SOURCES =  			\
+#	modetoa.c			\
+#	uglydate.c			\
+#	test-libntp.c			\
+#	test-libntp.h			\
+#	run-test-libntp.c		\
+#	$(NULL)
 
 test_modetoa_SOURCES = 			\
 	modetoa.c			\
@@ -134,12 +190,60 @@ test_uglydate_SOURCES = 		\
 	run-test-uglydate.c			\
 	$(NULL)
 
+test_ymd2yd_SOURCES =                  \
+	ymd2yd.c                       \
+	run-test-ymd2yd.c              \
+	$(NULL)
+
+test_statestr_SOURCES =                  \
+	statestr.c                       \
+	run-test-statestr.c              \
+	$(NULL)
+
+test_numtoa_SOURCES =                  \
+	numtoa.c                       \
+	run-test-numtoa.c              \
+	$(NULL)
+
+test_numtohost_SOURCES =                  \
+	numtohost.c                       \
+	run-test-numtohost.c              \
+	$(NULL)
+
+test_hextoint_SOURCES =                  \
+	hextoint.c                       \
+	run-test-hextoint.c              \
+	$(NULL)
+
+test_atoint_SOURCES =              	\
+	atoint.c	              	\
+	run-test-atoint.c              	\
+	$(NULL)
+
+
 $(srcdir)/run-test-modetoa.c: $(srcdir)/modetoa.c $(std_unity_list)
 	$(run_unity) modetoa.c run-test-modetoa.c
 
 $(srcdir)/run-test-uglydate.c: $(srcdir)/uglydate.c $(std_unity_list)
 	$(run_unity) uglydate.c run-test-uglydate.c
 
+$(srcdir)/run-test-ymd2yd.c: $(srcdir)/ymd2yd.c $(std_unity_list)
+	$(run_unity) ymd2yd.c run-test-ymd2yd.c
+
+$(srcdir)/run-test-statestr.c: $(srcdir)/statestr.c $(std_unity_list)
+	$(run_unity) statestr.c run-test-statestr.c
+
+$(srcdir)/run-test-numtoa.c: $(srcdir)/numtoa.c $(std_unity_list)
+	$(run_unity) numtoa.c run-test-numtoa.c
+
+$(srcdir)/run-test-numtohost.c: $(srcdir)/numtohost.c $(std_unity_list)
+	$(run_unity) numtohost.c run-test-numtohost.c
+
+$(srcdir)/run-test-hextoint.c: $(srcdir)/hextoint.c $(std_unity_list)
+	$(run_unity) hextoint.c run-test-hextoint.c
+
+$(srcdir)/run-test-atoint.c: $(srcdir)/atoint.c $(std_unity_list)
+	$(run_unity) atoint.c run-test-atoint.c
 
 
 TESTS =

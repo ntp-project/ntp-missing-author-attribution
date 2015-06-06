@@ -26,8 +26,10 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_KnownMode(void);
-extern void test_UnknownMode(void);
+extern void test_PeerRestart(void);
+extern void test_SysUnspecified(void);
+extern void test_ClockCodeExists(void);
+extern void test_ClockCodeUnknown(void);
 
 
 //=======Test Reset Option=====
@@ -41,10 +43,12 @@ void resetTest()
 //=======MAIN=====
 int main(void)
 {
-  Unity.TestFile = "modetoa.c";
-  UnityBegin("modetoa.c");
-  RUN_TEST(test_KnownMode, 8);
-  RUN_TEST(test_UnknownMode, 14);
+  Unity.TestFile = "statestr.c";
+  UnityBegin("statestr.c");
+  RUN_TEST(test_PeerRestart, 18);
+  RUN_TEST(test_SysUnspecified, 22);
+  RUN_TEST(test_ClockCodeExists, 27);
+  RUN_TEST(test_ClockCodeUnknown, 31);
 
   return (UnityEnd());
 }

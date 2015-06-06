@@ -25,3 +25,4 @@ TEST_F(statestrTest, ClockCodeExists) {
 TEST_F(statestrTest, ClockCodeUnknown) {
 	EXPECT_STREQ("clk_-1", ceventstr(-1));
 }
+

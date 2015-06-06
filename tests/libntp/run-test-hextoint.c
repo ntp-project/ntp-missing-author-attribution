@@ -26,8 +26,11 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_KnownMode(void);
-extern void test_UnknownMode(void);
+extern void test_SingleDigit(void);
+extern void test_MultipleDigits(void);
+extern void test_MaxUnsigned(void);
+extern void test_Overflow(void);
+extern void test_IllegalChar(void);
 
 
 //=======Test Reset Option=====
@@ -41,10 +44,13 @@ void resetTest()
 //=======MAIN=====
 int main(void)
 {
-  Unity.TestFile = "modetoa.c";
-  UnityBegin("modetoa.c");
-  RUN_TEST(test_KnownMode, 8);
-  RUN_TEST(test_UnknownMode, 14);
+  Unity.TestFile = "hextoint.c";
+  UnityBegin("hextoint.c");
+  RUN_TEST(test_SingleDigit, 7);
+  RUN_TEST(test_MultipleDigits, 15);
+  RUN_TEST(test_MaxUnsigned, 23);
+  RUN_TEST(test_Overflow, 31);
+  RUN_TEST(test_IllegalChar, 38);
 
   return (UnityEnd());
 }
