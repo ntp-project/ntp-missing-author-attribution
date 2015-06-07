@@ -179,10 +179,6 @@ test_a_md5encrypt_LDADD =                   \
 	-lm	
 	$(NULL)
 
-
-
-
-
 test_atouint_CFLAGS =                  \
 	-I$(top_srcdir)/sntp/unity      \
 	$(NULL)
@@ -200,6 +196,7 @@ test_authkeys_LDADD =                           \
 	$(top_builddir)/sntp/unity/libunity.a   \
 	-lm					\
 	$(NULL)
+
 
 #removed one combined test, because unity devs suggested we use one program per test
 #test_libntp_SOURCES =  			\

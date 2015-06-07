@@ -45,14 +45,16 @@ void resetTest()
 //=======MAIN=====
 int main(void)
 {
+	init_auth();
+
   Unity.TestFile = "authkeys.c";
   UnityBegin("authkeys.c");
-  RUN_TEST(test_AddTrustedKeys, 59);
-  RUN_TEST(test_AddUntrustedKey, 70);
-  RUN_TEST(test_HaveKeyCorrect, 78);
-  RUN_TEST(test_HaveKeyIncorrect, 87);
-  RUN_TEST(test_AddWithAuthUseKey, 94);
-  RUN_TEST(test_EmptyKey, 101);
+  RUN_TEST(test_AddTrustedKeys, 61);
+  RUN_TEST(test_AddUntrustedKey, 72);
+  RUN_TEST(test_HaveKeyCorrect, 80);
+  RUN_TEST(test_HaveKeyIncorrect, 89);
+  RUN_TEST(test_AddWithAuthUseKey, 96);
+  RUN_TEST(test_EmptyKey, 103);
 
   return (UnityEnd());
 }

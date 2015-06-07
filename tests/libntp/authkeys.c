@@ -15,6 +15,8 @@
 // old code from google test framework, moved to SetUp() for unity
 void setUp(void)
 { 
+	//init_lib();
+	
 /*
 	 * init_auth() is called by tests_main.cpp earlier.  It
 	 * does not initialize global variables like
