@@ -247,7 +247,6 @@ test_atoint_SOURCES =              	\
 test_a_md5encrypt_SOURCES =              	\
 	a_md5encrypt.c	              		\
 	run-test-a_md5encrypt.c              	\
-	#testcalshims.c				\
 	$(NULL)
 
 test_atouint_SOURCES =              	\
