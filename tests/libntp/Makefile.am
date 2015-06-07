@@ -6,8 +6,7 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
 #removed test-libntp
 check_PROGRAMS = test-modetoa test-uglydate test-ymd2yd test-statestr test-numtoa test-numtohost \
-test-hextoint test-atoint test-atouint test-authkeys
-#test-a_md5encrypt
+test-hextoint test-atoint test-atouint test-authkeys test-a_md5encrypt
 
 if GTEST_AVAILABLE
 check_PROGRAMS += tests
