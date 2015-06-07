@@ -175,8 +175,13 @@ test_a_md5encrypt_CFLAGS =                  \
 	$(NULL)
 
 test_a_md5encrypt_LDADD =                   \
-	$(unity_tests_LDADD)
+	$(unity_tests_LDADD)		\
+	-lm	
 	$(NULL)
+
+
+
+
 
 test_atouint_CFLAGS =                  \
 	-I$(top_srcdir)/sntp/unity      \
@@ -193,6 +198,7 @@ test_authkeys_CFLAGS =                  \
 test_authkeys_LDADD =                           \
 	$(LDADD)                                \
 	$(top_builddir)/sntp/unity/libunity.a   \
+	-lm					\
 	$(NULL)
 
 #removed one combined test, because unity devs suggested we use one program per test
