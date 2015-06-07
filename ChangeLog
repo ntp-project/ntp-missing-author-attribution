@@ -1,3 +1,9 @@
+Below are from 4.2.8p3:
+* [Bug 2830] ntpd doesn't always transfer the correct TAI offset via autokey
+   Update autokey data ASAP when 'sys_tai' changes.
+   Fix unit test that was broken by changes for autokey update.
+   Avoid potential signature length issue and use DPRINTF where possible
+     in ntp_crypto.c.
 (4.3.36) 2015/06/07 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p3:
 * [Bug 2836] DFC77 patches from Frank Kardel to make decoding more
