@@ -1,4 +1,5 @@
-#include "config.h"
+//#include "config.h"
+#include "testcalshims.h"
 //#include "libntptest.h"
 
 #include "unity.h"
