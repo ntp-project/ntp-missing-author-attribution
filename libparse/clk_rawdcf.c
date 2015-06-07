@@ -237,7 +237,7 @@ convert_rawdcf(
 #ifndef PARSEKERNEL
 		msyslog(LOG_ERR, "parse: convert_rawdcf: INCOMPLETE DATA - time code only has %d bits", size);
 #endif
-		return CVT_NONE;
+		return CVT_FAIL|CVT_BADFMT;
 	}
 
 	for (i = 0; i < size; i++)
@@ -250,7 +250,7 @@ convert_rawdcf(
 #ifndef PARSEKERNEL
 			msyslog(LOG_ERR, "parse: convert_rawdcf: BAD DATA - no conversion");
 #endif
-			return CVT_NONE;
+			return CVT_FAIL|CVT_BADFMT;
 		}
 		if (*b) b++;
 		if (*c) c++;
@@ -321,7 +321,7 @@ convert_rawdcf(
 		 * bad format - not for us
 		 */
 #ifndef PARSEKERNEL
-		msyslog(LOG_ERR, "parse: convert_rawdcf: parity check FAILED for \"%s\"", buffer);
+		msyslog(LOG_ERR, "parse: convert_rawdcf: start bit / parity check FAILED for \"%s\"", buffer);
 #endif
 		return CVT_FAIL|CVT_BADFMT;
 	}
@@ -496,11 +496,13 @@ cvt_rawdcf(
 			{
 				if ((newtime - t->tcode) == 60) /* guard against multi bit errors */
 				{
+					parseprintf(DD_RAWDCF,("parse: cvt_rawdcf: minute delta check OK\n"));
 					clock_time->utctime = newtime;
 				}
 				else
 				{
-					rtc = CVT_FAIL|CVT_BADTIME;
+					parseprintf(DD_RAWDCF,("parse: cvt_rawdcf: minute delta check FAIL - ignore timestamp\n"));
+					rtc = CVT_SKIP;
 				}
 				t->tcode            = newtime;
 			}
