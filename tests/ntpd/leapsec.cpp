@@ -558,10 +558,14 @@ TEST_F(leapsecTest, ls2009limdata) {
 	rc = setup_load_table(leap1, TRUE);
 	EXPECT_EQ(1, rc);
 
-	// test on-spot with limited table - does not work if build before 2013!
+	// test on-spot with limited table - this is tricky.
+	// The table used ends 2012; depending on the build date, the 2009 entry
+	// might be included or culled. The resulting TAI offset must be either
+	// 34 or 35 seconds, depending on the build date of the test. 
 	rc = leapsec_query(&qr, lsec2009, NULL);
 	EXPECT_EQ(FALSE, rc);
-	EXPECT_EQ(35, qr.tai_offs);
+	EXPECT_LE(34, qr.tai_offs);
+	EXPECT_GE(35, qr.tai_offs);
 	EXPECT_EQ(0,  qr.tai_diff);
 	EXPECT_EQ(LSPROX_NOWARN, qr.proximity);
 }
