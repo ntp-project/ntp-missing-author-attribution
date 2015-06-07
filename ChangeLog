@@ -2,6 +2,7 @@ Below are from 4.2.8p3:
 * [Bug 2836] DFC77 patches from Frank Kardel to make decoding more
   robust, and require 2 consecutive timestamps to be consistent.
 * [Bug 2842] Bug in mdoc2man.
+* sntp/scripts/genLocInfo: treat raspbian as debian.
 (4.3.35) 2015/06/05 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p3:
 * [Bug 2830] ntpd doesn't always transfer the correct TAI offset via autokey
