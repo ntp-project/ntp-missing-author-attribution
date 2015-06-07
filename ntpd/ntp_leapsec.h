@@ -61,16 +61,27 @@ extern int leapsec_validate(leapsec_reader, void*);
  */
 extern int/*BOOL*/ leapsec_electric(int/*BOOL*/ on);
 
+/* Query result for a leap era. This is the minimal stateless
+ * information available for a time stamp in UTC.
+ */
+struct leap_era {
+	vint64   ebase;	/* era base (UTC of start)		*/
+	vint64   ttime; /* era end (UTC of next leap second)	*/
+	int16_t  taiof;	/* offset to TAI in this era		*/
+};
+typedef struct leap_era leap_era_t;
 
 /* Query result for a leap second schedule
- * 'ttime' is the transition point in full time scale, but only if
- *	'tai_diff' is not zero. Nominal UTC time when the next leap
- *      era starts.
+ * 'ebase' is the nominal UTC time when the current leap era
+ *      started. (Era base time)
+ * 'ttime' is the next transition point in full time scale. (Nominal UTC
+ *      time when the next leap era starts.)
  * 'ddist' is the distance to the transition, in clock seconds.
  *      This is the distance to the due time, which is different
  *      from the transition time if the mode is non-electric.
  *	Only valid if 'tai_diff' is not zero.
- * 'tai_offs' is the CURRENT distance from clock (UTC) to TAI. Always valid.
+ * 'tai_offs' is the CURRENT distance from clock (UTC) to TAI. Always
+ *      valid.
  * 'tai_diff' is the change in TAI offset after the next leap
  *	transition. Zero if nothing is pending or too far ahead.
  * 'warped' is set only once, when the the leap second occurred between
@@ -81,6 +92,7 @@ extern int/*BOOL*/ leapsec_electric(int/*BOOL*/ on);
  * 'dynamic' != 0 if entry was requested by clock/peer
  */ 
 struct leap_result {
+	vint64   ebase;
 	vint64   ttime;
 	uint32_t ddist;
 	int16_t  tai_offs;
@@ -91,6 +103,15 @@ struct leap_result {
 };
 typedef struct leap_result leap_result_t;
 
+/* The leap signature is used in two distinct circumstances, and it has
+ * slightly different content in these cases:
+ *  - it is used to indictae the time range covered by the leap second
+ *    table, and then it contains the last transition, TAI offset after
+ *    the final transition, and the expiration time.
+ *  - it is used to query data for AUTOKEY updates, and then it contains
+ *    the *current* TAI offset, the *next* transition time and the
+ *    expiration time of the table.
+ */   
 struct leap_signature {
 	uint32_t etime;	/* expiration time	*/
 	uint32_t ttime;	/* transition time	*/
@@ -170,6 +191,7 @@ extern int32_t leapsec_daystolive(uint32_t when, const time_t * pivot);
  */
 extern void leapsec_reset_frame(void);
 
+#if 0 /* currently unused -- possibly revived later */
 /* Given a transition time, the TAI offset valid after that and an
  * expiration time, try to establish a system leap transition. Only
  * works if the existing table is extended. On success, updates the
@@ -177,6 +199,7 @@ extern void leapsec_reset_frame(void);
  */
 extern int/*BOOL*/ leapsec_add_fix(int offset, uint32_t ttime, uint32_t etime,
 				   const time_t * pivot);
+#endif
 
 /* Take a time stamp and create a leap second frame for it. This will
  * schedule a leap second for the beginning of the next month, midnight
@@ -200,8 +223,14 @@ extern int/*BOOL*/ leapsec_add_dyn(int/*BOOL*/ insert, uint32_t ntp_now,
  * last and the current query. In that case, qr->warped contains the
  * required clock stepping, which is always zero in electric mode.
  */
-extern int/*BOOL*/ leapsec_query(leap_result_t *qr, uint32_t ntpts,
+extern int/*BOOL*/ leapsec_query(leap_result_t * qr, uint32_t ntpts,
 				 const time_t * pivot);
+
+/* For a given time stamp, fetch the data for the bracketing leap
+ * era. The time stamp is subject to NTP era unfolding.
+ */
+extern int/*BOOL*/ leapsec_query_era(leap_era_t * qr, uint32_t ntpts,
+				     const time_t * pivot);
 
 /* Get the current leap frame info. Returns TRUE if the result contains
  * useable data, FALSE if there is currently no leap second frame.
@@ -214,6 +243,14 @@ extern int/*BOOL*/ leapsec_query(leap_result_t *qr, uint32_t ntpts,
  *  qr->dynamic;
  */
 extern int/*BOOL*/ leapsec_frame(leap_result_t *qr);
+
+
+/* Process a AUTOKEY TAI offset information. This *might* augment the
+ * current leap data table with the given TAI offset.
+ * Returns TRUE if action was taken, FALSE otherwise.
+ */
+extern int/*BOOL*/ leapsec_autokey_tai(int tai_offset, uint32_t ntpnow,
+				       const time_t * pivot);
 
 /* reset global state for unit tests */
 extern void leapsec_ut_pristine(void);

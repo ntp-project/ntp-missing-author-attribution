@@ -73,6 +73,11 @@
 
 extern int listen_to_virtual_ips;
 
+#ifndef IPTOS_DSCP_EF
+#define IPTOS_DSCP_EF 0xb8
+#endif
+int qos = IPTOS_DSCP_EF;	/* QoS RFC3246 */
+
 /*
  * NIC rule entry
  */
@@ -2842,11 +2847,6 @@ open_socket(
 	int	on = 1;
 	int	off = 0;
 
-#ifndef IPTOS_DSCP_EF
-#define IPTOS_DSCP_EF 0xb8
-#endif
-	int	qos = IPTOS_DSCP_EF;	/* QoS RFC3246 */
-
 	if (IS_IPV6(addr) && !ipv6_works)
 		return INVALID_SOCKET;
 
@@ -3576,7 +3576,7 @@ io_handler(void)
 	else if (debug > 4) {
 		msyslog(LOG_DEBUG, "select(): nfound=%d, error: %m", nfound);
 	} else {
-		DPRINTF(1, ("select() returned %d: %m\n", nfound));
+		DPRINTF(3, ("select() returned %d: %m\n", nfound));
 	}
 #   endif /* DEBUG */
 #  else /* HAVE_SIGNALED_IO */
