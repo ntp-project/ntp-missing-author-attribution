@@ -222,8 +222,10 @@ static const char leap_gthash [] = {
     "#h	1151a8f e85a5069 9000fcdb 3d5e5365 1d505b37"
 };
 
-static uint32_t lsec2009 = 3439756800u; // 1 Jan 2009, 00:00:00 utc
-static uint32_t lsec2012 = 3550089600u; // 1 Jul 2012, 00:00:00 utc
+static const uint32_t lsec2006 = 3345062400u; // +33, 1 Jan 2006, 00:00:00 utc
+static const uint32_t lsec2009 = 3439756800u; // +34, 1 Jan 2009, 00:00:00 utc
+static const uint32_t lsec2012 = 3550089600u; // +35, 1 Jul 2012, 00:00:00 utc
+static const uint32_t lsec2015 = 3644697600u; // +36, 1 Jul 2015, 00:00:00 utc
 
 int stringreader(void* farg)
 {
@@ -429,6 +431,10 @@ TEST_F(leapsecTest, loadFileTTL) {
 	EXPECT_EQ(-1, rc);	
 }
 
+// =====================================================================
+// RANDOM QUERY TESTS
+// =====================================================================
+
 // ----------------------------------------------------------------------
 // test query in pristine state (bug#2745 misbehaviour)
 TEST_F(leapsecTest, lsQueryPristineState) {
@@ -552,13 +558,80 @@ TEST_F(leapsecTest, ls2009limdata) {
 	rc = setup_load_table(leap1, TRUE);
 	EXPECT_EQ(1, rc);
 
-	// test on-spot with limted table - does not work if build before 2013!
+	// test on-spot with limited table - does not work if build before 2013!
 	rc = leapsec_query(&qr, lsec2009, NULL);
 	EXPECT_EQ(FALSE, rc);
 	EXPECT_EQ(35, qr.tai_offs);
 	EXPECT_EQ(0,  qr.tai_diff);
 	EXPECT_EQ(LSPROX_NOWARN, qr.proximity);
 }
+
+// ----------------------------------------------------------------------
+// Far-distance forward jump into a transiton window.
+TEST_F(leapsecTest, qryJumpFarAhead) {
+	int            rc;
+	leap_result_t  qr;
+	int            last, idx;
+
+	for (int mode=0; mode < 2; ++mode) {
+		leapsec_ut_pristine();
+		rc = setup_load_table(leap1, FALSE);
+		EXPECT_EQ(1, rc);
+		leapsec_electric(mode);
+
+		rc = leapsec_query(&qr, lsec2006, NULL);
+		EXPECT_EQ(FALSE, rc);
+
+		rc = leapsec_query(&qr, lsec2012, NULL);
+		EXPECT_EQ(FALSE, rc);
+	}
+}
+
+// ----------------------------------------------------------------------
+// Forward jump into the next transition window
+TEST_F(leapsecTest, qryJumpAheadToTransition) {
+	int            rc;
+	leap_result_t  qr;
+	int            last, idx;
+
+	for (int mode=0; mode < 2; ++mode) {
+		leapsec_ut_pristine();
+		rc = setup_load_table(leap1, FALSE);
+		EXPECT_EQ(1, rc);
+		leapsec_electric(mode);
+
+		rc = leapsec_query(&qr, lsec2009-SECSPERDAY, NULL);
+		EXPECT_EQ(FALSE, rc);
+
+		rc = leapsec_query(&qr, lsec2009+1, NULL);
+		EXPECT_EQ(TRUE, rc);
+	}
+}
+
+// ----------------------------------------------------------------------
+// Forward jump over the next transition window
+TEST_F(leapsecTest, qryJumpAheadOverTransition) {
+	int            rc;
+	leap_result_t  qr;
+	int            last, idx;
+
+	for (int mode=0; mode < 2; ++mode) {
+		leapsec_ut_pristine();
+		rc = setup_load_table(leap1, FALSE);
+		EXPECT_EQ(1, rc);
+		leapsec_electric(mode);
+
+		rc = leapsec_query(&qr, lsec2009-SECSPERDAY, NULL);
+		EXPECT_EQ(FALSE, rc);
+
+		rc = leapsec_query(&qr, lsec2009+5, NULL);
+		EXPECT_EQ(FALSE, rc);
+	}
+}
+
+// =====================================================================
+// TABLE MODIFICATION AT RUNTIME
+// =====================================================================
 
 // ----------------------------------------------------------------------
 // add dynamic leap second (like from peer/clock)
@@ -582,7 +655,7 @@ TEST_F(leapsecTest, addDynamic) {
 
 	leap_table_t * pt = leapsec_get_table(0);
 	for (int idx=1; insns[idx]; ++idx) {
-	    rc = leapsec_add_dyn(TRUE, insns[idx] - 20*SECSPERDAY - 100, NULL);
+		rc = leapsec_add_dyn(TRUE, insns[idx] - 20*SECSPERDAY - 100, NULL);
 		EXPECT_EQ(TRUE, rc);
 	}
 	// try to slip in a previous entry
@@ -593,6 +666,7 @@ TEST_F(leapsecTest, addDynamic) {
 
 // ----------------------------------------------------------------------
 // add fixed leap seconds (like from network packet)
+#if 0 /* currently unused -- possibly revived later */
 TEST_F(leapsecTest, addFixed) {
 	int            rc;
 	leap_result_t  qr;
@@ -621,7 +695,7 @@ TEST_F(leapsecTest, addFixed) {
 		NULL);
 		EXPECT_EQ(FALSE, rc);
 	}
-	// no do it right
+	// now do it right
 	for (int idx=0; insns[idx].tt; ++idx) {
 		rc = leapsec_add_fix(
 		    insns[idx].of,
@@ -639,6 +713,167 @@ TEST_F(leapsecTest, addFixed) {
 	EXPECT_EQ(FALSE, rc);
 	//leapsec_dump(pt, (leapsec_dumper)fprintf, stdout);
 }
+#endif
+
+// ----------------------------------------------------------------------
+// add fixed leap seconds (like from network packet)
+#if 0 /* currently unused -- possibly revived later */
+TEST_F(leapsecTest, addFixedExtend) {
+	int            rc;
+	leap_result_t  qr;
+	int            last, idx;
+
+	static const struct { uint32_t tt; int of; } insns[] = {
+		{2982009600, 29},//	# 1 Jul 1994
+		{3029443200, 30},//	# 1 Jan 1996
+		{0,0} // sentinel
+	};
+
+	rc = setup_load_table(leap2, FALSE);
+	EXPECT_EQ(1, rc);
+
+	leap_table_t * pt = leapsec_get_table(FALSE);
+	for (last=idx=0; insns[idx].tt; ++idx) {
+		last = idx;
+		rc = leapsec_add_fix(
+		    insns[idx].of,
+		    insns[idx].tt,
+		    insns[idx].tt + SECSPERDAY,
+		    NULL);
+		EXPECT_EQ(TRUE, rc);
+	}
+	
+	// try to extend the expiration of the last entry
+	rc = leapsec_add_fix(
+	    insns[last].of,
+	    insns[last].tt,
+	    insns[last].tt + 128*SECSPERDAY,
+	    NULL);
+	EXPECT_EQ(TRUE, rc);
+	
+	// try to extend the expiration of the last entry with wrong offset
+	rc = leapsec_add_fix(
+	    insns[last].of+1,
+	    insns[last].tt,
+	    insns[last].tt + 129*SECSPERDAY,
+	    NULL);
+	EXPECT_EQ(FALSE, rc);
+	//leapsec_dump(pt, (leapsec_dumper)fprintf, stdout);
+}
+#endif
+
+// ----------------------------------------------------------------------
+// add fixed leap seconds (like from network packet) in an otherwise
+// empty table and test queries before / between /after the tabulated
+// values.
+#if 0 /* currently unused -- possibly revived later */
+TEST_F(leapsecTest, setFixedExtend) {
+	int            rc;
+	leap_result_t  qr;
+	int            last, idx;
+
+	static const struct { uint32_t tt; int of; } insns[] = {
+		{2982009600, 29},//	# 1 Jul 1994
+		{3029443200, 30},//	# 1 Jan 1996
+		{0,0} // sentinel
+	};
+
+	leap_table_t * pt = leapsec_get_table(0);
+	for (last=idx=0; insns[idx].tt; ++idx) {
+		last = idx;
+		rc = leapsec_add_fix(
+		    insns[idx].of,
+		    insns[idx].tt,
+		    insns[idx].tt + 128*SECSPERDAY,
+		    NULL);
+		EXPECT_EQ(TRUE, rc);
+	}
+	
+	rc = leapsec_query(&qr, insns[0].tt - 86400, NULL);
+	EXPECT_EQ(28, qr.tai_offs);
+
+	rc = leapsec_query(&qr, insns[0].tt + 86400, NULL);
+	EXPECT_EQ(29, qr.tai_offs);
+
+	rc = leapsec_query(&qr, insns[1].tt - 86400, NULL);
+	EXPECT_EQ(29, qr.tai_offs);
+
+	rc = leapsec_query(&qr, insns[1].tt + 86400, NULL);
+	EXPECT_EQ(30, qr.tai_offs);
+
+	//leapsec_dump(pt, (leapsec_dumper)fprintf, stdout);
+}
+#endif
+
+// =====================================================================
+// AUTOKEY LEAP TRANSFER TESTS
+// =====================================================================
+
+// ----------------------------------------------------------------------
+// Check if the offset can be applied to an empty table ONCE
+TEST_F(leapsecTest, taiEmptyTable) {
+	int rc;
+
+	rc = leapsec_autokey_tai(35, lsec2015-30*86400, NULL);	
+	EXPECT_EQ(TRUE, rc);
+
+	rc = leapsec_autokey_tai(35, lsec2015-29*86400, NULL);
+	EXPECT_EQ(FALSE, rc);
+}
+
+// ----------------------------------------------------------------------
+// Check that with fixed entries the operation fails
+TEST_F(leapsecTest, taiTableFixed) {
+	int rc;
+
+	rc = setup_load_table(leap1, FALSE);
+	EXPECT_EQ(1, rc);
+
+	rc = leapsec_autokey_tai(35, lsec2015-30*86400, NULL);
+	EXPECT_EQ(FALSE, rc);
+}
+
+// ----------------------------------------------------------------------
+// test adjustment with a dynamic entry already there
+TEST_F(leapsecTest, taiTableDynamic) {
+	int        rc;
+	leap_era_t era;
+
+	rc = leapsec_add_dyn(TRUE, lsec2015-20*SECSPERDAY, NULL);
+	EXPECT_EQ(TRUE, rc);
+
+	leapsec_query_era(&era, lsec2015-10, NULL);
+	EXPECT_EQ(0, era.taiof);
+	leapsec_query_era(&era, lsec2015+10, NULL);
+	EXPECT_EQ(1, era.taiof);
+
+	rc = leapsec_autokey_tai(35, lsec2015-19*86400, NULL);	
+	EXPECT_EQ(TRUE, rc);
+
+	rc = leapsec_autokey_tai(35, lsec2015-19*86400, NULL);
+	EXPECT_EQ(FALSE, rc);
+
+	leapsec_query_era(&era, lsec2015-10, NULL);
+	EXPECT_EQ(35, era.taiof);
+	leapsec_query_era(&era, lsec2015+10, NULL);
+	EXPECT_EQ(36, era.taiof);
+}
+
+// ----------------------------------------------------------------------
+// test adjustment with a dynamic entry already there in dead zone
+TEST_F(leapsecTest, taiTableDynamicDeadZone) {
+	int rc;
+
+	rc = leapsec_add_dyn(TRUE, lsec2015-20*SECSPERDAY, NULL);
+	EXPECT_EQ(TRUE, rc);
+
+	rc = leapsec_autokey_tai(35, lsec2015-5, NULL);	
+	EXPECT_EQ(FALSE, rc);
+
+	rc = leapsec_autokey_tai(35, lsec2015+5, NULL);
+	EXPECT_EQ(FALSE, rc);
+}
+
 
 // =====================================================================
 // SEQUENCE TESTS

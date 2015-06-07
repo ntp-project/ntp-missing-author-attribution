@@ -1,5 +1,21 @@
 ---
 
+* [Bug 2824] Convert update-leap to perl. (also see 2769)
+* [Bug 2830] ntpd doesn't always transfer the correct TAI offset via autokey
+   NTPD transfers the current TAI (instead of an announcement) now.
+   This might still needed improvement.
+* [Bug 2832] refclock_jjy.c supports the TDC-300.
+* [Bug 2834] Correct a broken html tag in html/refclock.html
+* [Bug 2836] DFC77 patches from Frank Kardel to make decoding more
+  robust, and require 2 consecutive timestamps to be consistent.
+* [Bug 2837] Allow a configurable DSCP value.
+* [Bug 2837] add test for DSCP to ntpd/complete.conf.in
+* [Bug 2842] Glitch in ntp.conf.def documentation stanza.
+* [Bug 2842] Bug in mdoc2man.
+* Report select() debug messages at debug level 3 now.
+* sntp/scripts/genLocInfo: treat raspbian as debian.
+---
+
 * Unity test framework fixes.
 * Initial support for PACKAGE_VERSION tests.
 ---
@@ -43,6 +59,9 @@
 * [Bug 2821] Add a missing NTP_PRINTF and a missing const.
 * [Bug 2822] New leap column in sntp broke NTP::Util.pm.
 * [Bug 2825] Quiet file installation in html/ .
+* [Bug 2830] ntpd doesn't always transfer the correct TAI offset via autokey
+   NTPD transfers the current TAI (instead of an announcement) now.
+   This might still needed improvement.
 * Add an assert to the ntpq ifstats code.
 * Clean up the RLIMIT_STACK code.
 * Improve the ntpq documentation around the controlkey keyid.
