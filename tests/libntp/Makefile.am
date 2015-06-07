@@ -6,7 +6,7 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
 #removed test-libntp
 check_PROGRAMS = test-modetoa test-uglydate test-ymd2yd test-statestr test-numtoa test-numtohost \
-test-hextoint test-atoint
+test-hextoint test-atoint test-a_md5encrypt test-atouint test-authkeys
 
 if GTEST_AVAILABLE
 check_PROGRAMS += tests
@@ -44,10 +44,10 @@ AM_LDFLAGS = $(LDFLAGS_NTP)
 
 tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		libntptest.cpp		\
-		a_md5encrypt.cpp	\
+		g_a_md5encrypt.cpp	\
 		g_atoint.cpp		\
-		atouint.cpp		\
-		authkeys.cpp		\
+		g_atouint.cpp		\
+		g_authkeys.cpp		\
 		buftvtots.cpp		\
 		calendar.cpp		\
 		caljulian.cpp		\
@@ -170,6 +170,30 @@ test_atoint_LDADD =                   \
 	$(unity_tests_LDADD)
 	$(NULL)
 
+test_a_md5encrypt_CFLAGS =                  \
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
+
+test_a_md5encrypt_LDADD =                   \
+	$(unity_tests_LDADD)
+	$(NULL)
+
+test_atouint_CFLAGS =                  \
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
+
+test_atouint_LDADD =                   \
+	$(unity_tests_LDADD)
+	$(NULL)
+
+test_authkeys_CFLAGS =                  \
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
+
+test_authkeys_LDADD =                           \
+	$(LDADD)                                \
+	$(top_builddir)/sntp/unity/libunity.a   \
+	$(NULL)
 
 #removed one combined test, because unity devs suggested we use one program per test
 #test_libntp_SOURCES =  			\
@@ -220,6 +244,21 @@ test_atoint_SOURCES =              	\
 	run-test-atoint.c              	\
 	$(NULL)
 
+test_a_md5encrypt_SOURCES =              	\
+	a_md5encrypt.c	              		\
+	run-test-a_md5encrypt.c              	\
+	#testcalshims.c				\
+	$(NULL)
+
+test_atouint_SOURCES =              	\
+	atouint.c	              	\
+	run-test-atouint.c              	\
+	$(NULL)
+
+test_authkeys_SOURCES =              	\
+	authkeys.c	              	\
+	run-test-authkeys.c              	\
+	$(NULL)
 
 $(srcdir)/run-test-modetoa.c: $(srcdir)/modetoa.c $(std_unity_list)
 	$(run_unity) modetoa.c run-test-modetoa.c
@@ -245,6 +284,14 @@ $(srcdir)/run-test-hextoint.c: $(srcdir)/hextoint.c $(std_unity_list)
 $(srcdir)/run-test-atoint.c: $(srcdir)/atoint.c $(std_unity_list)
 	$(run_unity) atoint.c run-test-atoint.c
 
+$(srcdir)/run-test-a_md5encrypt.c: $(srcdir)/a_md5encrypt.c $(std_unity_list)
+	$(run_unity) a_md5encrypt.c run-test-a_md5encrypt.c
+
+$(srcdir)/run-test-atouint.c: $(srcdir)/atouint.c $(std_unity_list)
+	$(run_unity) atouint.c run-test-atouint.c
+
+$(srcdir)/run-test-authkeys.c: $(srcdir)/authkeys.c $(std_unity_list)
+	$(run_unity) authkeys.c run-test-authkeys.c
 
 TESTS =
 
