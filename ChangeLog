@@ -6,6 +6,8 @@
    This might still needed improvement.
 * [Bug 2832] refclock_jjy.c supports the TDC-300.
 * [Bug 2834] Correct a broken html tag in html/refclock.html
+* [Bug 2836] DFC77 patches from Frank Kardel to make decoding more
+  robust, and require 2 consecutive timestamps to be consistent.
 * [Bug 2837] Allow a configurable DSCP value.
 * [Bug 2837] add test for DSCP to ntpd/complete.conf.in
 * [Bug 2842] Glitch in ntp.conf.def documentation stanza.
