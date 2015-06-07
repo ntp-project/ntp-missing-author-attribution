@@ -380,16 +380,14 @@ make_keylist(
 		EVP_SignUpdate(&ctx, (u_char *)vp, 12);
 		EVP_SignUpdate(&ctx, vp->ptr, sizeof(struct autokey));
 		if (EVP_SignFinal(&ctx, vp->sig, &len, sign_pkey)) {
-			vp->siglen = htonl(sign_siglen);
+			NTP_INSIST(len <= sign_siglen);
+			vp->siglen = htonl(len);
 			peer->flags |= FLAG_ASSOC;
 		}
 	}
-#ifdef DEBUG
-	if (debug)
-		printf("make_keys: %d %08x %08x ts %u fs %u poll %d\n",
+	DPRINTF(1, ("make_keys: %d %08x %08x ts %u fs %u poll %d\n",
 		    peer->keynumber, keyid, cookie, ntohl(vp->tstamp),
-		    ntohl(vp->fstamp), peer->hpoll);
-#endif
+		    ntohl(vp->fstamp), peer->hpoll));
 	return (XEVNT_OK);
 }
 
@@ -456,13 +454,9 @@ crypto_recv(
 		// HMS: Why pkt[1] instead of ep->associd ?
 		associd = (associd_t)ntohl(pkt[1]);
 		rval = XEVNT_OK;
-#ifdef DEBUG
-		if (debug)
-			printf(
-			    "crypto_recv: flags 0x%x ext offset %d len %u code 0x%x associd %d\n",
+		DPRINTF(1, ("crypto_recv: flags 0x%x ext offset %d len %u code 0x%x associd %d\n",
 			    peer->crypto, authlen, len, code >> 16,
-			    associd);
-#endif
+			    associd));
 
 		/*
 		 * Check version number and field length. If bad,
@@ -538,13 +532,9 @@ crypto_recv(
 				rval = XEVNT_LEN;
 				break;
 			}
-#ifdef DEBUG
-			if (debug)
-				printf(
-				    "crypto_recv: ident host 0x%x %d server 0x%x %d\n",
+			DPRINTF(1, ("crypto_recv: ident host 0x%x %d server 0x%x %d\n",
 				    crypto_flags, peer->associd, fstamp,
-				    peer->assoc);
-#endif
+				    peer->assoc));
 			temp32 = crypto_flags & CRYPTO_FLAG_MASK;
 
 			/*
@@ -617,10 +607,7 @@ crypto_recv(
 			    peer->assoc, peer->subject,
 			    OBJ_nid2ln(temp32));
 			record_crypto_stats(&peer->srcadr, statstr);
-#ifdef DEBUG
-			if (debug)
-				printf("crypto_recv: %s\n", statstr);
-#endif
+			DPRINTF(1, ("crypto_recv: %s\n", statstr));
 			break;
 
 		/*
@@ -678,10 +665,7 @@ crypto_recv(
 			    OBJ_nid2ln(temp32), temp32,
 			    ntohl(ep->fstamp));
 			record_crypto_stats(&peer->srcadr, statstr);
-#ifdef DEBUG
-			if (debug)
-				printf("crypto_recv: %s\n", statstr);
-#endif
+			DPRINTF(1, ("crypto_recv: %s\n", statstr));
 			break;
 
 		/*
@@ -718,10 +702,7 @@ crypto_recv(
 			snprintf(statstr, sizeof(statstr), "iff %s fs %u",
 			    peer->issuer, ntohl(ep->fstamp));
 			record_crypto_stats(&peer->srcadr, statstr);
-#ifdef DEBUG
-			if (debug)
-				printf("crypto_recv: %s\n", statstr);
-#endif
+			DPRINTF(1, ("crypto_recv: %s\n", statstr));
 			break;
 
 		/*
@@ -759,10 +740,7 @@ crypto_recv(
 			snprintf(statstr, sizeof(statstr), "gq %s fs %u",
 			    peer->issuer, ntohl(ep->fstamp));
 			record_crypto_stats(&peer->srcadr, statstr);
-#ifdef DEBUG
-			if (debug)
-				printf("crypto_recv: %s\n", statstr);
-#endif
+			DPRINTF(1, ("crypto_recv: %s\n", statstr));
 			break;
 
 		/*
@@ -799,10 +777,7 @@ crypto_recv(
 			snprintf(statstr, sizeof(statstr), "mv %s fs %u",
 			    peer->issuer, ntohl(ep->fstamp));
 			record_crypto_stats(&peer->srcadr, statstr);
-#ifdef DEBUG
-			if (debug)
-				printf("crypto_recv: %s\n", statstr);
-#endif
+			DPRINTF(1, ("crypto_recv: %s\n", statstr));
 			break;
 
 
@@ -868,10 +843,7 @@ crypto_recv(
 			    "cook %x ts %u fs %u", peer->pcookie,
 			    ntohl(ep->tstamp), ntohl(ep->fstamp));
 			record_crypto_stats(&peer->srcadr, statstr);
-#ifdef DEBUG
-			if (debug)
-				printf("crypto_recv: %s\n", statstr);
-#endif
+			DPRINTF(1, ("crypto_recv: %s\n", statstr));
 			break;
 
 		/*
@@ -930,10 +902,7 @@ crypto_recv(
 			    bp->key, ntohl(ep->tstamp),
 			    ntohl(ep->fstamp));
 			record_crypto_stats(&peer->srcadr, statstr);
-#ifdef DEBUG
-			if (debug)
-				printf("crypto_recv: %s\n", statstr);
-#endif
+			DPRINTF(1, ("crypto_recv: %s\n", statstr));
 			break;
 	
 		/*
@@ -970,10 +939,7 @@ crypto_recv(
 			    OBJ_nid2ln(temp32), temp32,
 			    ntohl(ep->fstamp));
 			record_crypto_stats(&peer->srcadr, statstr);
-#ifdef DEBUG
-			if (debug)
-				printf("crypto_recv: %s\n", statstr);
-#endif
+			DPRINTF(1, ("crypto_recv: %s\n", statstr));
 			break;
 
 		/*
@@ -1013,10 +979,7 @@ crypto_recv(
 				 ntohl(ep->pkt[0]), ntohl(ep->pkt[1]),
 				 ntohl(ep->pkt[2]), ntohl(ep->fstamp));
 			record_crypto_stats(&peer->srcadr, statstr);
-#ifdef DEBUG
-			if (debug)
-				printf("crypto_recv: %s\n", statstr);
-#endif
+			DPRINTF(1, ("crypto_recv: %s\n", statstr));
 			break;
 
 		/*
@@ -1065,10 +1028,7 @@ crypto_recv(
 			    "%04x %d %02x %s", htonl(ep->opcode),
 			    associd, rval, eventstr(rval));
 			record_crypto_stats(&peer->srcadr, statstr);
-#ifdef DEBUG
-			if (debug)
-				printf("crypto_recv: %s\n", statstr);
-#endif
+			DPRINTF(1, ("crypto_recv: %s\n", statstr));
 			return (rval);
 		}
 		authlen += (len + 3) / 4 * 4;
@@ -1413,19 +1373,12 @@ crypto_xmit(
 		    "%04x %d %02x %s", opcode, associd, rval,
 		    eventstr(rval));
 		record_crypto_stats(srcadr_sin, statstr);
-#ifdef DEBUG
-		if (debug)
-			printf("crypto_xmit: %s\n", statstr);
-#endif
+		DPRINTF(1, ("crypto_xmit: %s\n", statstr));
 		if (!(opcode & CRYPTO_RESP))
 			return (0);
 	}
-#ifdef DEBUG
-	if (debug)
-		printf(
-		    "crypto_xmit: flags 0x%x offset %d len %d code 0x%x associd %d\n",
-		    crypto_flags, start, len, opcode >> 16, associd);
-#endif
+	DPRINTF(1, ("crypto_xmit: flags 0x%x offset %d len %d code 0x%x associd %d\n",
+		    crypto_flags, start, len, opcode >> 16, associd));
 	return (len);
 }
 
@@ -1637,8 +1590,10 @@ crypto_encrypt(
 	EVP_SignInit(&ctx, sign_digest);
 	EVP_SignUpdate(&ctx, (u_char *)&vp->tstamp, 12);
 	EVP_SignUpdate(&ctx, vp->ptr, vallen);
-	if (EVP_SignFinal(&ctx, vp->sig, &vallen, sign_pkey))
-		vp->siglen = htonl(sign_siglen);
+	if (EVP_SignFinal(&ctx, vp->sig, &vallen, sign_pkey)) {
+		NTP_INSIST(vallen <= sign_siglen);
+		vp->siglen = htonl(vallen);
+	}
 	return (XEVNT_OK);
 }
 
@@ -1869,8 +1824,10 @@ crypto_update(void)
 		EVP_SignInit(&ctx, sign_digest);
 		EVP_SignUpdate(&ctx, (u_char *)&pubkey, 12);
 		EVP_SignUpdate(&ctx, pubkey.ptr, ntohl(pubkey.vallen));
-		if (EVP_SignFinal(&ctx, pubkey.sig, &len, sign_pkey))
-			pubkey.siglen = htonl(sign_siglen);
+		if (EVP_SignFinal(&ctx, pubkey.sig, &len, sign_pkey)) {
+			NTP_INSIST(len <= sign_siglen);
+			pubkey.siglen = htonl(len);
+		}
 	}
 
 	/*
@@ -1888,8 +1845,10 @@ crypto_update(void)
 		EVP_SignUpdate(&ctx, (u_char *)&cp->cert, 12);
 		EVP_SignUpdate(&ctx, cp->cert.ptr,
 		    ntohl(cp->cert.vallen));
-		if (EVP_SignFinal(&ctx, cp->cert.sig, &len, sign_pkey))
-			cp->cert.siglen = htonl(sign_siglen);
+		if (EVP_SignFinal(&ctx, cp->cert.sig, &len, sign_pkey)) {
+			NTP_INSIST(len <= sign_siglen);
+			cp->cert.siglen = htonl(len);
+		}
 	}
 
 	/*
@@ -1904,7 +1863,7 @@ crypto_update(void)
 	 */
 	leapsec_frame(&leap_data);
 	if ( ! memcmp(&leap_data.ebase, &leap_data.ttime, sizeof(vint64))) {
-		time_t   now   = time(NULL);
+		time_t   now    = time(NULL);
 		uint32_t nowntp = (uint32_t)now + JAN_1970;
 		leapsec_query(&leap_data, nowntp, &now);
 	}
@@ -1936,19 +1895,48 @@ crypto_update(void)
 	EVP_SignInit(&ctx, sign_digest);
 	EVP_SignUpdate(&ctx, (u_char *)&tai_leap, 12);
 	EVP_SignUpdate(&ctx, tai_leap.ptr, len);
-	if (EVP_SignFinal(&ctx, tai_leap.sig, &len, sign_pkey))
+	if (EVP_SignFinal(&ctx, tai_leap.sig, &len, sign_pkey)) {
+		NTP_INSIST(len <= sign_siglen);
 		tai_leap.siglen = htonl(len);
+	}
 	crypto_flags |= CRYPTO_FLAG_TAI;
 
 	snprintf(statstr, sizeof(statstr), "signature update ts %u",
 	    ntohl(hostval.tstamp)); 
 	record_crypto_stats(NULL, statstr);
-#ifdef DEBUG
-	if (debug)
-		printf("crypto_update: %s\n", statstr);
-#endif
+	DPRINTF(1, ("crypto_update: %s\n", statstr));
 }
 
+/*
+ * crypto_update_taichange - eventually trigger crypto_update
+ *
+ * This is called when a change in 'sys_tai' is detected. This will
+ * happen shortly after a leap second is detected, but unhappily also
+ * early after system start; also, the crypto stuff might be unused and
+ * an unguarded call to crypto_update() causes a crash.
+ *
+ * This function makes sure that there already *is* a valid crypto block
+ * for the use with autokey, and only calls 'crypto_update()' if it can
+ * succeed.
+ *
+ * Returns void (no errors)
+ */
+void
+crypto_update_taichange(void)
+{
+	static const u_int len = 3 * sizeof(u_int32);
+
+	/* check if the signing digest algo is available */
+	if (sign_digest == NULL || sign_pkey == NULL)
+		return;
+
+	/* check size of TAI extension block */
+	if (tai_leap.ptr == NULL || ntohl(tai_leap.vallen) != len)
+		return;
+
+	/* crypto_update should at least not crash here! */
+	crypto_update();
+}
 
 /*
  * value_free - free value structure components.
@@ -2180,8 +2168,10 @@ crypto_alice(
 	EVP_SignInit(&ctx, sign_digest);
 	EVP_SignUpdate(&ctx, (u_char *)&vp->tstamp, 12);
 	EVP_SignUpdate(&ctx, vp->ptr, len);
-	if (EVP_SignFinal(&ctx, vp->sig, &len, sign_pkey))
-		vp->siglen = htonl(sign_siglen);
+	if (EVP_SignFinal(&ctx, vp->sig, &len, sign_pkey)) {
+		NTP_INSIST(len <= sign_siglen);
+		vp->siglen = htonl(len);
+	}
 	return (XEVNT_OK);
 }
 
@@ -2288,8 +2278,10 @@ crypto_bob(
 	EVP_SignInit(&ctx, sign_digest);
 	EVP_SignUpdate(&ctx, (u_char *)&vp->tstamp, 12);
 	EVP_SignUpdate(&ctx, vp->ptr, vallen);
-	if (EVP_SignFinal(&ctx, vp->sig, &vallen, sign_pkey))
-		vp->siglen = htonl(sign_siglen);
+	if (EVP_SignFinal(&ctx, vp->sig, &vallen, sign_pkey)) {
+		NTP_INSIST(vallen <= sign_siglen);
+		vp->siglen = htonl(vallen);
+	}
 	return (XEVNT_OK);
 }
 
@@ -2493,8 +2485,10 @@ crypto_alice2(
 	EVP_SignInit(&ctx, sign_digest);
 	EVP_SignUpdate(&ctx, (u_char *)&vp->tstamp, 12);
 	EVP_SignUpdate(&ctx, vp->ptr, len);
-	if (EVP_SignFinal(&ctx, vp->sig, &len, sign_pkey))
-		vp->siglen = htonl(sign_siglen);
+	if (EVP_SignFinal(&ctx, vp->sig, &len, sign_pkey)) {
+		NTP_INSIST(len <= sign_siglen);
+		vp->siglen = htonl(len);
+	}
 	return (XEVNT_OK);
 }
 
@@ -2591,8 +2585,10 @@ crypto_bob2(
 	EVP_SignInit(&ctx, sign_digest);
 	EVP_SignUpdate(&ctx, (u_char *)&vp->tstamp, 12);
 	EVP_SignUpdate(&ctx, vp->ptr, len);
-	if (EVP_SignFinal(&ctx, vp->sig, &len, sign_pkey))
-		vp->siglen = htonl(sign_siglen);
+	if (EVP_SignFinal(&ctx, vp->sig, &len, sign_pkey)) {
+		NTP_INSIST(len <= sign_siglen);
+		vp->siglen = htonl(len);
+	}
 	return (XEVNT_OK);
 }
 
@@ -2820,8 +2816,10 @@ crypto_alice3(
 	EVP_SignInit(&ctx, sign_digest);
 	EVP_SignUpdate(&ctx, (u_char *)&vp->tstamp, 12);
 	EVP_SignUpdate(&ctx, vp->ptr, len);
-	if (EVP_SignFinal(&ctx, vp->sig, &len, sign_pkey))
-		vp->siglen = htonl(sign_siglen);
+	if (EVP_SignFinal(&ctx, vp->sig, &len, sign_pkey)) {
+		NTP_INSIST(len <= sign_siglen);
+		vp->siglen = htonl(len);
+	}
 	return (XEVNT_OK);
 }
 
@@ -2920,8 +2918,10 @@ crypto_bob3(
 	EVP_SignInit(&ctx, sign_digest);
 	EVP_SignUpdate(&ctx, (u_char *)&vp->tstamp, 12);
 	EVP_SignUpdate(&ctx, vp->ptr, len);
-	if (EVP_SignFinal(&ctx, vp->sig, &len, sign_pkey))
-		vp->siglen = htonl(sign_siglen);
+	if (EVP_SignFinal(&ctx, vp->sig, &len, sign_pkey)) {
+		NTP_INSIST(len <= sign_siglen);
+		vp->siglen = htonl(len);
+	}
 	return (XEVNT_OK);
 }
 
@@ -3157,8 +3157,10 @@ cert_sign(
 		EVP_SignInit(&ctx, sign_digest);
 		EVP_SignUpdate(&ctx, (u_char *)vp, 12);
 		EVP_SignUpdate(&ctx, vp->ptr, len);
-		if (EVP_SignFinal(&ctx, vp->sig, &len, sign_pkey))
-			vp->siglen = htonl(sign_siglen);
+		if (EVP_SignFinal(&ctx, vp->sig, &len, sign_pkey)) {
+			NTP_INSIST(len <= sign_siglen);
+			vp->siglen = htonl(len);
+		}
 	}
 #ifdef DEBUG
 	if (debug > 1)
@@ -3441,11 +3443,8 @@ cert_parse(
 				ret->flags |= CERT_TRUST;
 			else if (strcmp(pathbuf, "Private") == 0)
 				ret->flags |= CERT_PRIV;
-#if DEBUG
-			if (debug)
-				printf("cert_parse: %s: %s\n",
-				    OBJ_nid2ln(temp), pathbuf);
-#endif
+			DPRINTF(1, ("cert_parse: %s: %s\n",
+				    OBJ_nid2ln(temp), pathbuf));
 			break;
 
 		/*
@@ -3456,12 +3455,10 @@ cert_parse(
 			ret->grpkey = BN_bin2bn(&ext->value->data[2],
 			    ext->value->length - 2, NULL);
 			/* fall through */
-#if DEBUG
 		default:
-			if (debug)
-				printf("cert_parse: %s\n",
-				    OBJ_nid2ln(temp));
-#endif
+			DPRINTF(1, ("cert_parse: %s\n",
+				    OBJ_nid2ln(temp)));
+			break;
 		}
 	}
 	if (strcmp(ret->subject, ret->issuer) == 0) {
@@ -3646,9 +3643,9 @@ crypto_key(
 	snprintf(statstr, sizeof(statstr), "%s mod %d", &linkname[2],
 	    EVP_PKEY_size(pkey) * 8);
 	record_crypto_stats(addr, statstr);
+	
+	DPRINTF(1, ("crypto_key: %s\n", statstr));
 #ifdef DEBUG
-	if (debug)
-		printf("crypto_key: %s\n", statstr);
 	if (debug > 1) {
 		if (pkey->type == EVP_PKEY_DSA)
 			DSA_print_fp(stdout, pkey->pkey.dsa, 0);
@@ -3763,10 +3760,7 @@ crypto_cert(
 	snprintf(statstr, sizeof(statstr), "%s 0x%x len %lu",
 	    &linkname[2], ret->flags, len);
 	record_crypto_stats(NULL, statstr);
-#ifdef DEBUG
-	if (debug)
-		printf("crypto_cert: %s\n", statstr);
-#endif
+	DPRINTF(1, ("crypto_cert: %s\n", statstr));
 	return (ret);
 }
 
@@ -3836,12 +3830,8 @@ crypto_setup(void)
 		get_systime(&seed);
 		RAND_seed(&seed, sizeof(l_fp));
 		RAND_write_file(randfile);
-#ifdef DEBUG
-		if (debug)
-			printf(
-			    "crypto_setup: OpenSSL version %lx random seed file %s bytes read %d\n",
-			    SSLeay(), randfile, bytes);
-#endif
+		DPRINTF(1, ("crypto_setup: OpenSSL version %lx random seed file %s bytes read %d\n",
+			    SSLeay(), randfile, bytes));
 	}
 
 	/*
@@ -3970,10 +3960,7 @@ crypto_setup(void)
 	snprintf(statstr, sizeof(statstr), "setup 0x%x host %s %s",
 	    crypto_flags, hostname, OBJ_nid2ln(cinfo->nid));
 	record_crypto_stats(NULL, statstr);
-#ifdef DEBUG
-	if (debug)
-		printf("crypto_setup: %s\n", statstr);
-#endif
+	DPRINTF(1, ("crypto_setup: %s\n", statstr));
 }
 
 
@@ -3988,10 +3975,8 @@ crypto_config(
 {
 	int	nid;
 
-#ifdef DEBUG
-	if (debug > 1)
-		printf("crypto_config: item %d %s\n", item, cp);
-#endif
+	DPRINTF(1, ("crypto_config: item %d %s\n", item, cp));
+
 	switch (item) {
 
 	/*

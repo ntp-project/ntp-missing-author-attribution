@@ -201,6 +201,7 @@ extern	keyid_t	session_key	(sockaddr_u *, sockaddr_u *, keyid_t,
 extern	int	make_keylist	(struct peer *, struct interface *);
 extern	void	key_expire	(struct peer *);
 extern	void	crypto_update	(void);
+extern	void	crypto_update_taichange(void);
 extern	void	crypto_config	(int, char *);
 extern	void	crypto_setup	(void);
 extern	u_int	crypto_ident	(struct peer *);

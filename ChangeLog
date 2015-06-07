@@ -216,6 +216,10 @@ ntp-4.3 begins.
 * [Bug 2830] ntpd doesn't always transfer the correct TAI offset via autokey
    NTPD transfers the current TAI (instead of an announcement) now.
    This might still needed improvement.
+   Update autokey data ASAP when 'sys_tai' changes.
+   Fix unit test that was broken by changes for autokey update.
+   Avoid potential signature length issue and use DPRINTF where possible
+     in ntp_crypto.c.
 * [Bug 2832] refclock_jjy.c supports the TDC-300.
 * [Bug 2834] Correct a broken html tag in html/refclock.html
 * [Bug 2836] DFC77 patches from Frank Kardel to make decoding more
