@@ -13,6 +13,7 @@
 * [Bug 2842] Glitch in ntp.conf.def documentation stanza.
 * [Bug 2842] Bug in mdoc2man.
 * Report select() debug messages at debug level 3 now.
+* sntp/scripts/genLocInfo: treat raspbian as debian.
 ---
 (4.2.8p3-RC1) 2015/05/12 Released by Harlan Stenn <stenn@ntp.org>
 
