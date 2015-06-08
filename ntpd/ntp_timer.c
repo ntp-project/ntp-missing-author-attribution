@@ -516,7 +516,9 @@ check_leapsec(
 
 	leap_result_t lsdata;
 	u_int32       lsprox;
+#ifdef AUTOKEY
 	int/*BOOL*/   update_autokey;
+#endif
 	
 #ifndef SYS_WINNT  /* WinNT port has its own leap second handling */
 # ifdef KERNEL_PLL
@@ -529,7 +531,9 @@ check_leapsec(
 		lsprox = LSPROX_NOWARN;
 		leapsec_reset_frame();
 		memset(&lsdata, 0, sizeof(lsdata));
+#ifdef AUTOKEY
 		update_autokey = FALSE;
+#endif
 	} else if (leapsec_query(&lsdata, now, tpiv)) {
 		/* Full hit. Eventually step the clock, but always
 		 * announce the leap event has happened.
@@ -558,9 +562,13 @@ check_leapsec(
 		lsprox  = LSPROX_NOWARN;
 		leapsec = LSPROX_NOWARN;
 		sys_tai = lsdata.tai_offs;
+#ifdef AUTOKEY
 		update_autokey = TRUE;
+#endif
 	} else {
+#ifdef AUTOKEY
 		update_autokey = (sys_tai != lsdata.tai_offs);
+#endif
 		lsprox  = lsdata.proximity;
 		sys_tai = lsdata.tai_offs;
 	}
@@ -596,6 +604,8 @@ check_leapsec(
                 leapdif = lsdata.tai_diff;
         else
                 leapdif = 0;
+#ifdef AUTOKEY
 	if (update_autokey)
 		crypto_update_taichange();
+#endif
 }
