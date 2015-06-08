@@ -1,3 +1,4 @@
+(4.3.37) 2015/06/08 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p3:
 * [Bug 2830] ntpd doesn't always transfer the correct TAI offset via autokey
    Update autokey data ASAP when 'sys_tai' changes.
