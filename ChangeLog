@@ -1,5 +1,6 @@
 ---
 
+* [Bug 2845] Harden memory allocation in ntpd
 * [Bug 2824] Convert update-leap to perl. (also see 2769)
 * [Bug 2830] ntpd doesn't always transfer the correct TAI offset via autokey
    NTPD transfers the current TAI (instead of an announcement) now.
