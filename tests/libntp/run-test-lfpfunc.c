@@ -31,6 +31,8 @@ extern void test_AdditionRL();
 extern void test_SubtractionLR();
 extern void test_SubtractionRL();
 extern void test_Negation();
+extern void test_Absolute();
+extern void test_FDF_RoundTrip();
 
 
 //=======Test Reset Option=====
@@ -46,11 +48,13 @@ int main(void)
 {
   Unity.TestFile = "lfpfunc.c";
   UnityBegin("lfpfunc.c");
-  RUN_TEST(test_AdditionLR, 438);
-  RUN_TEST(test_AdditionRL, 456);
-  RUN_TEST(test_SubtractionLR, 474);
-  RUN_TEST(test_SubtractionRL, 488);
-  RUN_TEST(test_Negation, 505);
+  RUN_TEST(test_AdditionLR, 463);
+  RUN_TEST(test_AdditionRL, 481);
+  RUN_TEST(test_SubtractionLR, 499);
+  RUN_TEST(test_SubtractionRL, 513);
+  RUN_TEST(test_Negation, 530);
+  RUN_TEST(test_Absolute, 549);
+  RUN_TEST(test_FDF_RoundTrip, 581);
 
   return (UnityEnd());
 }
