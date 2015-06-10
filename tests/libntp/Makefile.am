@@ -6,7 +6,7 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
 #removed test-libntp
 check_PROGRAMS = test-modetoa test-uglydate test-ymd2yd test-statestr test-numtoa test-numtohost \
-test-hextoint test-atoint test-atouint test-authkeys test-a_md5encrypt
+test-hextoint test-atoint test-atouint test-authkeys test-a_md5encrypt test-lfpfunc
 
 if GTEST_AVAILABLE
 check_PROGRAMS += tests
@@ -19,6 +19,7 @@ LDADD =					\
 	$(LDADD_LIBNTP)			\
 	$(PTHREAD_LIBS)			\
 	$(LDADD_NTP)			\
+	$(LIBM)				\
 	$(NULL)
 
 tests_LDADD =				\
@@ -58,7 +59,7 @@ tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		g_hextoint.cpp		\
 		hextolfp.cpp		\
 		humandate.cpp		\
-		lfpfunc.cpp		\
+		g_lfpfunc.cpp		\
 		lfptostr.cpp		\
 		g_modetoa.cpp		\
 		msyslog.cpp		\
@@ -176,7 +177,6 @@ test_a_md5encrypt_CFLAGS =                  \
 
 test_a_md5encrypt_LDADD =                   \
 	$(unity_tests_LDADD)		\
-	-lm	
 	$(NULL)
 
 test_atouint_CFLAGS =                  \
@@ -192,10 +192,18 @@ test_authkeys_CFLAGS =                  \
 	$(NULL)
 
 test_authkeys_LDADD =                           \
-	$(LDADD)                                \
-	$(top_builddir)/sntp/unity/libunity.a   \
-	-lm					\
+	$(unity_tests_LDADD)			\
 	$(NULL)
+
+test_lfpfunc_CFLAGS =                  \
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
+
+test_lfpfunc_LDADD =	        	\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
+
 
 
 #removed one combined test, because unity devs suggested we use one program per test
@@ -252,15 +260,22 @@ test_a_md5encrypt_SOURCES =              	\
 	run-test-a_md5encrypt.c              	\
 	$(NULL)
 
-test_atouint_SOURCES =              	\
-	atouint.c	              	\
+test_atouint_SOURCES =          	    	\
+	atouint.c	        	      	\
 	run-test-atouint.c              	\
 	$(NULL)
 
-test_authkeys_SOURCES =              	\
-	authkeys.c	              	\
+test_authkeys_SOURCES =         	     	\
+	authkeys.c	        	      	\
 	run-test-authkeys.c              	\
 	$(NULL)
+
+test_lfpfunc_SOURCES =		              	\
+	lfpfunc.c	        	      	\
+	run-test-lfpfunc.c              	\
+	$(NULL)
+
+
 
 $(srcdir)/run-test-modetoa.c: $(srcdir)/modetoa.c $(std_unity_list)
 	$(run_unity) modetoa.c run-test-modetoa.c
@@ -294,6 +309,11 @@ $(srcdir)/run-test-atouint.c: $(srcdir)/atouint.c $(std_unity_list)
 
 $(srcdir)/run-test-authkeys.c: $(srcdir)/authkeys.c $(std_unity_list)
 	$(run_unity) authkeys.c run-test-authkeys.c
+
+$(srcdir)/run-test-lfpfunc.c: $(srcdir)/lfpfunc.c $(std_unity_list)
+	$(run_unity) lfpfunc.c run-test-lfpfunc.c
+
+
 
 TESTS =
 
