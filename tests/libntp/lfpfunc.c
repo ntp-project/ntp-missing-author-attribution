@@ -1,6 +1,10 @@
 //#include "c_timestructs.h"
 
 #include "testcalshims.h"
+
+//#define UNITY_INCLUDE_DOUBLE //moved to unity -> nope, put into CFLAGS
+//#define UNITY_EXCLUDE_FLOAT
+
 #include "unity.h"
 
 //#include "libntptest.h"
@@ -132,10 +136,6 @@ int LFP::cmp_work(u_int32 a[3], u_int32 b[3])
 // This should be easy enough...
 //----------------------------------------------------------------------
 
-LFP::~LFP()
-{
-	// NOP
-}
 
 LFP::LFP()
 {
@@ -196,30 +196,6 @@ LFP LFP::operator-() const
 	return tmp;
 }
 
-LFP
-LFP::neg() const
-{
-	LFP tmp(*this);
-	L_NEG(&tmp._v);
-	return tmp;
-}
-
-LFP
-LFP::abs() const
-{
-	LFP tmp(*this);
-	if (L_ISNEG(&tmp._v))
-		L_NEG(&tmp._v);
-	return tmp;
-}
-
-int
-LFP::signum() const
-{
-	if (_v.l_ui & 0x80000000u)
-		return -1;
-	return (_v.l_ui || _v.l_uf);
-}
 
 std::string
 LFP::toString() const
@@ -245,17 +221,6 @@ bool LFP::operator==(const LFP &rhs) const
 }
 
 
-LFP::operator double() const
-{
-	double res;
-	LFPTOD(&_v, res);
-	return res;
-}
-
-LFP::LFP(double rhs)
-{
-	DTOLFP(rhs, &_v);
-}
 
 
 //----------------------------------------------------------------------
@@ -369,16 +334,6 @@ double eps(double d)
 	return fmax(ldexp(1.0, -31), ldexp(fabs(d), -53)); //max<double>
 }
 
-//Y U NO OVERLOAD, C XD
-/*
-l_fp l_fp_init()
-{
-	l_fp temp;
-	temp.l_ui = 0;
-	temp.l_uf = 0;
-	return temp;
-}
-*/
 
 l_fp l_fp_init(int32 i, u_int32 f)
 {
@@ -416,22 +371,43 @@ l_fp l_fp_subtract(const l_fp first, const l_fp second) //&rhs!!!
 l_fp l_fp_negate(const l_fp first)
 {
 	l_fp temp;
-	//LFP tmp(*this);
-	//return tmp += rhs;
-	temp = first;
+	temp = first; //is this line really necessary?
 	L_NEG(&temp);
 	
 	return temp;
 }
-/*
-//negation!
-LFP LFP::operator-() const
+
+l_fp l_fp_abs(const l_fp first)
 {
-	LFP tmp(*this);
-	L_NEG(&tmp._v);
-	return tmp;
+	l_fp temp = first;
+	//LFP tmp(*this);
+	if (L_ISNEG(&temp))
+		L_NEG(&temp);
+	return temp;
 }
-*/
+
+int l_fp_signum(const l_fp first)
+{
+	if (first.l_ui & 0x80000000u)
+		return -1;
+	return (first.l_ui || first.l_uf);
+}
+
+double l_fp_convert_to_double(const l_fp first)
+{
+	double res;
+	LFPTOD(&first, res);
+	return res;
+}
+
+l_fp l_fp_init_from_double( double rhs)
+{
+	l_fp temp;
+	DTOLFP(rhs, &temp);
+	return temp;
+}
+
+
 //----------------------------------------------------------------------
 // test addition
 //----------------------------------------------------------------------
@@ -516,33 +492,39 @@ void test_Negation() {
 	}	
 }
 
-/*
+
 
 //----------------------------------------------------------------------
 // test absolute value
 //----------------------------------------------------------------------
 void test_Absolute() {
-	for (size_t idx=0; idx < addsub_cnt; ++idx) {
-		LFP op1(addsub_tab[idx][0].h, addsub_tab[idx][0].l);
-		LFP op2(op1.abs());
+	size_t idx=0;
+	for (idx=0; idx < addsub_cnt; ++idx) {
+		l_fp op1 = l_fp_init(addsub_tab[idx][0].h, addsub_tab[idx][0].l);
+		l_fp op2 = l_fp_abs(op1);
 
-		TEST_ASSERT_TRUE(op2.signum() >= 0);
+		TEST_ASSERT_TRUE(l_fp_signum(op2) >= 0);		
 
-		if (op1.signum() >= 0)
-			op1 -= op2;
+		if (l_fp_signum(op1) >= 0)
+			op1 = l_fp_subtract(op1,op2);
+			//op1 -= op2;
 		else
-			op1 += op2;
-		TEST_ASSERT_EQUAL(LFP(0,0), op1);
+			op1 = l_fp_add(op1,op2);
+			//op1 += op2;
+		
+		l_fp zero = l_fp_init(0,0);
+		TEST_ASSERT_EQUAL_MEMORY(&zero, &op1,sizeof(op1));
 	}
 
 	// There is one special case we have to check: the minimum
 	// value cannot be negated, or, to be more precise, the
 	// negation reproduces the original pattern.
-	LFP minVal(0x80000000, 0x00000000);
-	LFP minAbs(minVal.abs());
-	TEST_ASSERT_EQUAL(-1, minVal.signum());
-	TEST_ASSERT_EQUAL(minVal, minAbs);
+	l_fp minVal = l_fp_init(0x80000000, 0x00000000);
+	l_fp minAbs = l_fp_abs(minVal);
+	TEST_ASSERT_EQUAL(-1, l_fp_signum(minVal));
+	TEST_ASSERT_EQUAL_MEMORY(&minVal, &minAbs,sizeof(minAbs));
 }
+
 
 //----------------------------------------------------------------------
 // fp -> double -> fp rountrip test
@@ -554,16 +536,26 @@ void test_FDF_RoundTrip() {
 	// function makes an educated guess about the avilable precision
 	// and checks the difference in the two 'l_fp' values against
 	// that limit.
-	for (size_t idx=0; idx < addsub_cnt; ++idx) {
-		LFP    op1(addsub_tab[idx][0].h, addsub_tab[idx][0].l);
-		double op2(op1);
-		LFP    op3(op2);
+	size_t idx=0;
+	for (idx=0; idx < addsub_cnt; ++idx) {
+		l_fp op1 = l_fp_init(addsub_tab[idx][0].h, addsub_tab[idx][0].l);
+		double op2 = l_fp_convert_to_double(op1); //double op2(op1);
+		l_fp op3 = l_fp_init_from_double(op2); //LFP    op3(op2);
+
 		// for manual checks only:
+		int delta = 10;
 		// std::cout << std::setprecision(16) << op2 << std::endl;
-		ASSERT_LE(fabs(op1-op3), eps(op2));
+
+		l_fp temp = l_fp_subtract(op1,op3);
+		double d = l_fp_convert_to_double(temp);
+		TEST_ASSERT_DOUBLE_WITHIN(0.000001,fabs(d), eps(op2));
+ 
+		//TEST_ASSERT_EQUAL_DOUBLE(fabs(l_fp_subtract(op1,op3)), eps(op2));  
+		//TEST_ASSERT_DOUBLE_WITHIN(delta, fabs(op1-op3), eps(op2));    		
+		//ASSERT_LE(fabs(op1-op3), eps(op2));
 	}	
 }
-
+/*
 //----------------------------------------------------------------------
 // test the compare stuff
 //

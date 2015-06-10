@@ -195,8 +195,9 @@ test_authkeys_LDADD =                           \
 	$(unity_tests_LDADD)			\
 	$(NULL)
 
-test_lfpfunc_CFLAGS =                  \
+test_lfpfunc_CFLAGS =                  	\
 	-I$(top_srcdir)/sntp/unity      \
+	-DUNITY_INCLUDE_DOUBLE		\
 	$(NULL)
 
 test_lfpfunc_LDADD =	        	\
