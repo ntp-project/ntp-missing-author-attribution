@@ -6,7 +6,7 @@
 #
 # EDIT THIS FILE WITH CAUTION  (invoke-ntpq.texi)
 #
-# It has been AutoGen-ed  May 12, 2015 at 04:33:35 AM by AutoGen 5.18.5
+# It has been AutoGen-ed  June 10, 2015 at 10:52:07 AM by AutoGen 5.18.5
 # From the definitions    ntpq-opts.def
 # and the template file   agtexi-cmd.tpl
 @end ignore
@@ -474,6 +474,16 @@ offset of server relative to this host
 @item @code{jitter}
 jitter
 @end table
+@item @code{apeers}
+Display a list of peers in the form:
+@example
+[tally]remote refid assid st t when pool reach delay offset jitter
+@end example
+where the output is just like the
+@code{peers}
+command except that the
+@code{refid}
+is displayed in hex format and the association number is also displayed.
 @item @code{pstats} @kbd{assocID}
 Show the statistics for the peer with the given
 @kbd{assocID}.
