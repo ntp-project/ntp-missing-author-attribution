@@ -15,6 +15,6 @@ void test_KnownMode(void) {
 void test_UnknownMode(void) {
 	const int MODE = 100;
 
-	 TEST_ASSERT_EQUAL_STRING("mode#1001", modetoa(MODE));
+	TEST_ASSERT_EQUAL_STRING("mode#100", modetoa(MODE));
 //	EXPECT_STREQ("mode#100", modetoa(MODE));
 }
