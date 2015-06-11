@@ -10,11 +10,11 @@
 .ds B-Font B
 .ds I-Font I
 .ds R-Font R
-.TH ntpq @NTPQ_MS@ "08 Jun 2015" "4.3.37" "User Commands"
+.TH ntpq @NTPQ_MS@ "11 Jun 2015" "4.3.38" "User Commands"
 .\"
-.\" EDIT THIS FILE WITH CAUTION (/tmp/.ag-fgaa8A/ag-sga46A)
+.\" EDIT THIS FILE WITH CAUTION (/tmp/.ag-cMaO6c/ag-oMaG5c)
 .\"
-.\" It has been AutoGen-ed June 8, 2015 at 11:58:20 AM by AutoGen 5.18.5
+.\" It has been AutoGen-ed June 11, 2015 at 11:58:50 AM by AutoGen 5.18.5
 .\" From the definitions ntpq-opts.def
 .\" and the template file agman-cmd.tpl
 .SH NAME
@@ -664,6 +664,17 @@ offset of server relative to this host
 .NOP \f\*[B-Font]jitter\f[]
 jitter
 .RE
+.br
+.ns
+.TP 10
+.NOP \f\*[B-Font]apeers\f[]
+Display a list of peers in the form:
+.Dl [tally]remote refid assid st t when pool reach delay offset jitter
+where the output is just like the
+\f\*[B-Font]peers\f[]
+command except that the
+\f\*[B-Font]refid\f[]
+is displayed in hex format and the association number is also displayed.
 .br
 .ns
 .TP 10

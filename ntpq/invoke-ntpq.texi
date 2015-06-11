@@ -6,7 +6,7 @@
 #
 # EDIT THIS FILE WITH CAUTION  (invoke-ntpq.texi)
 #
-# It has been AutoGen-ed  June  8, 2015 at 11:58:24 AM by AutoGen 5.18.5
+# It has been AutoGen-ed  June 11, 2015 at 11:58:54 AM by AutoGen 5.18.5
 # From the definitions    ntpq-opts.def
 # and the template file   agtexi-cmd.tpl
 @end ignore
@@ -474,6 +474,16 @@ offset of server relative to this host
 @item @code{jitter}
 jitter
 @end table
+@item @code{apeers}
+Display a list of peers in the form:
+@example
+[tally]remote refid assid st t when pool reach delay offset jitter
+@end example
+where the output is just like the
+@code{peers}
+command except that the
+@code{refid}
+is displayed in hex format and the association number is also displayed.
 @item @code{pstats} @kbd{assocID}
 Show the statistics for the peer with the given
 @kbd{assocID}.
@@ -837,7 +847,7 @@ with a status code of 0.
 
 @exampleindent 0
 @example
-ntpq - standard NTP query program - Ver. 4.3.37
+ntpq - standard NTP query program - Ver. 4.3.38
 Usage:  ntpq [ -<flag> [<val>] | --<name>[@{=| @}<val>] ]... [ host ...]
   Flg Arg Option-Name    Description
    -4 no  ipv4           Force IPv4 DNS name resolution
