@@ -54,7 +54,7 @@ sbin_PROGRAMS =		@SNTP_DS@
 ##
 
 SUBDIRS = include scripts unity
-DIST_SUBDIRS = include libpkgver scripts unity
+DIST_SUBDIRS = include scripts unity
 
 if BUILD_LIBEVENT
 SUBDIRS += libevent
@@ -114,6 +114,7 @@ EXTRA_DIST =				\
 	invoke-sntp.menu		\
 	invoke-sntp.texi		\
 	@NTP_FORCE_LIBEVENT_DIST@	\
+	libpkgver 			\
 	loc				\
 	sntp-opts.def			\
 	sntp.1sntpman			\
