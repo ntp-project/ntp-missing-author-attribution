@@ -239,6 +239,9 @@ ntp-4.3 begins.
 * [Bug 2837] add test for DSCP to ntpd/complete.conf.in
 * [Bug 2842] Glitch in ntp.conf.def documentation stanza.
 * [Bug 2842] Bug in mdoc2man.
+* [Bug 2843] make check fails on 4.3.36
+   Fixed compiler warnings about numeric range overflow
+   (The original topic was fixed in a byplay to bug#2830)
 * Report select() debug messages at debug level 3 now.
 * sntp/scripts/genLocInfo: treat raspbian as debian.
 ---
