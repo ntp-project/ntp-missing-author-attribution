@@ -22,6 +22,7 @@
 * Unity test framework fixes.
 * Initial support for PACKAGE_VERSION tests.
 * sntp/libpkgver belongs in EXTRA_DIST, not DIST_SUBDIRS.
+* tests/bug-2803/Makefile.am must distribute bug-2803.h.
 ---
 (4.2.8p3-RC1) 2015/05/12 Released by Harlan Stenn <stenn@ntp.org>
 
