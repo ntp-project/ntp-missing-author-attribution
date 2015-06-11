@@ -1,5 +1,6 @@
 NULL =
 SUBDIRS = 
+DIST_SUBDIRS = 
 
 if GTEST_AVAILABLE
 SUBDIRS +=	\
@@ -10,6 +11,12 @@ endif
 SUBDIRS +=		\
 	bug-2803	\
 	libntp		\
+	$(NULL)
+
+DIST_SUBDIRS +=		\
+	bug-2803	\
+	libntp		\
+	ntpd		\
 	sandbox		\
 	$(NULL)
 
