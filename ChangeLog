@@ -1,3 +1,7 @@
+Below are from 4.2.8p3:
+* [Bug 2843] make check fails on 4.3.36
+   Fixed compiler warnings about numeric range overflow
+   (The original topic was fixed in a byplay to bug#2830)
 (4.3.38) 2015/06/11 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p3:
 * [Bug 2778] Implement "apeers"  ntpq command to include associd.
