@@ -1,5 +1,13 @@
+#include <config.h>
+
+#include "ntp_stdlib.h"
+#include "ntp_calendar.h"
 #include "test-libntp.h"
-#include <stdio.h>	/* HMS: for the printf's below */
+
+const char *progname = "test-libntp";
+
+// current_time is needed by authkeys. Used only in to calculate lifetime.
+u_long current_time = 4;
 
 void
 setUp(void)
