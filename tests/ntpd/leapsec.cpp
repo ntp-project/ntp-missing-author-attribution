@@ -397,9 +397,9 @@ TEST_F(leapsecTest, loadFileExpire) {
 	rc =   leapsec_load(pt, stringreader, &cp, FALSE)
 	    && leapsec_set_table(pt);
 	EXPECT_EQ(1, rc);
-	rc = leapsec_expired(3439756800, NULL);
+	rc = leapsec_expired(3439756800u, NULL);
 	EXPECT_EQ(0, rc);
-	rc = leapsec_expired(3610569601, NULL);
+	rc = leapsec_expired(3610569601u, NULL);
 	EXPECT_EQ(1, rc);
 }
 
@@ -409,7 +409,7 @@ TEST_F(leapsecTest, loadFileTTL) {
 	const char *cp = leap1;
 	int rc;
 	leap_table_t * pt = leapsec_get_table(0);
-	time_t         pivot = 0x70000000;
+	time_t         pivot = 0x70000000u;
 
 	const uint32_t limit = 3610569600u;
 
@@ -644,13 +644,13 @@ TEST_F(leapsecTest, addDynamic) {
 	leap_result_t  qr;
 
 	static const uint32_t insns[] = {
-		2982009600,	//	29	# 1 Jul 1994
-		3029443200,	//	30	# 1 Jan 1996
-		3076704000,	//	31	# 1 Jul 1997
-		3124137600,	//	32	# 1 Jan 1999
-		3345062400,	//	33	# 1 Jan 2006
-		3439756800,	//	34	# 1 Jan 2009
-		3550089600,	//	35	# 1 Jul 2012
+		2982009600u,	//	29	# 1 Jul 1994
+		3029443200u,	//	30	# 1 Jan 1996
+		3076704000u,	//	31	# 1 Jul 1997
+		3124137600u,	//	32	# 1 Jan 1999
+		3345062400u,	//	33	# 1 Jan 2006
+		3439756800u,	//	34	# 1 Jan 2009
+		3550089600u,	//	35	# 1 Jul 2012
 		0 // sentinel
 	};
 
@@ -676,13 +676,13 @@ TEST_F(leapsecTest, addFixed) {
 	leap_result_t  qr;
 
 	static const struct { uint32_t tt; int of; } insns[] = {
-		{2982009600, 29},//	# 1 Jul 1994
-		{3029443200, 30},//	# 1 Jan 1996
-		{3076704000, 31},//	# 1 Jul 1997
-		{3124137600, 32},//	# 1 Jan 1999
-		{3345062400, 33},//	# 1 Jan 2006
-		{3439756800, 34},//	# 1 Jan 2009
-		{3550089600, 35},//	# 1 Jul 2012
+		{2982009600u, 29},//	# 1 Jul 1994
+		{3029443200u, 30},//	# 1 Jan 1996
+		{3076704000u, 31},//	# 1 Jul 1997
+		{3124137600u, 32},//	# 1 Jan 1999
+		{3345062400u, 33},//	# 1 Jan 2006
+		{3439756800u, 34},//	# 1 Jan 2009
+		{3550089600u, 35},//	# 1 Jul 2012
 		{0,0} // sentinel
 	};
 
@@ -728,8 +728,8 @@ TEST_F(leapsecTest, addFixedExtend) {
 	int            last, idx;
 
 	static const struct { uint32_t tt; int of; } insns[] = {
-		{2982009600, 29},//	# 1 Jul 1994
-		{3029443200, 30},//	# 1 Jan 1996
+		{2982009600u, 29},//	# 1 Jul 1994
+		{3029443200u, 30},//	# 1 Jan 1996
 		{0,0} // sentinel
 	};
 
@@ -777,8 +777,8 @@ TEST_F(leapsecTest, setFixedExtend) {
 	int            last, idx;
 
 	static const struct { uint32_t tt; int of; } insns[] = {
-		{2982009600, 29},//	# 1 Jul 1994
-		{3029443200, 30},//	# 1 Jan 1996
+		{2982009600u, 29},//	# 1 Jul 1994
+		{3029443200u, 30},//	# 1 Jan 1996
 		{0,0} // sentinel
 	};
 
