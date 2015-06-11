@@ -1,5 +1,6 @@
 ---
 
+* [Bug 2778] Implement "apeers"  ntpq command to include associd.
 * [Bug 2824] Convert update-leap to perl. (also see 2769)
 * [Bug 2830] ntpd doesn't always transfer the correct TAI offset via autokey
    NTPD transfers the current TAI (instead of an announcement) now.
@@ -16,7 +17,6 @@
 * [Bug 2837] add test for DSCP to ntpd/complete.conf.in
 * [Bug 2842] Glitch in ntp.conf.def documentation stanza.
 * [Bug 2842] Bug in mdoc2man.
-* [Bug 2887] Implement "apeers"  ntpq command to include associd.
 * Report select() debug messages at debug level 3 now.
 * sntp/scripts/genLocInfo: treat raspbian as debian.
 ---
