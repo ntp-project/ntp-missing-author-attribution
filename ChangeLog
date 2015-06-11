@@ -1,9 +1,14 @@
 ---
 
+* [Bug 2778] Implement "apeers"  ntpq command to include associd.
 * [Bug 2824] Convert update-leap to perl. (also see 2769)
 * [Bug 2830] ntpd doesn't always transfer the correct TAI offset via autokey
    NTPD transfers the current TAI (instead of an announcement) now.
    This might still needed improvement.
+   Update autokey data ASAP when 'sys_tai' changes.
+   Fix unit test that was broken by changes for autokey update.
+   Avoid potential signature length issue and use DPRINTF where possible
+     in ntp_crypto.c.
 * [Bug 2832] refclock_jjy.c supports the TDC-300.
 * [Bug 2834] Correct a broken html tag in html/refclock.html
 * [Bug 2836] DFC77 patches from Frank Kardel to make decoding more
@@ -14,10 +19,10 @@
 * [Bug 2842] Bug in mdoc2man.
 * Report select() debug messages at debug level 3 now.
 * sntp/scripts/genLocInfo: treat raspbian as debian.
----
-
 * Unity test framework fixes.
 * Initial support for PACKAGE_VERSION tests.
+* sntp/libpkgver belongs in EXTRA_DIST, not DIST_SUBDIRS.
+* tests/bug-2803/Makefile.am must distribute bug-2803.h.
 ---
 (4.2.8p3-RC1) 2015/05/12 Released by Harlan Stenn <stenn@ntp.org>
 

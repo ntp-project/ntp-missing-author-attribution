@@ -28,6 +28,7 @@ AM_LDFLAGS = $(LDFLAGS_NTP)
 
 bug_2803_SOURCES = 			\
 	bug-2803.c			\
+	bug-2803.h			\
 	run-bug-2803.c			\
 	ut-2803.c			\
 	$(NULL)

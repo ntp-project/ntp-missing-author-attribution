@@ -43,8 +43,8 @@ int main(void)
 {
   Unity.TestFile = "test-libntp.c";
   UnityBegin("");
-  RUN_TEST(test_modetoa, 16);
-  RUN_TEST(test_uglydate, 25);
+  RUN_TEST(test_modetoa, 24);
+  RUN_TEST(test_uglydate, 33);
 
   return (UnityEnd());
 }
