@@ -44,6 +44,8 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
+  init_lib();
+  init_auth();
   Unity.TestFile = "modetoa.c";
   UnityBegin("modetoa.c");
   RUN_TEST(test_KnownMode, 9);

@@ -47,17 +47,17 @@ char *progname;
 //=======MAIN=====
 int main(int argc, char *argv[])
 {
-  init_auth();
-
   progname = argv[0];
+  init_lib();
+  init_auth();
   Unity.TestFile = "authkeys.c";
   UnityBegin("authkeys.c");
-  RUN_TEST(test_AddTrustedKeys, 61);
-  RUN_TEST(test_AddUntrustedKey, 72);
-  RUN_TEST(test_HaveKeyCorrect, 80);
-  RUN_TEST(test_HaveKeyIncorrect, 89);
-  RUN_TEST(test_AddWithAuthUseKey, 96);
-  RUN_TEST(test_EmptyKey, 103);
+  RUN_TEST(test_AddTrustedKeys, 65);
+  RUN_TEST(test_AddUntrustedKey, 76);
+  RUN_TEST(test_HaveKeyCorrect, 84);
+  RUN_TEST(test_HaveKeyIncorrect, 93);
+  RUN_TEST(test_AddWithAuthUseKey, 100);
+  RUN_TEST(test_EmptyKey, 107);
 
   return (UnityEnd());
 }

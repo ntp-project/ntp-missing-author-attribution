@@ -47,6 +47,8 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
+  init_lib();
+  init_auth();
   Unity.TestFile = "hextoint.c";
   UnityBegin("hextoint.c");
   RUN_TEST(test_SingleDigit, 8);

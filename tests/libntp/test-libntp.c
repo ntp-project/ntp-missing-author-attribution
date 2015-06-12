@@ -4,11 +4,12 @@
 #include "ntp_calendar.h"
 #include "test-libntp.h"
 
-const char *progname = "test-libntp";
+//const char *progname = "test-libntp";
 
 // current_time is needed by authkeys. Used only in to calculate lifetime.
-u_long current_time = 4;
+//u_long current_time = 4;
 
+/*
 void
 setUp(void)
 {
@@ -35,3 +36,4 @@ test_uglydate(void)
 printf("uglydate:test_ConstantDateTime()\n");
 	test_ConstantDateTime();
 }
+*/

@@ -51,6 +51,8 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
+  init_lib();
+  init_auth();
   Unity.TestFile = "lfpfunc.c";
   UnityBegin("lfpfunc.c");
   RUN_TEST(test_AdditionLR, 327);
