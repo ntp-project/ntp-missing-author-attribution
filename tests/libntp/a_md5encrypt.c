@@ -13,6 +13,8 @@
 #include "ntp.h"
 #include "ntp_stdlib.h"
 
+u_long current_time = 4;
+
 
 void setUp(void)
 { 

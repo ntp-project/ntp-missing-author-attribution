@@ -49,11 +49,11 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "a_md5encrypt.c";
   UnityBegin("a_md5encrypt.c");
-  RUN_TEST(test_Encrypt, 39);
-  RUN_TEST(test_DecryptValid, 57);
-  RUN_TEST(test_DecryptInvalid, 63);
-  RUN_TEST(test_IPv4AddressToRefId, 71);
-  RUN_TEST(test_IPv6AddressToRefId, 82);
+  RUN_TEST(test_Encrypt, 41);
+  RUN_TEST(test_DecryptValid, 59);
+  RUN_TEST(test_DecryptInvalid, 65);
+  RUN_TEST(test_IPv4AddressToRefId, 73);
+  RUN_TEST(test_IPv6AddressToRefId, 84);
 
   return (UnityEnd());
 }
