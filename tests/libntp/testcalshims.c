@@ -4,8 +4,8 @@
  *  and that is normally defined in ntpd/ntpq/...
  */
 
-u_long current_time = 4; // needed by authkeys. Used only in to calculate lifetime.
-const char *progname = "libntptest";
+//u_long current_time = 4; // needed by authkeys. Used only in to calculate lifetime.
+//const char *progname = "libntptest";
 
 //static //should be static in c 
 static time_t nowtime = 0;

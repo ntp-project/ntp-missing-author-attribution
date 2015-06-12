@@ -1,7 +1,7 @@
 /* This file contains test for both libntp/authkeys.c and libntp/authusekey.c */
 
 #include "config.h"
-#include "testcalshims.h"
+//#include "testcalshims.h"
 #include "unity.h"
 
 #ifdef OPENSSL
@@ -11,6 +11,8 @@
 #endif
 #include "ntp.h"
 #include "ntp_stdlib.h"
+
+u_long current_time = 4;
 
 // old code from google test framework, moved to SetUp() for unity
 void setUp(void)
