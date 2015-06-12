@@ -1,4 +1,4 @@
-AUTOMAKE_OPTIONS = foreign 1.9 subdir-objects
+#AUTOMAKE_OPTIONS = foreign 1.9 subdir-objects
 NULL =
 BUILT_SOURCES =
 CLEANFILES =
