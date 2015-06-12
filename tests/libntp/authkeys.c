@@ -17,7 +17,8 @@ u_long current_time = 4;
 // old code from google test framework, moved to SetUp() for unity
 void setUp(void)
 { 
-	//init_lib();
+//	init_lib();
+//	init_auth(); //causes segfault
 	
 /*
 	 * init_auth() is called by tests_main.cpp earlier.  It
@@ -34,6 +35,7 @@ void setUp(void)
 	cache_flags = 0;
 	cache_secret = NULL;
 	cache_secretsize = 0;
+
 }
 
 void tearDown(void)

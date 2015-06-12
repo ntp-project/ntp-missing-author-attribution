@@ -250,7 +250,8 @@ class UnityTestRunnerGenerator
     #output.puts("\nu_long current_time = 4; // needed by authkeys. Used only in to calculate lifetime.\n");
   
     output.puts("  progname = argv[0];\n")    
-
+    output.puts("  init_lib();\n")
+    output.puts("  init_auth();\n")	
     output.puts("  suite_setup();") unless @options[:suite_setup].nil?
     output.puts("  Unity.TestFile = \"#{filename}\";")
     output.puts("  UnityBegin(\"#{filename}\");")
