@@ -33,6 +33,8 @@ extern void test_SubtractionRL();
 extern void test_Negation();
 extern void test_Absolute();
 extern void test_FDF_RoundTrip();
+extern void test_SignedRelOps();
+extern void test_UnsignedRelOps();
 
 
 //=======Test Reset Option=====
@@ -42,19 +44,24 @@ void resetTest()
   setUp();
 }
 
+char *progname;
+
 
 //=======MAIN=====
-int main(void)
+int main(int argc, char *argv[])
 {
+  progname = argv[0];
   Unity.TestFile = "lfpfunc.c";
   UnityBegin("lfpfunc.c");
-  RUN_TEST(test_AdditionLR, 463);
-  RUN_TEST(test_AdditionRL, 481);
-  RUN_TEST(test_SubtractionLR, 499);
-  RUN_TEST(test_SubtractionRL, 513);
-  RUN_TEST(test_Negation, 530);
-  RUN_TEST(test_Absolute, 549);
-  RUN_TEST(test_FDF_RoundTrip, 581);
+  RUN_TEST(test_AdditionLR, 327);
+  RUN_TEST(test_AdditionRL, 345);
+  RUN_TEST(test_SubtractionLR, 363);
+  RUN_TEST(test_SubtractionRL, 377);
+  RUN_TEST(test_Negation, 394);
+  RUN_TEST(test_Absolute, 413);
+  RUN_TEST(test_FDF_RoundTrip, 444);
+  RUN_TEST(test_SignedRelOps, 475);
+  RUN_TEST(test_UnsignedRelOps, 518);
 
   return (UnityEnd());
 }

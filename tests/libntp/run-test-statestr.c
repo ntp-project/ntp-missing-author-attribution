@@ -39,16 +39,19 @@ void resetTest()
   setUp();
 }
 
+char *progname;
+
 
 //=======MAIN=====
-int main(void)
+int main(int argc, char *argv[])
 {
+  progname = argv[0];
   Unity.TestFile = "statestr.c";
   UnityBegin("statestr.c");
-  RUN_TEST(test_PeerRestart, 18);
-  RUN_TEST(test_SysUnspecified, 22);
-  RUN_TEST(test_ClockCodeExists, 27);
-  RUN_TEST(test_ClockCodeUnknown, 31);
+  RUN_TEST(test_PeerRestart, 19);
+  RUN_TEST(test_SysUnspecified, 23);
+  RUN_TEST(test_ClockCodeExists, 28);
+  RUN_TEST(test_ClockCodeUnknown, 32);
 
   return (UnityEnd());
 }

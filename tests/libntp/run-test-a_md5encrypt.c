@@ -40,17 +40,20 @@ void resetTest()
   setUp();
 }
 
+char *progname;
+
 
 //=======MAIN=====
-int main(void)
+int main(int argc, char *argv[])
 {
+  progname = argv[0];
   Unity.TestFile = "a_md5encrypt.c";
   UnityBegin("a_md5encrypt.c");
-  RUN_TEST(test_Encrypt, 38);
-  RUN_TEST(test_DecryptValid, 56);
-  RUN_TEST(test_DecryptInvalid, 62);
-  RUN_TEST(test_IPv4AddressToRefId, 70);
-  RUN_TEST(test_IPv6AddressToRefId, 81);
+  RUN_TEST(test_Encrypt, 39);
+  RUN_TEST(test_DecryptValid, 57);
+  RUN_TEST(test_DecryptInvalid, 63);
+  RUN_TEST(test_IPv4AddressToRefId, 71);
+  RUN_TEST(test_IPv6AddressToRefId, 82);
 
   return (UnityEnd());
 }

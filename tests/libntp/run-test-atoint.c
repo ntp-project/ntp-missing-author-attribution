@@ -41,18 +41,21 @@ void resetTest()
   setUp();
 }
 
+char *progname;
+
 
 //=======MAIN=====
-int main(void)
+int main(int argc, char *argv[])
 {
+  progname = argv[0];
   Unity.TestFile = "atoint.c";
   UnityBegin("atoint.c");
-  RUN_TEST(test_RegularPositive, 3);
-  RUN_TEST(test_RegularNegative, 11);
-  RUN_TEST(test_PositiveOverflowBoundary, 19);
-  RUN_TEST(test_NegativeOverflowBoundary, 26);
-  RUN_TEST(test_PositiveOverflowBig, 33);
-  RUN_TEST(test_IllegalCharacter, 40);
+  RUN_TEST(test_RegularPositive, 4);
+  RUN_TEST(test_RegularNegative, 12);
+  RUN_TEST(test_PositiveOverflowBoundary, 20);
+  RUN_TEST(test_NegativeOverflowBoundary, 27);
+  RUN_TEST(test_PositiveOverflowBig, 34);
+  RUN_TEST(test_IllegalCharacter, 41);
 
   return (UnityEnd());
 }

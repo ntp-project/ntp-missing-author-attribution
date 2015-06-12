@@ -37,14 +37,17 @@ void resetTest()
   setUp();
 }
 
+char *progname;
+
 
 //=======MAIN=====
-int main(void)
+int main(int argc, char *argv[])
 {
+  progname = argv[0];
   Unity.TestFile = "numtoa.c";
   UnityBegin("numtoa.c");
-  RUN_TEST(test_Address, 14);
-  RUN_TEST(test_Netmask, 20);
+  RUN_TEST(test_Address, 15);
+  RUN_TEST(test_Netmask, 21);
 
   return (UnityEnd());
 }

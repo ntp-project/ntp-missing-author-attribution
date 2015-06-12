@@ -41,12 +41,15 @@ void resetTest()
   setUp();
 }
 
+char *progname;
+
 
 //=======MAIN=====
-int main(void)
+int main(int argc, char *argv[])
 {
-	init_auth();
+  init_auth();
 
+  progname = argv[0];
   Unity.TestFile = "authkeys.c";
   UnityBegin("authkeys.c");
   RUN_TEST(test_AddTrustedKeys, 61);

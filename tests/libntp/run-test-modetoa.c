@@ -37,14 +37,17 @@ void resetTest()
   setUp();
 }
 
+char *progname;
+
 
 //=======MAIN=====
-int main(void)
+int main(int argc, char *argv[])
 {
+  progname = argv[0];
   Unity.TestFile = "modetoa.c";
   UnityBegin("modetoa.c");
-  RUN_TEST(test_KnownMode, 8);
-  RUN_TEST(test_UnknownMode, 14);
+  RUN_TEST(test_KnownMode, 9);
+  RUN_TEST(test_UnknownMode, 15);
 
   return (UnityEnd());
 }

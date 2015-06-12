@@ -36,13 +36,16 @@ void resetTest()
   setUp();
 }
 
+char *progname;
+
 
 //=======MAIN=====
-int main(void)
+int main(int argc, char *argv[])
 {
+  progname = argv[0];
   Unity.TestFile = "numtohost.c";
   UnityBegin("numtohost.c");
-  RUN_TEST(test_LoopbackNetNonResolve, 6);
+  RUN_TEST(test_LoopbackNetNonResolve, 7);
 
   return (UnityEnd());
 }

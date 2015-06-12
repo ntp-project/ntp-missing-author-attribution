@@ -39,16 +39,19 @@ void resetTest()
   setUp();
 }
 
+char *progname;
+
 
 //=======MAIN=====
-int main(void)
+int main(int argc, char *argv[])
 {
+  progname = argv[0];
   Unity.TestFile = "ymd2yd.c";
   UnityBegin("ymd2yd.c");
-  RUN_TEST(test_NonLeapYearFebruary, 12);
-  RUN_TEST(test_NonLeapYearJune, 16);
-  RUN_TEST(test_LeapYearFebruary, 21);
-  RUN_TEST(test_LeapYearDecember, 25);
+  RUN_TEST(test_NonLeapYearFebruary, 13);
+  RUN_TEST(test_NonLeapYearJune, 17);
+  RUN_TEST(test_LeapYearFebruary, 22);
+  RUN_TEST(test_LeapYearDecember, 26);
 
   return (UnityEnd());
 }
