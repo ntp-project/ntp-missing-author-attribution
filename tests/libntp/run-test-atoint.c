@@ -48,8 +48,6 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  init_lib();
-  init_auth();
   Unity.TestFile = "atoint.c";
   UnityBegin("atoint.c");
   RUN_TEST(test_RegularPositive, 4);
