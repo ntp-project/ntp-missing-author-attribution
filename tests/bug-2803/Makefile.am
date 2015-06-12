@@ -3,8 +3,8 @@ NULL =
 BUILT_SOURCES =
 CLEANFILES =
 
-std_unity_list = 					\
-	../../sntp/unity/auto/generate_test_runner.rb	\
+std_unity_list = 						\
+	$(top_srcdir)/sntp/unity/auto/generate_test_runner.rb	\
 	$(NULL)
 
 run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
@@ -38,7 +38,7 @@ bug_2803_SOURCES = 			\
 	$(NULL)
 
 $(srcdir)/run-bug-2803.c: $(srcdir)/ut-2803.c $(std_unity_list)
-	$(run_unity) ut-2803.c run-ut-2803.c
+	$(run_unity) ut-2803.c run-bug-2803.c
 
 # HMS: we may not need some of these:
 #noinst_HEADERS =	ntpdtest.h	\
