@@ -241,9 +241,16 @@ class UnityTestRunnerGenerator
   end
   
   def create_main(output, filename, tests)
+    output.puts("\nchar *progname;\n")
     output.puts("\n\n//=======MAIN=====")
-    output.puts("int main(void)")
+  
+    output.puts("int main(int argc, char *argv[])")
     output.puts("{")
+  #new stuff added
+    #output.puts("\nu_long current_time = 4; // needed by authkeys. Used only in to calculate lifetime.\n");
+  
+    output.puts("  progname = argv[0];\n")    
+
     output.puts("  suite_setup();") unless @options[:suite_setup].nil?
     output.puts("  Unity.TestFile = \"#{filename}\";")
     output.puts("  UnityBegin(\"#{filename}\");")
