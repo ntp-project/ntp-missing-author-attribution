@@ -696,8 +696,8 @@ extern const char UnityStrErr64[];
 //End of UNITY_INTERNALS_H
 #endif
 
-//#define TEST_EXPECT_FAIL()			Unity.isExpectingFail = 1;
-//#define TEST_EXPECT_FAIL_MESSAGE(message)	Unity.isExpectingFail = 1; Unity.XFAILMessage = message; //PROBLEM : does this work on all compilers?
+//#define TEST_EXPECT_FAIL()																		Unity.isExpectingFail = 1;
+//#define TEST_EXPECT_FAIL_MESSAGE(message)														Unity.isExpectingFail = 1; Unity.XFAILMessage = message; //PROBLEM : does this work on all compilers?
 
-#define TEST_EXPECT_FAIL()			UnityExpectFail();
-#define TEST_EXPECT_FAIL_MESSAGE(message)	UnityExpectFailMessage( (message) );
+#define TEST_EXPECT_FAIL()																		UnityExpectFail();
+#define TEST_EXPECT_FAIL_MESSAGE(message)														UnityExpectFailMessage( (message) );
