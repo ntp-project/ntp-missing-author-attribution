@@ -6,7 +6,8 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
 #removed test-libntp
 check_PROGRAMS = test-modetoa test-uglydate test-ymd2yd test-statestr test-numtoa test-numtohost \
-test-hextoint test-atoint test-atouint test-authkeys test-a_md5encrypt test-lfpfunc test-vi64ops
+test-hextoint test-atoint test-atouint test-authkeys test-a_md5encrypt test-lfpfunc test-vi64ops \
+test-refnumtoa
 
 if GTEST_AVAILABLE
 check_PROGRAMS += tests
@@ -69,7 +70,7 @@ tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		octtoint.cpp		\
 		prettydate.cpp		\
 		recvbuff.cpp		\
-		refnumtoa.cpp		\
+		g_refnumtoa.cpp		\
 		sfptostr.cpp		\
 		socktoa.cpp		\
 		ssl_init.cpp		\
@@ -221,6 +222,15 @@ test_vi64ops_LDADD =	        	\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
+test_refnumtoa_CFLAGS =                  \
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
+
+test_refnumtoa_LDADD =                           \
+	$(LDADD)                                \
+	$(top_builddir)/sntp/unity/libunity.a   \
+	$(NULL)
+
 
 #removed one combined test, because unity devs suggested we use one program per test
 #test_libntp_SOURCES =  			\
@@ -296,6 +306,10 @@ test_vi64ops_SOURCES =		              	\
 	run-test-vi64ops.c              	\
 	$(NULL)
 
+test_refnumtoa_SOURCES =              	\
+	refnumtoa.c	              	\
+	run-test-refnumtoa.c              	\
+	$(NULL)
 
 $(srcdir)/run-test-modetoa.c: $(srcdir)/modetoa.c $(std_unity_list)
 	$(run_unity) modetoa.c run-test-modetoa.c
@@ -335,6 +349,9 @@ $(srcdir)/run-test-lfpfunc.c: $(srcdir)/lfpfunc.c $(std_unity_list)
 
 $(srcdir)/run-test-vi64ops.c: $(srcdir)/vi64ops.c $(std_unity_list)
 	$(run_unity) vi64ops.c run-test-vi64ops.c
+
+$(srcdir)/run-test-refnumtoa.c: $(srcdir)/refnumtoa.c $(std_unity_list)
+	$(run_unity) refnumtoa.c run-test-refnumtoa.c
 
 
 TESTS =
