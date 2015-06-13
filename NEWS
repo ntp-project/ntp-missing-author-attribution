@@ -1,9 +1,16 @@
 ---
-NTP 4.2.8p3 (Harlan Stenn <stenn@ntp.org>, 2015/05/xx) 
+NTP 4.2.8p3 (Harlan Stenn <stenn@ntp.org>, 2015/06/xx) 
 
 Focus: Bug fixes and enhancements.  Leap-second improvements.
 
 Severity: MEDIUM
+
+New features in this release:
+
+We've imported the Unity test framework, and have begun converting
+the existing google-test items to this new framework.  If you want
+to write new tests or change old ones, you'll need to have ruby
+installed.
 
 Bug Fixes and Improvements:
 
