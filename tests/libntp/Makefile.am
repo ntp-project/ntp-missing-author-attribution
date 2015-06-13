@@ -6,7 +6,8 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
 #removed test-libntp
 check_PROGRAMS = test-modetoa test-uglydate test-ymd2yd test-statestr test-numtoa test-numtohost \
-test-hextoint test-atoint test-atouint test-authkeys test-a_md5encrypt test-lfpfunc
+test-hextoint test-atoint test-atouint test-authkeys test-a_md5encrypt test-lfpfunc test-octtoint \
+test-hextolfp
 
 if GTEST_AVAILABLE
 check_PROGRAMS += tests
@@ -57,7 +58,7 @@ tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		clocktime.cpp		\
 		decodenetnum.cpp	\
 		g_hextoint.cpp		\
-		hextolfp.cpp		\
+		g_hextolfp.cpp		\
 		humandate.cpp		\
 		g_lfpfunc.cpp		\
 		lfptostr.cpp		\
@@ -66,7 +67,7 @@ tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		netof.cpp		\
 		g_numtoa.cpp		\
 		g_numtohost.cpp		\
-		octtoint.cpp		\
+		g_octtoint.cpp		\
 		prettydate.cpp		\
 		recvbuff.cpp		\
 		refnumtoa.cpp		\
@@ -171,6 +172,23 @@ test_atoint_LDADD =                   \
 	$(unity_tests_LDADD)
 	$(NULL)
 
+test_octtoint_CFLAGS =                  \
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
+
+test_octtoint_LDADD =                   \
+	$(unity_tests_LDADD)
+	$(NULL)
+
+test_hextolfp_CFLAGS =                  \
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
+
+test_hextolfp_LDADD =                   \
+	$(unity_tests_LDADD)
+	$(NULL)
+
+
 test_a_md5encrypt_CFLAGS =                  \
 	-I$(top_srcdir)/sntp/unity      \
 	$(NULL)
@@ -256,6 +274,17 @@ test_atoint_SOURCES =              	\
 	run-test-atoint.c              	\
 	$(NULL)
 
+test_octtoint_SOURCES =              	\
+	octtoint.c	              	\
+	run-test-octtoint.c              	\
+	$(NULL)
+
+test_hextolfp_SOURCES =              	\
+	hextolfp.c	              	\
+	run-test-hextolfp.c              	\
+	$(NULL)
+
+
 test_a_md5encrypt_SOURCES =              	\
 	a_md5encrypt.c	              		\
 	run-test-a_md5encrypt.c              	\
@@ -301,6 +330,12 @@ $(srcdir)/run-test-hextoint.c: $(srcdir)/hextoint.c $(std_unity_list)
 
 $(srcdir)/run-test-atoint.c: $(srcdir)/atoint.c $(std_unity_list)
 	$(run_unity) atoint.c run-test-atoint.c
+
+$(srcdir)/run-test-octtoint.c: $(srcdir)/octtoint.c $(std_unity_list)
+	$(run_unity) octtoint.c run-test-octtoint.c
+
+$(srcdir)/run-test-hextolfp.c: $(srcdir)/hextolfp.c $(std_unity_list)
+	$(run_unity) hextolfp.c run-test-hextolfp.c
 
 $(srcdir)/run-test-a_md5encrypt.c: $(srcdir)/a_md5encrypt.c $(std_unity_list)
 	$(run_unity) a_md5encrypt.c run-test-a_md5encrypt.c

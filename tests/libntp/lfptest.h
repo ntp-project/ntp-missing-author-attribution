@@ -1,6 +1,28 @@
 #ifndef NTP_TESTS_LFPTEST_H
 #define NTP_TESTS_LFPTEST_H
 
+//#include "libntptest.h"
+//Including this gives some error during compilation.
+//Hence right now commenting it out, as it is not required currently.
+
+#include "ntp_fp.h"
+
+int IsEqual(const l_fp expected, const l_fp actual) {
+	if (L_ISEQU(&expected, &actual)) {
+		return 1==1;
+	} else {
+		return 1==2;
+	}
+
+}
+
+#endif
+
+
+/*
+#ifndef NTP_TESTS_LFPTEST_H
+#define NTP_TESTS_LFPTEST_H
+
 #include "libntptest.h"
 
 extern "C" {
@@ -28,4 +50,6 @@ protected:
 	static const int32 QUARTER_PROMILLE_APPRX = 1073742L;
 };
 
-#endif /* NTP_TESTS_LFPTEST_H */
+#endif
+*/
+/* NTP_TESTS_LFPTEST_H */
