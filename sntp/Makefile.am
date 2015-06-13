@@ -53,8 +53,8 @@ sbin_PROGRAMS =		@SNTP_DS@
 ## recursive make dist in sntp including libevent.
 ##
 
-SUBDIRS = include scripts
-DIST_SUBDIRS = include scripts
+SUBDIRS = include scripts unity
+DIST_SUBDIRS = include scripts unity
 
 if BUILD_LIBEVENT
 SUBDIRS += libevent
@@ -114,6 +114,7 @@ EXTRA_DIST =				\
 	invoke-sntp.menu		\
 	invoke-sntp.texi		\
 	@NTP_FORCE_LIBEVENT_DIST@	\
+	libpkgver 			\
 	loc				\
 	sntp-opts.def			\
 	sntp.1sntpman			\
@@ -122,6 +123,7 @@ EXTRA_DIST =				\
 	sntp.mdoc.in			\
 	sntp.html			\
 	sntp.texi			\
+	unity/auto			\
 	$(srcdir)/scm-rev		\
 	$(srcdir)/m4/version.m4		\
 	$(NULL)

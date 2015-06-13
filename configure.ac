@@ -65,6 +65,7 @@ ntp_jupiter_ok=${ntp_jupiter_ok=no}
 
 NTP_PROG_CC
 AC_PROG_CPP
+# Do we need CXX for anything besides google test?
 AC_PROG_CXX
 AC_PROG_YACC
 AC_PROG_CC_C_O
@@ -4342,6 +4343,8 @@ esac
 AM_CONDITIONAL([SAVECONFIG_ENABLED], [test x$ntp_saveconfig_enabled = x1])
 AC_MSG_RESULT([$ntp_ok])
 
+NTP_UNITYBUILD
+
 dnl  gtest is needed for our tests subdirs. It would be nice if we could
 dnl  require a C++ compiler only if we will use gtest, but AC_PROG_CXX
 dnl  can't be conditionalized.
@@ -4387,8 +4390,10 @@ AC_CONFIG_FILES([scripts/summary],	[chmod +x scripts/summary])
 AC_CONFIG_FILES([scripts/update-leap/Makefile])
 AC_CONFIG_FILES([scripts/update-leap/update-leap], [chmod +x scripts/update-leap/update-leap])
 AC_CONFIG_FILES([tests/Makefile])
+AC_CONFIG_FILES([tests/bug-2803/Makefile])
 AC_CONFIG_FILES([tests/libntp/Makefile])
 AC_CONFIG_FILES([tests/ntpd/Makefile])
+AC_CONFIG_FILES([tests/sandbox/Makefile])
 AC_CONFIG_FILES([util/Makefile])
 
 perllibdir="${datadir}/ntp/lib"
