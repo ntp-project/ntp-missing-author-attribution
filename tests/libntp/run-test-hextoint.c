@@ -49,11 +49,11 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "hextoint.c";
   UnityBegin("hextoint.c");
-  RUN_TEST(test_SingleDigit, 8);
-  RUN_TEST(test_MultipleDigits, 16);
-  RUN_TEST(test_MaxUnsigned, 24);
-  RUN_TEST(test_Overflow, 32);
-  RUN_TEST(test_IllegalChar, 39);
+  RUN_TEST(test_SingleDigit, 10);
+  RUN_TEST(test_MultipleDigits, 18);
+  RUN_TEST(test_MaxUnsigned, 26);
+  RUN_TEST(test_Overflow, 34);
+  RUN_TEST(test_IllegalChar, 41);
 
   return (UnityEnd());
 }

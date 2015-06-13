@@ -48,10 +48,10 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "statestr.c";
   UnityBegin("statestr.c");
-  RUN_TEST(test_PeerRestart, 19);
-  RUN_TEST(test_SysUnspecified, 23);
-  RUN_TEST(test_ClockCodeExists, 28);
-  RUN_TEST(test_ClockCodeUnknown, 32);
+  RUN_TEST(test_PeerRestart, 20);
+  RUN_TEST(test_SysUnspecified, 24);
+  RUN_TEST(test_ClockCodeExists, 29);
+  RUN_TEST(test_ClockCodeUnknown, 33);
 
   return (UnityEnd());
 }

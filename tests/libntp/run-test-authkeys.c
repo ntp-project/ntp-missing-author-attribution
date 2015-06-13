@@ -50,12 +50,12 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "authkeys.c";
   UnityBegin("authkeys.c");
-  RUN_TEST(test_AddTrustedKeys, 69);
-  RUN_TEST(test_AddUntrustedKey, 80);
-  RUN_TEST(test_HaveKeyCorrect, 88);
-  RUN_TEST(test_HaveKeyIncorrect, 97);
-  RUN_TEST(test_AddWithAuthUseKey, 104);
-  RUN_TEST(test_EmptyKey, 111);
+  RUN_TEST(test_AddTrustedKeys, 71);
+  RUN_TEST(test_AddUntrustedKey, 82);
+  RUN_TEST(test_HaveKeyCorrect, 90);
+  RUN_TEST(test_HaveKeyIncorrect, 99);
+  RUN_TEST(test_AddWithAuthUseKey, 106);
+  RUN_TEST(test_EmptyKey, 113);
 
   return (UnityEnd());
 }

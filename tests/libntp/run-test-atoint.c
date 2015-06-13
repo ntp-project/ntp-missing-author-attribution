@@ -50,12 +50,12 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "atoint.c";
   UnityBegin("atoint.c");
-  RUN_TEST(test_RegularPositive, 4);
-  RUN_TEST(test_RegularNegative, 12);
-  RUN_TEST(test_PositiveOverflowBoundary, 20);
-  RUN_TEST(test_NegativeOverflowBoundary, 27);
-  RUN_TEST(test_PositiveOverflowBig, 34);
-  RUN_TEST(test_IllegalCharacter, 41);
+  RUN_TEST(test_RegularPositive, 7);
+  RUN_TEST(test_RegularNegative, 15);
+  RUN_TEST(test_PositiveOverflowBoundary, 23);
+  RUN_TEST(test_NegativeOverflowBoundary, 30);
+  RUN_TEST(test_PositiveOverflowBig, 37);
+  RUN_TEST(test_IllegalCharacter, 44);
 
   return (UnityEnd());
 }

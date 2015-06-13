@@ -1,10 +1,10 @@
-//#include "config.h"
-#include "testcalshims.h"
+#include "config.h"
+
+#include "ntp_stdlib.h"
+#include "ntp_calendar.h"
 #include "ntp_fp.h"
 #include "unity.h"
 
-//#include "ntp_stdlib.h"
-//#include "libntptest.h"
 
 void
 test_ConstantDateTime(void) {

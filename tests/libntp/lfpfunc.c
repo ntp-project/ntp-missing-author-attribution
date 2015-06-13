@@ -1,19 +1,10 @@
-//#include "c_timestructs.h"
+#include "config.h"
 
-#include "testcalshims.h"
-
-//#define UNITY_INCLUDE_DOUBLE //moved to unity -> nope, put into CFLAGS
-//#define UNITY_EXCLUDE_FLOAT
-
-#include "unity.h"
-
-//#include "libntptest.h"
-//#include "timestructs.h"
-
-
-
+#include "ntp_stdlib.h"
+#include "ntp_calendar.h"
 #include "ntp_fp.h"
 
+#include "unity.h"
 
 #include <float.h>
 #include <math.h>

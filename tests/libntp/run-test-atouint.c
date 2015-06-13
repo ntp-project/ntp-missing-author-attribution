@@ -49,11 +49,11 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "atouint.c";
   UnityBegin("atouint.c");
-  RUN_TEST(test_RegularPositive, 7);
-  RUN_TEST(test_PositiveOverflowBoundary, 15);
-  RUN_TEST(test_PositiveOverflowBig, 22);
-  RUN_TEST(test_Negative, 29);
-  RUN_TEST(test_IllegalChar, 36);
+  RUN_TEST(test_RegularPositive, 9);
+  RUN_TEST(test_PositiveOverflowBoundary, 17);
+  RUN_TEST(test_PositiveOverflowBig, 24);
+  RUN_TEST(test_Negative, 31);
+  RUN_TEST(test_IllegalChar, 38);
 
   return (UnityEnd());
 }

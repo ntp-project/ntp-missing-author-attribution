@@ -1,10 +1,11 @@
-//#include "config.h"
-#include "testcalshims.h"
-//#include "libntptest.h"
+#include "config.h"
+
+#include "ntp_stdlib.h"
+#include "ntp_calendar.h"
+#include "ntp.h"	// Needed for MAX_MAC_LEN used in ntp_control.h
+#include "ntp_control.h"
 
 #include "unity.h"
-#include "ntp.h" // Needed for MAX_MAC_LEN used in ntp_control.h
-#include "ntp_control.h"
 
 void setUp(void)
 { 

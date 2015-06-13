@@ -1,7 +1,11 @@
 /* This file contains test for both libntp/authkeys.c and libntp/authusekey.c */
 
 #include "config.h"
-//#include "testcalshims.h"
+
+#include "ntp.h"
+#include "ntp_stdlib.h"
+#include "ntp_calendar.h"
+
 #include "unity.h"
 
 #ifdef OPENSSL
@@ -9,8 +13,6 @@
 # include "openssl/rand.h"
 # include "openssl/evp.h"
 #endif
-#include "ntp.h"
-#include "ntp_stdlib.h"
 
 u_long current_time = 4;
 int counter = 0;

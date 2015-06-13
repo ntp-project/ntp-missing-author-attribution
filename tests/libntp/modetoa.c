@@ -1,9 +1,9 @@
-#include "testcalshims.h"
-//#include "config.h"
-//#include "libntptest.h" //used for google test framework, not needed
-#include "unity.h"
-//#include "ntp_stdlib.h"
+#include "config.h"
 
+#include "ntp_stdlib.h"
+#include "ntp_calendar.h"
+
+#include "unity.h"
 
 
 void test_KnownMode(void) {
