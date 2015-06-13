@@ -1,3 +1,6 @@
+Below are from 4.2.8p3:
+* update bootstrap for Unity.
+* Disable IPv6 refid test due to probable endian issue.
 (4.3.40) 2015/06/13 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p3:
 * [Bug 2845] Harden memory allocation in ntpd.
