@@ -26,7 +26,7 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_main(void);
+extern void test_main(void );
 
 
 //=======Test Reset Option=====
@@ -36,10 +36,13 @@ void resetTest()
   setUp();
 }
 
+char *progname;
+
 
 //=======MAIN=====
-int main(void)
+int main(int argc, char *argv[])
 {
+  progname = argv[0];
   Unity.TestFile = "ut-2803.c";
   UnityBegin("ut-2803.c");
   RUN_TEST(test_main, 27);

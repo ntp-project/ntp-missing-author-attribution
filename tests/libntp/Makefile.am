@@ -5,8 +5,20 @@ CLEANFILES =
 run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
 #removed test-libntp
-check_PROGRAMS = test-modetoa test-uglydate test-ymd2yd test-statestr test-numtoa test-numtohost \
-test-hextoint test-atoint test-atouint test-authkeys test-a_md5encrypt test-lfpfunc
+check_PROGRAMS =		\
+	test-a_md5encrypt	\
+	test-atoint		\
+	test-atouint		\
+	test-authkeys		\
+	test-hextoint		\
+	test-lfpfunc		\
+	test-modetoa		\
+	test-numtoa		\
+	test-numtohost		\
+	test-statestr		\
+	test-uglydate		\
+	test-ymd2yd		\
+	$(NULL)
 
 if GTEST_AVAILABLE
 check_PROGRAMS += tests
@@ -29,8 +41,8 @@ tests_LDADD =				\
 	$(NULL)
 
 unity_tests_LDADD =				\
-	$(LDADD)                                \
-	$(top_builddir)/sntp/unity/libunity.a   \
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
 
 AM_CFLAGS   = $(CFLAGS_NTP)
@@ -43,47 +55,48 @@ AM_CPPFLAGS += $(CPPFLAGS_NTP)
 
 AM_LDFLAGS = $(LDFLAGS_NTP)
 
-tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
-		libntptest.cpp		\
-		g_a_md5encrypt.cpp	\
-		g_atoint.cpp		\
-		g_atouint.cpp		\
-		g_authkeys.cpp		\
-		buftvtots.cpp		\
-		calendar.cpp		\
-		caljulian.cpp		\
-		caltontp.cpp		\
-		calyearstart.cpp	\
-		clocktime.cpp		\
-		decodenetnum.cpp	\
-		g_hextoint.cpp		\
-		hextolfp.cpp		\
-		humandate.cpp		\
-		g_lfpfunc.cpp		\
-		lfptostr.cpp		\
-		g_modetoa.cpp		\
-		msyslog.cpp		\
-		netof.cpp		\
-		g_numtoa.cpp		\
-		g_numtohost.cpp		\
-		octtoint.cpp		\
-		prettydate.cpp		\
-		recvbuff.cpp		\
-		refnumtoa.cpp		\
-		sfptostr.cpp		\
-		socktoa.cpp		\
-		ssl_init.cpp		\
-		g_statestr.cpp		\
-		strtolfp.cpp		\
-		timespecops.cpp		\
-		timestructs.cpp		\
-		timevalops.cpp		\
-		tstotv.cpp		\
-		tvtots.cpp		\
-		g_uglydate.cpp		\
-		vi64ops.cpp		\
-		g_ymd2yd.cpp		\
-		$(NULL)
+tests_SOURCES =			\
+	$(top_srcdir)/sntp/tests_main.cpp	\
+	libntptest.cpp		\
+	g_a_md5encrypt.cpp	\
+	g_atoint.cpp		\
+	g_atouint.cpp		\
+	g_authkeys.cpp		\
+	buftvtots.cpp		\
+	calendar.cpp		\
+	caljulian.cpp		\
+	caltontp.cpp		\
+	calyearstart.cpp	\
+	clocktime.cpp		\
+	decodenetnum.cpp	\
+	g_hextoint.cpp		\
+	hextolfp.cpp		\
+	humandate.cpp		\
+	g_lfpfunc.cpp		\
+	lfptostr.cpp		\
+	g_modetoa.cpp		\
+	msyslog.cpp		\
+	netof.cpp		\
+	g_numtoa.cpp		\
+	g_numtohost.cpp		\
+	octtoint.cpp		\
+	prettydate.cpp		\
+	recvbuff.cpp		\
+	refnumtoa.cpp		\
+	sfptostr.cpp		\
+	socktoa.cpp		\
+	ssl_init.cpp		\
+	g_statestr.cpp		\
+	strtolfp.cpp		\
+	timespecops.cpp		\
+	timestructs.cpp		\
+	timevalops.cpp		\
+	tstotv.cpp		\
+	tvtots.cpp		\
+	g_uglydate.cpp		\
+	vi64ops.cpp		\
+	g_ymd2yd.cpp		\
+	$(NULL)
 
 noinst_HEADERS =	\
 	lfptest.h	\
@@ -95,20 +108,20 @@ noinst_HEADERS =	\
 #$(srcdir)/run-test-libntp.c: $(srcdir)/test-libntp.c $(std_unity_list)
 #	$(run_unity) test-libntp.c run-test-libntp.c
 
-#test_libntp_CFLAGS = 			\
+#test_libntp_CFLAGS =			\
 #	-I$(top_srcdir)/sntp/unity	\
 #	$(NULL)
 
-#test_libntp_LDADD =  				\
+#test_libntp_LDADD =				\
 #	$(LDADD)				\
 #	$(top_builddir)/sntp/unity/libunity.a	\
 #	$(NULL)
 
-test_modetoa_CFLAGS = 			\
+test_modetoa_CFLAGS =			\
 	-I$(top_srcdir)/sntp/unity	\
 	$(NULL)
 
-test_modetoa_LDADD = 				\
+test_modetoa_LDADD =				\
 	$(LDADD)				\
 	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
@@ -117,166 +130,168 @@ test_uglydate_CFLAGS =			\
 	-I$(top_srcdir)/sntp/unity	\
 	$(NULL)
 
-test_uglydate_LDADD = 				\
+test_uglydate_LDADD =				\
 	$(LDADD)				\
 	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
 
-test_ymd2yd_CFLAGS =                  \
-	-I$(top_srcdir)/sntp/unity      \
+test_ymd2yd_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
 	$(NULL)
 
-test_ymd2yd_LDADD =                           \
-	$(LDADD)                                \
-	$(top_builddir)/sntp/unity/libunity.a   \
+test_ymd2yd_LDADD =				\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
 
-test_statestr_CFLAGS =                  \
-	-I$(top_srcdir)/sntp/unity      \
+test_statestr_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
 	$(NULL)
 
-test_statestr_LDADD =                           \
-	$(LDADD)                                \
-	$(top_builddir)/sntp/unity/libunity.a   \
+test_statestr_LDADD =				\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
 
-test_numtoa_CFLAGS =                  \
-	-I$(top_srcdir)/sntp/unity      \
+test_numtoa_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
 	$(NULL)
 
-test_numtoa_LDADD =                           \
-	$(unity_tests_LDADD)    
-
-test_numtohost_CFLAGS =                  \
-	-I$(top_srcdir)/sntp/unity      \
-	$(NULL)
-
-test_numtohost_LDADD =                  \
+test_numtoa_LDADD =			\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
-test_hextoint_CFLAGS =                  \
-	-I$(top_srcdir)/sntp/unity      \
+test_numtohost_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
 	$(NULL)
 
-test_hextoint_LDADD =                   \
-	$(unity_tests_LDADD)
-	$(NULL)
-
-test_atoint_CFLAGS =                  \
-	-I$(top_srcdir)/sntp/unity      \
-	$(NULL)
-
-test_atoint_LDADD =                   \
-	$(unity_tests_LDADD)
-	$(NULL)
-
-test_a_md5encrypt_CFLAGS =                  \
-	-I$(top_srcdir)/sntp/unity      \
-	$(NULL)
-
-test_a_md5encrypt_LDADD =                   \
+test_numtohost_LDADD =			\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
-test_atouint_CFLAGS =                  \
-	-I$(top_srcdir)/sntp/unity      \
+test_hextoint_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
 	$(NULL)
 
-test_atouint_LDADD =                   \
+test_hextoint_LDADD =			\
 	$(unity_tests_LDADD)
 	$(NULL)
 
-test_authkeys_CFLAGS =                  \
-	-I$(top_srcdir)/sntp/unity      \
+test_atoint_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
 	$(NULL)
 
-test_authkeys_LDADD =                           \
-	$(unity_tests_LDADD)			\
+test_atoint_LDADD =			\
+	$(unity_tests_LDADD)
 	$(NULL)
 
-test_lfpfunc_CFLAGS =                  	\
-	-I$(top_srcdir)/sntp/unity      \
+test_a_md5encrypt_CFLAGS =		\
+	-I$(top_srcdir)/sntp/unity	\
+	$(NULL)
+
+test_a_md5encrypt_LDADD =		\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
+test_atouint_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
+	$(NULL)
+
+test_atouint_LDADD =			\
+	$(unity_tests_LDADD)
+	$(NULL)
+
+test_authkeys_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
+	$(NULL)
+
+test_authkeys_LDADD =			\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
+test_lfpfunc_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
 	-DUNITY_INCLUDE_DOUBLE		\
 	$(NULL)
 
-test_lfpfunc_LDADD =	        	\
+test_lfpfunc_LDADD =			\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
-
-
-
-#removed one combined test, because unity devs suggested we use one program per test
-#test_libntp_SOURCES =  			\
-#	modetoa.c			\
-#	uglydate.c			\
-#	test-libntp.c			\
-#	test-libntp.h			\
-#	run-test-libntp.c		\
-#	$(NULL)
-
-test_modetoa_SOURCES = 			\
+test_modetoa_SOURCES =			\
 	modetoa.c			\
 	run-test-modetoa.c		\
 	$(NULL)
 
-test_uglydate_SOURCES = 		\
+test_uglydate_SOURCES =			\
 	uglydate.c			\
-	run-test-uglydate.c			\
+	run-test-uglydate.c		\
 	$(NULL)
 
-test_ymd2yd_SOURCES =                  \
-	ymd2yd.c                       \
-	run-test-ymd2yd.c              \
+test_ymd2yd_SOURCES =			\
+	ymd2yd.c			\
+	run-test-ymd2yd.c		\
 	$(NULL)
 
-test_statestr_SOURCES =                  \
-	statestr.c                       \
-	run-test-statestr.c              \
+test_statestr_SOURCES =			\
+	statestr.c			\
+	run-test-statestr.c		\
 	$(NULL)
 
-test_numtoa_SOURCES =                  \
-	numtoa.c                       \
-	run-test-numtoa.c              \
+test_numtoa_SOURCES =			\
+	numtoa.c			\
+	run-test-numtoa.c		\
 	$(NULL)
 
-test_numtohost_SOURCES =                  \
-	numtohost.c                       \
-	run-test-numtohost.c              \
+test_numtohost_SOURCES =		\
+	numtohost.c			\
+	run-test-numtohost.c		\
 	$(NULL)
 
-test_hextoint_SOURCES =                  \
-	hextoint.c                       \
-	run-test-hextoint.c              \
+test_hextoint_SOURCES =			\
+	hextoint.c			\
+	run-test-hextoint.c		\
 	$(NULL)
 
-test_atoint_SOURCES =              	\
-	atoint.c	              	\
-	run-test-atoint.c              	\
+test_atoint_SOURCES =			\
+	atoint.c			\
+	run-test-atoint.c		\
 	$(NULL)
 
-test_a_md5encrypt_SOURCES =              	\
-	a_md5encrypt.c	              		\
-	run-test-a_md5encrypt.c              	\
+test_a_md5encrypt_SOURCES =		\
+	a_md5encrypt.c			\
+	run-test-a_md5encrypt.c		\
 	$(NULL)
 
-test_atouint_SOURCES =          	    	\
-	atouint.c	        	      	\
-	run-test-atouint.c              	\
+test_atouint_SOURCES =			\
+	atouint.c			\
+	run-test-atouint.c		\
 	$(NULL)
 
-test_authkeys_SOURCES =         	     	\
-	authkeys.c	        	      	\
-	run-test-authkeys.c              	\
+test_authkeys_SOURCES =			\
+	authkeys.c			\
+	run-test-authkeys.c		\
 	$(NULL)
 
-test_lfpfunc_SOURCES =		              	\
-	lfpfunc.c	        	      	\
-	run-test-lfpfunc.c              	\
+test_lfpfunc_SOURCES =			\
+	lfpfunc.c			\
+	run-test-lfpfunc.c		\
 	$(NULL)
 
-
+BUILT_SOURCES +=				\
+	$(srcdir)/run-test-a_md5encrypt.c	\
+	$(srcdir)/run-test-atoint.c		\
+	$(srcdir)/run-test-atouint.c		\
+	$(srcdir)/run-test-authkeys.c		\
+	$(srcdir)/run-test-hextoint.c		\
+	$(srcdir)/run-test-lfpfunc.c		\
+	$(srcdir)/run-test-modetoa.c		\
+	$(srcdir)/run-test-numtoa.c		\
+	$(srcdir)/run-test-numtohost.c		\
+	$(srcdir)/run-test-statestr.c		\
+	$(srcdir)/run-test-uglydate.c		\
+	$(srcdir)/run-test-ymd2yd.c		\
+	$(NULL)
 
 $(srcdir)/run-test-modetoa.c: $(srcdir)/modetoa.c $(std_unity_list)
 	$(run_unity) modetoa.c run-test-modetoa.c
