@@ -6,7 +6,7 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
 #removed test-libntp
 check_PROGRAMS = test-modetoa test-uglydate test-ymd2yd test-statestr test-numtoa test-numtohost \
-test-hextoint test-atoint test-atouint test-authkeys test-a_md5encrypt test-lfpfunc
+test-hextoint test-atoint test-atouint test-authkeys test-a_md5encrypt test-lfpfunc test-vi64ops
 
 if GTEST_AVAILABLE
 check_PROGRAMS += tests
@@ -81,7 +81,7 @@ tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		tstotv.cpp		\
 		tvtots.cpp		\
 		g_uglydate.cpp		\
-		vi64ops.cpp		\
+		g_vi64ops.cpp		\
 		g_ymd2yd.cpp		\
 		$(NULL)
 
@@ -204,7 +204,22 @@ test_lfpfunc_LDADD =	        	\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
+test_lfpfunc_CFLAGS =                  	\
+	-I$(top_srcdir)/sntp/unity      \
+	-DUNITY_INCLUDE_DOUBLE		\
+	$(NULL)
 
+test_lfpfunc_LDADD =	        	\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
+test_vi64ops_CFLAGS =                  	\
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
+
+test_vi64ops_LDADD =	        	\
+	$(unity_tests_LDADD)		\
+	$(NULL)
 
 
 #removed one combined test, because unity devs suggested we use one program per test
@@ -276,6 +291,10 @@ test_lfpfunc_SOURCES =		              	\
 	run-test-lfpfunc.c              	\
 	$(NULL)
 
+test_vi64ops_SOURCES =		              	\
+	vi64ops.c	        	      	\
+	run-test-vi64ops.c              	\
+	$(NULL)
 
 
 $(srcdir)/run-test-modetoa.c: $(srcdir)/modetoa.c $(std_unity_list)
@@ -314,6 +333,8 @@ $(srcdir)/run-test-authkeys.c: $(srcdir)/authkeys.c $(std_unity_list)
 $(srcdir)/run-test-lfpfunc.c: $(srcdir)/lfpfunc.c $(std_unity_list)
 	$(run_unity) lfpfunc.c run-test-lfpfunc.c
 
+$(srcdir)/run-test-vi64ops.c: $(srcdir)/vi64ops.c $(std_unity_list)
+	$(run_unity) vi64ops.c run-test-vi64ops.c
 
 
 TESTS =
