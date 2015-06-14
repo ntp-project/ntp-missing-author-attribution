@@ -267,6 +267,7 @@ test_caljulian_CFLAGS =				\
 test_caljulian_LDADD =				\
 	$(LDADD)				\
 	$(top_builddir)/sntp/unity/libunity.a	\
+	-lpthread				\
 	$(NULL)
 
 test_calendar_CFLAGS =				\
