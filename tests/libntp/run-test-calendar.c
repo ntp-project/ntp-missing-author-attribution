@@ -55,17 +55,17 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "calendar.c";
   UnityBegin("calendar.c");
-  RUN_TEST(test_DaySplitMerge, 245);
-  RUN_TEST(test_SplitYearDays1, 269);
-  RUN_TEST(test_SplitYearDays2, 283);
-  RUN_TEST(test_RataDie1, 298);
-  RUN_TEST(test_LeapYears1, 308);
-  RUN_TEST(test_LeapYears2, 323);
-  RUN_TEST(test_RoundTripDate, 341);
-  RUN_TEST(test_RoundTripYearStart, 370);
-  RUN_TEST(test_RoundTripMonthStart, 386);
-  RUN_TEST(test_RoundTripWeekStart, 402);
-  RUN_TEST(test_RoundTripDayStart, 418);
+  RUN_TEST(test_DaySplitMerge, 230);
+  RUN_TEST(test_SplitYearDays1, 254);
+  RUN_TEST(test_SplitYearDays2, 268);
+  RUN_TEST(test_RataDie1, 283);
+  RUN_TEST(test_LeapYears1, 293);
+  RUN_TEST(test_LeapYears2, 308);
+  RUN_TEST(test_RoundTripDate, 326);
+  RUN_TEST(test_RoundTripYearStart, 355);
+  RUN_TEST(test_RoundTripMonthStart, 371);
+  RUN_TEST(test_RoundTripWeekStart, 387);
+  RUN_TEST(test_RoundTripDayStart, 403);
 
   return (UnityEnd());
 }

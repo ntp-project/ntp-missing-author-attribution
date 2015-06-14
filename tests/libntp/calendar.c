@@ -79,8 +79,6 @@ char * CalendarFromCalToString(const struct calendar cal) { //&
 	strcat(ss,":");
 	sprintf(buffer, "%u", (u_int)cal.second);
 	strcat(ss,buffer);
-	//printf("AAA %s ",ss);
-	
 	//ss << cal.year << "-" << (u_int)cal.month << "-" << (u_int)cal.monthday << " (" << cal.yearday << ") " << (u_int)cal.hour << ":" << (u_int)cal.minute << ":" << (u_int)cal.second;
 	return ss;	
 
@@ -99,7 +97,6 @@ char * CalendarFromIsoToString(const struct isodate iso) { //&
 	strcat(ss,"-");
 	sprintf(buffer, "%u", (u_int)iso.weekday);
 	strcat(ss,buffer);
-	//strcat(ss,":");
 	sprintf(buffer, "%u", (u_int)iso.hour);
 	strcat(ss,buffer);
 	strcat(ss,":");
@@ -108,11 +105,6 @@ char * CalendarFromIsoToString(const struct isodate iso) { //&
 	strcat(ss,":");
 	sprintf(buffer, "%u", (u_int)iso.second);
 	strcat(ss,buffer);
-	//strcat(ss,":");
-	//sprintf(buffer, "%u", (u_int)cal.second);
-	//strcat(ss,buffer);
-	//printf("AAA %s ",ss);
-	//ss << cal.year << "-" << (u_int)cal.month << "-" << (u_int)cal.monthday << " (" << cal.yearday << ") " << (u_int)cal.hour << ":" << (u_int)cal.minute << ":" << (u_int)cal.second;
 	//ss << iso.year << "-" << (u_int)iso.week << "-" << (u_int)iso.weekday << (u_int)iso.hour << ":" << (u_int)iso.minute << ":" << (u_int)iso.second;	
 	return ss;	
 
@@ -164,16 +156,8 @@ char * DateFromCalToString(const struct calendar cal) { //&
 	sprintf(buffer, "%u", cal.yearday);
 	strcat(ss,buffer);
 	strcat(ss,")");
-/*
-	sprintf(buffer, "%u", (u_int)cal.hour);
-	strcat(ss,buffer);
-	strcat(ss,":");
-	sprintf(buffer, "%u", (u_int)cal.minute);
-	strcat(ss,buffer);
-	strcat(ss,":");
-	sprintf(buffer, "%u", (u_int)cal.second);
-	strcat(ss,buffer);
-*/
+	
+	return ss;
 	//ss << cal.year << "-" << (u_int)cal.month << "-" << (u_int)cal.monthday << " (" << cal.yearday << ")";
 }
 
@@ -191,6 +175,7 @@ char * DateFromIsoToString(const struct isodate iso) { //&
 	sprintf(buffer, "%u", (u_int)iso.weekday);
 	strcat(ss,buffer);
 
+	return ss;
 	//ss << iso.year << "-" << (u_int)iso.week << "-" << (u_int)iso.weekday;
 	
 }
