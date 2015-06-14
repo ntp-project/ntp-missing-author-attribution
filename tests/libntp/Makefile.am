@@ -109,6 +109,7 @@ noinst_HEADERS =	\
 	libntptest.h	\
 	sockaddrtest.h	\
 	timestructs.h	\
+	test-libntp.h	\
 	$(NULL)
 
 #$(srcdir)/run-test-libntp.c: $(srcdir)/test-libntp.c $(std_unity_list)
