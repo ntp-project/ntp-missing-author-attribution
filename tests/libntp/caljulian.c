@@ -33,7 +33,6 @@ char * CalendarToString(const struct calendar cal) {
 	strcat(ss,":");
 	sprintf(buffer, "%u", (u_int)cal.second);
 	strcat(ss,buffer);
-	printf("AAA %s ",ss);
 	//ss << cal.year << "-" << (u_int)cal.month << "-" << (u_int)cal.monthday << " (" << cal.yearday << ") " << (u_int)cal.hour << ":" << (u_int)cal.minute << ":" << (u_int)cal.second;
 	return ss;
 }

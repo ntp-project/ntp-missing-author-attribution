@@ -23,6 +23,7 @@ check_PROGRAMS =		\
 	test-calyearstart	\
 	test-clocktime		\
 	test-caljulian		\
+	test-calendar
 	$(NULL)
 
 if GTEST_AVAILABLE
@@ -267,6 +268,16 @@ test_caljulian_LDADD =				\
 	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
 
+test_calendar_CFLAGS =				\
+	-I$(top_srcdir)/sntp/unity		\
+	$(NULL)
+
+test_calendar_LDADD =				\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	$(NULL)
+
+
 test_modetoa_SOURCES =			\
 	modetoa.c			\
 	run-test-modetoa.c		\
@@ -355,6 +366,13 @@ test_caljulian_SOURCES =		\
 	test-libntp.c			\
 	$(NULL)
 
+test_calendar_SOURCES =				\
+	calendar.c				\
+	run-test-calendar.c			\
+	test-libntp.c				\
+	$(NULL)
+
+
 BUILT_SOURCES +=				\
 	$(srcdir)/run-test-a_md5encrypt.c	\
 	$(srcdir)/run-test-atoint.c		\
@@ -373,6 +391,7 @@ BUILT_SOURCES +=				\
 	$(srcdir)/run-test-uglydate.c		\
 	$(srcdir)/run-test-vi64ops.c		\
 	$(srcdir)/run-test-ymd2yd.c		\
+	$(srcdir)/run-test-calendar.c		\
 	$(NULL)
 
 $(srcdir)/run-test-modetoa.c: $(srcdir)/modetoa.c $(std_unity_list)
@@ -425,6 +444,10 @@ $(srcdir)/run-test-clocktime.c: $(srcdir)/clocktime.c $(std_unity_list)
 
 $(srcdir)/run-test-caljulian.c: $(srcdir)/caljulian.c $(std_unity_list)
 	$(run_unity) caljulian.c run-test-caljulian.c
+
+$(srcdir)/run-test-calendar.c: $(srcdir)/calendar.c $(std_unity_list)
+	$(run_unity) calendar.c run-test-calendar.c
+
 
 TESTS =
 
