@@ -1654,7 +1654,7 @@ doprintpeers(
 				fprintf(stderr, "malformed %s=%s\n",
 					name, value);
 		} else if (!strcmp("srchost", name)) {
-			if (pvl == peervarlist) {
+			if (pvl == peervarlist || pvl == apeervarlist) {
 				len = strlen(value);
 				if (2 < len &&
 				    (size_t)len < sizeof(clock_name)) {
@@ -1745,8 +1745,8 @@ doprintpeers(
 		} else if (!strcmp("offset", name)) {
 			decodetime(value, &estoffset);
 		} else if (!strcmp("jitter", name)) {
-			if (pvl == peervarlist &&
-			    decodetime(value, &estjitter))
+			if ((pvl == peervarlist || pvl == apeervarlist)
+			    && decodetime(value, &estjitter))
 				have_jitter = 1;
 		} else if (!strcmp("rootdisp", name) ||
 			   !strcmp("dispersion", name)) {
@@ -1812,7 +1812,8 @@ doprintpeers(
 	else
 		c = flash2[CTL_PEER_STATVAL(rstatus) & 0x3];
 	if (numhosts > 1) {
-		if (peervarlist == pvl && have_dstadr) {
+		if ((pvl == peervarlist || pvl == apeervarlist)
+		    && have_dstadr) {
 			serverlocal = nntohost_col(&dstadr,
 			    (size_t)min(LIB_BUFLENGTH - 1, maxhostlen),
 			    TRUE);
