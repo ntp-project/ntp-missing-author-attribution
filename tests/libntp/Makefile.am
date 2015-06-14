@@ -365,7 +365,6 @@ BUILT_SOURCES +=				\
 	$(srcdir)/run-test-clocktime.c		\
 	$(srcdir)/run-test-hextoint.c		\
 	$(srcdir)/run-test-lfpfunc.c		\
-	$(srcdir)/run-test-libntp.c		\
 	$(srcdir)/run-test-modetoa.c		\
 	$(srcdir)/run-test-numtoa.c		\
 	$(srcdir)/run-test-numtohost.c		\

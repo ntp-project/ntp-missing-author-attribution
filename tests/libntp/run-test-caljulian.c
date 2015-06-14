@@ -48,10 +48,10 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "caljulian.c";
   UnityBegin("caljulian.c");
-  RUN_TEST(test_RegularTime, 80);
-  RUN_TEST(test_LeapYear, 91);
-  RUN_TEST(test_uLongBoundary, 102);
-  RUN_TEST(test_uLongWrapped, 113);
+  RUN_TEST(test_RegularTime, 72);
+  RUN_TEST(test_LeapYear, 83);
+  RUN_TEST(test_uLongBoundary, 94);
+  RUN_TEST(test_uLongWrapped, 105);
 
   return (UnityEnd());
 }
