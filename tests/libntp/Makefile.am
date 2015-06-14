@@ -355,12 +355,6 @@ test_caltontp_SOURCES = 		\
 	run-test-caltontp.c			\
 	$(NULL)
 
-test_caltontp_SOURCES = 		\
-	caltontp.c			\
-	run-test-caltontp.c			\
-	$(NULL)
-
-
 
 $(srcdir)/run-test-modetoa.c: $(srcdir)/modetoa.c $(std_unity_list)
 	$(run_unity) modetoa.c run-test-modetoa.c
