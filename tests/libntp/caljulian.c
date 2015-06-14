@@ -1,22 +1,15 @@
-//#include "libntptest.h"
-
 #include "config.h"
 
-
-//#include "ntp_stdlib.h" //test fail without this include
 #include "ntp_calendar.h"
 #include "unity.h"
-//#include "ntp_types.h"
 
 #include "test-libntp.h"
 
-
 #include <string.h>
-//#include <sstream>
 
 //added struct to calendar!
 
-char * CalendarToString(const struct calendar cal) { //&cal
+char * CalendarToString(const struct calendar cal) {
 	char * ss = malloc (sizeof (char) * 100);
 	
 	char buffer[100] ="";
@@ -46,7 +39,7 @@ char * CalendarToString(const struct calendar cal) { //&cal
 }
 
 //tehnically boolean
-int IsEqual(const struct calendar expected, const struct calendar actual) { // &ex &act
+int IsEqual(const struct calendar expected, const struct calendar actual) {
 	if (expected.year == actual.year &&
 		(expected.yearday == actual.yearday ||
 		 (expected.month == actual.month &&
