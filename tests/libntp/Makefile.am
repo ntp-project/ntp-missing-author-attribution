@@ -209,17 +209,17 @@ test_prettydate_CFLAGS =			\
 	-I$(top_srcdir)/sntp/unity	\
 	$(NULL)
 
-test_prettydate_LDADD = 				\
-	$(LDADD)				\
+test_prettydate_LDADD = 					\
+	$(LDADD)								\
 	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
 
-test_recvbuff_CFLAGS =                  \
-	-I$(top_srcdir)/sntp/unity      \
+test_recvbuff_CFLAGS =				\
+	-I$(top_srcdir)/sntp/unity		\
 	$(NULL)
 
 test_recvbuff_LDADD =                   \
-	$(unity_tests_LDADD)
+	$(unity_tests_LDADD)				\
 	$(NULL)
 
 test_tstotv_CFLAGS =                  \
@@ -227,7 +227,7 @@ test_tstotv_CFLAGS =                  \
 	$(NULL)
 
 test_tstotv_LDADD =                   \
-	$(unity_tests_LDADD)
+	$(unity_tests_LDADD)				\
 	$(NULL)
 
 test_vi64ops_CFLAGS =                  \
@@ -235,7 +235,7 @@ test_vi64ops_CFLAGS =                  \
 	$(NULL)
 
 test_vi64ops_LDADD =                   \
-	$(unity_tests_LDADD)
+	$(unity_tests_LDADD)				\
 	$(NULL)
 
 test_msyslog_CFLAGS =                  \
@@ -243,15 +243,15 @@ test_msyslog_CFLAGS =                  \
 	$(NULL)
 
 test_msyslog_LDADD =                   \
-	$(unity_tests_LDADD)
+	$(unity_tests_LDADD)				\
 	$(NULL)
 
 test_caltontp_CFLAGS =                  \
-	-I$(top_srcdir)/sntp/unity      \
+	-I$(top_srcdir)/sntp/unity      	\
 	$(NULL)
 
 test_caltontp_LDADD =                   \
-	$(unity_tests_LDADD)
+	$(unity_tests_LDADD)				\
 	$(NULL)
 
 
