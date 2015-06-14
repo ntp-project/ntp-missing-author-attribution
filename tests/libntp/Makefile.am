@@ -6,7 +6,8 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
 #removed test-libntp
 check_PROGRAMS = test-modetoa test-uglydate test-ymd2yd test-statestr test-numtoa test-numtohost \
-test-hextoint test-atoint test-atouint test-authkeys test-a_md5encrypt test-lfpfunc
+test-hextoint test-atoint test-atouint test-authkeys test-a_md5encrypt test-lfpfunc test-vi64ops \
+test-refnumtoa test-calyearstart test-clocktime test-caljulian
 
 if GTEST_AVAILABLE
 check_PROGRAMS += tests
@@ -51,10 +52,10 @@ tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		g_authkeys.cpp		\
 		buftvtots.cpp		\
 		calendar.cpp		\
-		caljulian.cpp		\
+		g_caljulian.cpp		\
 		caltontp.cpp		\
-		calyearstart.cpp	\
-		clocktime.cpp		\
+		g_calyearstart.cpp	\
+		g_clocktime.cpp		\
 		decodenetnum.cpp	\
 		g_hextoint.cpp		\
 		hextolfp.cpp		\
@@ -69,7 +70,7 @@ tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		octtoint.cpp		\
 		prettydate.cpp		\
 		recvbuff.cpp		\
-		refnumtoa.cpp		\
+		g_refnumtoa.cpp		\
 		sfptostr.cpp		\
 		socktoa.cpp		\
 		ssl_init.cpp		\
@@ -81,7 +82,7 @@ tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		tstotv.cpp		\
 		tvtots.cpp		\
 		g_uglydate.cpp		\
-		vi64ops.cpp		\
+		g_vi64ops.cpp		\
 		g_ymd2yd.cpp		\
 		$(NULL)
 
@@ -204,7 +205,49 @@ test_lfpfunc_LDADD =	        	\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
+test_vi64ops_CFLAGS =                  	\
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
 
+test_vi64ops_LDADD =	        	\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
+test_refnumtoa_CFLAGS =                  \
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
+
+test_refnumtoa_LDADD =                           \
+	$(LDADD)                                \
+	$(top_builddir)/sntp/unity/libunity.a   \
+	$(NULL)
+
+test_calyearstart_CFLAGS =                  \
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
+
+test_calyearstart_LDADD =                           \
+	$(LDADD)                                \
+	$(top_builddir)/sntp/unity/libunity.a   \
+	$(NULL)
+
+test_clocktime_CFLAGS =                  \
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
+
+test_clocktime_LDADD =                           \
+	$(LDADD)                                \
+	$(top_builddir)/sntp/unity/libunity.a   \
+	$(NULL)
+
+test_caljulian_CFLAGS =                  \
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
+
+test_caljulian_LDADD =                           \
+	$(LDADD)                                \
+	$(top_builddir)/sntp/unity/libunity.a   \
+	$(NULL)
 
 
 #removed one combined test, because unity devs suggested we use one program per test
@@ -276,6 +319,33 @@ test_lfpfunc_SOURCES =		              	\
 	run-test-lfpfunc.c              	\
 	$(NULL)
 
+test_vi64ops_SOURCES =		              	\
+	vi64ops.c	        	      	\
+	run-test-vi64ops.c              	\
+	$(NULL)
+
+test_refnumtoa_SOURCES =              	\
+	refnumtoa.c	              	\
+	run-test-refnumtoa.c              	\
+	$(NULL)
+
+test_calyearstart_SOURCES =              	\
+	calyearstart.c	              	\
+	run-test-calyearstart.c              	\
+	test-libntp.c				\
+	$(NULL)
+
+test_clocktime_SOURCES =              	\
+	clocktime.c	              	\
+	run-test-clocktime.c              	\
+	test-libntp.c				\
+	$(NULL)
+
+test_caljulian_SOURCES =              	\
+	caljulian.c	              	\
+	run-test-caljulian.c              	\
+	test-libntp.c			\
+	$(NULL)
 
 
 $(srcdir)/run-test-modetoa.c: $(srcdir)/modetoa.c $(std_unity_list)
@@ -314,7 +384,20 @@ $(srcdir)/run-test-authkeys.c: $(srcdir)/authkeys.c $(std_unity_list)
 $(srcdir)/run-test-lfpfunc.c: $(srcdir)/lfpfunc.c $(std_unity_list)
 	$(run_unity) lfpfunc.c run-test-lfpfunc.c
 
+$(srcdir)/run-test-vi64ops.c: $(srcdir)/vi64ops.c $(std_unity_list)
+	$(run_unity) vi64ops.c run-test-vi64ops.c
 
+$(srcdir)/run-test-refnumtoa.c: $(srcdir)/refnumtoa.c $(std_unity_list)
+	$(run_unity) refnumtoa.c run-test-refnumtoa.c
+
+$(srcdir)/run-test-calyearstart.c: $(srcdir)/calyearstart.c $(std_unity_list)
+	$(run_unity) calyearstart.c run-test-calyearstart.c
+
+$(srcdir)/run-test-clocktime.c: $(srcdir)/clocktime.c $(std_unity_list)
+	$(run_unity) clocktime.c run-test-clocktime.c
+
+$(srcdir)/run-test-caljulian.c: $(srcdir)/caljulian.c $(std_unity_list)
+	$(run_unity) caljulian.c run-test-caljulian.c
 
 TESTS =
 
