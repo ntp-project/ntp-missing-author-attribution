@@ -7,7 +7,7 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 #removed test-libntp
 check_PROGRAMS = test-modetoa test-uglydate test-ymd2yd test-statestr test-numtoa test-numtohost \
 test-hextoint test-atoint test-atouint test-authkeys test-a_md5encrypt test-lfpfunc test-octtoint \
-test-hextolfp
+test-hextolfp test-netof
 
 if GTEST_AVAILABLE
 check_PROGRAMS += tests
@@ -64,7 +64,7 @@ tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		lfptostr.cpp		\
 		g_modetoa.cpp		\
 		msyslog.cpp		\
-		netof.cpp		\
+		g_netof.cpp		\
 		g_numtoa.cpp		\
 		g_numtohost.cpp		\
 		g_octtoint.cpp		\
@@ -188,6 +188,14 @@ test_hextolfp_LDADD =                   \
 	$(unity_tests_LDADD)
 	$(NULL)
 
+test_netof_CFLAGS =                  \
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
+
+test_netof_LDADD =                   \
+	$(unity_tests_LDADD)
+	$(NULL)
+
 
 test_a_md5encrypt_CFLAGS =                  \
 	-I$(top_srcdir)/sntp/unity      \
@@ -284,6 +292,12 @@ test_hextolfp_SOURCES =              	\
 	run-test-hextolfp.c              	\
 	$(NULL)
 
+test_netof_SOURCES =              	\
+	netof.c	              	\
+	run-test-netof.c              	\
+	$(NULL)
+
+
 
 test_a_md5encrypt_SOURCES =              	\
 	a_md5encrypt.c	              		\
@@ -336,6 +350,9 @@ $(srcdir)/run-test-octtoint.c: $(srcdir)/octtoint.c $(std_unity_list)
 
 $(srcdir)/run-test-hextolfp.c: $(srcdir)/hextolfp.c $(std_unity_list)
 	$(run_unity) hextolfp.c run-test-hextolfp.c
+
+$(srcdir)/run-test-netof.c: $(srcdir)/netof.c $(std_unity_list)
+	$(run_unity) netof.c run-test-netof.c
 
 $(srcdir)/run-test-a_md5encrypt.c: $(srcdir)/a_md5encrypt.c $(std_unity_list)
 	$(run_unity) a_md5encrypt.c run-test-a_md5encrypt.c
