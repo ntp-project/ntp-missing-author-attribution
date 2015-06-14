@@ -69,7 +69,7 @@ tests_SOURCES =					\
 		g_atouint.cpp		\
 		g_authkeys.cpp		\
 		buftvtots.cpp		\
-		calendar.cpp		\
+		g_calendar.cpp		\
 		g_caljulian.cpp		\
 		caltontp.cpp		\
 		g_calyearstart.cpp	\
@@ -276,6 +276,7 @@ test_calendar_LDADD =				\
 	$(LDADD)				\
 	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
+
 
 
 test_modetoa_SOURCES =			\
