@@ -17,11 +17,31 @@
 //added struct to calendar!
 
 char * CalendarToString(const struct calendar cal) { //&cal
-	char ss[100];
+	char * ss = malloc (sizeof (char) * 100);
 	
-	//ss << cal.year << "-" << (u_int)cal.month << "-" << (u_int)cal.monthday
-	 //  << " (" << cal.yearday << ") " << (u_int)cal.hour << ":"
-	 //  << (u_int)cal.minute << ":" << (u_int)cal.second;
+	char buffer[100] ="";
+	sprintf(buffer, "%u", cal.year);
+	strcat(ss,buffer);
+	strcat(ss,"-");
+	sprintf(buffer, "%u", (u_int)cal.month);
+	strcat(ss,buffer);
+	strcat(ss,"-");
+	sprintf(buffer, "%u", (u_int)cal.monthday);
+	strcat(ss,buffer);
+	strcat(ss," (");
+	sprintf(buffer, "%u", (u_int) cal.yearday);
+	strcat(ss,buffer);
+	strcat(ss,") ");
+	sprintf(buffer, "%u", (u_int)cal.hour);
+	strcat(ss,buffer);
+	strcat(ss,":");
+	sprintf(buffer, "%u", (u_int)cal.minute);
+	strcat(ss,buffer);
+	strcat(ss,":");
+	sprintf(buffer, "%u", (u_int)cal.second);
+	strcat(ss,buffer);
+	printf("AAA %s ",ss);
+	//ss << cal.year << "-" << (u_int)cal.month << "-" << (u_int)cal.monthday << " (" << cal.yearday << ") " << (u_int)cal.hour << ":" << (u_int)cal.minute << ":" << (u_int)cal.second;
 	return ss;
 }
 
