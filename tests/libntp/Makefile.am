@@ -23,8 +23,13 @@ check_PROGRAMS =		\
 	test-calyearstart	\
 	test-clocktime		\
 	test-caljulian		\
-	test-calendar
+	test-calendar		\
+	test-octtoint		\
+	test-hextolfp		\
+	test-netof		\
+	test-socktoa		\
 	$(NULL)
+#test-decodenetnum
 
 if GTEST_AVAILABLE
 check_PROGRAMS += tests
@@ -74,18 +79,18 @@ tests_SOURCES =					\
 		caltontp.cpp		\
 		g_calyearstart.cpp	\
 		g_clocktime.cpp		\
-		decodenetnum.cpp	\
+		g_decodenetnum.cpp	\
 		g_hextoint.cpp		\
-		hextolfp.cpp		\
+		g_hextolfp.cpp		\
 		humandate.cpp		\
 		g_lfpfunc.cpp		\
 		lfptostr.cpp		\
 		g_modetoa.cpp		\
 		msyslog.cpp		\
-		netof.cpp		\
+		g_netof.cpp		\
 		g_numtoa.cpp		\
 		g_numtohost.cpp		\
-		octtoint.cpp		\
+		g_octtoint.cpp		\
 		prettydate.cpp		\
 		recvbuff.cpp		\
 		g_refnumtoa.cpp		\
@@ -192,8 +197,42 @@ test_atoint_LDADD =				\
 	$(unity_tests_LDADD)
 	$(NULL)
 
-test_a_md5encrypt_CFLAGS =			\
-	-I$(top_srcdir)/sntp/unity		\
+test_octtoint_CFLAGS =                  \
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
+
+test_octtoint_LDADD =                   \
+	$(unity_tests_LDADD)
+	$(NULL)
+
+test_hextolfp_CFLAGS =                  \
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
+
+test_hextolfp_LDADD =                   \
+	$(unity_tests_LDADD)
+	$(NULL)
+
+test_netof_CFLAGS =                  \
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
+
+test_netof_LDADD =                   \
+	$(unity_tests_LDADD)
+	$(NULL)
+
+#test_decodenetnum_CFLAGS =                  \
+#	-I$(top_srcdir)/sntp/unity      \
+#	$(NULL)
+#
+#test_decodenetnum_LDADD =                   \
+#	$(unity_tests_LDADD)
+#	$(NULL)
+
+test_socktoa_CFLAGS =                  \
+	-I$(top_srcdir)/sntp/unity      \
+	$(NULL)
+
 	$(NULL)
 
 test_a_md5encrypt_LDADD =			\
@@ -321,9 +360,29 @@ test_atoint_SOURCES =			\
 	run-test-atoint.c		\
 	$(NULL)
 
-test_a_md5encrypt_SOURCES =		\
-	a_md5encrypt.c			\
-	run-test-a_md5encrypt.c		\
+test_octtoint_SOURCES =              	\
+	octtoint.c	              	\
+	run-test-octtoint.c              	\
+	$(NULL)
+
+test_hextolfp_SOURCES =              	\
+	hextolfp.c	              	\
+	run-test-hextolfp.c              	\
+	$(NULL)
+
+test_netof_SOURCES =              	\
+	netof.c	              	\
+	run-test-netof.c              	\
+	$(NULL)
+
+#test_decodenetnum_SOURCES =              	\
+#	decodenetnum.c	              	\
+#	run-test-decodenetnum.c              	\
+#	$(NULL)
+
+test_socktoa_SOURCES =              	\
+	socktoa.c	              	\
+	run-test-socktoa.c              	\
 	$(NULL)
 
 test_atouint_SOURCES =			\
@@ -420,6 +479,21 @@ $(srcdir)/run-test-hextoint.c: $(srcdir)/hextoint.c $(std_unity_list)
 
 $(srcdir)/run-test-atoint.c: $(srcdir)/atoint.c $(std_unity_list)
 	$(run_unity) atoint.c run-test-atoint.c
+
+$(srcdir)/run-test-octtoint.c: $(srcdir)/octtoint.c $(std_unity_list)
+	$(run_unity) octtoint.c run-test-octtoint.c
+
+$(srcdir)/run-test-hextolfp.c: $(srcdir)/hextolfp.c $(std_unity_list)
+	$(run_unity) hextolfp.c run-test-hextolfp.c
+
+$(srcdir)/run-test-netof.c: $(srcdir)/netof.c $(std_unity_list)
+	$(run_unity) netof.c run-test-netof.c
+
+#$(srcdir)/run-test-decodenetnum.c: $(srcdir)/decodenetnum.c $(std_unity_list)
+#	$(run_unity) decodenetnum.c run-test-decodenetnum.c
+
+$(srcdir)/run-test-socktoa.c: $(srcdir)/socktoa.c $(std_unity_list)
+	$(run_unity) socktoa.c run-test-socktoa.c
 
 $(srcdir)/run-test-a_md5encrypt.c: $(srcdir)/a_md5encrypt.c $(std_unity_list)
 	$(run_unity) a_md5encrypt.c run-test-a_md5encrypt.c
