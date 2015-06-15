@@ -28,8 +28,8 @@ check_PROGRAMS =		\
 	test-hextolfp		\
 	test-netof		\
 	test-socktoa		\
+	test-decodenetnum	\
 	$(NULL)
-#test-decodenetnum
 
 if GTEST_AVAILABLE
 check_PROGRAMS += tests
@@ -111,8 +111,10 @@ tests_SOURCES =					\
 
 noinst_HEADERS =	\
 	lfptest.h	\
+	c_lfptest.h	\
 	libntptest.h	\
 	sockaddrtest.h	\
+	c_sockaddrtest.h	\
 	timestructs.h	\
 	test-libntp.h	\
 	$(NULL)
@@ -197,42 +199,48 @@ test_atoint_LDADD =				\
 	$(unity_tests_LDADD)
 	$(NULL)
 
-test_octtoint_CFLAGS =                  \
-	-I$(top_srcdir)/sntp/unity      \
+test_octtoint_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
 	$(NULL)
 
-test_octtoint_LDADD =                   \
-	$(unity_tests_LDADD)
+test_octtoint_LDADD =			\
+	$(unity_tests_LDADD)		\
 	$(NULL)
 
-test_hextolfp_CFLAGS =                  \
-	-I$(top_srcdir)/sntp/unity      \
+test_hextolfp_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
 	$(NULL)
 
-test_hextolfp_LDADD =                   \
-	$(unity_tests_LDADD)
+test_hextolfp_LDADD =			\
+	$(unity_tests_LDADD)		\
 	$(NULL)
 
-test_netof_CFLAGS =                  \
-	-I$(top_srcdir)/sntp/unity      \
+test_netof_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
 	$(NULL)
 
-test_netof_LDADD =                   \
-	$(unity_tests_LDADD)
+test_netof_LDADD =			\
+	$(unity_tests_LDADD)		\
 	$(NULL)
 
-#test_decodenetnum_CFLAGS =                  \
-#	-I$(top_srcdir)/sntp/unity      \
-#	$(NULL)
-#
-#test_decodenetnum_LDADD =                   \
-#	$(unity_tests_LDADD)
-#	$(NULL)
-
-test_socktoa_CFLAGS =                  \
-	-I$(top_srcdir)/sntp/unity      \
+test_decodenetnum_CFLAGS =		\
+	-I$(top_srcdir)/sntp/unity	\
 	$(NULL)
 
+test_decodenetnum_LDADD =		\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
+test_socktoa_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
+	$(NULL)
+
+test_socktoa_LDADD =			\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
+test_a_md5encrypt_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity		\
 	$(NULL)
 
 test_a_md5encrypt_LDADD =			\
@@ -319,7 +327,6 @@ test_calendar_LDADD =				\
 	$(NULL)
 
 
-
 test_modetoa_SOURCES =			\
 	modetoa.c			\
 	run-test-modetoa.c		\
@@ -360,29 +367,34 @@ test_atoint_SOURCES =			\
 	run-test-atoint.c		\
 	$(NULL)
 
-test_octtoint_SOURCES =              	\
-	octtoint.c	              	\
-	run-test-octtoint.c              	\
+test_a_md5encrypt_SOURCES =		\
+	a_md5encrypt.c			\
+	run-test-a_md5encrypt.c		\
 	$(NULL)
 
-test_hextolfp_SOURCES =              	\
-	hextolfp.c	              	\
-	run-test-hextolfp.c              	\
+test_octtoint_SOURCES =			\
+	octtoint.c			\
+	run-test-octtoint.c		\
 	$(NULL)
 
-test_netof_SOURCES =              	\
-	netof.c	              	\
-	run-test-netof.c              	\
+test_hextolfp_SOURCES =			\
+	hextolfp.c			\
+	run-test-hextolfp.c		\
 	$(NULL)
 
-#test_decodenetnum_SOURCES =              	\
-#	decodenetnum.c	              	\
-#	run-test-decodenetnum.c              	\
-#	$(NULL)
+test_netof_SOURCES =			\
+	netof.c				\
+	run-test-netof.c		\
+	$(NULL)
 
-test_socktoa_SOURCES =              	\
-	socktoa.c	              	\
-	run-test-socktoa.c              	\
+test_decodenetnum_SOURCES =		\
+	decodenetnum.c			\
+	run-test-decodenetnum.c		\
+	$(NULL)
+
+test_socktoa_SOURCES =			\
+	socktoa.c			\
+	run-test-socktoa.c		\
 	$(NULL)
 
 test_atouint_SOURCES =			\
@@ -428,10 +440,10 @@ test_caljulian_SOURCES =		\
 	test-libntp.c			\
 	$(NULL)
 
-test_calendar_SOURCES =				\
-	calendar.c				\
-	run-test-calendar.c			\
-	test-libntp.c				\
+test_calendar_SOURCES =			\
+	calendar.c			\
+	run-test-calendar.c		\
+	test-libntp.c			\
 	$(NULL)
 
 
@@ -443,12 +455,17 @@ BUILT_SOURCES +=				\
 	$(srcdir)/run-test-caljulian.c		\
 	$(srcdir)/run-test-calyearstart.c	\
 	$(srcdir)/run-test-clocktime.c		\
+	$(srcdir)/run-test-decodenetnum.c	\
 	$(srcdir)/run-test-hextoint.c		\
+	$(srcdir)/run-test-hextolfp.c		\
 	$(srcdir)/run-test-lfpfunc.c		\
 	$(srcdir)/run-test-modetoa.c		\
+	$(srcdir)/run-test-netof.c		\
 	$(srcdir)/run-test-numtoa.c		\
 	$(srcdir)/run-test-numtohost.c		\
+	$(srcdir)/run-test-octtoint.c		\
 	$(srcdir)/run-test-refnumtoa.c		\
+	$(srcdir)/run-test-socktoa.c		\
 	$(srcdir)/run-test-statestr.c		\
 	$(srcdir)/run-test-uglydate.c		\
 	$(srcdir)/run-test-vi64ops.c		\
@@ -489,8 +506,8 @@ $(srcdir)/run-test-hextolfp.c: $(srcdir)/hextolfp.c $(std_unity_list)
 $(srcdir)/run-test-netof.c: $(srcdir)/netof.c $(std_unity_list)
 	$(run_unity) netof.c run-test-netof.c
 
-#$(srcdir)/run-test-decodenetnum.c: $(srcdir)/decodenetnum.c $(std_unity_list)
-#	$(run_unity) decodenetnum.c run-test-decodenetnum.c
+$(srcdir)/run-test-decodenetnum.c: $(srcdir)/decodenetnum.c $(std_unity_list)
+	$(run_unity) decodenetnum.c run-test-decodenetnum.c
 
 $(srcdir)/run-test-socktoa.c: $(srcdir)/socktoa.c $(std_unity_list)
 	$(run_unity) socktoa.c run-test-socktoa.c

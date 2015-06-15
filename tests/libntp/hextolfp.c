@@ -4,13 +4,6 @@
 #include "unity.h"
 #include "c_lfptest.h"
 
-static const int32 HALF = -2147483647L - 1L;
-static const int32 HALF_PROMILLE_UP = 2147484; // slightly more than 0.0005
-static const int32 HALF_PROMILLE_DOWN = 2147483; // slightly less than 0.0005
-static const int32 QUARTER = 1073741824L;
-static const int32 QUARTER_PROMILLE_APPRX = 1073742L;
-
-
 
 void test_PositiveInteger(void) {
 	const char *str = "00001000.00000000";

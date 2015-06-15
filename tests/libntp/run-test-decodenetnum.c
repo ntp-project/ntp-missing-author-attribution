@@ -26,13 +26,12 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_SingleDigit(void);
-extern void test_MultipleDigits(void);
-extern void test_Zero(void);
-extern void test_MaximumUnsigned32bit(void);
-extern void test_Overflow(void);
-extern void test_IllegalCharacter(void);
-extern void test_IllegalDigit(void);
+extern void test_IPv4AddressOnly(void);
+extern void test_IPv4AddressWithPort(void);
+extern void test_IPv6AddressOnly(void);
+extern void test_IPv6AddressWithPort(void);
+extern void test_IllegalAddress(void);
+extern void test_IllegalCharInPort(void);
 
 
 //=======Test Reset Option=====
@@ -49,15 +48,14 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "octtoint.c";
-  UnityBegin("octtoint.c");
-  RUN_TEST(test_SingleDigit, 8);
-  RUN_TEST(test_MultipleDigits, 17);
-  RUN_TEST(test_Zero, 26);
-  RUN_TEST(test_MaximumUnsigned32bit, 35);
-  RUN_TEST(test_Overflow, 44);
-  RUN_TEST(test_IllegalCharacter, 52);
-  RUN_TEST(test_IllegalDigit, 60);
+  Unity.TestFile = "decodenetnum.c";
+  UnityBegin("decodenetnum.c");
+  RUN_TEST(test_IPv4AddressOnly, 9);
+  RUN_TEST(test_IPv4AddressWithPort, 22);
+  RUN_TEST(test_IPv6AddressOnly, 35);
+  RUN_TEST(test_IPv6AddressWithPort, 55);
+  RUN_TEST(test_IllegalAddress, 75);
+  RUN_TEST(test_IllegalCharInPort, 82);
 
   return (UnityEnd());
 }

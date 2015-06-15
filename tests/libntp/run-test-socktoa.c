@@ -26,13 +26,12 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_SingleDigit(void);
-extern void test_MultipleDigits(void);
-extern void test_Zero(void);
-extern void test_MaximumUnsigned32bit(void);
-extern void test_Overflow(void);
-extern void test_IllegalCharacter(void);
-extern void test_IllegalDigit(void);
+extern void test_IPv4AddressWithPort(void);
+extern void test_IPv6AddressWithPort(void);
+extern void test_ScopedIPv6AddressWithPort(void);
+extern void test_HashEqual(void);
+extern void test_HashNotEqual(void);
+extern void test_IgnoreIPv6Fields(void);
 
 
 //=======Test Reset Option=====
@@ -49,15 +48,14 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "octtoint.c";
-  UnityBegin("octtoint.c");
-  RUN_TEST(test_SingleDigit, 8);
-  RUN_TEST(test_MultipleDigits, 17);
-  RUN_TEST(test_Zero, 26);
-  RUN_TEST(test_MaximumUnsigned32bit, 35);
-  RUN_TEST(test_Overflow, 44);
-  RUN_TEST(test_IllegalCharacter, 52);
-  RUN_TEST(test_IllegalDigit, 60);
+  Unity.TestFile = "socktoa.c";
+  UnityBegin("socktoa.c");
+  RUN_TEST(test_IPv4AddressWithPort, 9);
+  RUN_TEST(test_IPv6AddressWithPort, 16);
+  RUN_TEST(test_ScopedIPv6AddressWithPort, 40);
+  RUN_TEST(test_HashEqual, 65);
+  RUN_TEST(test_HashNotEqual, 73);
+  RUN_TEST(test_IgnoreIPv6Fields, 82);
 
   return (UnityEnd());
 }
