@@ -229,6 +229,7 @@ test_decodenetnum_CFLAGS =		\
 
 test_decodenetnum_LDADD =		\
 	$(unity_tests_LDADD)		\
+	-lpthread			\
 	$(NULL)
 
 test_socktoa_CFLAGS =			\
