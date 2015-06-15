@@ -7,7 +7,8 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 #removed test-libntp
 check_PROGRAMS = test-modetoa test-uglydate test-ymd2yd test-statestr test-numtoa test-numtohost \
 test-hextoint test-atoint test-atouint test-authkeys test-a_md5encrypt test-lfpfunc test-octtoint \
-test-hextolfp test-netof test-decodenetnum
+test-hextolfp test-netof test-socktoa
+#test-decodenetnum
 
 if GTEST_AVAILABLE
 check_PROGRAMS += tests
@@ -196,13 +197,22 @@ test_netof_LDADD =                   \
 	$(unity_tests_LDADD)
 	$(NULL)
 
-test_decodenetnum_CFLAGS =                  \
+#test_decodenetnum_CFLAGS =                  \
+#	-I$(top_srcdir)/sntp/unity      \
+#	$(NULL)
+#
+#test_decodenetnum_LDADD =                   \
+#	$(unity_tests_LDADD)
+#	$(NULL)
+
+test_socktoa_CFLAGS =                  \
 	-I$(top_srcdir)/sntp/unity      \
 	$(NULL)
 
-test_decodenetnum_LDADD =                   \
+test_socktoa_LDADD =                   \
 	$(unity_tests_LDADD)
 	$(NULL)
+
 
 test_a_md5encrypt_CFLAGS =                  \
 	-I$(top_srcdir)/sntp/unity      \
@@ -304,10 +314,16 @@ test_netof_SOURCES =              	\
 	run-test-netof.c              	\
 	$(NULL)
 
-test_decodenetnum_SOURCES =              	\
-	decodenetnum.c	              	\
-	run-test-decodenetnum.c              	\
+#test_decodenetnum_SOURCES =              	\
+#	decodenetnum.c	              	\
+#	run-test-decodenetnum.c              	\
+#	$(NULL)
+
+test_socktoa_SOURCES =              	\
+	socktoa.c	              	\
+	run-test-socktoa.c              	\
 	$(NULL)
+
 
 test_a_md5encrypt_SOURCES =              	\
 	a_md5encrypt.c	              		\
@@ -364,8 +380,11 @@ $(srcdir)/run-test-hextolfp.c: $(srcdir)/hextolfp.c $(std_unity_list)
 $(srcdir)/run-test-netof.c: $(srcdir)/netof.c $(std_unity_list)
 	$(run_unity) netof.c run-test-netof.c
 
-$(srcdir)/run-test-decodenetnum.c: $(srcdir)/decodenetnum.c $(std_unity_list)
-	$(run_unity) decodenetnum.c run-test-decodenetnum.c
+#$(srcdir)/run-test-decodenetnum.c: $(srcdir)/decodenetnum.c $(std_unity_list)
+#	$(run_unity) decodenetnum.c run-test-decodenetnum.c
+
+$(srcdir)/run-test-socktoa.c: $(srcdir)/socktoa.c $(std_unity_list)
+	$(run_unity) socktoa.c run-test-socktoa.c
 
 $(srcdir)/run-test-a_md5encrypt.c: $(srcdir)/a_md5encrypt.c $(std_unity_list)
 	$(run_unity) a_md5encrypt.c run-test-a_md5encrypt.c
