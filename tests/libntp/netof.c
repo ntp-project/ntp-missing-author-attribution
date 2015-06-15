@@ -5,7 +5,7 @@
 //#include "ntp.h"
 //#include "ntp_net.h"
 
-#include "sockaddrtest.h"
+#include "c_sockaddrtest.h"
 
 void test_ClassBAddress(void) {
 	sockaddr_u input = CreateSockaddr4("172.16.2.1", NTP_PORT);
