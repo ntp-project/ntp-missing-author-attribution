@@ -77,6 +77,10 @@ void test_HashNotEqual(void) {
 
 	TEST_ASSERT_FALSE(IsEqual(input1, input2));
 	//TODO : EXPECT_NE(sock_hash(&input1), sock_hash(&input2));
+	//Damir's suggestion below:
+	TEST_ASSERT_FALSE(sock_hash(&input1) == sock_hash(&input2)); 
+	//NOTE: sock_hash returns u_short, so you can compare it with ==
+	//for complex structures you have to write an additional function like bool compare(a,b) 
 }
 
 void test_IgnoreIPv6Fields(void) {

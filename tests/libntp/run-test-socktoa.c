@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
   RUN_TEST(test_ScopedIPv6AddressWithPort, 40);
   RUN_TEST(test_HashEqual, 65);
   RUN_TEST(test_HashNotEqual, 73);
-  RUN_TEST(test_IgnoreIPv6Fields, 82);
+  RUN_TEST(test_IgnoreIPv6Fields, 84);
 
   return (UnityEnd());
 }
