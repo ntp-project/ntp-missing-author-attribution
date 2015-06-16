@@ -35,6 +35,13 @@ typedef struct {
 
 typedef int bool; //TRUE and FALSE are already defined somewhere, so I can't do typedef enum { FALSE, TRUE } boolean;
 
+struct timeval timeval_init( time_t hi, long lo){
+	struct timeval V; 
+	V.tv_sec = hi; 
+	V.tv_usec = lo;
+	return V;
+}
+
 const bool timeval_isValid(struct timeval V)
 	{ return V.tv_usec >= 0 && V.tv_usec < 1000000; }
 
@@ -160,13 +167,6 @@ void test_Helpers1() {
 	}
 }
 
-
-struct timeval timeval_init( time_t hi, long lo){
-	struct timeval V; 
-	V.tv_sec = hi; 
-	V.tv_usec = lo;
-	return V;
-}
 
 //----------------------------------------------------------------------
 // test normalisation
@@ -525,7 +525,7 @@ void test_FromLFPbittest() {
 		TEST_ASSERT_TRUE(AssertTimevalClose(E,r,timevalClose)); //ASSERT_PRED_FORMAT2(TimevalClose, E, r);
 	}
 }
-/*
+
 void test_FromLFPrelPos() {
 	struct timeval timevalClose = timeval_init(0,1);
 	int i = 0;	
@@ -551,7 +551,7 @@ void test_FromLFPrelNeg() {
 		TEST_ASSERT_TRUE(AssertTimevalClose(E,r,timevalClose)); //ASSERT_PRED_FORMAT2(TimevalClose, E, r);
 	}
 }
-*/
+
 // usec -> frac -> usec roundtrip, using a prime start and increment
 void test_LFProundtrip() {
 	int32_t t = -1;
