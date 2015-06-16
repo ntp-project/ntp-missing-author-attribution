@@ -9,8 +9,7 @@
 #include <float.h>
 #include <math.h>
 
-#include <string.h> //
-//#include <sstream>
+#include <string.h>
 
 
 typedef struct  {

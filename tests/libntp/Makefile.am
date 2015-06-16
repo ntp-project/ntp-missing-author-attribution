@@ -29,6 +29,7 @@ check_PROGRAMS =		\
 	test-netof		\
 	test-socktoa		\
 	test-decodenetnum	\
+	test-timevalops		\
 	$(NULL)
 
 if GTEST_AVAILABLE
@@ -101,7 +102,7 @@ tests_SOURCES =					\
 		strtolfp.cpp		\
 		timespecops.cpp		\
 		timestructs.cpp		\
-		timevalops.cpp		\
+		g_timevalops.cpp	\
 		tstotv.cpp		\
 		tvtots.cpp		\
 		g_uglydate.cpp		\
@@ -327,6 +328,15 @@ test_calendar_LDADD =				\
 	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
 
+test_timevalops_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity		\
+	$(NULL)
+
+test_timevalops_LDADD =				\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	$(NULL)
+
 
 test_modetoa_SOURCES =			\
 	modetoa.c			\
@@ -447,6 +457,11 @@ test_calendar_SOURCES =			\
 	test-libntp.c			\
 	$(NULL)
 
+test_timevalops_SOURCES =			\
+	timevalops.c			\
+	run-test-timevalops.c		\
+	$(NULL)
+
 
 BUILT_SOURCES +=				\
 	$(srcdir)/run-test-a_md5encrypt.c	\
@@ -472,6 +487,7 @@ BUILT_SOURCES +=				\
 	$(srcdir)/run-test-vi64ops.c		\
 	$(srcdir)/run-test-ymd2yd.c		\
 	$(srcdir)/run-test-calendar.c		\
+	$(srcdir)/run-test-timevalops.c		\
 	$(NULL)
 
 $(srcdir)/run-test-modetoa.c: $(srcdir)/modetoa.c $(std_unity_list)
@@ -542,6 +558,9 @@ $(srcdir)/run-test-caljulian.c: $(srcdir)/caljulian.c $(std_unity_list)
 
 $(srcdir)/run-test-calendar.c: $(srcdir)/calendar.c $(std_unity_list)
 	$(run_unity) calendar.c run-test-calendar.c
+
+$(srcdir)/run-test-timevalops.c: $(srcdir)/timevalops.c $(std_unity_list)
+	$(run_unity) timevalops.c run-test-timevalops.c
 
 
 TESTS =
