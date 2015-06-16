@@ -15,7 +15,7 @@
 //in unity_helper.h :
 #define TEST_ASSERT_EQUAL_timeval(a, b) { \
     TEST_ASSERT_EQUAL_MESSAGE(a.tv_sec, b.tv_sec, "Field tv_sec"); \
-    TEST_ASSERT_EQUAL_INT64_MESSAGE(a.tv_usec, b.tv_usec, "Field tv_usec");	\
+    TEST_ASSERT_EQUAL_MESSAGE(a.tv_usec, b.tv_usec, "Field tv_usec");	\
 }
 
 //timeval has time_t, long, and time_t is basically uint
