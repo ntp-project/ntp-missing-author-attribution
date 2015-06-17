@@ -11,7 +11,10 @@
 /* microseconds per second */
 #define MICROSECONDS 1000000
 
-int simpleTest( void );
+int simpleTest(void);
+void setUp(void);
+void tearDown(void);
+void test_main(void);
 
 
 static int verbose = 1;        // if not 0, also print results if test passed

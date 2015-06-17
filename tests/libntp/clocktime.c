@@ -1,9 +1,15 @@
 #include "config.h"
 
+#include <stdlib.h>
+
 #include "ntp_calendar.h"
 #include "unity.h"
+#include "ntp_stdlib.h"
+
 
 #include "test-libntp.h"
+
+
 
 // ---------------------------------------------------------------------
 // test fixture
