@@ -31,6 +31,7 @@ check_PROGRAMS =		\
 	test-decodenetnum	\
 	test-timevalops		\
 	test-timespecops	\
+	test-ssl_init		\
 	$(NULL)
 
 if GTEST_AVAILABLE
@@ -98,10 +99,10 @@ tests_SOURCES =					\
 		g_refnumtoa.cpp		\
 		sfptostr.cpp		\
 		socktoa.cpp		\
-		ssl_init.cpp		\
+		g_ssl_init.cpp		\
 		g_statestr.cpp		\
 		strtolfp.cpp		\
-		g_timespecops.cpp		\
+		g_timespecops.cpp	\
 		timestructs.cpp		\
 		g_timevalops.cpp	\
 		tstotv.cpp		\
@@ -347,6 +348,15 @@ test_timespecops_LDADD =				\
 	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
 
+test_ssl_init_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
+	$(NULL)
+
+test_ssl_init_LDADD =				\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	$(NULL)
+
 
 test_modetoa_SOURCES =			\
 	modetoa.c			\
@@ -477,6 +487,12 @@ test_timespecops_SOURCES =			\
 	run-test-timespecops.c		\
 	$(NULL)
 
+test_ssl_init_SOURCES =			\
+	ssl_init.c			\
+	run-test-ssl_init.c		\
+	$(NULL)
+
+
 BUILT_SOURCES +=				\
 	$(srcdir)/run-test-a_md5encrypt.c	\
 	$(srcdir)/run-test-atoint.c		\
@@ -503,6 +519,7 @@ BUILT_SOURCES +=				\
 	$(srcdir)/run-test-calendar.c		\
 	$(srcdir)/run-test-timevalops.c		\
 	$(srcdir)/run-test-timespecops.c	\
+	$(srcdir)/run-test-ssl_init.c		\
 	$(NULL)
 
 $(srcdir)/run-test-modetoa.c: $(srcdir)/modetoa.c $(std_unity_list)
@@ -580,6 +597,8 @@ $(srcdir)/run-test-timevalops.c: $(srcdir)/timevalops.c $(std_unity_list)
 $(srcdir)/run-test-timespecops.c: $(srcdir)/timespecops.c $(std_unity_list)
 	$(run_unity) timespecops.c run-test-timespecops.c
 
+$(srcdir)/run-test-ssl_init.c: $(srcdir)/ssl_init.c $(std_unity_list)
+	$(run_unity) ssl_init.c run-test-ssl_init.c
 
 TESTS =
 
