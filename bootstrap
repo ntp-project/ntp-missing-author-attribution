@@ -71,13 +71,13 @@ AUTORECONF=${AUTORECONF:-autoreconf}
 # the ruby generator must be older than the test files.
 # the test files must be older than the runner files.
 
-runner_files=`find [B-Za-z]* -type f -name 'run-test-*' -print | fgrep -v /SCCS/`
+runner_files=`find [B-Za-z]* -type f -name 'run-*' -print | fgrep -v /SCCS/`
 l=
 lt=
 lr=
 for f in ${runner_files}
 do
-    fb=`echo $f | sed -e 's/run-test-//'`
+    fb=`echo $f | sed -e 's/run-//'`
     lt="$lt $fb"
     lr="$lr $f"		# Yes, lr and runner_files are eventually the same
 done

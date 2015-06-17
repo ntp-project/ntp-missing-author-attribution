@@ -31,12 +31,12 @@ AM_CPPFLAGS += $(CPPFLAGS_NTP)
 AM_LDFLAGS = $(LDFLAGS_NTP)
 
 bug_2803_SOURCES = 			\
+	bug-2803.c			\
 	run-bug-2803.c			\
-	ut-2803.c			\
 	$(NULL)
 
-$(srcdir)/run-bug-2803.c: $(srcdir)/ut-2803.c $(std_unity_list)
-	$(run_unity) ut-2803.c run-bug-2803.c
+$(srcdir)/run-bug-2803.c: $(srcdir)/bug-2803.c $(std_unity_list)
+	$(run_unity) bug-2803.c run-bug-2803.c
 
 # HMS: we may not need some of these:
 #noinst_HEADERS =	ntpdtest.h	\
