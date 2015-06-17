@@ -28,4 +28,5 @@ protected:
 	static const int32 QUARTER_PROMILLE_APPRX = 1073742L;
 };
 
-#endif /* NTP_TESTS_LFPTEST_H */
+#endif
+/* NTP_TESTS_LFPTEST_H */

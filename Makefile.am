@@ -53,7 +53,6 @@ EXTRA_DIST =			\
 	lib/isc			\
 	libjsmn			\
 	ports			\
-	tests/unity-framework	\
 	\
 	deps-ver		\
 	\

@@ -26,15 +26,8 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_AdditionLR();
-extern void test_AdditionRL();
-extern void test_SubtractionLR();
-extern void test_SubtractionRL();
-extern void test_Negation();
-extern void test_Absolute();
-extern void test_FDF_RoundTrip();
-extern void test_SignedRelOps();
-extern void test_UnsignedRelOps();
+extern void test_LocalClock();
+extern void test_UnknownId();
 
 
 //=======Test Reset Option=====
@@ -51,17 +44,10 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "lfpfunc.c";
-  UnityBegin("lfpfunc.c");
-  RUN_TEST(test_AdditionLR, 318);
-  RUN_TEST(test_AdditionRL, 336);
-  RUN_TEST(test_SubtractionLR, 354);
-  RUN_TEST(test_SubtractionRL, 368);
-  RUN_TEST(test_Negation, 385);
-  RUN_TEST(test_Absolute, 404);
-  RUN_TEST(test_FDF_RoundTrip, 435);
-  RUN_TEST(test_SignedRelOps, 466);
-  RUN_TEST(test_UnsignedRelOps, 509);
+  Unity.TestFile = "refnumtoa.c";
+  UnityBegin("refnumtoa.c");
+  RUN_TEST(test_LocalClock, 12);
+  RUN_TEST(test_UnknownId, 40);
 
   return (UnityEnd());
 }
