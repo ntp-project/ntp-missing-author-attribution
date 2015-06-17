@@ -2,16 +2,21 @@ NULL =
 BUILT_SOURCES =
 CLEANFILES =
 
-run_unity =	cd $(srcdir) && ruby /unity/auto/generate_test_runner.rb
+run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
 check_PROGRAMS = 		\
 	test-networking		\
 	$(NULL)
 
-#maybe an issue where with if GTEST...
-if BUILD_SNTP
+if GTEST_AVAILABLE
 check_PROGRAMS += tests
+else
+EXTRA_PROGRAMS = tests
 endif
+
+#if BUILD_SNTP
+#check_PROGRAMS += tests
+#endif
 
 base_SOURCES =				\
 	$(srcdir)/../tests_main.cpp	\
@@ -31,6 +36,7 @@ tests_SOURCES =			\
 
 noinst_HEADERS =		\
 	sntptest.h		\
+	c_sntptest.h		\
 	fileHandlingTest.h	\
 	$(NULL)
 
@@ -93,16 +99,16 @@ AM_LDFLAGS = $(LDFLAGS_NTP)
 
 
 test_networking_CFLAGS =			\
-	-I$(top_srcdir)/sntp/unity	\
+	-I$(top_srcdir)/unity			\
 	$(NULL)
 
 test_networking_LDADD =				\
 	$(LDADD)				\
-	$(top_builddir)/sntp/unity/libunity.a	\
+	$(top_builddir)/unity/libunity.a	\
 	$(NULL)
 
 BUILT_SOURCES +=					\
-	$(run_unity) networking.c run-test-networking.c	\
+	$(srcdir)/networking.c run-test-networking.c	\
 	$(NULL)
 
 test_networking_SOURCES =			\
@@ -116,8 +122,11 @@ $(srcdir)/run-test-networking.c: $(srcdir)/networking.c $(std_unity_list)
 TESTS = 
 
 if !NTP_CROSSCOMPILE
-TESTS += tests-runner
+TESTS += $(check_PROGRAMS)
 endif
+#if !NTP_CROSSCOMPILE
+#TESTS += tests-runner
+#endif
 
 ## ensure ../libsntp.a is built
 
@@ -133,14 +142,20 @@ check-libsntp: ../libsntp.a
 ## check-libntp.mf - automake fragment
 ## slightly adapted for deeper directory
 
-BUILT_SOURCES	+= check-libntp
-CLEANFILES	+= check-libntp
+BUILT_SOURCES	+= check-libntp check-libunity
+CLEANFILES	+= check-libntp	check-libunity
 
 check-libntp: ../../libntp/libntp.a
 	@echo stamp > $@
 
 ../../libntp/libntp.a:
 	cd ../../libntp && $(MAKE) $(AM_MAKEFLAGS) libntp.a
+
+check-libunity: ../sntp/unity/libunity.a
+	@echo stamp > $@
+
+../sntp/unity/libunity.a:
+	cd ../unity && $(MAKE) $(AM_MAKEFLAGS) libunity.a
 
 include $(top_srcdir)/depsver.mf
 include $(top_srcdir)/includes.mf
