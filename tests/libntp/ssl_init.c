@@ -36,7 +36,8 @@ void test_SHA1KeyTypeWithDigestLength() {
 	TEST_ASSERT_EQUAL(NID_sha, keytype_from_text("SHA", &digestLength));
 	TEST_ASSERT_EQUAL(expected, digestLength);
 	/* OPENSSL */
-#else TEST_IGNORE_MESSAGE("Skipping because OPENSSL isn't defined");
+#else 
+	TEST_IGNORE_MESSAGE("Skipping because OPENSSL isn't defined");
 #endif
 }
 

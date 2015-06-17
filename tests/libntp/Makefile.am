@@ -24,6 +24,7 @@ check_PROGRAMS =		\
 	test-numtohost		\
 	test-octtoint		\
 	test-refnumtoa		\
+	test-ssl_init		\
 	test-socktoa		\
 	test-statestr		\
 	test-timespecops	\
@@ -31,7 +32,6 @@ check_PROGRAMS =		\
 	test-uglydate		\
 	test-vi64ops		\
 	test-ymd2yd		\
-	test-ssl_init		\
 	$(NULL)
 
 if GTEST_AVAILABLE
@@ -99,7 +99,7 @@ tests_SOURCES =					\
 	g_refnumtoa.cpp		\
 	sfptostr.cpp		\
 	socktoa.cpp		\
-	ssl_init.cpp		\
+	g_ssl_init.cpp		\
 	g_statestr.cpp		\
 	strtolfp.cpp		\
 	g_timespecops.cpp	\
@@ -130,14 +130,15 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-numtohost.c	\
 	$(srcdir)/run-octtoint.c	\
 	$(srcdir)/run-refnumtoa.c	\
+	$(srcdir)/run-ssl_init.c	\
 	$(srcdir)/run-socktoa.c		\
 	$(srcdir)/run-statestr.c	\
+	$(srcdir)/run-timevalops.c	\
+	$(srcdir)/run-timespecops.c	\
 	$(srcdir)/run-uglydate.c	\
 	$(srcdir)/run-vi64ops.c		\
 	$(srcdir)/run-ymd2yd.c		\
 	$(srcdir)/run-calendar.c	\
-	$(srcdir)/run-timevalops.c	\
-	$(srcdir)/run-timespecops.c	\
 	$(NULL)
 
 noinst_HEADERS =	\
@@ -376,8 +377,8 @@ test_timespecops_LDADD =			\
 	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
 
-test_ssl_init_CFLAGS =			\
-	-I$(top_srcdir)/sntp/unity	\
+test_ssl_init_CFLAGS =				\
+	-I$(top_srcdir)/sntp/unity		\
 	$(NULL)
 
 test_ssl_init_LDADD =				\
@@ -513,8 +514,13 @@ test_timevalops_SOURCES =		\
 test_timespecops_SOURCES =		\
 	timespecops.c			\
 	run-timespecops.c		\
-	$(srcdir)/run-test-ssl_init.c		\
 	$(NULL)
+
+test_ssl_init_SOURCES =			\
+	ssl_init.c			\
+	run-ssl_init.c			\
+	$(NULL)
+
 
 $(srcdir)/run-modetoa.c: $(srcdir)/modetoa.c $(std_unity_list)
 	$(run_unity) modetoa.c run-modetoa.c
@@ -591,8 +597,8 @@ $(srcdir)/run-timevalops.c: $(srcdir)/timevalops.c $(std_unity_list)
 $(srcdir)/run-timespecops.c: $(srcdir)/timespecops.c $(std_unity_list)
 	$(run_unity) timespecops.c run-timespecops.c
 
-$(srcdir)/run-test-ssl_init.c: $(srcdir)/ssl_init.c $(std_unity_list)
-	$(run_unity) ssl_init.c run-test-ssl_init.c
+$(srcdir)/run-ssl_init.c: $(srcdir)/ssl_init.c $(std_unity_list)
+	$(run_unity) ssl_init.c run-ssl_init.c
 
 TESTS =
 

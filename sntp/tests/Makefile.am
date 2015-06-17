@@ -101,6 +101,12 @@ AM_CPPFLAGS += $(CPPFLAGS_NTP)
 AM_LDFLAGS = $(LDFLAGS_NTP)
 
 
+BUILT_SOURCES +=					\
+	$(srcdir)/networking.c run-networking.c		\
+	$(srcdir)/kodDatabase.c run-kodDatabase.c	\
+	$(srcdir)/run-keyFile.c				\
+	$(NULL)
+
 test_networking_CFLAGS =			\
 	-I$(top_srcdir)/unity			\
 	$(NULL)
@@ -113,8 +119,8 @@ test_kodDatabase_CFLAGS =		\
 	-I$(top_srcdir)/unity		\
 	$(NULL)
 
-test_kodDatabase_LDADD =			\
-	$(unity_tests_LDADD)			\
+test_kodDatabase_LDADD =		\
+	$(unity_tests_LDADD)		\
 	$(NULL)
 
 test_keyFile_CFLAGS =			\
@@ -125,39 +131,34 @@ test_keyFile_LDADD =			\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
-BUILT_SOURCES +=					\
-	$(srcdir)/networking.c run-test-networking.c	\
-	$(srcdir)/kodDatabase.c run-test-kodDatabase.c	\
-	$(srcdir)/run-test-keyFile.c			\
-	$(NULL)
 
 test_networking_SOURCES =		\
 	networking.c			\
-	run-test-networking.c		\
+	run-networking.c		\
 	$(NULL)
 
 test_kodDatabase_SOURCES =		\
 	kodDatabase.c			\
-	run-test-kodDatabase.c		\
+	run-kodDatabase.c		\
 	../version.c			\
 	$(NULL)
 
 test_keyFile_SOURCES =			\
 	keyFile.c			\
-	run-test-keyFile.c		\
+	run-keyFile.c		\
 	$(NULL)
 
-$(srcdir)/run-test-networking.c: $(srcdir)/networking.c $(std_unity_list)
-	$(run_unity) networking.c run-test-networking.c
+$(srcdir)/run-networking.c: $(srcdir)/networking.c $(std_unity_list)
+	$(run_unity) networking.c run-networking.c
 
-$(srcdir)/run-test-kodDatabase.c: $(srcdir)/kodDatabase.c $(std_unity_list)
-	$(run_unity) kodDatabase.c run-test-kodDatabase.c
+$(srcdir)/run-kodDatabase.c: $(srcdir)/kodDatabase.c $(std_unity_list)
+	$(run_unity) kodDatabase.c run-kodDatabase.c
 
 #$(srcdir)/../version.c: $(srcdir)/../version.c
 #	gcc -o version.o ../version.c
 
-$(srcdir)/run-test-keyFile.c: $(srcdir)/keyFile.c $(std_unity_list)
-	$(run_unity) keyFile.c run-test-keyFile.c
+$(srcdir)/run-keyFile.c: $(srcdir)/keyFile.c $(std_unity_list)
+	$(run_unity) keyFile.c run-keyFile.c
 
 TESTS = 
 
