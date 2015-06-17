@@ -27,9 +27,9 @@ tests_SOURCES =			\
 	$(base_SOURCES)		\
 	crypto.cpp		\
 	keyFile.cpp		\
-	kodDatabase.cpp		\
+	g_kodDatabase.cpp		\
 	kodFile.cpp		\
-	networking.cpp		\
+	g_networking.cpp		\
 	packetHandling.cpp	\
 	packetProcessing.cpp	\
 	utilities.cpp		\
