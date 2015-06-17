@@ -31,6 +31,8 @@ check_PROGRAMS =		\
 	test-decodenetnum	\
 	test-timevalops		\
 	test-timespecops	\
+	test-strtolfp       \
+	test-lfptostr       \
 	$(NULL)
 
 if GTEST_AVAILABLE
@@ -86,7 +88,7 @@ tests_SOURCES =					\
 		g_hextolfp.cpp		\
 		humandate.cpp		\
 		g_lfpfunc.cpp		\
-		lfptostr.cpp		\
+		g_lfptostr.cpp		\
 		g_modetoa.cpp		\
 		msyslog.cpp		\
 		g_netof.cpp		\
@@ -97,10 +99,10 @@ tests_SOURCES =					\
 		recvbuff.cpp		\
 		g_refnumtoa.cpp		\
 		sfptostr.cpp		\
-		socktoa.cpp		\
+		g_socktoa.cpp		\
 		ssl_init.cpp		\
 		g_statestr.cpp		\
-		strtolfp.cpp		\
+		g_strtolfp.cpp		\
 		g_timespecops.cpp		\
 		timestructs.cpp		\
 		g_timevalops.cpp	\
@@ -241,6 +243,23 @@ test_socktoa_CFLAGS =			\
 test_socktoa_LDADD =			\
 	$(unity_tests_LDADD)		\
 	$(NULL)
+
+test_strtolfp_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
+	$(NULL)
+
+test_strtolfp_LDADD =			\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
+test_lfptostr_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
+	$(NULL)
+
+test_lfptostr_LDADD =			\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
 
 test_a_md5encrypt_CFLAGS =			\
 	-I$(top_srcdir)/sntp/unity		\
@@ -418,6 +437,17 @@ test_socktoa_SOURCES =			\
 	run-test-socktoa.c		\
 	$(NULL)
 
+test_strtolfp_SOURCES =			\
+	strtolfp.c			\
+	run-test-strtolfp.c		\
+	$(NULL)
+
+test_lfptostr_SOURCES =			\
+	lfptostr.c			\
+	run-test-lfptostr.c		\
+	$(NULL)
+
+
 test_atouint_SOURCES =			\
 	atouint.c			\
 	run-test-atouint.c		\
@@ -489,6 +519,7 @@ BUILT_SOURCES +=				\
 	$(srcdir)/run-test-hextoint.c		\
 	$(srcdir)/run-test-hextolfp.c		\
 	$(srcdir)/run-test-lfpfunc.c		\
+	$(srcdir)/run-test-lfptostr.c		\
 	$(srcdir)/run-test-modetoa.c		\
 	$(srcdir)/run-test-netof.c		\
 	$(srcdir)/run-test-numtoa.c		\
@@ -496,6 +527,7 @@ BUILT_SOURCES +=				\
 	$(srcdir)/run-test-octtoint.c		\
 	$(srcdir)/run-test-refnumtoa.c		\
 	$(srcdir)/run-test-socktoa.c		\
+	$(srcdir)/run-test-strtolfp.c		\
 	$(srcdir)/run-test-statestr.c		\
 	$(srcdir)/run-test-uglydate.c		\
 	$(srcdir)/run-test-vi64ops.c		\
@@ -543,6 +575,12 @@ $(srcdir)/run-test-decodenetnum.c: $(srcdir)/decodenetnum.c $(std_unity_list)
 
 $(srcdir)/run-test-socktoa.c: $(srcdir)/socktoa.c $(std_unity_list)
 	$(run_unity) socktoa.c run-test-socktoa.c
+
+$(srcdir)/run-test-strtolfp.c: $(srcdir)/strtolfp.c $(std_unity_list)
+	$(run_unity) strtolfp.c run-test-strtolfp.c
+
+$(srcdir)/run-test-lfptostr.c: $(srcdir)/lfptostr.c $(std_unity_list)
+	$(run_unity) lfptostr.c run-test-lfptostr.c
 
 $(srcdir)/run-test-a_md5encrypt.c: $(srcdir)/a_md5encrypt.c $(std_unity_list)
 	$(run_unity) a_md5encrypt.c run-test-a_md5encrypt.c
