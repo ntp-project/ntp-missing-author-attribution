@@ -6,8 +6,9 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
 check_PROGRAMS = 		\
 	test-networking		\
-	test-kodDatabase	\
+	test-kodDatabase
 	$(NULL)
+#	test-keyFile
 
 if GTEST_AVAILABLE
 check_PROGRAMS += tests
@@ -116,10 +117,18 @@ test_kodDatabase_LDADD =			\
 	$(unity_tests_LDADD)			\
 	$(NULL)
 
+test_keyFile_CFLAGS =			\
+	-I$(top_srcdir)/unity		\
+	$(NULL)
+
+test_keyFile_LDADD =			\
+	$(unity_tests_LDADD)		\
+	$(NULL)
 
 BUILT_SOURCES +=					\
 	$(srcdir)/networking.c run-test-networking.c	\
 	$(srcdir)/kodDatabase.c run-test-kodDatabase.c	\
+	$(srcdir)/run-test-keyFile.c			\
 	$(NULL)
 
 test_networking_SOURCES =		\
@@ -133,6 +142,11 @@ test_kodDatabase_SOURCES =		\
 	../version.c			\
 	$(NULL)
 
+test_keyFile_SOURCES =			\
+	keyFile.c			\
+	run-test-keyFile.c		\
+	$(NULL)
+
 $(srcdir)/run-test-networking.c: $(srcdir)/networking.c $(std_unity_list)
 	$(run_unity) networking.c run-test-networking.c
 
@@ -141,6 +155,9 @@ $(srcdir)/run-test-kodDatabase.c: $(srcdir)/kodDatabase.c $(std_unity_list)
 
 #$(srcdir)/../version.c: $(srcdir)/../version.c
 #	gcc -o version.o ../version.c
+
+$(srcdir)/run-test-keyFile.c: $(srcdir)/keyFile.c $(std_unity_list)
+	$(run_unity) keyFile.c run-test-keyFile.c
 
 TESTS = 
 
