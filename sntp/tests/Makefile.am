@@ -6,6 +6,7 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
 check_PROGRAMS = 		\
 	test-networking		\
+	test-kodDatabase	\
 	$(NULL)
 
 if GTEST_AVAILABLE
@@ -38,6 +39,7 @@ noinst_HEADERS =		\
 	sntptest.h		\
 	c_sntptest.h		\
 	fileHandlingTest.h	\
+	c_fileHandlingTest.h	\
 	$(NULL)
 
 dist_check_SCRIPTS =	tests-runner
@@ -81,7 +83,7 @@ LDADD =						\
 
 unity_tests_LDADD =				\
 	$(LDADD)				\
-	$(top_builddir)/sntp/unity/libunity.a	\
+	$(top_builddir)/unity/libunity.a	\
 	$(NULL)
 
 AM_CFLAGS   = $(CFLAGS_NTP)
@@ -103,21 +105,42 @@ test_networking_CFLAGS =			\
 	$(NULL)
 
 test_networking_LDADD =				\
-	$(LDADD)				\
-	$(top_builddir)/unity/libunity.a	\
+	$(unity_tests_LDADD)			\
 	$(NULL)
+
+test_kodDatabase_CFLAGS =		\
+	-I$(top_srcdir)/unity		\
+	$(NULL)
+
+test_kodDatabase_LDADD =			\
+	$(unity_tests_LDADD)			\
+	$(NULL)
+
 
 BUILT_SOURCES +=					\
 	$(srcdir)/networking.c run-test-networking.c	\
+	$(srcdir)/kodDatabase.c run-test-kodDatabase.c	\
 	$(NULL)
 
-test_networking_SOURCES =			\
+test_networking_SOURCES =		\
 	networking.c			\
 	run-test-networking.c		\
 	$(NULL)
 
+test_kodDatabase_SOURCES =		\
+	kodDatabase.c			\
+	run-test-kodDatabase.c		\
+	../version.c			\
+	$(NULL)
+
 $(srcdir)/run-test-networking.c: $(srcdir)/networking.c $(std_unity_list)
 	$(run_unity) networking.c run-test-networking.c
+
+$(srcdir)/run-test-kodDatabase.c: $(srcdir)/kodDatabase.c $(std_unity_list)
+	$(run_unity) kodDatabase.c run-test-kodDatabase.c
+
+#$(srcdir)/../version.c: $(srcdir)/../version.c
+#	gcc -o version.o ../version.c
 
 TESTS = 
 
