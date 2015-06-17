@@ -1,7 +1,14 @@
 NULL =
 BUILT_SOURCES =
+CLEANFILES =
 
-check_PROGRAMS = 
+run_unity =	cd $(srcdir) && ruby /unity/auto/generate_test_runner.rb
+
+check_PROGRAMS = 		\
+	test-networking		\
+	$(NULL)
+
+#maybe an issue where with if GTEST...
 if BUILD_SNTP
 check_PROGRAMS += tests
 endif
@@ -54,6 +61,7 @@ CLEANFILES =				\
 	data/debug-output-lfp-bin	\
 	$(NULL)
 
+#split into LDADD and tests_LDADD?
 LDADD =						\
 	../libsntp.a				\
 	$(LIBOPTS_LDADD)			\
@@ -63,6 +71,11 @@ LDADD =						\
 	$(LDADD_NTP)				\
 	$(GTEST_LDFLAGS)			\
 	$(GTEST_LIBS)				\
+	$(NULL)
+
+unity_tests_LDADD =				\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
 
 AM_CFLAGS   = $(CFLAGS_NTP)
@@ -77,6 +90,28 @@ AM_CPPFLAGS += $(GTEST_CPPFLAGS)
 AM_CPPFLAGS += $(CPPFLAGS_NTP)
 
 AM_LDFLAGS = $(LDFLAGS_NTP)
+
+
+test_networking_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
+	$(NULL)
+
+test_networking_LDADD =				\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	$(NULL)
+
+BUILT_SOURCES +=					\
+	$(run_unity) networking.c run-test-networking.c	\
+	$(NULL)
+
+test_networking_SOURCES =			\
+	networking.c			\
+	run-test-networking.c		\
+	$(NULL)
+
+$(srcdir)/run-test-networking.c: $(srcdir)/networking.c $(std_unity_list)
+	$(run_unity) networking.c run-test-networking.c
 
 TESTS = 
 
