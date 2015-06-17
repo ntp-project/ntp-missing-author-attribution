@@ -26,7 +26,9 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_main(void );
+extern void test_ParseVUI64_pos();
+extern void test_ParseVUI64_neg();
+extern void test_ParseVUI64_case();
 
 
 //=======Test Reset Option=====
@@ -43,9 +45,11 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "ut-2803.c";
-  UnityBegin("ut-2803.c");
-  RUN_TEST(test_main, 117);
+  Unity.TestFile = "vi64ops.c";
+  UnityBegin("vi64ops.c");
+  RUN_TEST(test_ParseVUI64_pos, 33);
+  RUN_TEST(test_ParseVUI64_neg, 47);
+  RUN_TEST(test_ParseVUI64_case, 60);
 
   return (UnityEnd());
 }

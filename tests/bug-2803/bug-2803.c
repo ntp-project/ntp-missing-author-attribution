@@ -6,8 +6,12 @@
 #include <ntp_fp.h>
 #include <timevalops.h>
 
+#include "unity.h"
+
 /* microseconds per second */
 #define MICROSECONDS 1000000
+
+int simpleTest( void );
 
 
 static int verbose = 1;        // if not 0, also print results if test passed
@@ -18,8 +22,7 @@ static int exit_on_err = 0;    // if not 0, exit if test failed
  * Test function calling the old and new code mentioned in
  * http://bugs.ntp.org/show_bug.cgi?id=2803#c22
  */
-static
-int do_test( struct timeval timetv, struct timeval tvlast )
+static int do_test( struct timeval timetv, struct timeval tvlast )
 {
 	struct timeval tvdiff_old;
 	struct timeval tvdiff_new;
@@ -85,7 +88,7 @@ int test_loop( long long start_sec, long start_usec,
 
 
 
-int main2( void )
+int simpleTest( void )
 {
 
 	// loop from {0.0} to {1.1000000} stepping by tv_sec by 1 and tv_usec by 100000
@@ -97,3 +100,21 @@ int main2( void )
 	return 0;
 }
 
+
+
+
+
+void setUp(void)
+{
+  
+}
+
+void tearDown(void)
+{
+}
+
+
+void test_main( void )
+{
+	TEST_ASSERT_EQUAL(0, simpleTest());
+}

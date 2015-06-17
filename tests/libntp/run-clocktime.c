@@ -26,7 +26,14 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_main(void );
+extern void test_CurrentYear();
+extern void test_CurrentYearFuzz();
+extern void test_TimeZoneOffset();
+extern void test_WrongYearStart();
+extern void test_PreviousYear();
+extern void test_NextYear();
+extern void test_NoReasonableConversion();
+extern void test_AlwaysInLimit();
 
 
 //=======Test Reset Option=====
@@ -43,9 +50,16 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "ut-2803.c";
-  UnityBegin("ut-2803.c");
-  RUN_TEST(test_main, 117);
+  Unity.TestFile = "clocktime.c";
+  UnityBegin("clocktime.c");
+  RUN_TEST(test_CurrentYear, 30);
+  RUN_TEST(test_CurrentYearFuzz, 45);
+  RUN_TEST(test_TimeZoneOffset, 67);
+  RUN_TEST(test_WrongYearStart, 87);
+  RUN_TEST(test_PreviousYear, 106);
+  RUN_TEST(test_NextYear, 125);
+  RUN_TEST(test_NoReasonableConversion, 143);
+  RUN_TEST(test_AlwaysInLimit, 165);
 
   return (UnityEnd());
 }

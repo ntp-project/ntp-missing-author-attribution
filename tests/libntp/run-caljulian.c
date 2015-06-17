@@ -26,8 +26,10 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_modetoa(void);
-extern void test_uglydate(void);
+extern void test_RegularTime();
+extern void test_LeapYear();
+extern void test_uLongBoundary();
+extern void test_uLongWrapped();
 
 
 //=======Test Reset Option=====
@@ -37,14 +39,19 @@ void resetTest()
   setUp();
 }
 
+char *progname;
+
 
 //=======MAIN=====
-int main(void)
+int main(int argc, char *argv[])
 {
-  Unity.TestFile = "test-libntp.c";
-  UnityBegin("");
-  RUN_TEST(test_modetoa, 24);
-  RUN_TEST(test_uglydate, 33);
+  progname = argv[0];
+  Unity.TestFile = "caljulian.c";
+  UnityBegin("caljulian.c");
+  RUN_TEST(test_RegularTime, 71);
+  RUN_TEST(test_LeapYear, 82);
+  RUN_TEST(test_uLongBoundary, 93);
+  RUN_TEST(test_uLongWrapped, 104);
 
   return (UnityEnd());
 }

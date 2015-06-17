@@ -16,17 +16,17 @@ LDADD =					\
 	$(LDADD_NTP)			\
 	$(NULL)
 
-AM_CFLAGS   = $(CFLAGS_NTP)
+AM_CFLAGS	= $(CFLAGS_NTP)
 
 # HMS: we may not need some of these:
-AM_CPPFLAGS  = $(NTP_INCS)
+AM_CPPFLAGS	= $(NTP_INCS)
 AM_CPPFLAGS += -I$(top_srcdir)/sntp/unity
 AM_CPPFLAGS += -I$(top_srcdir)/include
 AM_CPPFLAGS += $(CPPFLAGS_NTP)
 
 AM_LDFLAGS = $(LDFLAGS_NTP)
 
-bug_2803_SOURCES = 			\
+bug_2803_SOURCES =			\
 	bug-2803.c			\
 	run-ut-2803.c			\
 	ut-2803.c			\
@@ -34,27 +34,26 @@ bug_2803_SOURCES = 			\
 
 $(srcdir)/run-ut-2803.c: $(srcdir)/ut-2803.c $(std_unity_list)
 	$(run_unity) ut-2803.c run-ut-2803.c
+BUILT_SOURCES	+= run-ut-2803.c
 
-first_test_SOURCES =   			\
-	uglydate.c			\
-	run-first-test.c		\
+first_test_SOURCES =		\
+	uglydate.c		\
+	run-uglydate.c		\
 	$(NULL)
 
-$(srcdir)/run-first-test.c: $(srcdir)/uglydate.c $(std_unity_list)
-	$(run_unity) uglydate.c run-first-test.c
+$(srcdir)/run-uglydate.c: $(srcdir)/uglydate.c $(std_unity_list)
+	$(run_unity) uglydate.c run-uglydate.c
+BUILT_SOURCES	+= run-uglydate.c
 
-second_test_SOURCES =                    \
-        modetoa.c                      \
-        run-second-test.c                \
-        $(NULL)
+second_test_SOURCES =		\
+	modetoa.c		\
+	run-modetoa.c		\
+	$(NULL)
 
-$(srcdir)/run-second-test.c: $(srcdir)/modetoa.c $(std_unity_list)
-	$(run_unity) modetoa.c run-second-test.c
+$(srcdir)/run-modetoa.c: $(srcdir)/modetoa.c $(std_unity_list)
+	$(run_unity) modetoa.c run-modetoa.c
+BUILT_SOURCES	+= run-modetoa.c
 
-
-# HMS: we may not need some of these:
-#noinst_HEADERS =	ntpdtest.h	\
-#			$(NULL)
 
 TESTS =
 

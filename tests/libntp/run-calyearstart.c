@@ -26,7 +26,9 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_main(void );
+extern void test_NoWrapInDateRange();
+extern void test_NoWrapInDateRangeLeapYear();
+extern void test_WrapInDateRange();
 
 
 //=======Test Reset Option=====
@@ -43,9 +45,11 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "ut-2803.c";
-  UnityBegin("ut-2803.c");
-  RUN_TEST(test_main, 117);
+  Unity.TestFile = "calyearstart.c";
+  UnityBegin("calyearstart.c");
+  RUN_TEST(test_NoWrapInDateRange, 22);
+  RUN_TEST(test_NoWrapInDateRangeLeapYear, 30);
+  RUN_TEST(test_WrapInDateRange, 38);
 
   return (UnityEnd());
 }

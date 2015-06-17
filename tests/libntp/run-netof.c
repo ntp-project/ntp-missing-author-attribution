@@ -26,7 +26,10 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_main(void );
+extern void test_ClassBAddress(void);
+extern void test_ClassCAddress(void);
+extern void test_ClassAAddress(void);
+extern void test_IPv6Address(void);
 
 
 //=======Test Reset Option=====
@@ -43,9 +46,12 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "ut-2803.c";
-  UnityBegin("ut-2803.c");
-  RUN_TEST(test_main, 117);
+  Unity.TestFile = "netof.c";
+  UnityBegin("netof.c");
+  RUN_TEST(test_ClassBAddress, 10);
+  RUN_TEST(test_ClassCAddress, 20);
+  RUN_TEST(test_ClassAAddress, 30);
+  RUN_TEST(test_IPv6Address, 43);
 
   return (UnityEnd());
 }

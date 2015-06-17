@@ -26,7 +26,12 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_main(void );
+extern void test_PositiveInteger(void);
+extern void test_NegativeInteger(void);
+extern void test_PositiveFraction(void);
+extern void test_NegativeFraction(void);
+extern void test_IllegalNumberOfInteger(void);
+extern void test_IllegalChar(void);
 
 
 //=======Test Reset Option=====
@@ -43,9 +48,14 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "ut-2803.c";
-  UnityBegin("ut-2803.c");
-  RUN_TEST(test_main, 117);
+  Unity.TestFile = "hextolfp.c";
+  UnityBegin("hextolfp.c");
+  RUN_TEST(test_PositiveInteger, 8);
+  RUN_TEST(test_NegativeInteger, 18);
+  RUN_TEST(test_PositiveFraction, 28);
+  RUN_TEST(test_NegativeFraction, 38);
+  RUN_TEST(test_IllegalNumberOfInteger, 48);
+  RUN_TEST(test_IllegalChar, 55);
 
   return (UnityEnd());
 }

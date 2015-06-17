@@ -26,7 +26,12 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_main(void );
+extern void test_IPv4AddressWithPort(void);
+extern void test_IPv6AddressWithPort(void);
+extern void test_ScopedIPv6AddressWithPort(void);
+extern void test_HashEqual(void);
+extern void test_HashNotEqual(void);
+extern void test_IgnoreIPv6Fields(void);
 
 
 //=======Test Reset Option=====
@@ -43,9 +48,14 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "ut-2803.c";
-  UnityBegin("ut-2803.c");
-  RUN_TEST(test_main, 117);
+  Unity.TestFile = "socktoa.c";
+  UnityBegin("socktoa.c");
+  RUN_TEST(test_IPv4AddressWithPort, 9);
+  RUN_TEST(test_IPv6AddressWithPort, 16);
+  RUN_TEST(test_ScopedIPv6AddressWithPort, 40);
+  RUN_TEST(test_HashEqual, 65);
+  RUN_TEST(test_HashNotEqual, 73);
+  RUN_TEST(test_IgnoreIPv6Fields, 84);
 
   return (UnityEnd());
 }

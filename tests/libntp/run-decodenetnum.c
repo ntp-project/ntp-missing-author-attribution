@@ -26,7 +26,12 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_main(void );
+extern void test_IPv4AddressOnly(void);
+extern void test_IPv4AddressWithPort(void);
+extern void test_IPv6AddressOnly(void);
+extern void test_IPv6AddressWithPort(void);
+extern void test_IllegalAddress(void);
+extern void test_IllegalCharInPort(void);
 
 
 //=======Test Reset Option=====
@@ -43,9 +48,14 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "ut-2803.c";
-  UnityBegin("ut-2803.c");
-  RUN_TEST(test_main, 117);
+  Unity.TestFile = "decodenetnum.c";
+  UnityBegin("decodenetnum.c");
+  RUN_TEST(test_IPv4AddressOnly, 9);
+  RUN_TEST(test_IPv4AddressWithPort, 22);
+  RUN_TEST(test_IPv6AddressOnly, 35);
+  RUN_TEST(test_IPv6AddressWithPort, 55);
+  RUN_TEST(test_IllegalAddress, 75);
+  RUN_TEST(test_IllegalCharInPort, 82);
 
   return (UnityEnd());
 }
