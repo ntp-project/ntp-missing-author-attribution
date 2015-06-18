@@ -98,7 +98,7 @@ tests_SOURCES =					\
 	recvbuff.cpp		\
 	g_refnumtoa.cpp		\
 	sfptostr.cpp		\
-	socktoa.cpp		\
+	g_socktoa.cpp		\
 	g_ssl_init.cpp		\
 	g_statestr.cpp		\
 	strtolfp.cpp		\
