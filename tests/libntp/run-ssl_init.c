@@ -30,6 +30,7 @@ extern void test_MD5KeyTypeWithoutDigestLength();
 extern void test_MD5KeyTypeWithDigestLength();
 extern void test_SHA1KeyTypeWithDigestLength();
 extern void test_MD5KeyName();
+extern void test_SHA1KeyName();
 
 
 //=======Test Reset Option=====
@@ -52,6 +53,7 @@ int main(int argc, char *argv[])
   RUN_TEST(test_MD5KeyTypeWithDigestLength, 22);
   RUN_TEST(test_SHA1KeyTypeWithDigestLength, 31);
   RUN_TEST(test_MD5KeyName, 46);
+  RUN_TEST(test_SHA1KeyName, 51);
 
   return (UnityEnd());
 }

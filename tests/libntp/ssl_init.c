@@ -48,7 +48,7 @@ void test_MD5KeyName() {
 }
 
 #ifdef OPENSSL
-TEvoid test_SHA1KeyName() {
+void test_SHA1KeyName() {
 	TEST_ASSERT_EQUAL_STRING("SHA", keytype_name(NID_sha));
 }
 #endif	/* OPENSSL */
