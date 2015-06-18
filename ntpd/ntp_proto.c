@@ -70,6 +70,8 @@ u_int32 sys_refid;		/* reference id (network byte order) */
 l_fp	sys_reftime;		/* last update time */
 struct	peer *sys_peer;		/* current peer */
 
+struct leap_smear_info leap_smear;
+
 /*
  * Rate controls. Leaky buckets are used to throttle the packet
  * transmission rates in order to protect busy servers such as at NIST
@@ -3407,6 +3409,13 @@ peer_xmit(
 }
 
 
+static void
+leap_smear_add_offs(l_fp *t, l_fp *t_recv) {
+	L_ADD(t, &leap_smear.offset);
+}
+
+
+
 /*
  * fast_xmit - Send packet for nonpersistent association. Note that
  * neither the source or destination can be a broadcast address.
@@ -3468,7 +3477,25 @@ fast_xmit(
 	 * This is a normal packet. Use the system variables.
 	 */
 	} else {
-		xpkt.li_vn_mode = PKT_LI_VN_MODE(sys_leap,
+		/*
+		 * Make copies of the variables which can be affected by smearing.
+		 */
+		int this_leap = sys_leap;
+		l_fp this_recv_time;
+
+		/*
+		 * If leap smear is enabled in general we must never send a leap second warning
+		 * to clients, so make sure we only send "in sync" or "not in sync".
+		 */
+		if (leap_smear.enabled)
+			if (this_leap != LEAP_NOTINSYNC)
+				this_leap = LEAP_NOWARNING;
+		/*
+		 * If we are inside the leap smear interval we add the current smear offset to
+		 * the packet receive time, to the packet transmit time, and eventually to the
+		 * reftime to make sure the reftime isn't later than the transmit/receive times.
+		 */
+		xpkt.li_vn_mode = PKT_LI_VN_MODE(this_leap,
 		    PKT_VERSION(rpkt->li_vn_mode), xmode);
 		xpkt.stratum = STRATUM_TO_PKT(sys_stratum);
 		xpkt.ppoll = max(rpkt->ppoll, ntp_minpoll);
@@ -3476,10 +3503,16 @@ fast_xmit(
 		xpkt.refid = sys_refid;
 		xpkt.rootdelay = HTONS_FP(DTOFP(sys_rootdelay));
 		xpkt.rootdisp = HTONS_FP(DTOUFP(sys_rootdisp));
+		/* TODO: add smear offset to reftime? */
 		HTONL_FP(&sys_reftime, &xpkt.reftime);
 		xpkt.org = rpkt->xmt;
-		HTONL_FP(&rbufp->recv_time, &xpkt.rec);
+		this_recv_time = rbufp->recv_time;
+		if (leap_smear.in_progress)
+			leap_smear_add_offs(&this_recv_time, NULL);
+		HTONL_FP(&this_recv_time, &xpkt.rec);
 		get_systime(&xmt_tx);
+		if (leap_smear.in_progress)
+			leap_smear_add_offs(&xmt_tx, &this_recv_time);
 		HTONL_FP(&xmt_tx, &xpkt.xmt);
 	}
 

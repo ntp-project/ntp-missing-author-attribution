@@ -77,6 +77,7 @@ extern int listen_to_virtual_ips;
 #define IPTOS_DSCP_EF 0xb8
 #endif
 int qos = IPTOS_DSCP_EF;	/* QoS RFC3246 */
+int leap_smear_intv; //##+++++
 
 /*
  * NIC rule entry
@@ -2030,7 +2031,7 @@ update_interfaces(
 		     entry = entry->link) {
 			if (entry->ep == ep) {
 				if (socket_multicast_enable(ep, &entry->addr)) {
-					msyslog(LOG_INFO, 
+					msyslog(LOG_INFO,
 						"Joined %s socket to multicast group %s",
 						stoa(&ep->sin),
 						stoa(&entry->addr));

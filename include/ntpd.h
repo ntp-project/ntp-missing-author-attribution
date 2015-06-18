@@ -533,6 +533,7 @@ extern u_long	current_time;		/* seconds since startup */
 extern u_long	timer_timereset;
 extern u_long	timer_overflows;
 extern u_long	timer_xmtcalls;
+extern int	leap_smear_intv;
 #ifdef SYS_WINNT
 HANDLE WaitableTimerHandle;
 #endif

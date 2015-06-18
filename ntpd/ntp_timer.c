@@ -41,6 +41,8 @@
 #define	TC_ERR	(-1)
 #endif
 
+extern struct leap_smear_info leap_smear;
+
 static void check_leapsec(u_int32, const time_t*, int/*BOOL*/);
 
 /*
@@ -496,6 +498,7 @@ timer_clr_stats(void)
 	timer_timereset = current_time;
 }
 
+
 static void
 check_leapsec(
 	u_int32        now  ,
@@ -517,7 +520,7 @@ check_leapsec(
 	leap_result_t lsdata;
 	u_int32       lsprox;
 #ifdef AUTOKEY
-	int/*BOOL*/   update_autokey;
+	int/*BOOL*/   update_autokey = FALSE;
 #endif
 
 #ifndef SYS_WINNT  /* WinNT port has its own leap second handling */
@@ -527,14 +530,56 @@ check_leapsec(
 	leapsec_electric(0);
 # endif
 #endif
+	leap_smear.enabled = 1;  //##++ TODO this should depend on whether an interval has been specified in the config
+
 	if (reset)	{
 		lsprox = LSPROX_NOWARN;
 		leapsec_reset_frame();
 		memset(&lsdata, 0, sizeof(lsdata));
-#ifdef AUTOKEY
-		update_autokey = FALSE;
-#endif
-	} else if (leapsec_query(&lsdata, now, tpiv)) {
+	} else {
+	  int fired = leapsec_query(&lsdata, now, tpiv);
+
+	  DPRINTF(1, ("*** leapsec_query: fired %i, now %u (0x%08X), tai_diff %i, ddist %u\n",
+		  fired, now, now, lsdata.tai_diff, lsdata.ddist));
+
+	  leap_smear.in_progress = 0;
+
+	  if (leap_smear.enabled) {
+		if (lsdata.tai_diff) {
+			if (leap_smear.interval == 0) {
+				leap_smear.interval = 120;  // TODO set configured value
+				leap_smear.intv_end = lsdata.ttime.Q_s;
+				leap_smear.intv_start = leap_smear.intv_end - leap_smear.interval;
+				DPRINTF(1, ("*** leapsec_query: setting leap_smear interval %li, begin %.0f, end %.0f\n",
+					leap_smear.interval, leap_smear.intv_start, leap_smear.intv_end));
+			}
+		}
+		else {
+			if (leap_smear.interval)
+				DPRINTF(1, ("*** leapsec_query: clearing leap_smear interval\n"));
+			leap_smear.interval = 0;
+		}
+
+		if (leap_smear.interval) {
+			double dtemp = now;
+			if (dtemp >= leap_smear.intv_start && dtemp <= leap_smear.intv_end) {
+				/*
+				 * For now we just do a linear interpolation over the smear interval
+				 */
+				dtemp = -((dtemp - leap_smear.intv_start) * lsdata.tai_diff / leap_smear.interval);
+				/*
+				 * TODO see if we're inside an inserted leap second, so we need to compute
+				 * dtemp = 1.0 - dtemp
+				 */
+				DTOLFP(dtemp, &leap_smear.offset);
+				leap_smear.in_progress = 1;
+				DPRINTF(1, ("*** leapsec_query: [%.0f:%.0f], now %u, smear offset %.6f\n",
+					leap_smear.intv_start, leap_smear.intv_end, now, dtemp));
+			}
+		}
+	  }
+
+	  if (fired) {
 		/* Full hit. Eventually step the clock, but always
 		 * announce the leap event has happened.
 		 */
@@ -559,18 +604,19 @@ check_leapsec(
 		if (leapmsg)
 			msyslog(LOG_NOTICE, "%s", leapmsg);
 		report_event(EVNT_LEAP, NULL, NULL);
-		lsprox  = LSPROX_NOWARN;
-		leapsec = LSPROX_NOWARN;
-		sys_tai = lsdata.tai_offs;
 #ifdef AUTOKEY
 		update_autokey = TRUE;
 #endif
-	} else {
+		lsprox  = LSPROX_NOWARN;
+		leapsec = LSPROX_NOWARN;
+		sys_tai = lsdata.tai_offs;
+	  } else {
 #ifdef AUTOKEY
 		update_autokey = (sys_tai != lsdata.tai_offs);
 #endif
 		lsprox  = lsdata.proximity;
 		sys_tai = lsdata.tai_offs;
+	  }
 	}
 
 	/* We guard against panic alarming during the red alert phase.

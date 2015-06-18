@@ -119,6 +119,18 @@ struct leap_signature {
 };
 typedef struct leap_signature leap_signature_t;
 
+struct leap_smear_info {
+	int enabled;        /* not 0 if smearing is generally enabled */
+	int in_progress;    /* not 0 if smearing is in progress, i.e. the offset has been computed */
+	int leap_occurred;  /* not 0 if the leap second has already occurred, i.e., during the leap second */
+	l_fp offset;        /* the current smear offset */
+	uint32_t t_offset;  /* the current time for which a smear offset has been computed */
+	long interval;      /* smear interval, in [s], should be at least some hours */
+	double intv_start;  /* start time of the smear interval */
+	double intv_end;    /* end time of the smear interval */
+};
+typedef struct leap_smear_info leap_smear_info_t;
+
 
 #define LSPROX_NOWARN	0	/* clear radar screen         */
 #define LSPROX_SCHEDULE	1	/* less than 1 month to target*/
