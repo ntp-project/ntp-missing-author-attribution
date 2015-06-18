@@ -6,6 +6,7 @@
 #include "test-libntp.h"
 
 #include <string.h>
+#include <malloc.h>
 
 //added struct to calendar!
 
