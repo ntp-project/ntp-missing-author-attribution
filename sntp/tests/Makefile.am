@@ -5,11 +5,11 @@ EXTRA_PROGRAMS =
 
 run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
-EXTRA_PROGRAMS +=	test-networking	
 EXTRA_PROGRAMS +=	test-keyFile
 
 check_PROGRAMS = 		\
 	test-kodDatabase	\
+	test-networking		\
 	$(NULL)
 
 if GTEST_AVAILABLE
@@ -137,6 +137,7 @@ test_keyFile_LDADD =			\
 test_networking_SOURCES =		\
 	networking.c			\
 	run-networking.c		\
+	../version.c			\
 	$(NULL)
 
 test_kodDatabase_SOURCES =		\
