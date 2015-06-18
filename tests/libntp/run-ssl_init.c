@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
   RUN_TEST(test_MD5KeyTypeWithDigestLength, 22);
   RUN_TEST(test_SHA1KeyTypeWithDigestLength, 31);
   RUN_TEST(test_MD5KeyName, 46);
-  RUN_TEST(test_SHA1KeyName, 51);
+  RUN_TEST(test_SHA1KeyName, 50);
 
   return (UnityEnd());
 }

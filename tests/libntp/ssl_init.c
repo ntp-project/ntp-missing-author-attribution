@@ -47,8 +47,11 @@ void test_MD5KeyName() {
 	TEST_ASSERT_EQUAL_STRING("MD5", keytype_name(KEY_TYPE_MD5));
 }
 
-#ifdef OPENSSL
 void test_SHA1KeyName() {
+#ifdef OPENSSL
 	TEST_ASSERT_EQUAL_STRING("SHA", keytype_name(NID_sha));
-}
+#else
+	TEST_IGNORE_MESSAGE("Skipping because OPENSSL isn't defined");
 #endif	/* OPENSSL */
+}
+
