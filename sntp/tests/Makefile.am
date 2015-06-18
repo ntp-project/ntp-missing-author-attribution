@@ -23,7 +23,7 @@ endif
 #endif
 
 base_SOURCES =			\
-	tests_main.cpp		\
+	../tests_main.cpp	\
 	$(NULL)
 
 tests_SOURCES =			\
