@@ -110,7 +110,7 @@ static	RETSIGTYPE alarming (int);
 static timer_t timer_id;
 typedef struct itimerspec intervaltimer;
 #   define	itv_frac	tv_nsec
-#  else 
+#  else
 typedef struct itimerval intervaltimer;
 #   define	itv_frac	tv_usec
 #  endif
@@ -151,7 +151,7 @@ set_timer_or_die(
 /*
  * reinit_timer - reinitialize interval timer after a clock step.
  */
-void 
+void
 reinit_timer(void)
 {
 #if !defined(SYS_WINNT) && !defined(VMS)
@@ -211,7 +211,7 @@ init_timer(void)
 	}
 #  endif
 	signal_no_reset(SIGALRM, alarming);
-	itimer.it_interval.tv_sec = 
+	itimer.it_interval.tv_sec =
 		itimer.it_value.tv_sec = (1 << EVENT_TIMEOUT);
 	itimer.it_interval.itv_frac = itimer.it_value.itv_frac = 0;
 	set_timer_or_die(&itimer);
@@ -228,7 +228,7 @@ init_timer(void)
 #else	/* SYS_WINNT follows */
 	/*
 	 * Set up timer interrupts for every 2**EVENT_TIMEOUT seconds
-	 * Under Windows/NT, 
+	 * Under Windows/NT,
 	 */
 
 	WaitableTimerHandle = CreateWaitableTimer(NULL, FALSE, NULL);
@@ -343,7 +343,7 @@ timer(void)
 		if (sys_leap == LEAP_NOTINSYNC) {
 			sys_leap = LEAP_NOWARNING;
 #ifdef AUTOKEY
-			if (crypto_flags)	
+			if (crypto_flags)
 				crypto_update();
 #endif	/* AUTOKEY */
 		}
@@ -519,7 +519,7 @@ check_leapsec(
 #ifdef AUTOKEY
 	int/*BOOL*/   update_autokey;
 #endif
-	
+
 #ifndef SYS_WINNT  /* WinNT port has its own leap second handling */
 # ifdef KERNEL_PLL
 	leapsec_electric(pll_control && kern_enable);

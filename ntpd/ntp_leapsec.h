@@ -90,7 +90,7 @@ typedef struct leap_era leap_era_t;
  * 'proximity' is a proximity warning. See definitions below. This is
  *	more useful than an absolute difference to the leap second.
  * 'dynamic' != 0 if entry was requested by clock/peer
- */ 
+ */
 struct leap_result {
 	vint64   ebase;
 	vint64   ttime;
@@ -111,7 +111,7 @@ typedef struct leap_result leap_result_t;
  *  - it is used to query data for AUTOKEY updates, and then it contains
  *    the *current* TAI offset, the *next* transition time and the
  *    expiration time of the table.
- */   
+ */
 struct leap_signature {
 	uint32_t etime;	/* expiration time	*/
 	uint32_t ttime;	/* transition time	*/
