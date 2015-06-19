@@ -1,6 +1,7 @@
 NULL =
 BUILT_SOURCES =
-CLEANFILES =
+CLEANFILES = kod-output-blank kod-output-single kod-output-multiple
+DISTCLEANFILES = kod-output-blank kod-output-single kod-output-multiple
 EXTRA_PROGRAMS =
 
 run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb

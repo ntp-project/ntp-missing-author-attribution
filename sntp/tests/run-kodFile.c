@@ -54,8 +54,8 @@ int main(int argc, char *argv[])
   RUN_TEST(test_ReadCorrectFile, 35);
   RUN_TEST(test_ReadFileWithBlankLines, 53);
   RUN_TEST(test_WriteEmptyFile, 76);
-  RUN_TEST(test_WriteFileWithSingleEntry, 91);
-  RUN_TEST(test_WriteFileWithMultipleEntries, 114);
+  RUN_TEST(test_WriteFileWithSingleEntry, 92);
+  RUN_TEST(test_WriteFileWithMultipleEntries, 116);
 
   return (UnityEnd());
 }

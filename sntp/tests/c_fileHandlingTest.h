@@ -47,7 +47,7 @@ const char * CreatePath(const char* filename, enum DirectoryType argument) {
 		strcpy(path,"../../../../sntp/tests/data/");
 	}
 
-	
+	//strcpy(path,"");
 	strcat(path,filename);
 	printf("PATH IS : %s\n",path);
 	return path;
