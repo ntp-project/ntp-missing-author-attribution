@@ -18,6 +18,7 @@ check_PROGRAMS =		\
 	test-decodenetnum	\
 	test-hextoint		\
 	test-hextolfp		\
+	test-humandate		\
 	test-lfpfunc		\
 	test-lfptostr		\
 	test-modetoa		\
@@ -29,6 +30,7 @@ check_PROGRAMS =		\
 	test-prettydate		\
 	test-recvbuff		\
 	test-refnumtoa		\
+	test-sfptostr		\
 	test-ssl_init		\
 	test-socktoa		\
 	test-statestr		\
@@ -36,6 +38,7 @@ check_PROGRAMS =		\
 	test-timespecops	\
 	test-timevalops		\
 	test-tstotv			\
+	test-tvtots			\
 	test-uglydate		\
 	test-vi64ops		\
 	test-ymd2yd			\
@@ -92,7 +95,7 @@ tests_SOURCES =					\
 	g_decodenetnum.cpp	\
 	g_hextoint.cpp		\
 	g_hextolfp.cpp		\
-	humandate.cpp		\
+	g_humandate.cpp		\
 	g_lfpfunc.cpp		\
 	g_lfptostr.cpp		\
 	g_modetoa.cpp		\
@@ -104,7 +107,7 @@ tests_SOURCES =					\
 	g_prettydate.cpp	\
 	g_recvbuff.cpp		\
 	g_refnumtoa.cpp		\
-	sfptostr.cpp		\
+	g_sfptostr.cpp		\
 	g_socktoa.cpp		\
 	g_ssl_init.cpp		\
 	g_statestr.cpp		\
@@ -112,8 +115,8 @@ tests_SOURCES =					\
 	g_timespecops.cpp	\
 	timestructs.cpp		\
 	g_timevalops.cpp	\
-	g_tstotv.cpp			\
-	tvtots.cpp			\
+	g_tstotv.cpp		\
+	g_tvtots.cpp		\
 	g_uglydate.cpp		\
 	g_vi64ops.cpp		\
 	g_ymd2yd.cpp		\
@@ -131,6 +134,7 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-decodenetnum.c	\
 	$(srcdir)/run-hextoint.c	\
 	$(srcdir)/run-hextolfp.c	\
+	$(srcdir)/run-humandate.c	\
 	$(srcdir)/run-lfpfunc.c		\
 	$(srcdir)/run-lfptostr.c		\
 	$(srcdir)/run-modetoa.c		\
@@ -142,6 +146,7 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-prettydate.c	\
 	$(srcdir)/run-recvbuff.c	\
 	$(srcdir)/run-refnumtoa.c	\
+	$(srcdir)/run-sfptostr.c	\
 	$(srcdir)/run-ssl_init.c	\
 	$(srcdir)/run-socktoa.c		\
 	$(srcdir)/run-statestr.c	\
@@ -149,6 +154,7 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-timevalops.c	\
 	$(srcdir)/run-timespecops.c	\
 	$(srcdir)/run-tstotv.c		\
+	$(srcdir)/run-tvtots.c		\
 	$(srcdir)/run-uglydate.c	\
 	$(srcdir)/run-vi64ops.c		\
 	$(srcdir)/run-ymd2yd.c		\
@@ -416,6 +422,35 @@ test_ssl_init_LDADD =				\
 	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
 
+test_tvtots_CFLAGS =				\
+	-I$(top_srcdir)/sntp/unity		\
+	-DUNITY_INCLUDE_DOUBLE			\
+	$(NULL)
+
+test_tvtots_LDADD =				\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	$(NULL)
+
+test_sfptostr_CFLAGS =				\
+	-I$(top_srcdir)/sntp/unity		\
+	-DUNITY_INCLUDE_DOUBLE			\
+	$(NULL)
+
+test_sfptostr_LDADD =				\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	$(NULL)
+
+test_humandate_CFLAGS =				\
+	-I$(top_srcdir)/sntp/unity		\
+	$(NULL)
+
+test_humandate_LDADD =				\
+        $(LDADD)                                \
+        $(top_builddir)/sntp/unity/libunity.a   \
+        $(NULL)
+
 test_caltontp_CFLAGS =			\
 	-I$(top_srcdir)/sntp/unity		\
 	$(NULL)
@@ -607,6 +642,20 @@ test_ssl_init_SOURCES =			\
 	run-ssl_init.c			\
 	$(NULL)
 
+test_tvtots_SOURCES =			\
+	tvtots.c			\
+	run-tvtots.c			\
+	$(NULL)
+
+test_sfptostr_SOURCES =			\
+	sfptostr.c			\
+	run-sfptostr.c			\
+	$(NULL)
+
+test_humandate_SOURCES =			\
+	humandate.c			\
+	run-humandate.c			\
+
 test_caltontp_SOURCES =			\
 	caltontp.c			\
 	run-caltontp.c			\
@@ -715,6 +764,15 @@ $(srcdir)/run-timespecops.c: $(srcdir)/timespecops.c $(std_unity_list)
 
 $(srcdir)/run-ssl_init.c: $(srcdir)/ssl_init.c $(std_unity_list)
 	$(run_unity) ssl_init.c run-ssl_init.c
+
+$(srcdir)/run-tvtots.c: $(srcdir)/tvtots.c $(std_unity_list)
+	$(run_unity) tvtots.c run-tvtots.c
+
+$(srcdir)/run-sfptostr.c: $(srcdir)/sfptostr.c $(std_unity_list)
+	$(run_unity) sfptostr.c run-sfptostr.c
+
+$(srcdir)/run-humandate.c: $(srcdir)/humandate.c $(std_unity_list)
+	$(run_unity) humandate.c run-humandate.c
 
 $(srcdir)/run-caltontp.c: $(srcdir)/caltontp.c $(std_unity_list)
 	$(run_unity) caltontp.c run-caltontp.c
