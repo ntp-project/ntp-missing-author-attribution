@@ -123,6 +123,7 @@ struct leap_smear_info {
 	int enabled;        /* not 0 if smearing is generally enabled */
 	int in_progress;    /* not 0 if smearing is in progress, i.e. the offset has been computed */
 	int leap_occurred;  /* not 0 if the leap second has already occurred, i.e., during the leap second */
+	double doffset;     /* the current smear offset as double */
 	l_fp offset;        /* the current smear offset */
 	uint32_t t_offset;  /* the current time for which a smear offset has been computed */
 	long interval;      /* smear interval, in [s], should be at least some hours */

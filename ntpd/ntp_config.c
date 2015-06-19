@@ -3513,6 +3513,7 @@ config_vars(
 
 		case T_Leapsmearinterval:
 			leap_smear_intv = curr_var->value.i;
+			msyslog(LOG_INFO, "config: leap smear interval %i s", leap_smear_intv);
 			break;
 
 		case T_Pidfile:

@@ -42,6 +42,7 @@
 #endif
 
 extern struct leap_smear_info leap_smear;
+extern int leap_sec_in_progress;
 
 static void check_leapsec(u_int32, const time_t*, int/*BOOL*/);
 
@@ -500,6 +501,17 @@ timer_clr_stats(void)
 
 
 static void
+check_leap_sec_in_progress( const leap_result_t *lsdata ) {
+	int prv_leap_sec_in_progress = leap_sec_in_progress;
+	leap_sec_in_progress = lsdata->tai_diff && (lsdata->ddist < 3);
+
+	/* if changed we may have to update the leap status sent to clients */
+	if (leap_sec_in_progress != prv_leap_sec_in_progress)
+		set_sys_leap(sys_leap);
+}
+
+
+static void
 check_leapsec(
 	u_int32        now  ,
 	const time_t * tpiv ,
@@ -530,7 +542,7 @@ check_leapsec(
 	leapsec_electric(0);
 # endif
 #endif
-	leap_smear.enabled = 1;  //##++ TODO this should depend on whether an interval has been specified in the config
+	leap_smear.enabled = leap_smear_intv != 0;
 
 	if (reset)	{
 		lsprox = LSPROX_NOWARN;
@@ -547,7 +559,7 @@ check_leapsec(
 	  if (leap_smear.enabled) {
 		if (lsdata.tai_diff) {
 			if (leap_smear.interval == 0) {
-				leap_smear.interval = 120;  // TODO set configured value
+				leap_smear.interval = leap_smear_intv;
 				leap_smear.intv_end = lsdata.ttime.Q_s;
 				leap_smear.intv_start = leap_smear.intv_end - leap_smear.interval;
 				DPRINTF(1, ("*** leapsec_query: setting leap_smear interval %li, begin %.0f, end %.0f\n",
@@ -563,21 +575,36 @@ check_leapsec(
 		if (leap_smear.interval) {
 			double dtemp = now;
 			if (dtemp >= leap_smear.intv_start && dtemp <= leap_smear.intv_end) {
+				double leap_smear_time = dtemp - leap_smear.intv_start;
 				/*
 				 * For now we just do a linear interpolation over the smear interval
 				 */
-				dtemp = -((dtemp - leap_smear.intv_start) * lsdata.tai_diff / leap_smear.interval);
+#if 0
+				// linear interpolation
+				leap_smear.doffset = -(leap_smear_time * lsdata.tai_diff / leap_smear.interval);
+#else
+				// Google approach: lie(t) = (1.0 - cos(pi * t / w)) / 2.0
+				leap_smear.doffset = -((double) lsdata.tai_diff - cos( M_PI * leap_smear_time / leap_smear.interval)) / 2.0;
+#endif
 				/*
 				 * TODO see if we're inside an inserted leap second, so we need to compute
-				 * dtemp = 1.0 - dtemp
+				 * leap_smear.doffset = 1.0 - leap_smear.doffset
 				 */
-				DTOLFP(dtemp, &leap_smear.offset);
+				DTOLFP(leap_smear.doffset, &leap_smear.offset);
 				leap_smear.in_progress = 1;
 				DPRINTF(1, ("*** leapsec_query: [%.0f:%.0f], now %u, smear offset %.6f\n",
-					leap_smear.intv_start, leap_smear.intv_end, now, dtemp));
+					leap_smear.intv_start, leap_smear.intv_end, now, leap_smear.doffset));
+#if 1 //##++++++++++++++
+				msyslog(LOG_NOTICE, "*** leapsec_query: [%.0f:%.0f] (%li), now %u (%.0f), smear offset %.6f\n",
+					leap_smear.intv_start, leap_smear.intv_end, leap_smear.interval,
+					now, leap_smear_time, leap_smear.doffset);
+#endif
+
 			}
 		}
 	  }
+	  else
+		leap_smear.interval = 0;
 
 	  if (fired) {
 		/* Full hit. Eventually step the clock, but always
@@ -646,10 +673,13 @@ check_leapsec(
 		leapsec = lsprox;
 	}
 
-        if (leapsec >= LSPROX_SCHEDULE)
-                leapdif = lsdata.tai_diff;
-        else
-                leapdif = 0;
+	if (leapsec >= LSPROX_SCHEDULE)
+		leapdif = lsdata.tai_diff;
+	else
+		leapdif = 0;
+
+	check_leap_sec_in_progress(&lsdata);
+
 #ifdef AUTOKEY
 	if (update_autokey)
 		crypto_update_taichange();
