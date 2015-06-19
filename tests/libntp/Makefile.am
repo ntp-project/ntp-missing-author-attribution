@@ -655,6 +655,7 @@ test_sfptostr_SOURCES =			\
 test_humandate_SOURCES =			\
 	humandate.c			\
 	run-humandate.c			\
+	$(NULL)
 
 test_caltontp_SOURCES =			\
 	caltontp.c			\
