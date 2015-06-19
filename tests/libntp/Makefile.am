@@ -29,6 +29,7 @@ check_PROGRAMS =		\
 	test-statestr		\
 	test-timespecops	\
 	test-timevalops		\
+	test-tvtots			\
 	test-uglydate		\
 	test-vi64ops		\
 	test-ymd2yd		\
@@ -106,7 +107,7 @@ tests_SOURCES =					\
 	timestructs.cpp		\
 	g_timevalops.cpp	\
 	tstotv.cpp		\
-	tvtots.cpp		\
+	g_tvtots.cpp		\
 	g_uglydate.cpp		\
 	g_vi64ops.cpp		\
 	g_ymd2yd.cpp		\
@@ -135,6 +136,7 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-statestr.c	\
 	$(srcdir)/run-timevalops.c	\
 	$(srcdir)/run-timespecops.c	\
+	$(srcdir)/run-tvtots.c		\
 	$(srcdir)/run-uglydate.c	\
 	$(srcdir)/run-vi64ops.c		\
 	$(srcdir)/run-ymd2yd.c		\
@@ -386,6 +388,17 @@ test_ssl_init_LDADD =				\
 	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
 
+test_tvtots_CFLAGS =				\
+	-I$(top_srcdir)/sntp/unity		\
+	-DUNITY_INCLUDE_DOUBLE			\
+	$(NULL)
+
+test_tvtots_LDADD =				\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	$(NULL)
+
+
 
 test_modetoa_SOURCES =			\
 	modetoa.c			\
@@ -521,6 +534,10 @@ test_ssl_init_SOURCES =			\
 	run-ssl_init.c			\
 	$(NULL)
 
+test_tvtots_SOURCES =			\
+	tvtots.c			\
+	run-tvtots.c			\
+	$(NULL)
 
 $(srcdir)/run-modetoa.c: $(srcdir)/modetoa.c $(std_unity_list)
 	$(run_unity) modetoa.c run-modetoa.c
@@ -599,6 +616,9 @@ $(srcdir)/run-timespecops.c: $(srcdir)/timespecops.c $(std_unity_list)
 
 $(srcdir)/run-ssl_init.c: $(srcdir)/ssl_init.c $(std_unity_list)
 	$(run_unity) ssl_init.c run-ssl_init.c
+
+$(srcdir)/run-tvtots.c: $(srcdir)/tvtots.c $(std_unity_list)
+	$(run_unity) tvtots.c run-tvtots.c
 
 TESTS =
 
