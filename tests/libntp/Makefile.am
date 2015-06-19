@@ -17,6 +17,7 @@ check_PROGRAMS =		\
 	test-decodenetnum	\
 	test-hextoint		\
 	test-hextolfp		\
+	test-humandate		\
 	test-lfpfunc		\
 	test-modetoa		\
 	test-netof		\
@@ -87,7 +88,7 @@ tests_SOURCES =					\
 	g_decodenetnum.cpp	\
 	g_hextoint.cpp		\
 	g_hextolfp.cpp		\
-	humandate.cpp		\
+	g_humandate.cpp		\
 	g_lfpfunc.cpp		\
 	lfptostr.cpp		\
 	g_modetoa.cpp		\
@@ -125,6 +126,7 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-decodenetnum.c	\
 	$(srcdir)/run-hextoint.c	\
 	$(srcdir)/run-hextolfp.c	\
+	$(srcdir)/run-humandate.c	\
 	$(srcdir)/run-lfpfunc.c		\
 	$(srcdir)/run-modetoa.c		\
 	$(srcdir)/run-netof.c		\
@@ -410,6 +412,15 @@ test_sfptostr_LDADD =				\
 	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
 
+test_humandate_CFLAGS =				\
+	-I$(top_srcdir)/sntp/unity		\
+	$(NULL)
+
+test_humandate_LDADD =				\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	$(NULL)
+
 
 test_modetoa_SOURCES =			\
 	modetoa.c			\
@@ -555,6 +566,11 @@ test_sfptostr_SOURCES =			\
 	run-sfptostr.c			\
 	$(NULL)
 
+test_humandate_SOURCES =			\
+	humandate.c			\
+	run-humandate.c			\
+	$(NULL)
+
 $(srcdir)/run-modetoa.c: $(srcdir)/modetoa.c $(std_unity_list)
 	$(run_unity) modetoa.c run-modetoa.c
 
@@ -638,6 +654,9 @@ $(srcdir)/run-tvtots.c: $(srcdir)/tvtots.c $(std_unity_list)
 
 $(srcdir)/run-sfptostr.c: $(srcdir)/sfptostr.c $(std_unity_list)
 	$(run_unity) sfptostr.c run-sfptostr.c
+
+$(srcdir)/run-humandate.c: $(srcdir)/humandate.c $(std_unity_list)
+	$(run_unity) humandate.c run-humandate.c
 
 
 TESTS =
