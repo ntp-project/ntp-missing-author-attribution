@@ -46,7 +46,7 @@ const char * CreatePath(const char* filename, enum DirectoryType argument) {
 
 	
 	strcat(path,filename);
-
+	printf("PATH IS : %s\n",path);
 	return path;
 }
 
