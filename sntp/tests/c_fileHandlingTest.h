@@ -35,7 +35,10 @@ const char * CreatePath(const char* filename, enum DirectoryType argument) {
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 		printf("Current working dir: %s\n", cwd);
 	
-
+	if(strstr(cwd,"sub/") == NULL){
+		strcpy(path,"../../../sntp/tests/data/");
+	}
+	else
 	if(strstr(cwd,"_build") == NULL){ //if it's run as make distcheck, it's in a different directory!
 		strcpy(path,"../../../sntp/tests/data/");
 	}
