@@ -75,7 +75,7 @@ void test_ReadFileWithBlankLines() {
 
 void test_WriteEmptyFile() {
 	kod_db_file = estrdup(CreatePath("kod-output-blank", OUTPUT_DIR));
-
+	    printf("kod PATH: %s\n",kod_db_file);
 	write_kod_db();
 
 	// Open file and ensure that the filesize is 0 bytes.
@@ -90,7 +90,7 @@ void test_WriteEmptyFile() {
 
 void test_WriteFileWithSingleEntry() {
 	kod_db_file = estrdup(CreatePath("kod-output-single", OUTPUT_DIR));
-
+    printf("kod PATH: %s\n",kod_db_file);
 	add_entry("host1", "DENY");
 
 	// Here we must manipulate the timestamps, so they match the one in
@@ -113,7 +113,7 @@ void test_WriteFileWithSingleEntry() {
 
 void test_WriteFileWithMultipleEntries() {
 	kod_db_file = estrdup(CreatePath("kod-output-multiple", OUTPUT_DIR));
-
+    printf("kod PATH: %s\n",kod_db_file);
 	add_entry("example.com", "RATE");
 	add_entry("192.0.2.1", "DENY");
 	add_entry("192.0.2.5", "RSTR");
