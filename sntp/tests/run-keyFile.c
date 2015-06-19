@@ -47,6 +47,7 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
+  //printf("NUM: %d , %s\n",argc,argv[0]);
   Unity.TestFile = "keyFile.c";
   UnityBegin("keyFile.c");
   RUN_TEST(test_ReadEmptyKeyFile, 53);

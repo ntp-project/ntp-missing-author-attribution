@@ -5,6 +5,7 @@
 #include "c_sntptest.h"
 
 #include <string.h>
+#include <unistd.h>
 
 
 enum DirectoryType {
@@ -14,7 +15,7 @@ enum DirectoryType {
 
 const char * CreatePath(const char* filename, enum DirectoryType argument) {
 	
-	 char * path = malloc (sizeof (char) * 100);
+	 char * path = malloc (sizeof (char) * 256);
 
 	/*
 	if (m_params.size() >= argument + 1) {
@@ -30,7 +31,20 @@ const char * CreatePath(const char* filename, enum DirectoryType argument) {
 
 	//return path;
 
-	strcpy(path,"../../../sntp/tests/data/");
+	char cwd[1024];
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+		printf("Current working dir: %s\n", cwd);
+	
+
+	if(strstr(cwd,"_build") == NULL){ //if it's run as make distcheck, it's in a different directory!
+		strcpy(path,"../../../sntp/tests/data/");
+	}
+
+	else {
+		strcpy(path,"../../../../sntp/tests/data/");
+	}
+
+	
 	strcat(path,filename);
 
 	return path;
