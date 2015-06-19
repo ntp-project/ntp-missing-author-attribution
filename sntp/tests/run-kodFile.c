@@ -26,11 +26,12 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_ReadEmptyKeyFile();
-extern void test_ReadASCIIKeys();
-extern void test_ReadHexKeys();
-extern void test_ReadKeyFileWithComments();
-extern void test_ReadKeyFileWithInvalidHex();
+extern void test_ReadEmptyFile();
+extern void test_ReadCorrectFile();
+extern void test_ReadFileWithBlankLines();
+extern void test_WriteEmptyFile();
+extern void test_WriteFileWithSingleEntry();
+extern void test_WriteFileWithMultipleEntries();
 
 
 //=======Test Reset Option=====
@@ -47,13 +48,14 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "keyFile.c";
-  UnityBegin("keyFile.c");
-  RUN_TEST(test_ReadEmptyKeyFile, 53);
-  RUN_TEST(test_ReadASCIIKeys, 61);
-  RUN_TEST(test_ReadHexKeys, 79);
-  RUN_TEST(test_ReadKeyFileWithComments, 105);
-  RUN_TEST(test_ReadKeyFileWithInvalidHex, 124);
+  Unity.TestFile = "kodFile.c";
+  UnityBegin("kodFile.c");
+  RUN_TEST(test_ReadEmptyFile, 29);
+  RUN_TEST(test_ReadCorrectFile, 35);
+  RUN_TEST(test_ReadFileWithBlankLines, 53);
+  RUN_TEST(test_WriteEmptyFile, 76);
+  RUN_TEST(test_WriteFileWithSingleEntry, 91);
+  RUN_TEST(test_WriteFileWithMultipleEntries, 114);
 
   return (UnityEnd());
 }

@@ -1,41 +1,45 @@
 #include "config.h"
 #include "c_fileHandlingTest.h"
 
+#include "ntp_stdlib.h"
 #include "ntp_types.h"
 #include "crypto.h"
 
-typedef int bool;
+#include "unity.h"
 
-bool AssertionResult CompareKeys(key& expected, key& actual) {
+//typedef int bool;
+
+
+bool CompareKeys(struct key expected, struct key actual) {
 	if (expected.key_id != actual.key_id){
 		printf("Expected key_id: %d", expected.key_id);
-		printf(" but was: %d", actual.key_id);
-		return TRUE;
+		printf(" but was: %d\n", actual.key_id);
+		return FALSE;
 	}
 	if (expected.key_len != actual.key_len){
 		printf("Expected key_len: %d", expected.key_len);
-		printf(" but was: %d", actual.key_len);
-		return TRUE;
+		printf(" but was: %d\n", actual.key_len);
+		return FALSE;
 	}
 	if (strcmp(expected.type, actual.type) != 0){
-		printf("Expected key_type: %d", expected.type);
-		printf(" but was: ", actual.type);
-		return TRUE;
+		printf("Expected key_type: %s", expected.type);
+		printf(" but was: %s\n", actual.type);
+		return FALSE;
 
 	}
 	if (memcmp(expected.key_seq, actual.key_seq, expected.key_len) != 0){
-		printf("Key mismatch!");
-		return TRUE;		
+		printf("Key mismatch!\n");
+		return FALSE;		
 	}
 	return TRUE;
 }
 
-bool CompareKeys(int key_id,
+bool CompareKeysAlternative(int key_id,
 	       int key_len,
 	       const char* type,
 	       const char* key_seq,
-	       key& actual) {
-	key temp;
+	       struct key actual) {
+	struct key temp;
 
 	temp.key_id = key_id;
 	temp.key_len = key_len;
@@ -46,89 +50,89 @@ bool CompareKeys(int key_id,
 }
 
 
-void(ReadEmptyKeyFile) {
-	key* keys = NULL;
+void test_ReadEmptyKeyFile() {
+	struct key* keys = NULL;
 
-	TEST_ASSERT_EQUAL(0, auth_init(CreatePath("key-test-empty", INPUT_DIR).c_str(), &keys));
+	TEST_ASSERT_EQUAL(0, auth_init(CreatePath("key-test-empty", INPUT_DIR), &keys));
 
 	TEST_ASSERT_TRUE(keys == NULL);
 }
 
-void(ReadASCIIKeys) {
-	key* keys = NULL;
+void test_ReadASCIIKeys() {
+	struct key* keys = NULL;
 
-	TEST_ASSERT_EQUAL(2, auth_init(CreatePath("key-test-ascii", INPUT_DIR).c_str(), &keys));
+	TEST_ASSERT_EQUAL(2, auth_init(CreatePath("key-test-ascii", INPUT_DIR), &keys));
 
 	TEST_ASSERT_TRUE(keys != NULL);
 
-	key* result = NULL;
+	struct key* result = NULL;
 	get_key(40, &result);
 	TEST_ASSERT_TRUE(result != NULL);
-	TEST_ASSERT_TRUE(CompareKeys(40, 11, "MD5", "asciikeyTwo", *result));
+	TEST_ASSERT_TRUE(CompareKeysAlternative(40, 11, "MD5", "asciikeyTwo", *result));
 
 	result = NULL;
 	get_key(50, &result);
 	TEST_ASSERT_TRUE(result != NULL);
-	TEST_ASSERT_TRUE(CompareKeys(50, 11, "MD5", "asciikeyOne", *result));
+	TEST_ASSERT_TRUE(CompareKeysAlternative(50, 11, "MD5", "asciikeyOne", *result));
 }
 
-void(ReadHexKeys) {
-	key* keys = NULL;
+void test_ReadHexKeys() {
+	struct key* keys = NULL;
 
-	TEST_ASSERT_EQUAL(3, auth_init(CreatePath("key-test-hex", INPUT_DIR).c_str(), &keys));
+	TEST_ASSERT_EQUAL(3, auth_init(CreatePath("key-test-hex", INPUT_DIR), &keys));
 
 	TEST_ASSERT_TRUE(keys != NULL);
 
-	key* result = NULL;
+	struct key* result = NULL;
 	get_key(10, &result);
 	TEST_ASSERT_TRUE(result != NULL);
-	TEST_ASSERT_TRUE(CompareKeys(10, 13, "MD5",
+	TEST_ASSERT_TRUE(CompareKeysAlternative(10, 13, "MD5",
 		 "\x01\x23\x45\x67\x89\xab\xcd\xef\x01\x23\x45\x67\x89", *result));
 
 	result = NULL;
 	get_key(20, &result);
 	TEST_ASSERT_TRUE(result != NULL);
 	char data1[15]; memset(data1, 0x11, 15);
-	TEST_ASSERT_TRUE(CompareKeys(20, 15, "MD5", data1, *result));
+	TEST_ASSERT_TRUE(CompareKeysAlternative(20, 15, "MD5", data1, *result));
 
 	result = NULL;
 	get_key(30, &result);
 	TEST_ASSERT_TRUE(result != NULL);
 	char data2[13]; memset(data2, 0x01, 13);
-	TEST_ASSERT_TRUE(CompareKeys(30, 13, "MD5", data2, *result));
+	TEST_ASSERT_TRUE(CompareKeysAlternative(30, 13, "MD5", data2, *result));
 }
 
-void(ReadKeyFileWithComments) {
-	key* keys = NULL;
+void test_ReadKeyFileWithComments() {
+	struct key* keys = NULL;
 
-	TEST_ASSERT_EQUAL(2, auth_init(CreatePath("key-test-comments", INPUT_DIR).c_str(), &keys));
+	TEST_ASSERT_EQUAL(2, auth_init(CreatePath("key-test-comments", INPUT_DIR), &keys));
 	
 	TEST_ASSERT_TRUE(keys != NULL);
 
-	key* result = NULL;
+	struct key* result = NULL;
 	get_key(10, &result);
 	TEST_ASSERT_TRUE(result != NULL);
 	char data[15]; memset(data, 0x01, 15);
-	TEST_ASSERT_TRUE(CompareKeys(10, 15, "MD5", data, *result));
+	TEST_ASSERT_TRUE(CompareKeysAlternative(10, 15, "MD5", data, *result));
 
 	result = NULL;
 	get_key(34, &result);
 	TEST_ASSERT_TRUE(result != NULL);
-	TEST_ASSERT_TRUE(CompareKeys(34, 3, "MD5", "xyz", *result));
+	TEST_ASSERT_TRUE(CompareKeysAlternative(34, 3, "MD5", "xyz", *result));
 }
 
-void(ReadKeyFileWithInvalidHex) {
-	key* keys = NULL;
+void test_ReadKeyFileWithInvalidHex() {
+	struct key* keys = NULL;
 
-	TEST_ASSERT_EQUAL(1, auth_init(CreatePath("key-test-invalid-hex", INPUT_DIR).c_str(), &keys));
+	TEST_ASSERT_EQUAL(1, auth_init(CreatePath("key-test-invalid-hex", INPUT_DIR), &keys));
 
 	TEST_ASSERT_TRUE(keys != NULL);
 
-	key* result = NULL;
+	struct key* result = NULL;
 	get_key(10, &result);
 	TEST_ASSERT_TRUE(result != NULL);
 	char data[15]; memset(data, 0x01, 15);
-	TEST_ASSERT_TRUE(CompareKeys(10, 15, "MD5", data, *result));
+	TEST_ASSERT_TRUE(CompareKeysAlternative(10, 15, "MD5", data, *result));
 
 	result = NULL;
 	get_key(30, &result); // Should not exist, and result should remain NULL.

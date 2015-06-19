@@ -1,14 +1,10 @@
 #ifndef FILE_HANDLING_TEST_H
 #define FILE_HANDLING_TEST_H
 
+#include "stdlib.h"
 #include "c_sntptest.h"
 
-//#include <fstream>
 #include <string.h>
-
-//using std::ifstream;
-//using std::string;
-//using std::ios;
 
 
 enum DirectoryType {
@@ -16,9 +12,11 @@ enum DirectoryType {
 	OUTPUT_DIR = 1
 };
 
-char * CreatePath(const char* filename, DirectoryType argument) {
-	char * path;
+const char * CreatePath(const char* filename, enum DirectoryType argument) {
+	
+	 char * path = malloc (sizeof (char) * 100);
 
+	/*
 	if (m_params.size() >= argument + 1) {
 		path = m_params[argument];
 	}
@@ -26,37 +24,66 @@ char * CreatePath(const char* filename, DirectoryType argument) {
 	if (path[path.size()-1] != DIR_SEP && !path.empty()) {
 		path.append(1, DIR_SEP);
 	}
-	path.append(filename);
+	*/
+	//strcpy(path,filename);
+	//path.append(filename);
+
+	//return path;
+
+	strcpy(path,"../../../sntp/tests/data/");
+	strcat(path,filename);
 
 	return path;
 }
 
-int GetFileSize(ifstream& file) {
-	int initial = file.tellg();
+int GetFileSize(FILE *file) {
 
-	file.seekg(0, ios::end);
-	int length = file.tellg();
-	file.seekg(initial);
+	fseek(file, 0L, SEEK_END);
+	int length = ftell(file);
+	fseek(file, 0L, SEEK_SET);
+	
+	//int initial = file.tellg();
+
+	//file.seekg(0, ios::end);
+	//int length = file.tellg();
+	//file.seekg(initial);
 
 	return length;
 }
 
-void CompareFileContent(ifstream& expected, ifstream& actual) {
+bool CompareFileContent(FILE* expected, FILE* actual) {
 	int currentLine = 1;
-	while (actual.good() && expected.good()) {
-		string actualLine, expectedLine;
-		getline(actual, actualLine);
-		getline(expected, expectedLine);
-		
-		EXPECT_EQ(expectedLine, actualLine) << "Comparision failed on line " << currentLine;
+
+	char * actualLine=NULL;
+	char * expectedLine = NULL;
+	size_t lenAct = 0;
+	size_t lenExp = 0;
+ 	ssize_t readAct,readExp;
+	
+	while (  ( (readAct = getline(&actualLine, &lenAct, actual)) != -1) && ( (readExp = getline(&expectedLine, &lenExp, expected)) != -1  )    ) {
+
+		//printf("%s",actualLine);
+		//printf("%s",expectedLine);
+	
+		if( strcmp(actualLine,expectedLine) !=0 ){
+			printf("Comparision failed on line %d",currentLine);
+			return FALSE;
+		}
+
+		//I removed this and modified the test kodFile.c, because there shouldn't be any ASSERTs in .h files!
+		//TEST_ASSERT_EQUAL_STRING(actualLine,expectedLine);//EXPECT_EQ(expectedLine, actualLine) << "Comparision failed on line " << currentLine;
 		currentLine++;
 	}
+
+	return TRUE;
 }
 
-void ClearFile(const std::string& filename) {
-	std::ofstream clear(filename.c_str(), ios::trunc);
-	ASSERT_TRUE(clear.good());
-	clear.close();
+void ClearFile(const char * filename) {
+	FILE * clear = fopen(filename, "w");//ios::trunc); //similar to truncate, I GUESS???!
+	
+	//I removed this because there shouldn't be any ASSERTs in .h files!
+	//TEST_ASSERT_TRUE(clear != NULL);
+	fclose(clear);
 }
 
 

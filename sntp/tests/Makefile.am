@@ -8,7 +8,9 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 EXTRA_PROGRAMS +=	test-keyFile
 
 check_PROGRAMS = 		\
+	test-keyFile		\
 	test-kodDatabase	\
+	test-kodFile		\
 	test-networking		\
 	$(NULL)
 
@@ -29,9 +31,9 @@ base_SOURCES =			\
 tests_SOURCES =			\
 	$(base_SOURCES)		\
 	crypto.cpp		\
-	keyFile.cpp		\
+	g_keyFile.cpp		\
 	g_kodDatabase.cpp	\
-	kodFile.cpp		\
+	g_kodFile.cpp		\
 	g_networking.cpp	\
 	packetHandling.cpp	\
 	packetProcessing.cpp	\
@@ -107,6 +109,7 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-networking.c	\
 	$(srcdir)/run-kodDatabase.c	\
 	$(srcdir)/run-keyFile.c		\
+	$(srcdir)/run-kodFile.c		\
 	$(NULL)
 
 test_networking_CFLAGS =		\
@@ -133,23 +136,39 @@ test_keyFile_LDADD =			\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
+test_kodFile_CFLAGS =			\
+	-I$(top_srcdir)/unity		\
+	$(NULL)
+
+test_kodFile_LDADD =			\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
 
 test_networking_SOURCES =		\
 	networking.c			\
 	run-networking.c		\
-	../version.c			\
+	$(top_builddir)/version.c	\
 	$(NULL)
 
 test_kodDatabase_SOURCES =		\
 	kodDatabase.c			\
 	run-kodDatabase.c		\
-	../version.c			\
+	$(top_builddir)/version.c	\
 	$(NULL)
 
 test_keyFile_SOURCES =			\
 	keyFile.c			\
 	run-keyFile.c			\
+	$(top_builddir)/version.c	\
 	$(NULL)
+
+test_kodFile_SOURCES =			\
+	kodFile.c			\
+	run-kodFile.c			\
+	$(top_builddir)/version.c	\
+	$(NULL)
+#	../version.c
 
 $(srcdir)/run-networking.c: $(srcdir)/networking.c $(std_unity_list)
 	$(run_unity) networking.c run-networking.c
@@ -162,6 +181,9 @@ $(srcdir)/run-kodDatabase.c: $(srcdir)/kodDatabase.c $(std_unity_list)
 
 $(srcdir)/run-keyFile.c: $(srcdir)/keyFile.c $(std_unity_list)
 	$(run_unity) keyFile.c run-keyFile.c
+
+$(srcdir)/run-kodFile.c: $(srcdir)/kodFile.c $(std_unity_list)
+	$(run_unity) kodFile.c run-kodFile.c
 
 TESTS = 
 
