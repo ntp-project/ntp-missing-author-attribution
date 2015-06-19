@@ -403,6 +403,7 @@ test_caltontp_CFLAGS =			\
 test_caltontp_LDADD =			\
 	$(LDADD)				\
 	$(top_builddir)/sntp/unity/libunity.a	\
+	-lpthread				\
 	$(NULL)
 
 test_msyslog_CFLAGS =			\
