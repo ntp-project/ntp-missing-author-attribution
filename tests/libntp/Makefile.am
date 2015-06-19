@@ -24,6 +24,7 @@ check_PROGRAMS =		\
 	test-numtohost		\
 	test-octtoint		\
 	test-refnumtoa		\
+	test-sfptostr		\
 	test-ssl_init		\
 	test-socktoa		\
 	test-statestr		\
@@ -98,7 +99,7 @@ tests_SOURCES =					\
 	prettydate.cpp		\
 	recvbuff.cpp		\
 	g_refnumtoa.cpp		\
-	sfptostr.cpp		\
+	g_sfptostr.cpp		\
 	g_socktoa.cpp		\
 	g_ssl_init.cpp		\
 	g_statestr.cpp		\
@@ -131,6 +132,7 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-numtohost.c	\
 	$(srcdir)/run-octtoint.c	\
 	$(srcdir)/run-refnumtoa.c	\
+	$(srcdir)/run-sfptostr.c	\
 	$(srcdir)/run-ssl_init.c	\
 	$(srcdir)/run-socktoa.c		\
 	$(srcdir)/run-statestr.c	\
@@ -398,6 +400,15 @@ test_tvtots_LDADD =				\
 	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
 
+test_sfptostr_CFLAGS =				\
+	-I$(top_srcdir)/sntp/unity		\
+	-DUNITY_INCLUDE_DOUBLE			\
+	$(NULL)
+
+test_sfptostr_LDADD =				\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	$(NULL)
 
 
 test_modetoa_SOURCES =			\
@@ -539,6 +550,11 @@ test_tvtots_SOURCES =			\
 	run-tvtots.c			\
 	$(NULL)
 
+test_sfptostr_SOURCES =			\
+	sfptostr.c			\
+	run-sfptostr.c			\
+	$(NULL)
+
 $(srcdir)/run-modetoa.c: $(srcdir)/modetoa.c $(std_unity_list)
 	$(run_unity) modetoa.c run-modetoa.c
 
@@ -619,6 +635,10 @@ $(srcdir)/run-ssl_init.c: $(srcdir)/ssl_init.c $(std_unity_list)
 
 $(srcdir)/run-tvtots.c: $(srcdir)/tvtots.c $(std_unity_list)
 	$(run_unity) tvtots.c run-tvtots.c
+
+$(srcdir)/run-sfptostr.c: $(srcdir)/sfptostr.c $(std_unity_list)
+	$(run_unity) sfptostr.c run-sfptostr.c
+
 
 TESTS =
 
