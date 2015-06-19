@@ -26,10 +26,9 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_MD5KeyTypeWithoutDigestLength();
-extern void test_MD5KeyTypeWithDigestLength();
-extern void test_SHA1KeyTypeWithDigestLength();
-extern void test_MD5KeyName();
+extern void test_Seconds(void);
+extern void test_MicrosecondsExact(void);
+extern void test_MicrosecondsRounding(void);
 
 
 //=======Test Reset Option=====
@@ -46,12 +45,11 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "ssl_init.c";
-  UnityBegin("ssl_init.c");
-  RUN_TEST(test_MD5KeyTypeWithoutDigestLength, 18);
-  RUN_TEST(test_MD5KeyTypeWithDigestLength, 22);
-  RUN_TEST(test_SHA1KeyTypeWithDigestLength, 31);
-  RUN_TEST(test_MD5KeyName, 45);
+  Unity.TestFile = "tstotv.c";
+  UnityBegin("tstotv.c");
+  RUN_TEST(test_Seconds, 7);
+  RUN_TEST(test_MicrosecondsExact, 19);
+  RUN_TEST(test_MicrosecondsRounding, 33);
 
   return (UnityEnd());
 }
