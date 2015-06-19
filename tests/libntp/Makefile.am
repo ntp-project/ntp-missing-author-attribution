@@ -18,6 +18,7 @@ check_PROGRAMS =		\
 	test-hextoint		\
 	test-hextolfp		\
 	test-lfpfunc		\
+	test-lfptostr		\
 	test-modetoa		\
 	test-netof		\
 	test-numtoa		\
@@ -27,6 +28,7 @@ check_PROGRAMS =		\
 	test-ssl_init		\
 	test-socktoa		\
 	test-statestr		\
+	test-strtolfp       \
 	test-timespecops	\
 	test-timevalops		\
 	test-uglydate		\
@@ -87,7 +89,7 @@ tests_SOURCES =					\
 	g_hextolfp.cpp		\
 	humandate.cpp		\
 	g_lfpfunc.cpp		\
-	lfptostr.cpp		\
+	g_lfptostr.cpp		\
 	g_modetoa.cpp		\
 	msyslog.cpp		\
 	g_netof.cpp		\
@@ -101,7 +103,7 @@ tests_SOURCES =					\
 	g_socktoa.cpp		\
 	g_ssl_init.cpp		\
 	g_statestr.cpp		\
-	strtolfp.cpp		\
+	g_strtolfp.cpp		\
 	g_timespecops.cpp	\
 	timestructs.cpp		\
 	g_timevalops.cpp	\
@@ -124,6 +126,7 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-hextoint.c	\
 	$(srcdir)/run-hextolfp.c	\
 	$(srcdir)/run-lfpfunc.c		\
+	$(srcdir)/run-lfptostr.c		\
 	$(srcdir)/run-modetoa.c		\
 	$(srcdir)/run-netof.c		\
 	$(srcdir)/run-numtoa.c		\
@@ -133,6 +136,7 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-ssl_init.c	\
 	$(srcdir)/run-socktoa.c		\
 	$(srcdir)/run-statestr.c	\
+	$(srcdir)/run-strtolfp.c	\
 	$(srcdir)/run-timevalops.c	\
 	$(srcdir)/run-timespecops.c	\
 	$(srcdir)/run-uglydate.c	\
@@ -269,6 +273,22 @@ test_socktoa_CFLAGS =			\
 	$(NULL)
 
 test_socktoa_LDADD =			\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
+test_strtolfp_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
+	$(NULL)
+
+test_strtolfp_LDADD =			\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
+test_lfptostr_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
+	$(NULL)
+
+test_lfptostr_LDADD =			\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
@@ -457,6 +477,16 @@ test_socktoa_SOURCES =			\
 	run-socktoa.c			\
 	$(NULL)
 
+test_strtolfp_SOURCES =			\
+	strtolfp.c			\
+	run-strtolfp.c			\
+	$(NULL)
+
+test_lfptostr_SOURCES =			\
+	lfptostr.c			\
+	run-lfptostr.c			\
+	$(NULL)
+
 test_atouint_SOURCES =			\
 	atouint.c			\
 	run-atouint.c			\
@@ -560,6 +590,12 @@ $(srcdir)/run-decodenetnum.c: $(srcdir)/decodenetnum.c $(std_unity_list)
 
 $(srcdir)/run-socktoa.c: $(srcdir)/socktoa.c $(std_unity_list)
 	$(run_unity) socktoa.c run-socktoa.c
+
+$(srcdir)/run-strtolfp.c: $(srcdir)/strtolfp.c $(std_unity_list)
+	$(run_unity) strtolfp.c run-strtolfp.c
+
+$(srcdir)/run-lfptostr.c: $(srcdir)/lfptostr.c $(std_unity_list)
+	$(run_unity) lfptostr.c run-lfptostr.c
 
 $(srcdir)/run-a_md5encrypt.c: $(srcdir)/a_md5encrypt.c $(std_unity_list)
 	$(run_unity) a_md5encrypt.c run-a_md5encrypt.c
