@@ -298,6 +298,7 @@ test_strtolfp_CFLAGS =			\
 
 test_strtolfp_LDADD =			\
 	$(unity_tests_LDADD)		\
+	-lpthread			\
 	$(NULL)
 
 test_lfptostr_CFLAGS =			\
