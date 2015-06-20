@@ -29,8 +29,9 @@ void test_MakeMd5Mac(void) {
 	TEST_ASSERT_TRUE(memcmp(EXPECTED_DIGEST, actual, MD5_LENGTH) == 0);
 }
 
-#ifdef OPENSSL
+
 void test_MakeSHA1Mac(void) {
+#ifdef OPENSSL
 	const char* PKT_DATA = "abcdefgh0123";
 	const int PKT_LEN = strlen(PKT_DATA);
 	const char* EXPECTED_DIGEST =
@@ -49,8 +50,11 @@ void test_MakeSHA1Mac(void) {
 			  make_mac((char*)PKT_DATA, PKT_LEN, SHA1_LENGTH, &sha1, actual));
 
 	TEST_ASSERT_TRUE(memcmp(EXPECTED_DIGEST, actual, SHA1_LENGTH) == 0);
-}
+#else
+	TEST_IGNORE_MESSAGE("OpenSSL not found, skipping...");
 #endif	/* OPENSSL */
+}
+
 
 void test_VerifyCorrectMD5(void) {
 	const char* PKT_DATA =
@@ -70,8 +74,9 @@ void test_VerifyCorrectMD5(void) {
 	TEST_ASSERT_TRUE(auth_md5((char*)PKT_DATA, PKT_LEN, MD5_LENGTH, &md5));
 }
 
-#ifdef OPENSSL
+
 void test_VerifySHA1(void) {
+#ifdef OPENSSL
 	const char* PKT_DATA =
 		"sometestdata"		// Data
 		"\0\0\0\0"			// Key-ID (unused)
@@ -87,8 +92,10 @@ void test_VerifySHA1(void) {
 	memcpy(&sha1.type, "SHA1", 5);
 
 	TEST_ASSERT_TRUE(auth_md5((char*)PKT_DATA, PKT_LEN, SHA1_LENGTH, &sha1));
-}
+#else
+	TEST_IGNORE_MESSAGE("OpenSSL not found, skipping...");
 #endif	/* OPENSSL */
+}
 
 void test_VerifyFailure(void) {
 	/* We use a copy of the MD5 verification code, but modify

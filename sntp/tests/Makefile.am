@@ -119,23 +119,6 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-utilities.c	\
 	$(NULL)
 
-test_crypto_CFLAGS =			\
-	-I$(top_srcdir)/unity		\
-	$(NULL)
-
-test_crypto_LDADD =			\
-	$(unity_tests_LDADD)		\
-	$(NULL)
-
-test_crypto_SOURCES =			\
-	crypto.c			\
-	run-crypto.c			\
-	$(top_builddir)/version.c	\
-	$(NULL)
-
-$(srcdir)/run-crypto.c: $(srcdir)/crypto.c $(std_unity_list)
-	$(run_unity) crypto.c run-crypto.c
-
 test_keyFile_CFLAGS =			\
 	-I$(top_srcdir)/unity		\
 	$(NULL)
@@ -173,10 +156,16 @@ test_utilities_CFLAGS =			\
 	$(NULL)
 
 test_utilities_LDADD =			\
-	$(LDADD)			\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
+test_crypto_CFLAGS =			\
+	-I$(top_srcdir)/unity		\
+	$(NULL)
+
+test_crypto_LDADD =			\
+	$(unity_tests_LDADD)		\
+	$(NULL)
 
 test_networking_SOURCES =		\
 	networking.c			\
@@ -208,6 +197,12 @@ test_utilities_SOURCES =		\
 	run-utilities.c			\
 	$(NULL)
 
+test_crypto_SOURCES =			\
+	crypto.c			\
+	run-crypto.c			\
+	$(top_builddir)/version.c	\
+	$(NULL)
+
 
 $(srcdir)/run-kodFile.c: $(srcdir)/kodFile.c $(std_unity_list)
 	$(run_unity) kodFile.c run-kodFile.c
@@ -223,6 +218,9 @@ $(srcdir)/run-networking.c: $(srcdir)/networking.c $(std_unity_list)
 
 $(srcdir)/run-utilities.c: $(srcdir)/utilities.c $(std_unity_list)
 	$(run_unity) utilities.c run-utilities.c
+
+$(srcdir)/run-crypto.c: $(srcdir)/crypto.c $(std_unity_list)
+	$(run_unity) crypto.c run-crypto.c
 
 #$(srcdir)/../version.c: $(srcdir)/../version.c
 #	gcc -o version.o ../version.c
