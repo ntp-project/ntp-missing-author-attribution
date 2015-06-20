@@ -1,4 +1,4 @@
-#include "lfptest.h"
+#include "g_lfptest.h"
 
 /* This class tests both atolfp and mstolfp */
 

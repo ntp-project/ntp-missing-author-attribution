@@ -1,4 +1,4 @@
-#include "lfptest.h"
+#include "g_lfptest.h"
 
 extern "C" {
 #include "timevalops.h"

@@ -11,7 +11,7 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 #EXTRA_PROGRAMS +=	test-keyFile
 
 check_PROGRAMS =		\
-	test-crypto         \
+	test-crypto		\
 	test-keyFile		\
 	test-kodDatabase	\
 	test-kodFile		\
@@ -35,15 +35,19 @@ base_SOURCES =			\
 
 tests_SOURCES =			\
 	$(base_SOURCES)		\
-	g_crypto.cpp		\
-	g_keyFile.cpp		\
-	g_kodDatabase.cpp	\
-	g_kodFile.cpp		\
 	g_networking.cpp	\
 	packetHandling.cpp	\
 	packetProcessing.cpp	\
-	g_utilities.cpp		\
 	$(NULL)
+
+#HMS: Somebody needs to audit the following files to
+# make sure all of these tests are now handled by Unity
+#
+#	g_utilities.cpp		
+#	g_kodDatabase.cpp	
+#	g_keyFile.cpp		
+#	g_crypto.cpp		
+#	g_kodFile.cpp		
 
 noinst_HEADERS =		\
 	fileHandlingTest.h	\
