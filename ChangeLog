@@ -1,3 +1,7 @@
+Below are from 4.2.8p3:
+* [Bug 2852] 'make check' can't find unity.h.  Hal Murray.
+* [Bug 2854] Missing brace in libntp/strdup.c.  Masanari Iida.
+* Unity cleanup.
 (4.3.42) 2015/06/17 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p3:
 * Unity cleanup.
