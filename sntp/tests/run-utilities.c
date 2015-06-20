@@ -27,7 +27,13 @@
 extern void setUp(void);
 extern void tearDown(void);
 void resetTest(void);
-extern void test_main(void );
+extern void test_IPv4Address();
+extern void test_IPv6Address();
+extern void test_SetLiVnMode1();
+extern void test_SetLiVnMode2();
+extern void test_PktOutput();
+extern void test_LfpOutputBinaryFormat();
+extern void test_LfpOutputDecimalFormat();
 
 
 //=======Test Reset Option=====
@@ -44,9 +50,15 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "bug-2803.c";
-  UnityBegin("bug-2803.c");
-  RUN_TEST(test_main, 18);
+  Unity.TestFile = "utilities.c";
+  UnityBegin("utilities.c");
+  RUN_TEST(test_IPv4Address, 68);
+  RUN_TEST(test_IPv6Address, 78);
+  RUN_TEST(test_SetLiVnMode1, 98);
+  RUN_TEST(test_SetLiVnMode2, 111);
+  RUN_TEST(test_PktOutput, 126);
+  RUN_TEST(test_LfpOutputBinaryFormat, 146);
+  RUN_TEST(test_LfpOutputDecimalFormat, 162);
 
   return (UnityEnd());
 }

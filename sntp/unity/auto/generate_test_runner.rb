@@ -144,6 +144,7 @@ class UnityTestRunnerGenerator
     output.puts("\n//=======External Functions This Runner Calls=====")
     output.puts("extern void setUp(void);")
     output.puts("extern void tearDown(void);")
+    output.puts("void resetTest(void);")
     tests.each do |test|
       output.puts("extern void #{test[:name]}(#{test[:call]});")
     end

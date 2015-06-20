@@ -1,6 +1,6 @@
 NULL =
 BUILT_SOURCES =
-CLEANFILES = kod-output-blank kod-output-single kod-output-multiple
+CLEANFILES = kod-output-blank kod-output-single kod-output-multiple debug-output-lfp-dec debug-output-lfp-bin debug-output-pkt
 DISTCLEANFILES = kod-output-blank kod-output-single kod-output-multiple
 EXTRA_PROGRAMS =
 
@@ -15,6 +15,7 @@ check_PROGRAMS =		\
 	test-kodDatabase	\
 	test-kodFile		\
 	test-networking		\
+	test-utilities		\
 	$(NULL)
 
 if GTEST_AVAILABLE
@@ -40,7 +41,7 @@ tests_SOURCES =			\
 	g_networking.cpp	\
 	packetHandling.cpp	\
 	packetProcessing.cpp	\
-	utilities.cpp		\
+	g_utilities.cpp		\
 	$(NULL)
 
 noinst_HEADERS =		\
@@ -68,7 +69,7 @@ EXTRA_DIST =				\
 	data/kod-test-empty		\
 	$(NULL)
 
-CLEANFILES =				\
+CLEANFILES +=				\
 	data/kod-output-multiple	\
 	data/kod-output-single		\
 	data/debug-output-pkt		\
@@ -92,6 +93,7 @@ LDADD =						\
 unity_tests_LDADD =				\
 	$(LDADD)				\
 	$(top_builddir)/unity/libunity.a	\
+	$(LIBM)					\
 	$(NULL)
 
 AM_CFLAGS   = $(CFLAGS_NTP)
@@ -112,6 +114,7 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-kodDatabase.c	\
 	$(srcdir)/run-kodFile.c		\
 	$(srcdir)/run-networking.c	\
+	$(srcdir)/run-utilities.c	\
 	$(NULL)
 
 
@@ -123,16 +126,6 @@ test_keyFile_LDADD =			\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
-test_keyFile_SOURCES =			\
-	keyFile.c			\
-	run-keyFile.c			\
-	$(top_builddir)/version.c	\
-	$(NULL)
-
-$(srcdir)/run-keyFile.c: $(srcdir)/keyFile.c $(std_unity_list)
-	$(run_unity) keyFile.c run-keyFile.c
-
-
 test_kodDatabase_CFLAGS =		\
 	-I$(top_srcdir)/unity		\
 	$(NULL)
@@ -140,16 +133,6 @@ test_kodDatabase_CFLAGS =		\
 test_kodDatabase_LDADD =		\
 	$(unity_tests_LDADD)		\
 	$(NULL)
-
-test_kodDatabase_SOURCES =		\
-	kodDatabase.c			\
-	run-kodDatabase.c		\
-	$(top_builddir)/version.c	\
-	$(NULL)
-
-$(srcdir)/run-kodDatabase.c: $(srcdir)/kodDatabase.c $(std_unity_list)
-	$(run_unity) kodDatabase.c run-kodDatabase.c
-
 
 test_kodFile_CFLAGS =			\
 	-I$(top_srcdir)/unity		\
@@ -159,17 +142,6 @@ test_kodFile_LDADD =			\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
-test_kodFile_SOURCES =			\
-	kodFile.c			\
-	run-kodFile.c			\
-	$(top_builddir)/version.c	\
-	$(NULL)
-#	../version.c
-
-$(srcdir)/run-kodFile.c: $(srcdir)/kodFile.c $(std_unity_list)
-	$(run_unity) kodFile.c run-kodFile.c
-
-
 test_networking_CFLAGS =		\
 	-I$(top_srcdir)/unity		\
 	$(NULL)
@@ -178,15 +150,61 @@ test_networking_LDADD =			\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
+test_utilities_CFLAGS =			\
+	-I$(top_srcdir)/unity		\
+	$(NULL)
+
+test_utilities_LDADD =			\
+	$(LDADD)			\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
+
 test_networking_SOURCES =		\
 	networking.c			\
 	run-networking.c		\
 	$(top_builddir)/version.c	\
 	$(NULL)
 
+test_kodDatabase_SOURCES =		\
+	kodDatabase.c			\
+	run-kodDatabase.c		\
+	$(top_builddir)/version.c	\
+	$(NULL)
+
+test_keyFile_SOURCES =			\
+	keyFile.c			\
+	run-keyFile.c			\
+	$(top_builddir)/version.c	\
+	$(NULL)
+
+test_kodFile_SOURCES =			\
+	kodFile.c			\
+	run-kodFile.c			\
+	$(top_builddir)/version.c	\
+	$(NULL)
+#	../version.c
+
+test_utilities_SOURCES =		\
+	utilities.c			\
+	run-utilities.c			\
+	$(NULL)
+
+
+$(srcdir)/run-kodFile.c: $(srcdir)/kodFile.c $(std_unity_list)
+	$(run_unity) kodFile.c run-kodFile.c
+
+$(srcdir)/run-keyFile.c: $(srcdir)/keyFile.c $(std_unity_list)
+	$(run_unity) keyFile.c run-keyFile.c
+
+$(srcdir)/run-kodDatabase.c: $(srcdir)/kodDatabase.c $(std_unity_list)
+	$(run_unity) kodDatabase.c run-kodDatabase.c
+
 $(srcdir)/run-networking.c: $(srcdir)/networking.c $(std_unity_list)
 	$(run_unity) networking.c run-networking.c
 
+$(srcdir)/run-utilities.c: $(srcdir)/utilities.c $(std_unity_list)
+	$(run_unity) utilities.c run-utilities.c
 
 #$(srcdir)/../version.c: $(srcdir)/../version.c
 #	gcc -o version.o ../version.c
