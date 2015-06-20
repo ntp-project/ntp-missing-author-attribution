@@ -10,6 +10,7 @@ check_PROGRAMS =		\
 	test-atoint		\
 	test-atouint		\
 	test-authkeys		\
+	test-buftvtots		\
 	test-calendar		\
 	test-caljulian		\
 	test-caltontp		\
@@ -31,8 +32,8 @@ check_PROGRAMS =		\
 	test-recvbuff		\
 	test-refnumtoa		\
 	test-sfptostr		\
-	test-ssl_init		\
 	test-socktoa		\
+	test-ssl_init		\
 	test-statestr		\
 	test-strtolfp		\
 	test-timespecops	\
@@ -113,7 +114,7 @@ tests_SOURCES =					\
 	g_statestr.cpp		\
 	g_strtolfp.cpp		\
 	g_timespecops.cpp	\
-	g_timestructs.cpp		\
+	g_timestructs.cpp	\
 	g_timevalops.cpp	\
 	g_tstotv.cpp		\
 	g_tvtots.cpp		\
@@ -127,8 +128,10 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-atoint.c		\
 	$(srcdir)/run-atouint.c		\
 	$(srcdir)/run-authkeys.c	\
+	$(srcdir)/run-buftvtots.c	\
+	$(srcdir)/run-calendar.c	\
 	$(srcdir)/run-caljulian.c	\
-	$(srcdir)/run-caltontp.c
+	$(srcdir)/run-caltontp.c	\
 	$(srcdir)/run-calyearstart.c	\
 	$(srcdir)/run-clocktime.c	\
 	$(srcdir)/run-decodenetnum.c	\
@@ -147,8 +150,8 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-recvbuff.c	\
 	$(srcdir)/run-refnumtoa.c	\
 	$(srcdir)/run-sfptostr.c	\
-	$(srcdir)/run-ssl_init.c	\
 	$(srcdir)/run-socktoa.c		\
+	$(srcdir)/run-ssl_init.c	\
 	$(srcdir)/run-statestr.c	\
 	$(srcdir)/run-strtolfp.c	\
 	$(srcdir)/run-timevalops.c	\
@@ -158,7 +161,6 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-uglydate.c	\
 	$(srcdir)/run-vi64ops.c		\
 	$(srcdir)/run-ymd2yd.c		\
-	$(srcdir)/run-calendar.c	\
 	$(NULL)
 
 noinst_HEADERS =	\
@@ -498,6 +500,16 @@ test_tstotv_LDADD =			\
 	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
 
+test_buftvtots_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
+	-DUNITY_INCLUDE_DOUBLE		\
+	$(NULL)
+
+test_buftvtots_LDADD =				\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	$(NULL)
+
 
 test_modetoa_SOURCES =			\
 	modetoa.c			\
@@ -653,7 +665,7 @@ test_sfptostr_SOURCES =			\
 	run-sfptostr.c			\
 	$(NULL)
 
-test_humandate_SOURCES =			\
+test_humandate_SOURCES =		\
 	humandate.c			\
 	run-humandate.c			\
 	$(NULL)
@@ -668,9 +680,9 @@ test_msyslog_SOURCES =			\
 	run-msyslog.c			\
 	$(NULL)
 
-test_prettydate_SOURCES =			\
+test_prettydate_SOURCES =		\
 	prettydate.c			\
-	run-prettydate.c			\
+	run-prettydate.c		\
 	$(NULL)
 
 test_recvbuff_SOURCES =			\
@@ -682,6 +694,12 @@ test_tstotv_SOURCES =			\
 	tstotv.c			\
 	run-tstotv.c			\
 	$(NULL)
+
+test_buftvtots_SOURCES =		\
+	buftvtots.c			\
+	run-buftvtots.c			\
+	$(NULL)
+
 
 $(srcdir)/run-modetoa.c: $(srcdir)/modetoa.c $(std_unity_list)
 	$(run_unity) modetoa.c run-modetoa.c
@@ -791,6 +809,8 @@ $(srcdir)/run-recvbuff.c: $(srcdir)/recvbuff.c $(std_unity_list)
 $(srcdir)/run-tstotv.c: $(srcdir)/tstotv.c $(std_unity_list)
 	$(run_unity) tstotv.c run-tstotv.c
 
+$(srcdir)/run-buftvtots.c: $(srcdir)/buftvtots.c $(std_unity_list)
+	$(run_unity) buftvtots.c run-buftvtots.c
 
 TESTS =
 
