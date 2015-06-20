@@ -6,9 +6,11 @@ EXTRA_PROGRAMS =
 
 run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
-EXTRA_PROGRAMS +=	test-keyFile
+# Use EXTRA_PROGRAMS for test files that are under development but
+# not production-ready
+#EXTRA_PROGRAMS +=	test-keyFile
 
-check_PROGRAMS = 		\
+check_PROGRAMS =		\
 	test-keyFile		\
 	test-kodDatabase	\
 	test-kodFile		\
@@ -105,28 +107,11 @@ AM_CPPFLAGS += $(CPPFLAGS_NTP)
 
 AM_LDFLAGS = $(LDFLAGS_NTP)
 
-
 BUILT_SOURCES +=			\
-	$(srcdir)/run-networking.c	\
-	$(srcdir)/run-kodDatabase.c	\
 	$(srcdir)/run-keyFile.c		\
+	$(srcdir)/run-kodDatabase.c	\
 	$(srcdir)/run-kodFile.c		\
-	$(NULL)
-
-test_networking_CFLAGS =		\
-	-I$(top_srcdir)/unity		\
-	$(NULL)
-
-test_networking_LDADD =			\
-	$(unity_tests_LDADD)		\
-	$(NULL)
-
-test_kodDatabase_CFLAGS =		\
-	-I$(top_srcdir)/unity		\
-	$(NULL)
-
-test_kodDatabase_LDADD =		\
-	$(unity_tests_LDADD)		\
+	$(srcdir)/run-networking.c	\
 	$(NULL)
 
 test_keyFile_CFLAGS =			\
@@ -137,19 +122,22 @@ test_keyFile_LDADD =			\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
-test_kodFile_CFLAGS =			\
+test_keyFile_SOURCES =			\
+	keyFile.c			\
+	run-keyFile.c			\
+	$(top_builddir)/version.c	\
+	$(NULL)
+
+$(srcdir)/run-keyFile.c: $(srcdir)/keyFile.c $(std_unity_list)
+	$(run_unity) keyFile.c run-keyFile.c
+
+
+test_kodDatabase_CFLAGS =		\
 	-I$(top_srcdir)/unity		\
 	$(NULL)
 
-test_kodFile_LDADD =			\
+test_kodDatabase_LDADD =		\
 	$(unity_tests_LDADD)		\
-	$(NULL)
-
-
-test_networking_SOURCES =		\
-	networking.c			\
-	run-networking.c		\
-	$(top_builddir)/version.c	\
 	$(NULL)
 
 test_kodDatabase_SOURCES =		\
@@ -158,10 +146,16 @@ test_kodDatabase_SOURCES =		\
 	$(top_builddir)/version.c	\
 	$(NULL)
 
-test_keyFile_SOURCES =			\
-	keyFile.c			\
-	run-keyFile.c			\
-	$(top_builddir)/version.c	\
+$(srcdir)/run-kodDatabase.c: $(srcdir)/kodDatabase.c $(std_unity_list)
+	$(run_unity) kodDatabase.c run-kodDatabase.c
+
+
+test_kodFile_CFLAGS =			\
+	-I$(top_srcdir)/unity		\
+	$(NULL)
+
+test_kodFile_LDADD =			\
+	$(unity_tests_LDADD)		\
 	$(NULL)
 
 test_kodFile_SOURCES =			\
@@ -171,20 +165,30 @@ test_kodFile_SOURCES =			\
 	$(NULL)
 #	../version.c
 
+$(srcdir)/run-kodFile.c: $(srcdir)/kodFile.c $(std_unity_list)
+	$(run_unity) kodFile.c run-kodFile.c
+
+
+test_networking_CFLAGS =		\
+	-I$(top_srcdir)/unity		\
+	$(NULL)
+
+test_networking_LDADD =			\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
+test_networking_SOURCES =		\
+	networking.c			\
+	run-networking.c		\
+	$(top_builddir)/version.c	\
+	$(NULL)
+
 $(srcdir)/run-networking.c: $(srcdir)/networking.c $(std_unity_list)
 	$(run_unity) networking.c run-networking.c
 
-$(srcdir)/run-kodDatabase.c: $(srcdir)/kodDatabase.c $(std_unity_list)
-	$(run_unity) kodDatabase.c run-kodDatabase.c
 
 #$(srcdir)/../version.c: $(srcdir)/../version.c
 #	gcc -o version.o ../version.c
-
-$(srcdir)/run-keyFile.c: $(srcdir)/keyFile.c $(std_unity_list)
-	$(run_unity) keyFile.c run-keyFile.c
-
-$(srcdir)/run-kodFile.c: $(srcdir)/kodFile.c $(std_unity_list)
-	$(run_unity) kodFile.c run-kodFile.c
 
 TESTS = 
 
