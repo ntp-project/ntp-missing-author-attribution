@@ -46,7 +46,7 @@ protected:
 
 	// Closes outputFile, and compare contents.
 	void FinishDebugTest(const string& expected,
-						 const string& actual) {
+			     const string& actual) {
 		if (outputFileOpened)
 			fclose(outputFile);
 
@@ -111,8 +111,8 @@ TEST_F(utilitiesTest, SetLiVnMode1) {
 TEST_F(utilitiesTest, SetLiVnMode2) {
 	pkt expected;
 	expected.li_vn_mode = PKT_LI_VN_MODE(LEAP_NOTINSYNC,
-										 NTP_OLDVERSION,
-										 MODE_BROADCAST);
+					     NTP_OLDVERSION,
+					     MODE_BROADCAST);
 
 	pkt actual;
 	set_li_vn_mode(&actual, LEAP_NOTINSYNC, NTP_OLDVERSION,
@@ -130,8 +130,8 @@ TEST_F(debugUtilitiesTest, PktOutput) {
 	pkt testpkt;
 	memset(&testpkt, 0, sizeof(pkt));
 	testpkt.li_vn_mode = PKT_LI_VN_MODE(LEAP_NOWARNING,
-										NTP_VERSION,
-										MODE_SERVER);
+					    NTP_VERSION,
+					    MODE_SERVER);
 
 	l_fp test;
 	test.l_ui = 8;
