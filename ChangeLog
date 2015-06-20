@@ -22,6 +22,7 @@
    Fixed compiler warnings about numeric range overflow
    (The original topic was fixed in a byplay to bug#2830)
 * [Bug 2845] Harden memory allocation in ntpd.
+* [Bug 2852] 'make check' can't find unity.h.  Hal Murray.
 * [Bug 2854] Missing brace in libntp/strdup.c.  Masanari Iida.
 * Report select() debug messages at debug level 3 now.
 * sntp/scripts/genLocInfo: treat raspbian as debian.
