@@ -24,12 +24,10 @@
 #include <stdio.h>
 
 //=======External Functions This Runner Calls=====
-void resetTest();
-
 extern void setUp(void);
 extern void tearDown(void);
 extern void test_main(void );
-
+void resetTest(void);
 
 //=======Test Reset Option=====
 void resetTest()
