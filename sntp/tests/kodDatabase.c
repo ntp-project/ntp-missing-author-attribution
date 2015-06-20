@@ -1,7 +1,7 @@
 #include "config.h"
 
 #include "ntp_types.h"
-#include "c_sntptest.h"
+#include "sntptest.h"
 #include "ntp_stdlib.h"
 #include "sntp-opts.h"
 

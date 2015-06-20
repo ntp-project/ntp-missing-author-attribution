@@ -1,6 +1,6 @@
 #include "config.h"
 
-#include "c_sntptest.h"
+#include "sntptest.h"
 
 #include "networking.h"
 

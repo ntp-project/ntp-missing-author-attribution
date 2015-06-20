@@ -1,5 +1,5 @@
-#include "sntptest.h"
-#include "fileHandlingTest.h"
+#include "g_sntptest.h"
+#include "g_fileHandlingTest.h"
 
 extern "C" {
 #include "main.h"

@@ -1,5 +1,5 @@
 #include "config.h"
-#include "c_fileHandlingTest.h"
+#include "fileHandlingTest.h"
 
 #include "ntp_stdlib.h"
 #include "ntp_types.h"

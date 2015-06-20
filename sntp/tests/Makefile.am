@@ -44,10 +44,10 @@ tests_SOURCES =			\
 	$(NULL)
 
 noinst_HEADERS =		\
-	sntptest.h		\
-	c_sntptest.h		\
 	fileHandlingTest.h	\
-	c_fileHandlingTest.h	\
+	sntptest.h		\
+	g_fileHandlingTest.h	\
+	g_sntptest.h		\
 	$(NULL)
 
 dist_check_SCRIPTS =	tests-runner
@@ -113,6 +113,7 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-kodFile.c		\
 	$(srcdir)/run-networking.c	\
 	$(NULL)
+
 
 test_keyFile_CFLAGS =			\
 	-I$(top_srcdir)/unity		\

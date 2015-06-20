@@ -3,7 +3,7 @@
 #include "ntp_stdlib.h" // For estrdup()
 
 
-#include "c_fileHandlingTest.h"
+#include "fileHandlingTest.h"
 
 #include "kod_management.h"
 
