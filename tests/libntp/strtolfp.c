@@ -1,8 +1,10 @@
 #include "config.h"
+
 #include "ntp_stdlib.h"
 #include "ntp_calendar.h"
+
 #include "unity.h"
-#include "c_lfptest.h"
+#include "lfptest.h"
 
 /* This file tests both atolfp and mstolfp */
 

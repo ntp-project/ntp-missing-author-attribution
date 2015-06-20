@@ -52,14 +52,14 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "clocktime.c";
   UnityBegin("clocktime.c");
-  RUN_TEST(test_CurrentYear, 36);
-  RUN_TEST(test_CurrentYearFuzz, 51);
-  RUN_TEST(test_TimeZoneOffset, 73);
-  RUN_TEST(test_WrongYearStart, 93);
-  RUN_TEST(test_PreviousYear, 112);
-  RUN_TEST(test_NextYear, 131);
-  RUN_TEST(test_NoReasonableConversion, 149);
-  RUN_TEST(test_AlwaysInLimit, 171);
+  RUN_TEST(test_CurrentYear, 32);
+  RUN_TEST(test_CurrentYearFuzz, 47);
+  RUN_TEST(test_TimeZoneOffset, 69);
+  RUN_TEST(test_WrongYearStart, 89);
+  RUN_TEST(test_PreviousYear, 108);
+  RUN_TEST(test_NextYear, 127);
+  RUN_TEST(test_NoReasonableConversion, 145);
+  RUN_TEST(test_AlwaysInLimit, 167);
 
   return (UnityEnd());
 }

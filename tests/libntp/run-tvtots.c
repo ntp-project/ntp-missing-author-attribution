@@ -47,9 +47,9 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "tvtots.c";
   UnityBegin("tvtots.c");
-  RUN_TEST(test_Seconds, 9);
-  RUN_TEST(test_MicrosecondsRounded, 20);
-  RUN_TEST(test_MicrosecondsExact, 35);
+  RUN_TEST(test_Seconds, 10);
+  RUN_TEST(test_MicrosecondsRounded, 21);
+  RUN_TEST(test_MicrosecondsExact, 36);
 
   return (UnityEnd());
 }

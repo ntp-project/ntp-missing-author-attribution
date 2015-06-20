@@ -55,17 +55,17 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "lfptostr.c";
   UnityBegin("lfptostr.c");
-  RUN_TEST(test_PositiveInteger, 22);
-  RUN_TEST(test_NegativeInteger, 29);
-  RUN_TEST(test_PositiveIntegerWithFraction, 36);
-  RUN_TEST(test_NegativeIntegerWithFraction, 43);
-  RUN_TEST(test_RoundingDownToInteger, 50);
-  RUN_TEST(test_RoundingMiddleToInteger, 57);
-  RUN_TEST(test_RoundingUpToInteger, 64);
-  RUN_TEST(test_SingleDecimal, 71);
-  RUN_TEST(test_MillisecondsRoundingUp, 78);
-  RUN_TEST(test_MillisecondsRoundingDown, 87);
-  RUN_TEST(test_UnsignedInteger, 96);
+  RUN_TEST(test_PositiveInteger, 23);
+  RUN_TEST(test_NegativeInteger, 30);
+  RUN_TEST(test_PositiveIntegerWithFraction, 37);
+  RUN_TEST(test_NegativeIntegerWithFraction, 44);
+  RUN_TEST(test_RoundingDownToInteger, 51);
+  RUN_TEST(test_RoundingMiddleToInteger, 58);
+  RUN_TEST(test_RoundingUpToInteger, 65);
+  RUN_TEST(test_SingleDecimal, 72);
+  RUN_TEST(test_MillisecondsRoundingUp, 79);
+  RUN_TEST(test_MillisecondsRoundingDown, 88);
+  RUN_TEST(test_UnsignedInteger, 97);
 
   return (UnityEnd());
 }

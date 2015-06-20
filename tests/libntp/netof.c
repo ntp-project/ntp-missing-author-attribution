@@ -1,11 +1,11 @@
 #include "config.h"
+
 #include "ntp_stdlib.h"
 #include "ntp_calendar.h"
-#include "unity.h"
-//#include "ntp.h"
-//#include "ntp_net.h"
 
-#include "c_sockaddrtest.h"
+#include "unity.h"
+
+#include "sockaddrtest.h"
 
 void test_ClassBAddress(void) {
 	sockaddr_u input = CreateSockaddr4("172.16.2.1", NTP_PORT);

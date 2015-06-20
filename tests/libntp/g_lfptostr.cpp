@@ -4,7 +4,7 @@
  * a macro.
  */
 
-#include "libntptest.h"
+#include "g_libntptest.h"
 
 extern "C" {
 #include "ntp_fp.h"

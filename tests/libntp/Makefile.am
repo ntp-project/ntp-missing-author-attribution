@@ -81,12 +81,12 @@ AM_LDFLAGS = $(LDFLAGS_NTP)
 
 tests_SOURCES =					\
 	$(top_srcdir)/sntp/tests_main.cpp	\
-	libntptest.cpp		\
+	g_libntptest.cpp	\
 	g_a_md5encrypt.cpp	\
 	g_atoint.cpp		\
 	g_atouint.cpp		\
 	g_authkeys.cpp		\
-	buftvtots.cpp		\
+	g_buftvtots.cpp		\
 	g_calendar.cpp		\
 	g_caljulian.cpp		\
 	g_caltontp.cpp		\
@@ -113,7 +113,7 @@ tests_SOURCES =					\
 	g_statestr.cpp		\
 	g_strtolfp.cpp		\
 	g_timespecops.cpp	\
-	timestructs.cpp		\
+	g_timestructs.cpp		\
 	g_timevalops.cpp	\
 	g_tstotv.cpp		\
 	g_tvtots.cpp		\
@@ -162,12 +162,12 @@ BUILT_SOURCES +=			\
 	$(NULL)
 
 noinst_HEADERS =	\
+	g_lfptest.h	\
 	lfptest.h	\
-	c_lfptest.h	\
-	libntptest.h	\
+	g_libntptest.h	\
+	g_sockaddrtest.h	\
 	sockaddrtest.h	\
-	c_sockaddrtest.h\
-	timestructs.h	\
+	g_timestructs.h	\
 	test-libntp.h	\
 	$(NULL)
 

@@ -1,10 +1,9 @@
-//#include "testcalshims.h"
 #include "config.h"
+
 #include "recvbuff.h"
+
 #include "unity.h"
 
-//#include "ntp_stdlib.h"
-//#include "libntptest.h"
 
 void
 setUp(void)

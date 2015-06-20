@@ -1,14 +1,10 @@
 #include "config.h"
 
-#include <stdlib.h>
-
 #include "ntp_calendar.h"
-#include "unity.h"
 #include "ntp_stdlib.h"
 
-
+#include "unity.h"
 #include "test-libntp.h"
-
 
 
 // ---------------------------------------------------------------------

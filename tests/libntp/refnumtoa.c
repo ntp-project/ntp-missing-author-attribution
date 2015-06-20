@@ -1,4 +1,5 @@
 #include "config.h"
+
 #include "ntp_net.h"
 #include "ntp_refclock.h"
 

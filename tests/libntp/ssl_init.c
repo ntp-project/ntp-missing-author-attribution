@@ -1,11 +1,12 @@
 #include "config.h"
 
+#include "ntp.h"
+
 #ifdef OPENSSL
 # include "openssl/err.h"
 # include "openssl/rand.h"
 # include "openssl/evp.h"
 #endif
-#include "ntp.h"
 
 #include "unity.h"
 

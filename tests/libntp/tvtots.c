@@ -1,9 +1,10 @@
 #include "config.h"
-#include "c_lfptest.h"
+
+#include "lfptest.h"
 #include "timevalops.h"
+
 #include "unity.h"
 #include <math.h>// Required on Solaris for ldexp.
-
 
 
 void test_Seconds(void)

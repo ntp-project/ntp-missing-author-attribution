@@ -49,11 +49,11 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "ssl_init.c";
   UnityBegin("ssl_init.c");
-  RUN_TEST(test_MD5KeyTypeWithoutDigestLength, 18);
-  RUN_TEST(test_MD5KeyTypeWithDigestLength, 22);
-  RUN_TEST(test_SHA1KeyTypeWithDigestLength, 31);
-  RUN_TEST(test_MD5KeyName, 46);
-  RUN_TEST(test_SHA1KeyName, 50);
+  RUN_TEST(test_MD5KeyTypeWithoutDigestLength, 19);
+  RUN_TEST(test_MD5KeyTypeWithDigestLength, 23);
+  RUN_TEST(test_SHA1KeyTypeWithDigestLength, 32);
+  RUN_TEST(test_MD5KeyName, 47);
+  RUN_TEST(test_SHA1KeyName, 51);
 
   return (UnityEnd());
 }

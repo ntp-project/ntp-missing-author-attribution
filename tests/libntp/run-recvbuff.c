@@ -47,9 +47,9 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "recvbuff.c";
   UnityBegin("recvbuff.c");
-  RUN_TEST(test_Initialization, 16);
-  RUN_TEST(test_GetAndFree, 24);
-  RUN_TEST(test_GetAndFill, 35);
+  RUN_TEST(test_Initialization, 15);
+  RUN_TEST(test_GetAndFree, 23);
+  RUN_TEST(test_GetAndFill, 34);
 
   return (UnityEnd());
 }

@@ -47,9 +47,9 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "tstotv.c";
   UnityBegin("tstotv.c");
-  RUN_TEST(test_Seconds, 7);
-  RUN_TEST(test_MicrosecondsExact, 19);
-  RUN_TEST(test_MicrosecondsRounding, 33);
+  RUN_TEST(test_Seconds, 9);
+  RUN_TEST(test_MicrosecondsExact, 21);
+  RUN_TEST(test_MicrosecondsRounding, 35);
 
   return (UnityEnd());
 }

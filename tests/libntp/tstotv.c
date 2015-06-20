@@ -1,6 +1,8 @@
 #include "config.h"
+
 #include "ntp_fp.h"
 #include "timevalops.h"
+
 #include "unity.h"
 
 void

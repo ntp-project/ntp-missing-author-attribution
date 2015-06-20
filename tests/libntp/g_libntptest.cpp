@@ -1,4 +1,4 @@
-#include "libntptest.h"
+#include "g_libntptest.h"
 
 /* This file contains various constants that libntp needs to be set
  *  and that is normally defined in ntpd/ntpq/...

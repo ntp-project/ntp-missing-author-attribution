@@ -1,8 +1,9 @@
 #include "config.h"
-#include "unity.h"
+
 #include "ntp_calendar.h"
 #include "ntp_stdlib.h"
-#include <stdio.h>
+
+#include "unity.h"
 
 void test_RegularTime(void)
 {

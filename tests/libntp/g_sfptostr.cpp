@@ -3,7 +3,7 @@
  * since all these functions are very similar.
  */
 
-#include "libntptest.h"
+#include "g_libntptest.h"
 
 extern "C" {
 #include "ntp_fp.h"

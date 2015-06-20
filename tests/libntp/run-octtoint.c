@@ -51,13 +51,13 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "octtoint.c";
   UnityBegin("octtoint.c");
-  RUN_TEST(test_SingleDigit, 8);
-  RUN_TEST(test_MultipleDigits, 17);
-  RUN_TEST(test_Zero, 26);
-  RUN_TEST(test_MaximumUnsigned32bit, 35);
-  RUN_TEST(test_Overflow, 44);
-  RUN_TEST(test_IllegalCharacter, 52);
-  RUN_TEST(test_IllegalDigit, 60);
+  RUN_TEST(test_SingleDigit, 7);
+  RUN_TEST(test_MultipleDigits, 15);
+  RUN_TEST(test_Zero, 24);
+  RUN_TEST(test_MaximumUnsigned32bit, 33);
+  RUN_TEST(test_Overflow, 42);
+  RUN_TEST(test_IllegalCharacter, 50);
+  RUN_TEST(test_IllegalDigit, 58);
 
   return (UnityEnd());
 }

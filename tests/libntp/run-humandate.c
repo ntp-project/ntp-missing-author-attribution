@@ -46,8 +46,8 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "humandate.c";
   UnityBegin("humandate.c");
-  RUN_TEST(test_RegularTime, 7);
-  RUN_TEST(test_CurrentTime, 21);
+  RUN_TEST(test_RegularTime, 8);
+  RUN_TEST(test_CurrentTime, 22);
 
   return (UnityEnd());
 }

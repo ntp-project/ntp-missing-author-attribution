@@ -1,4 +1,4 @@
-#include "libntptest.h"
+#include "g_libntptest.h"
 
 #include <sstream>
 #include <string>

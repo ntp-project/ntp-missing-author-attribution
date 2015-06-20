@@ -1,6 +1,6 @@
 /* This file contains test for both libntp/authkeys.c and libntp/authusekey.c */
 
-#include "libntptest.h"
+#include "g_libntptest.h"
 
 extern "C" {
 #ifdef OPENSSL

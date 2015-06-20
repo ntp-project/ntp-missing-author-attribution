@@ -4,8 +4,8 @@
  * Written by Juergen Perlinger (perlinger@ntp.org) for the NTP project.
  * The contents of 'html/copyright.html' apply.
  */
-#include "libntptest.h"
-#include "timestructs.h"
+#include "g_libntptest.h"
+#include "g_timestructs.h"
 
 extern "C" {
 #include "timetoa.h"

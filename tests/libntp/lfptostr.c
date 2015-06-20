@@ -7,8 +7,9 @@
 #include "config.h"
 #include "ntp_stdlib.h"
 #include "ntp_calendar.h"
-#include "unity.h"
 #include "ntp_fp.h"
+
+#include "unity.h"
 
 static const int LFP_MAX_PRECISION = 10;
 static const int LFP_MAX_PRECISION_MS = 7;

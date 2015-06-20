@@ -9,8 +9,6 @@
 #include <float.h>
 #include <math.h>
 
-#include <string.h>
-
 
 typedef struct  {
 	uint32_t h, l;
