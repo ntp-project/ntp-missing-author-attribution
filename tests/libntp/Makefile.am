@@ -7,7 +7,7 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 #removed test-libntp
 check_PROGRAMS =		\
 	test-a_md5encrypt	\
-	test-atoint			\
+	test-atoint		\
 	test-atouint		\
 	test-authkeys		\
 	test-calendar		\
@@ -23,8 +23,8 @@ check_PROGRAMS =		\
 	test-lfptostr		\
 	test-modetoa		\
 	test-msyslog		\
-	test-netof			\
-	test-numtoa			\
+	test-netof		\
+	test-numtoa		\
 	test-numtohost		\
 	test-octtoint		\
 	test-prettydate		\
@@ -37,11 +37,11 @@ check_PROGRAMS =		\
 	test-strtolfp		\
 	test-timespecops	\
 	test-timevalops		\
-	test-tstotv			\
-	test-tvtots			\
+	test-tstotv		\
+	test-tvtots		\
 	test-uglydate		\
 	test-vi64ops		\
-	test-ymd2yd			\
+	test-ymd2yd		\
 	$(NULL)
 
 if GTEST_AVAILABLE
@@ -100,7 +100,7 @@ tests_SOURCES =					\
 	g_lfptostr.cpp		\
 	g_modetoa.cpp		\
 	g_msyslog.cpp		\
-	g_netof.cpp			\
+	g_netof.cpp		\
 	g_numtoa.cpp		\
 	g_numtohost.cpp		\
 	g_octtoint.cpp		\
@@ -136,7 +136,7 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-hextolfp.c	\
 	$(srcdir)/run-humandate.c	\
 	$(srcdir)/run-lfpfunc.c		\
-	$(srcdir)/run-lfptostr.c		\
+	$(srcdir)/run-lfptostr.c	\
 	$(srcdir)/run-modetoa.c		\
 	$(srcdir)/run-msyslog.c		\
 	$(srcdir)/run-netof.c		\
@@ -166,7 +166,7 @@ noinst_HEADERS =	\
 	c_lfptest.h	\
 	libntptest.h	\
 	sockaddrtest.h	\
-	c_sockaddrtest.h	\
+	c_sockaddrtest.h\
 	timestructs.h	\
 	test-libntp.h	\
 	$(NULL)
