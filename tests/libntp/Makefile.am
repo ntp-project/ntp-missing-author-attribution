@@ -34,7 +34,7 @@ check_PROGRAMS =		\
 	test-ssl_init		\
 	test-socktoa		\
 	test-statestr		\
-	test-strtolfp       \
+	test-strtolfp		\
 	test-timespecops	\
 	test-timevalops		\
 	test-tstotv			\
@@ -69,7 +69,7 @@ unity_tests_LDADD =				\
 	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
 
-AM_CFLAGS   = $(CFLAGS_NTP)
+AM_CFLAGS = $(CFLAGS_NTP)
 AM_CXXFLAGS = $(GTEST_CXXFLAGS)
 
 AM_CPPFLAGS  = $(NTP_INCS)
@@ -448,9 +448,9 @@ test_humandate_CFLAGS =				\
 	$(NULL)
 
 test_humandate_LDADD =				\
-        $(LDADD)                                \
-        $(top_builddir)/sntp/unity/libunity.a   \
-        $(NULL)
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	$(NULL)
 
 test_caltontp_CFLAGS =			\
 	-I$(top_srcdir)/sntp/unity		\
