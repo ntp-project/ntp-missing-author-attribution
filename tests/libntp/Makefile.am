@@ -10,24 +10,36 @@ check_PROGRAMS =		\
 	test-atoint		\
 	test-atouint		\
 	test-authkeys		\
+	test-buftvtots		\
 	test-calendar		\
 	test-caljulian		\
+	test-caltontp		\
 	test-calyearstart	\
 	test-clocktime		\
 	test-decodenetnum	\
 	test-hextoint		\
 	test-hextolfp		\
+	test-humandate		\
 	test-lfpfunc		\
+	test-lfptostr		\
 	test-modetoa		\
+	test-msyslog		\
 	test-netof		\
 	test-numtoa		\
 	test-numtohost		\
 	test-octtoint		\
+	test-prettydate		\
+	test-recvbuff		\
 	test-refnumtoa		\
+	test-sfptostr		\
 	test-socktoa		\
+	test-ssl_init		\
 	test-statestr		\
+	test-strtolfp		\
 	test-timespecops	\
 	test-timevalops		\
+	test-tstotv		\
+	test-tvtots		\
 	test-uglydate		\
 	test-vi64ops		\
 	test-ymd2yd		\
@@ -58,7 +70,7 @@ unity_tests_LDADD =				\
 	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
 
-AM_CFLAGS   = $(CFLAGS_NTP)
+AM_CFLAGS = $(CFLAGS_NTP)
 AM_CXXFLAGS = $(GTEST_CXXFLAGS)
 
 AM_CPPFLAGS  = $(NTP_INCS)
@@ -70,42 +82,42 @@ AM_LDFLAGS = $(LDFLAGS_NTP)
 
 tests_SOURCES =					\
 	$(top_srcdir)/sntp/tests_main.cpp	\
-	libntptest.cpp		\
+	g_libntptest.cpp	\
 	g_a_md5encrypt.cpp	\
 	g_atoint.cpp		\
 	g_atouint.cpp		\
 	g_authkeys.cpp		\
-	buftvtots.cpp		\
+	g_buftvtots.cpp		\
 	g_calendar.cpp		\
 	g_caljulian.cpp		\
-	caltontp.cpp		\
+	g_caltontp.cpp		\
 	g_calyearstart.cpp	\
 	g_clocktime.cpp		\
 	g_decodenetnum.cpp	\
 	g_hextoint.cpp		\
 	g_hextolfp.cpp		\
-	humandate.cpp		\
+	g_humandate.cpp		\
 	g_lfpfunc.cpp		\
-	lfptostr.cpp		\
+	g_lfptostr.cpp		\
 	g_modetoa.cpp		\
-	msyslog.cpp		\
+	g_msyslog.cpp		\
 	g_netof.cpp		\
 	g_numtoa.cpp		\
 	g_numtohost.cpp		\
 	g_octtoint.cpp		\
-	prettydate.cpp		\
-	recvbuff.cpp		\
+	g_prettydate.cpp	\
+	g_recvbuff.cpp		\
 	g_refnumtoa.cpp		\
-	sfptostr.cpp		\
-	socktoa.cpp		\
-	ssl_init.cpp		\
+	g_sfptostr.cpp		\
+	g_socktoa.cpp		\
+	g_ssl_init.cpp		\
 	g_statestr.cpp		\
-	strtolfp.cpp		\
+	g_strtolfp.cpp		\
 	g_timespecops.cpp	\
-	timestructs.cpp		\
+	g_timestructs.cpp	\
 	g_timevalops.cpp	\
-	tstotv.cpp		\
-	tvtots.cpp		\
+	g_tstotv.cpp		\
+	g_tvtots.cpp		\
 	g_uglydate.cpp		\
 	g_vi64ops.cpp		\
 	g_ymd2yd.cpp		\
@@ -116,36 +128,48 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-atoint.c		\
 	$(srcdir)/run-atouint.c		\
 	$(srcdir)/run-authkeys.c	\
+	$(srcdir)/run-buftvtots.c	\
+	$(srcdir)/run-calendar.c	\
 	$(srcdir)/run-caljulian.c	\
+	$(srcdir)/run-caltontp.c	\
 	$(srcdir)/run-calyearstart.c	\
 	$(srcdir)/run-clocktime.c	\
 	$(srcdir)/run-decodenetnum.c	\
 	$(srcdir)/run-hextoint.c	\
 	$(srcdir)/run-hextolfp.c	\
+	$(srcdir)/run-humandate.c	\
 	$(srcdir)/run-lfpfunc.c		\
+	$(srcdir)/run-lfptostr.c	\
 	$(srcdir)/run-modetoa.c		\
+	$(srcdir)/run-msyslog.c		\
 	$(srcdir)/run-netof.c		\
 	$(srcdir)/run-numtoa.c		\
 	$(srcdir)/run-numtohost.c	\
 	$(srcdir)/run-octtoint.c	\
+	$(srcdir)/run-prettydate.c	\
+	$(srcdir)/run-recvbuff.c	\
 	$(srcdir)/run-refnumtoa.c	\
+	$(srcdir)/run-sfptostr.c	\
 	$(srcdir)/run-socktoa.c		\
+	$(srcdir)/run-ssl_init.c	\
 	$(srcdir)/run-statestr.c	\
+	$(srcdir)/run-strtolfp.c	\
+	$(srcdir)/run-timevalops.c	\
+	$(srcdir)/run-timespecops.c	\
+	$(srcdir)/run-tstotv.c		\
+	$(srcdir)/run-tvtots.c		\
 	$(srcdir)/run-uglydate.c	\
 	$(srcdir)/run-vi64ops.c		\
 	$(srcdir)/run-ymd2yd.c		\
-	$(srcdir)/run-calendar.c	\
-	$(srcdir)/run-timevalops.c	\
-	$(srcdir)/run-timespecops.c	\
 	$(NULL)
 
 noinst_HEADERS =	\
+	g_lfptest.h	\
 	lfptest.h	\
-	c_lfptest.h	\
-	libntptest.h	\
+	g_libntptest.h	\
+	g_sockaddrtest.h	\
 	sockaddrtest.h	\
-	c_sockaddrtest.h	\
-	timestructs.h	\
+	g_timestructs.h	\
 	test-libntp.h	\
 	$(NULL)
 
@@ -270,6 +294,23 @@ test_socktoa_LDADD =			\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
+test_strtolfp_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
+	$(NULL)
+
+test_strtolfp_LDADD =			\
+	$(unity_tests_LDADD)		\
+	-lpthread			\
+	$(NULL)
+
+test_lfptostr_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
+	$(NULL)
+
+test_lfptostr_LDADD =			\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
 test_a_md5encrypt_CFLAGS =			\
 	-I$(top_srcdir)/sntp/unity		\
 	$(NULL)
@@ -375,6 +416,100 @@ test_timespecops_LDADD =			\
 	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
 
+test_ssl_init_CFLAGS =				\
+	-I$(top_srcdir)/sntp/unity		\
+	$(NULL)
+
+test_ssl_init_LDADD =				\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	$(NULL)
+
+test_tvtots_CFLAGS =				\
+	-I$(top_srcdir)/sntp/unity		\
+	-DUNITY_INCLUDE_DOUBLE			\
+	$(NULL)
+
+test_tvtots_LDADD =				\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	$(NULL)
+
+test_sfptostr_CFLAGS =				\
+	-I$(top_srcdir)/sntp/unity		\
+	-DUNITY_INCLUDE_DOUBLE			\
+	$(NULL)
+
+test_sfptostr_LDADD =				\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	$(NULL)
+
+test_humandate_CFLAGS =				\
+	-I$(top_srcdir)/sntp/unity		\
+	$(NULL)
+
+test_humandate_LDADD =				\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	$(NULL)
+
+test_caltontp_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity		\
+	$(NULL)
+
+test_caltontp_LDADD =			\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	-lpthread				\
+	$(NULL)
+
+test_msyslog_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity		\
+	$(NULL)
+
+test_msyslog_LDADD =			\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	$(NULL)
+
+test_prettydate_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity		\
+	$(NULL)
+
+test_prettydate_LDADD =			\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	$(NULL)
+
+test_recvbuff_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity		\
+	$(NULL)
+
+test_recvbuff_LDADD =			\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	$(NULL)
+
+test_tstotv_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity		\
+	$(NULL)
+
+test_tstotv_LDADD =			\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	$(NULL)
+
+test_buftvtots_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
+	-DUNITY_INCLUDE_DOUBLE		\
+	$(NULL)
+
+test_buftvtots_LDADD =				\
+	$(LDADD)				\
+	$(top_builddir)/sntp/unity/libunity.a	\
+	$(NULL)
+
 
 test_modetoa_SOURCES =			\
 	modetoa.c			\
@@ -446,6 +581,16 @@ test_socktoa_SOURCES =			\
 	run-socktoa.c			\
 	$(NULL)
 
+test_strtolfp_SOURCES =			\
+	strtolfp.c			\
+	run-strtolfp.c			\
+	$(NULL)
+
+test_lfptostr_SOURCES =			\
+	lfptostr.c			\
+	run-lfptostr.c			\
+	$(NULL)
+
 test_atouint_SOURCES =			\
 	atouint.c			\
 	run-atouint.c			\
@@ -505,6 +650,57 @@ test_timespecops_SOURCES =		\
 	run-timespecops.c		\
 	$(NULL)
 
+test_ssl_init_SOURCES =			\
+	ssl_init.c			\
+	run-ssl_init.c			\
+	$(NULL)
+
+test_tvtots_SOURCES =			\
+	tvtots.c			\
+	run-tvtots.c			\
+	$(NULL)
+
+test_sfptostr_SOURCES =			\
+	sfptostr.c			\
+	run-sfptostr.c			\
+	$(NULL)
+
+test_humandate_SOURCES =		\
+	humandate.c			\
+	run-humandate.c			\
+	$(NULL)
+
+test_caltontp_SOURCES =			\
+	caltontp.c			\
+	run-caltontp.c			\
+	$(NULL)
+
+test_msyslog_SOURCES =			\
+	msyslog.c			\
+	run-msyslog.c			\
+	$(NULL)
+
+test_prettydate_SOURCES =		\
+	prettydate.c			\
+	run-prettydate.c		\
+	$(NULL)
+
+test_recvbuff_SOURCES =			\
+	recvbuff.c			\
+	run-recvbuff.c			\
+	$(NULL)
+
+test_tstotv_SOURCES =			\
+	tstotv.c			\
+	run-tstotv.c			\
+	$(NULL)
+
+test_buftvtots_SOURCES =		\
+	buftvtots.c			\
+	run-buftvtots.c			\
+	$(NULL)
+
+
 $(srcdir)/run-modetoa.c: $(srcdir)/modetoa.c $(std_unity_list)
 	$(run_unity) modetoa.c run-modetoa.c
 
@@ -544,6 +740,12 @@ $(srcdir)/run-decodenetnum.c: $(srcdir)/decodenetnum.c $(std_unity_list)
 $(srcdir)/run-socktoa.c: $(srcdir)/socktoa.c $(std_unity_list)
 	$(run_unity) socktoa.c run-socktoa.c
 
+$(srcdir)/run-strtolfp.c: $(srcdir)/strtolfp.c $(std_unity_list)
+	$(run_unity) strtolfp.c run-strtolfp.c
+
+$(srcdir)/run-lfptostr.c: $(srcdir)/lfptostr.c $(std_unity_list)
+	$(run_unity) lfptostr.c run-lfptostr.c
+
 $(srcdir)/run-a_md5encrypt.c: $(srcdir)/a_md5encrypt.c $(std_unity_list)
 	$(run_unity) a_md5encrypt.c run-a_md5encrypt.c
 
@@ -580,6 +782,35 @@ $(srcdir)/run-timevalops.c: $(srcdir)/timevalops.c $(std_unity_list)
 $(srcdir)/run-timespecops.c: $(srcdir)/timespecops.c $(std_unity_list)
 	$(run_unity) timespecops.c run-timespecops.c
 
+$(srcdir)/run-ssl_init.c: $(srcdir)/ssl_init.c $(std_unity_list)
+	$(run_unity) ssl_init.c run-ssl_init.c
+
+$(srcdir)/run-tvtots.c: $(srcdir)/tvtots.c $(std_unity_list)
+	$(run_unity) tvtots.c run-tvtots.c
+
+$(srcdir)/run-sfptostr.c: $(srcdir)/sfptostr.c $(std_unity_list)
+	$(run_unity) sfptostr.c run-sfptostr.c
+
+$(srcdir)/run-humandate.c: $(srcdir)/humandate.c $(std_unity_list)
+	$(run_unity) humandate.c run-humandate.c
+
+$(srcdir)/run-caltontp.c: $(srcdir)/caltontp.c $(std_unity_list)
+	$(run_unity) caltontp.c run-caltontp.c
+
+$(srcdir)/run-msyslog.c: $(srcdir)/msyslog.c $(std_unity_list)
+	$(run_unity) msyslog.c run-msyslog.c
+
+$(srcdir)/run-prettydate.c: $(srcdir)/prettydate.c $(std_unity_list)
+	$(run_unity) prettydate.c run-prettydate.c
+
+$(srcdir)/run-recvbuff.c: $(srcdir)/recvbuff.c $(std_unity_list)
+	$(run_unity) recvbuff.c run-recvbuff.c
+
+$(srcdir)/run-tstotv.c: $(srcdir)/tstotv.c $(std_unity_list)
+	$(run_unity) tstotv.c run-tstotv.c
+
+$(srcdir)/run-buftvtots.c: $(srcdir)/buftvtots.c $(std_unity_list)
+	$(run_unity) buftvtots.c run-buftvtots.c
 
 TESTS =
 

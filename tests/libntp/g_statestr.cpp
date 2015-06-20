@@ -1,4 +1,4 @@
-#include "libntptest.h"
+#include "g_libntptest.h"
 
 extern "C" {
 #include "ntp.h" // Needed for MAX_MAC_LEN used in ntp_control.h

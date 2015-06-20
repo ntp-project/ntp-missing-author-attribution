@@ -1,4 +1,4 @@
-#include "sockaddrtest.h"
+#include "g_sockaddrtest.h"
 
 class decodenetnumTest : public sockaddrtest {
 };

@@ -67,9 +67,7 @@ endif
 
 if BUILD_SNTP
 noinst_LIBRARIES = libsntp.a
-if GTEST_AVAILABLE
 SUBDIRS += tests
-endif
 endif
 
 DIST_SUBDIRS += libopts tests

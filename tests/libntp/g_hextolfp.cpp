@@ -1,4 +1,4 @@
-#include "lfptest.h"
+#include "g_lfptest.h"
 
 class hextolfpTest : public lfptest {
 };

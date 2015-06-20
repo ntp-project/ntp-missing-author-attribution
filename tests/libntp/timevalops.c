@@ -1,9 +1,6 @@
 #include "config.h"
 
-//#include "c_timestructs.h" //functions removed from the wrapper and placed directly here! 
 //some unused features are still in the wrapper, unconverted
-
-#include "unity.h"
 
 #include "ntp_types.h"
 #include "ntp_fp.h"
@@ -11,7 +8,8 @@
 #include <math.h>
 #include "timevalops.h"
 
-#include <string.h>
+#include "unity.h"
+
 
 //in unity_helper.h :
 #define TEST_ASSERT_EQUAL_timeval(a, b) { \
