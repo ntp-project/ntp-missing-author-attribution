@@ -11,6 +11,7 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 #EXTRA_PROGRAMS +=	test-keyFile
 
 check_PROGRAMS =		\
+	test-crypto         \
 	test-keyFile		\
 	test-kodDatabase	\
 	test-kodFile		\
@@ -33,7 +34,7 @@ base_SOURCES =			\
 
 tests_SOURCES =			\
 	$(base_SOURCES)		\
-	crypto.cpp		\
+	g_crypto.cpp		\
 	g_keyFile.cpp		\
 	g_kodDatabase.cpp	\
 	g_kodFile.cpp		\
@@ -108,12 +109,29 @@ AM_CPPFLAGS += $(CPPFLAGS_NTP)
 AM_LDFLAGS = $(LDFLAGS_NTP)
 
 BUILT_SOURCES +=			\
+	$(srcdir)/run-crypto.c		\
 	$(srcdir)/run-keyFile.c		\
 	$(srcdir)/run-kodDatabase.c	\
 	$(srcdir)/run-kodFile.c		\
 	$(srcdir)/run-networking.c	\
 	$(NULL)
 
+test_crypto_CFLAGS =			\
+	-I$(top_srcdir)/unity		\
+	$(NULL)
+
+test_crypto_LDADD =			\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
+test_crypto_SOURCES =			\
+	crypto.c			\
+	run-crypto.c			\
+	$(top_builddir)/version.c	\
+	$(NULL)
+
+$(srcdir)/run-crypto.c: $(srcdir)/crypto.c $(std_unity_list)
+	$(run_unity) crypto.c run-crypto.c
 
 test_keyFile_CFLAGS =			\
 	-I$(top_srcdir)/unity		\

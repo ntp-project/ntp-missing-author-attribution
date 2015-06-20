@@ -2,7 +2,7 @@
 #include "unity.h"
 #include "ntp_types.h"
 
-#include "c_sntptest.h"
+#include "sntptest.h"
 #include "crypto.h"
 
 #define MD5_LENGTH 16
