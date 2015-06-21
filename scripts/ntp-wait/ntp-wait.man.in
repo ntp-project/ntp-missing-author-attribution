@@ -10,11 +10,11 @@
 .ds B-Font B
 .ds I-Font I
 .ds R-Font R
-.TH ntp-wait @NTP_WAIT_MS@ "17 Jun 2015" "ntp (4.3.42)" "User Commands"
+.TH ntp-wait @NTP_WAIT_MS@ "21 Jun 2015" "ntp (4.3.43)" "User Commands"
 .\"
-.\" EDIT THIS FILE WITH CAUTION (/tmp/.ag-7xaWSY/ag-iya4RY)
+.\" EDIT THIS FILE WITH CAUTION (/tmp/.ag-3SaaAh/ag-eTaizh)
 .\"
-.\" It has been AutoGen-ed June 17, 2015 at 11:52:18 AM by AutoGen 5.18.5
+.\" It has been AutoGen-ed June 21, 2015 at 11:57:47 AM by AutoGen 5.18.5
 .\" From the definitions ntp-wait-opts.def
 .\" and the template file agman-cmd.tpl
 .SH NAME
