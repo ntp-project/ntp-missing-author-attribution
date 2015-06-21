@@ -1,8 +1,7 @@
 #include "config.h"
 
 #include "ntp_stdlib.h"
-//#include "ntp_calendar.h"
-//#include "ntp_fp.h"
+
 #include "unity.h"
 
 void test_SingleDigit(void) {
@@ -11,7 +10,6 @@ void test_SingleDigit(void) {
 
 	TEST_ASSERT_TRUE(octtoint(str, &actual) );
 	TEST_ASSERT_EQUAL(5, actual);
-
 }
 
 void test_MultipleDigits(void){

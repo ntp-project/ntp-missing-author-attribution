@@ -1,3 +1,7 @@
+Below are from 4.2.8p3:
+* [Bug 2852] 'make check' can't find unity.h.  Hal Murray.
+* [Bug 2854] Missing brace in libntp/strdup.c.  Masanari Iida.
+* Unity cleanup.
 (4.3.42) 2015/06/17 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p3:
 * Unity cleanup.
@@ -261,6 +265,8 @@ ntp-4.3 begins.
    Fixed compiler warnings about numeric range overflow
    (The original topic was fixed in a byplay to bug#2830)
 * [Bug 2845] Harden memory allocation in ntpd.
+* [Bug 2852] 'make check' can't find unity.h.  Hal Murray.
+* [Bug 2854] Missing brace in libntp/strdup.c.  Masanari Iida.
 * Report select() debug messages at debug level 3 now.
 * sntp/scripts/genLocInfo: treat raspbian as debian.
 * Unity test framework fixes.

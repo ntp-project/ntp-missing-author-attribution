@@ -3,7 +3,7 @@
 #include "ntp_calendar.h"
 #include "unity.h"
 
-#include "c_sockaddrtest.h"
+#include "sockaddrtest.h"
 
 
 void test_IPv4AddressOnly(void) {

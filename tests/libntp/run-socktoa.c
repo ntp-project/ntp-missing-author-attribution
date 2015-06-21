@@ -50,12 +50,12 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "socktoa.c";
   UnityBegin("socktoa.c");
-  RUN_TEST(test_IPv4AddressWithPort, 9);
-  RUN_TEST(test_IPv6AddressWithPort, 16);
-  RUN_TEST(test_ScopedIPv6AddressWithPort, 40);
-  RUN_TEST(test_HashEqual, 65);
-  RUN_TEST(test_HashNotEqual, 73);
-  RUN_TEST(test_IgnoreIPv6Fields, 84);
+  RUN_TEST(test_IPv4AddressWithPort, 11);
+  RUN_TEST(test_IPv6AddressWithPort, 18);
+  RUN_TEST(test_ScopedIPv6AddressWithPort, 42);
+  RUN_TEST(test_HashEqual, 67);
+  RUN_TEST(test_HashNotEqual, 75);
+  RUN_TEST(test_IgnoreIPv6Fields, 88);
 
   return (UnityEnd());
 }

@@ -46,8 +46,8 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "refnumtoa.c";
   UnityBegin("refnumtoa.c");
-  RUN_TEST(test_LocalClock, 12);
-  RUN_TEST(test_UnknownId, 40);
+  RUN_TEST(test_LocalClock, 13);
+  RUN_TEST(test_UnknownId, 41);
 
   return (UnityEnd());
 }

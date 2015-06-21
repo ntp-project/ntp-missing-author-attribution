@@ -1,5 +1,4 @@
 #include "config.h"
-//#include "c_timestructs.h"
 
 #include "ntp_types.h"
 #include "ntp_fp.h"

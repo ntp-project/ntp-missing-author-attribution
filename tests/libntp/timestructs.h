@@ -13,41 +13,69 @@
  * HRVs (human readable values) but we might also be interested in the
  * machine representation for diagnostic purposes.
  */
+
+
+//#ifndef TESTCALSHIMS_H
+#include "testcalshims.h"
+//#endif
+
+
 #ifndef TIMESTRUCTS_H
 #define TIMESTRUCTS_H
 
-extern "C" {
 #include "ntp_fp.h"
-}
 
-namespace timeStruct {
+
+l_fp test ; 
+//namespace timeStruct {
 
 // wrap a l_fp struct with common operations
-class l_fp_wrap {
-  public:
+struct l_fp_wrap {
+  
 	l_fp V;
 	
-	l_fp_wrap()
-		{ ZERO(V); }
-	l_fp_wrap(u_int32 hi, u_int32 lo)
-		{ V.l_ui = hi; V.l_uf = lo; }
-	l_fp_wrap(const l_fp &rhs)
-		{ V = rhs; }
-	bool operator == (const l_fp_wrap& rhs) const
-		{ return L_ISEQU(&V, &rhs.V); }
-	operator l_fp* () 
-		{ return &V; }
-	operator l_fp& ()
-		{ return V; }
+	
+	//bool operator == (const l_fp_wrap& rhs) const
+	//	{ return L_ISEQU(&V, &rhs.V); }
+
+//---------------THIS HAS TO BE MANUALLY CONVERTED IN CODE!!!
+	//operator l_fp* () 
+	//	{ return &V; }
+	//operator l_fp& ()
+	//	{ return V; }
+//-----------------------------------------
+/*
 	l_fp_wrap & operator = (const l_fp_wrap& rhs)
 		{ V = rhs.V; return *this; }
 	l_fp_wrap& operator = (const l_fp& rhs)
 		{ V = rhs; return *this; }
-	};
+*/
+};
+
+l_fp_wrap(l_fp V){
+	ZERO(V); }
+l_fp_wrap(l_fp V, u_int32 hi, u_int32 lo){
+	V.l_ui = hi; V.l_uf = lo; }
+l_fp_wrap(l_fp V, const l_fp &rhs){
+	V = rhs; }
+
+l_fp_wrap_equals(const l_fp_wrap& current, const l_fp_wrap& rhs) const // operator ==
+	{ return L_ISEQU(&current.V, &rhs.V); }
+
+l_fp_wrap_and(const l_fp_wrap& current, const l_fp_wrap& rhs){
+	V = rhs.V; 
+	return current//*this;
+}
+l_fp_wrap_and(const l_fp& current, const l_fp& rhs){ 
+	V = rhs; 
+	return current//*this; 
+}
+
 	
+
 // wrap a 'struct timeval' with common operations
-class timeval_wrap {
-public:
+struct timeval_wrap {
+
 	struct timeval V;
 
 	timeval_wrap()
@@ -74,8 +102,8 @@ public:
 };
 
 // wrap a 'struct timespec' with common operations
-class timespec_wrap {
-public:
+struct timespec_wrap {
+
 	struct timespec V;
 
 	timespec_wrap()
@@ -180,6 +208,6 @@ extern std::ostream& operator << (std::ostream& os,
 extern std::ostream& operator << (std::ostream& os,
 				  const timeStruct::timespec_wrap& val);
 
-} // namespace timeStruct
+//} // namespace timeStruct
 
 #endif // TIMESTRUCTS_H
