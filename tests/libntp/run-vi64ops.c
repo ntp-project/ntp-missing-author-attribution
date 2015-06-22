@@ -26,6 +26,7 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
+void resetTest(void);
 extern void test_ParseVUI64_pos();
 extern void test_ParseVUI64_neg();
 extern void test_ParseVUI64_case();

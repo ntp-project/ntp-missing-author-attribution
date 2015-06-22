@@ -4343,6 +4343,27 @@ esac
 AM_CONDITIONAL([SAVECONFIG_ENABLED], [test x$ntp_saveconfig_enabled = x1])
 AC_MSG_RESULT([$ntp_ok])
 
+###
+
+AC_MSG_CHECKING([if we want the experimental leap smear code])
+AC_ARG_ENABLE(
+    [leap-smear],
+    [AS_HELP_STRING(
+	[--enable-leap-smear],
+	[- experimental leap smear code]
+    )],
+    [ntp_ok=$enableval],
+    [ntp_ok=no]
+)
+ntp_leap_smear_enabled=0
+case "$ntp_ok" in
+ yes)
+    ntp_leap_smear_enabled=1
+    AC_DEFINE([LEAP_SMEAR], [1], [leap smear mechanism])
+    ;;
+esac
+AC_MSG_RESULT([$ntp_ok])
+
 NTP_UNITYBUILD
 
 dnl  gtest is needed for our tests subdirs. It would be nice if we could
