@@ -1,3 +1,6 @@
+Below are from 4.2.8p3:
+* Initial support for experimental leap smear code.  Harlan Stenn.
+* Unity cleanup.
 (4.3.43) 2015/06/21 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p3:
 * [Bug 2852] 'make check' can't find unity.h.  Hal Murray.
