@@ -1,3 +1,4 @@
+(4.3.44) 2015/06/22 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p3:
 * Initial support for experimental leap smear code.  Harlan Stenn.
 * Unity cleanup.
