@@ -1,5 +1,6 @@
 ---
 
+* [Bug 2855] Implement conditional leap smear feature.
 * [Bug 2778] Implement "apeers"  ntpq command to include associd.
 * [Bug 2805] ntpd fails to join multicast group.
 * [Bug 2824] Convert update-leap to perl. (also see 2769)

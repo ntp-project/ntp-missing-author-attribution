@@ -71,7 +71,9 @@ u_int32 sys_refid;		/* reference id (network byte order) */
 l_fp	sys_reftime;		/* last update time */
 struct	peer *sys_peer;		/* current peer */
 
+#ifdef LEAP_SMEAR
 struct leap_smear_info leap_smear;
+#endif
 int leap_sec_in_progress;
 
 /*
@@ -169,6 +171,7 @@ set_sys_leap(u_char new_sys_leap) {
 			/* always send "not sync" */
 			xmt_leap = LEAP_NOTINSYNC;
 		}
+#ifdef LEAP_SMEAR
 		else {
 			/*
 			 * If leap smear is enabled in general we must never send a leap second warning
@@ -177,6 +180,7 @@ set_sys_leap(u_char new_sys_leap) {
 			if (leap_smear.enabled)
 				xmt_leap = LEAP_NOWARNING;
 		}
+#endif	/* LEAP_SMEAR */
 	}
 }
 
@@ -3436,11 +3440,14 @@ peer_xmit(
 }
 
 
+#ifdef LEAP_SMEAR
+
 static void
 leap_smear_add_offs(l_fp *t, l_fp *t_recv) {
 	L_ADD(t, &leap_smear.offset);
 }
 
+#endif  /* LEAP_SMEAR */
 
 
 /*
@@ -3504,10 +3511,13 @@ fast_xmit(
 	 * This is a normal packet. Use the system variables.
 	 */
 	} else {
+#ifdef LEAP_SMEAR
 		/*
 		 * Make copies of the variables which can be affected by smearing.
 		 */
+		l_fp this_ref_time;
 		l_fp this_recv_time;
+#endif
 
 		/*
 		 * If we are inside the leap smear interval we add the current smear offset to
@@ -3516,22 +3526,40 @@ fast_xmit(
 		 */
 		xpkt.li_vn_mode = PKT_LI_VN_MODE(xmt_leap,
 		    PKT_VERSION(rpkt->li_vn_mode), xmode);
+
 		xpkt.stratum = STRATUM_TO_PKT(sys_stratum);
 		xpkt.ppoll = max(rpkt->ppoll, ntp_minpoll);
 		xpkt.precision = sys_precision;
 		xpkt.refid = sys_refid;
 		xpkt.rootdelay = HTONS_FP(DTOFP(sys_rootdelay));
 		xpkt.rootdisp = HTONS_FP(DTOUFP(sys_rootdisp));
-		/* TODO: add smear offset to reftime? */
-		HTONL_FP(&sys_reftime, &xpkt.reftime);
+
+
+#ifdef LEAP_SMEAR
+		this_ref_time = sys_reftime;
+		if (leap_smear.in_progress)
+			leap_smear_add_offs(&this_ref_time, NULL);
+		HTONL_FP(&this_ref_time, &xpkt.reftime);
+#else
+		HTONL_FP(&sys_ref_time, &xpkt.reftime);
+#endif
+
 		xpkt.org = rpkt->xmt;
+
+#ifdef LEAP_SMEAR
 		this_recv_time = rbufp->recv_time;
 		if (leap_smear.in_progress)
 			leap_smear_add_offs(&this_recv_time, NULL);
 		HTONL_FP(&this_recv_time, &xpkt.rec);
+#else
+		HTONL_FP(&rbufp->recv_time, &xpkt.rec);
+#endif
+
 		get_systime(&xmt_tx);
+#ifdef LEAP_SMEAR
 		if (leap_smear.in_progress)
 			leap_smear_add_offs(&xmt_tx, &this_recv_time);
+#endif
 		HTONL_FP(&xmt_tx, &xpkt.xmt);
 	}
 

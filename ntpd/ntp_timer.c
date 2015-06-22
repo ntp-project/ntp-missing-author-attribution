@@ -41,8 +41,6 @@
 #define	TC_ERR	(-1)
 #endif
 
-extern struct leap_smear_info leap_smear;
-extern int leap_sec_in_progress;
 
 static void check_leapsec(u_int32, const time_t*, int/*BOOL*/);
 
@@ -344,7 +342,7 @@ timer(void)
 	if (sys_orphan < STRATUM_UNSPEC && sys_peer == NULL &&
 	    current_time > orphwait) {
 		if (sys_leap == LEAP_NOTINSYNC) {
-			sys_leap = LEAP_NOWARNING;
+			set_sys_leap(LEAP_NOWARNING);
 #ifdef AUTOKEY
 			if (crypto_flags)
 				crypto_update();
@@ -373,11 +371,11 @@ timer(void)
         if (sys_leap != LEAP_NOTINSYNC) {
                 if (leapsec >= LSPROX_ANNOUNCE && leapdif) {
 		        if (leapdif > 0)
-			        sys_leap = LEAP_ADDSECOND;
+			        set_sys_leap(LEAP_ADDSECOND);
 		        else
-			        sys_leap = LEAP_DELSECOND;
+			        set_sys_leap(LEAP_DELSECOND);
                 } else {
-                        sys_leap = LEAP_NOWARNING;
+                        set_sys_leap(LEAP_NOWARNING);
                 }
 	}
 
@@ -542,8 +540,9 @@ check_leapsec(
 	leapsec_electric(0);
 # endif
 #endif
+#ifdef LEAP_SMEAR
 	leap_smear.enabled = leap_smear_intv != 0;
-
+#endif
 	if (reset)	{
 		lsprox = LSPROX_NOWARN;
 		leapsec_reset_frame();
@@ -554,7 +553,9 @@ check_leapsec(
 	  DPRINTF(1, ("*** leapsec_query: fired %i, now %u (0x%08X), tai_diff %i, ddist %u\n",
 		  fired, now, now, lsdata.tai_diff, lsdata.ddist));
 
+#ifdef LEAP_SMEAR
 	  leap_smear.in_progress = 0;
+	  leap_smear.doffset = 0.0;
 
 	  if (leap_smear.enabled) {
 		if (lsdata.tai_diff) {
@@ -590,14 +591,15 @@ check_leapsec(
 				 * TODO see if we're inside an inserted leap second, so we need to compute
 				 * leap_smear.doffset = 1.0 - leap_smear.doffset
 				 */
-				DTOLFP(leap_smear.doffset, &leap_smear.offset);
 				leap_smear.in_progress = 1;
-				DPRINTF(1, ("*** leapsec_query: [%.0f:%.0f], now %u, smear offset %.6f\n",
-					leap_smear.intv_start, leap_smear.intv_end, now, leap_smear.doffset));
-#if 1 //##++++++++++++++
-				msyslog(LOG_NOTICE, "*** leapsec_query: [%.0f:%.0f] (%li), now %u (%.0f), smear offset %.6f\n",
+#if 0 && defined( DEBUG )
+				msyslog(LOG_NOTICE, "*** leapsec_query: [%.0f:%.0f] (%li), now %u (%.0f), smear offset %.6f ms\n",
 					leap_smear.intv_start, leap_smear.intv_end, leap_smear.interval,
 					now, leap_smear_time, leap_smear.doffset);
+#else
+				DPRINTF(1, ("*** leapsec_query: [%.0f:%.0f] (%li), now %u (%.0f), smear offset %.6f ms\n",
+					leap_smear.intv_start, leap_smear.intv_end, leap_smear.interval,
+					now, leap_smear_time, leap_smear.doffset));
 #endif
 
 			}
@@ -605,6 +607,13 @@ check_leapsec(
 	  }
 	  else
 		leap_smear.interval = 0;
+
+	  /*
+	   * Update the current leap smear offset, eventually 0.0 if outside smear interval.
+	   */
+	  DTOLFP(leap_smear.doffset, &leap_smear.offset);
+
+#endif	/* LEAP_SMEAR */
 
 	  if (fired) {
 		/* Full hit. Eventually step the clock, but always

@@ -119,6 +119,9 @@ struct leap_signature {
 };
 typedef struct leap_signature leap_signature_t;
 
+
+#ifdef LEAP_SMEAR
+
 struct leap_smear_info {
 	int enabled;        /* not 0 if smearing is generally enabled */
 	int in_progress;    /* not 0 if smearing is in progress, i.e. the offset has been computed */
@@ -131,6 +134,8 @@ struct leap_smear_info {
 	double intv_end;    /* end time of the smear interval */
 };
 typedef struct leap_smear_info leap_smear_info_t;
+
+#endif  /* LEAP_SMEAR */
 
 
 #define LSPROX_NOWARN	0	/* clear radar screen         */

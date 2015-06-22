@@ -419,8 +419,10 @@ static const struct ctl_var sys_var[] = {
 	{ CS_TIMER_XMTS,	RO, "timer_xmts" },	/* 87 */
 	{ CS_FUZZ,		RO, "fuzz" },		/* 88 */
 	{ CS_WANDER_THRESH,	RO, "clk_wander_threshold" }, /* 89 */
+#ifdef LEAP_SMEAR
 	{ CS_LEAPSMEARINTV,	RO, "leapsmearinterval" },    /* 90 */
 	{ CS_LEAPSMEAROFFS,	RO, "leapsmearoffset" },      /* 91 */
+#endif	 /* LEAP_SMEAR */
 #ifdef AUTOKEY
 	{ CS_FLAGS,	RO, "flags" },		/* 1 + CS_MAX_NOAUTOKEY */
 	{ CS_HOST,	RO, "host" },		/* 2 + CS_MAX_NOAUTOKEY */
@@ -1978,6 +1980,7 @@ ctl_putsys(
 		break;
 	}
 
+#ifdef LEAP_SMEAR
 	case CS_LEAPSMEARINTV:
 		if (leap_smear_intv > 0)
 			ctl_putuint(sys_var[CS_LEAPSMEARINTV].text, leap_smear_intv);
@@ -1988,6 +1991,7 @@ ctl_putsys(
 			ctl_putdbl(sys_var[CS_LEAPSMEAROFFS].text,
 				   leap_smear.doffset * 1e3);
 		break;
+#endif	/* LEAP_SMEAR */
 
 	case CS_RATE:
 		ctl_putuint(sys_var[CS_RATE].text, ntp_minpoll);
