@@ -223,6 +223,7 @@ extern	void	receive 	(struct recvbuf *);
 extern	void	peer_clear	(struct peer *, const char *);
 extern	void 	process_packet	(struct peer *, struct pkt *, u_int);
 extern	void	clock_select	(void);
+extern	void	set_sys_leap	(u_char);
 
 extern	u_long	leapsec;	/* seconds to next leap (proximity class) */
 extern  int     leapdif;        /* TAI difference step at next leap second*/
@@ -533,6 +534,8 @@ extern u_long	current_time;		/* seconds since startup */
 extern u_long	timer_timereset;
 extern u_long	timer_overflows;
 extern u_long	timer_xmtcalls;
+extern struct leap_smear_info leap_smear;
+extern int	leap_smear_intv;
 #ifdef SYS_WINNT
 HANDLE WaitableTimerHandle;
 #endif

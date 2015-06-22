@@ -3511,6 +3511,11 @@ config_vars(
 			stats_config(STATS_LEAP_FILE, curr_var->value.s);
 			break;
 
+		case T_Leapsmearinterval:
+			leap_smear_intv = curr_var->value.i;
+			msyslog(LOG_INFO, "config: leap smear interval %i s", leap_smear_intv);
+			break;
+
 		case T_Pidfile:
 			stats_config(STATS_PID_FILE, curr_var->value.s);
 			break;
@@ -4926,7 +4931,7 @@ ntp_rlimit(
 	    case RLIMIT_NOFILE:
 		/*
 		 * For large systems the default file descriptor limit may
-		 * not be enough. 
+		 * not be enough.
 		 */
 		DPRINTF(2, ("ntp_rlimit: NOFILE: %d %s\n",
 			(int)(rl_value / rl_scale), rl_sstr));

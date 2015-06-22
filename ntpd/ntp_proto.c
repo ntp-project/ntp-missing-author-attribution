@@ -61,7 +61,8 @@ typedef struct peer_select_tag {
  * System variables are declared here. Unless specified otherwise, all
  * times are in seconds.
  */
-u_char	sys_leap;		/* system leap indicator */
+u_char	sys_leap;		/* system leap indicator, use set_sys_leap() to change this */
+u_char	xmt_leap;		/* leap indicator sent in client requests, set up by set_sys_leap() */
 u_char	sys_stratum;		/* system stratum */
 s_char	sys_precision;		/* local clock precision (log2 s) */
 double	sys_rootdelay;		/* roundtrip delay to primary source */
@@ -69,6 +70,9 @@ double	sys_rootdisp;		/* dispersion to primary source */
 u_int32 sys_refid;		/* reference id (network byte order) */
 l_fp	sys_reftime;		/* last update time */
 struct	peer *sys_peer;		/* current peer */
+
+struct leap_smear_info leap_smear;
+int leap_sec_in_progress;
 
 /*
  * Rate controls. Leaky buckets are used to throttle the packet
@@ -150,6 +154,31 @@ void	pool_name_resolved	(int, int, void *, const char *,
 				 const char *, const struct addrinfo *,
 				 const struct addrinfo *);
 #endif /* WORKER */
+
+void
+set_sys_leap(u_char new_sys_leap) {
+	sys_leap = new_sys_leap;
+	xmt_leap = sys_leap;
+
+	/*
+	 * Under certain conditions we send faked leap bits to clients, so
+	 * eventually change xmt_leap below, but never change LEAP_NOTINSYNC.
+	 */
+	if (xmt_leap != LEAP_NOTINSYNC) {
+		if (leap_sec_in_progress) {
+			/* always send "not sync" */
+			xmt_leap = LEAP_NOTINSYNC;
+		}
+		else {
+			/*
+			 * If leap smear is enabled in general we must never send a leap second warning
+			 * to clients, so make sure we only send "in sync".
+			 */
+			if (leap_smear.enabled)
+				xmt_leap = LEAP_NOWARNING;
+		}
+	}
+}
 
 
 /*
@@ -1909,7 +1938,7 @@ clock_update(
 	 */
 	case 2:
 		clear_all();
-		sys_leap = LEAP_NOTINSYNC;
+		set_sys_leap(LEAP_NOTINSYNC);
 		sys_stratum = STRATUM_UNSPEC;
 		memcpy(&sys_refid, "STEP", 4);
 		sys_rootdelay = 0;
@@ -1930,7 +1959,7 @@ clock_update(
 		 * process.
 		 */
 		if (sys_leap == LEAP_NOTINSYNC) {
-			sys_leap = LEAP_NOWARNING;
+			set_sys_leap(LEAP_NOWARNING);
 #ifdef AUTOKEY
 			if (crypto_flags)
 				crypto_update();
@@ -2424,7 +2453,7 @@ clock_select(void)
 	osys_peer = sys_peer;
 	sys_survivors = 0;
 #ifdef LOCKCLOCK
-	sys_leap = LEAP_NOTINSYNC;
+	set_sys_leap(LEAP_NOTINSYNC);
 	sys_stratum = STRATUM_UNSPEC;
 	memcpy(&sys_refid, "DOWN", 4);
 #endif /* LOCKCLOCK */
@@ -3407,6 +3436,13 @@ peer_xmit(
 }
 
 
+static void
+leap_smear_add_offs(l_fp *t, l_fp *t_recv) {
+	L_ADD(t, &leap_smear.offset);
+}
+
+
+
 /*
  * fast_xmit - Send packet for nonpersistent association. Note that
  * neither the source or destination can be a broadcast address.
@@ -3468,7 +3504,17 @@ fast_xmit(
 	 * This is a normal packet. Use the system variables.
 	 */
 	} else {
-		xpkt.li_vn_mode = PKT_LI_VN_MODE(sys_leap,
+		/*
+		 * Make copies of the variables which can be affected by smearing.
+		 */
+		l_fp this_recv_time;
+
+		/*
+		 * If we are inside the leap smear interval we add the current smear offset to
+		 * the packet receive time, to the packet transmit time, and eventually to the
+		 * reftime to make sure the reftime isn't later than the transmit/receive times.
+		 */
+		xpkt.li_vn_mode = PKT_LI_VN_MODE(xmt_leap,
 		    PKT_VERSION(rpkt->li_vn_mode), xmode);
 		xpkt.stratum = STRATUM_TO_PKT(sys_stratum);
 		xpkt.ppoll = max(rpkt->ppoll, ntp_minpoll);
@@ -3476,10 +3522,16 @@ fast_xmit(
 		xpkt.refid = sys_refid;
 		xpkt.rootdelay = HTONS_FP(DTOFP(sys_rootdelay));
 		xpkt.rootdisp = HTONS_FP(DTOUFP(sys_rootdisp));
+		/* TODO: add smear offset to reftime? */
 		HTONL_FP(&sys_reftime, &xpkt.reftime);
 		xpkt.org = rpkt->xmt;
-		HTONL_FP(&rbufp->recv_time, &xpkt.rec);
+		this_recv_time = rbufp->recv_time;
+		if (leap_smear.in_progress)
+			leap_smear_add_offs(&this_recv_time, NULL);
+		HTONL_FP(&this_recv_time, &xpkt.rec);
 		get_systime(&xmt_tx);
+		if (leap_smear.in_progress)
+			leap_smear_add_offs(&xmt_tx, &this_recv_time);
 		HTONL_FP(&xmt_tx, &xpkt.xmt);
 	}
 
@@ -3988,7 +4040,7 @@ init_proto(void)
 	 * Fill in the sys_* stuff.  Default is don't listen to
 	 * broadcasting, require authentication.
 	 */
-	sys_leap = LEAP_NOTINSYNC;
+	set_sys_leap(LEAP_NOTINSYNC);
 	sys_stratum = STRATUM_UNSPEC;
 	memcpy(&sys_refid, "INIT", 4);
 	sys_peer = NULL;
