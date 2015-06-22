@@ -16,6 +16,7 @@ check_PROGRAMS =		\
 	test-kodDatabase	\
 	test-kodFile		\
 	test-networking		\
+	test-nameresolution \
 	test-utilities		\
 	$(NULL)
 
@@ -40,6 +41,7 @@ tests_SOURCES =			\
 	g_kodDatabase.cpp	\
 	g_kodFile.cpp		\
 	g_networking.cpp	\
+	g_nameresolution.cpp	\
 	packetHandling.cpp	\
 	packetProcessing.cpp	\
 	g_utilities.cpp		\
@@ -116,6 +118,7 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-kodDatabase.c	\
 	$(srcdir)/run-kodFile.c		\
 	$(srcdir)/run-networking.c	\
+	$(srcdir)/run-nameresolution.c	\
 	$(srcdir)/run-utilities.c	\
 	$(NULL)
 
@@ -151,6 +154,14 @@ test_networking_LDADD =			\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
+test_nameresolution_CFLAGS =		\
+	-I$(top_srcdir)/unity		\
+	$(NULL)
+
+test_nameresolution_LDADD =			\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
 test_utilities_CFLAGS =			\
 	-I$(top_srcdir)/unity		\
 	$(NULL)
@@ -170,6 +181,12 @@ test_crypto_LDADD =			\
 test_networking_SOURCES =		\
 	networking.c			\
 	run-networking.c		\
+	$(top_builddir)/version.c	\
+	$(NULL)
+
+test_nameresolution_SOURCES =		\
+	nameresolution.c			\
+	run-nameresolution.c		\
 	$(top_builddir)/version.c	\
 	$(NULL)
 
@@ -215,6 +232,9 @@ $(srcdir)/run-kodDatabase.c: $(srcdir)/kodDatabase.c $(std_unity_list)
 
 $(srcdir)/run-networking.c: $(srcdir)/networking.c $(std_unity_list)
 	$(run_unity) networking.c run-networking.c
+
+$(srcdir)/run-nameresolution.c: $(srcdir)/nameresolution.c $(std_unity_list)
+	$(run_unity) nameresolution.c run-nameresolution.c
 
 $(srcdir)/run-utilities.c: $(srcdir)/utilities.c $(std_unity_list)
 	$(run_unity) utilities.c run-utilities.c
