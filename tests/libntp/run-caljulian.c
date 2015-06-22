@@ -26,6 +26,7 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
+void resetTest(void);
 extern void test_RegularTime();
 extern void test_LeapYear();
 extern void test_uLongBoundary();

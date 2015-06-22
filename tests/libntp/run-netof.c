@@ -26,6 +26,7 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
+void resetTest(void);
 extern void test_ClassBAddress(void);
 extern void test_ClassCAddress(void);
 extern void test_ClassAAddress(void);

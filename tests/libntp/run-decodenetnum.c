@@ -26,6 +26,7 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
+void resetTest(void);
 extern void test_IPv4AddressOnly(void);
 extern void test_IPv4AddressWithPort(void);
 extern void test_IPv6AddressOnly(void);
