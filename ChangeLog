@@ -24,6 +24,7 @@
    (The original topic was fixed in a byplay to bug#2830)
 * [Bug 2845] Harden memory allocation in ntpd.
 * [Bug 2852] 'make check' can't find unity.h.  Hal Murray.
+* [Bug 2853] FICORA #829967
 * [Bug 2854] Missing brace in libntp/strdup.c.  Masanari Iida.
 * [Bug 2855] Implement conditional leap smear code.  Martin Burnicki.
 * [Bug 2855] leap smear cleanup.  Harlan Stenn.
