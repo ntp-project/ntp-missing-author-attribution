@@ -10,11 +10,11 @@
 .ds B-Font B
 .ds I-Font I
 .ds R-Font R
-.TH update-leap 1update-leapman "12 May 2015" "ntp (4.2.8p3-RC1)" "User Commands"
+.TH update-leap 1update-leapman "24 Jun 2015" "ntp (4.2.8p3-RC2)" "User Commands"
 .\"
-.\" EDIT THIS FILE WITH CAUTION (/tmp/.ag-n3aicO/ag-J3aqbO)
+.\" EDIT THIS FILE WITH CAUTION (/tmp/.ag-HSai2p/ag-2Saq1p)
 .\"
-.\" It has been AutoGen-ed May 12, 2015 at 04:26:10 AM by AutoGen 5.18.5
+.\" It has been AutoGen-ed June 24, 2015 at 11:01:49 AM by AutoGen 5.18.5
 .\" From the definitions update-leap-opts.def
 .\" and the template file agman-cmd.tpl
 .SH NAME
@@ -41,7 +41,7 @@ and if necessary, updates leap-second definition file.
 .ne 2
 
 Ordinarily, the file is found using the "leapfile" directive in
-\fCntp.conf\fR(5)\f[].
+\fCntp.conf\f[]\fR(5)\f[].
 However, an alternate location can be specified on the command line.
 .sp \n(Ppu
 .ne 2

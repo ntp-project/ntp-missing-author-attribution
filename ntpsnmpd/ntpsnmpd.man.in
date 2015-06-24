@@ -10,11 +10,11 @@
 .ds B-Font B
 .ds I-Font I
 .ds R-Font R
-.TH ntpsnmpd @NTPSNMPD_MS@ "12 May 2015" "4.2.8p3-RC1" "User Commands"
+.TH ntpsnmpd @NTPSNMPD_MS@ "24 Jun 2015" "4.2.8p3-RC2" "User Commands"
 .\"
-.\" EDIT THIS FILE WITH CAUTION (/tmp/.ag-WvaGhY/ag-OwaygY)
+.\" EDIT THIS FILE WITH CAUTION (/tmp/.ag-tvai5y/ag-Gvaa4y)
 .\"
-.\" It has been AutoGen-ed May 12, 2015 at 04:33:51 AM by AutoGen 5.18.5
+.\" It has been AutoGen-ed June 24, 2015 at 11:05:57 AM by AutoGen 5.18.5
 .\" From the definitions ntpsnmpd-opts.def
 .\" and the template file agman-cmd.tpl
 .SH NAME
@@ -36,7 +36,7 @@ All arguments must be options.
 .SH DESCRIPTION
 \f\*[B-Font]ntpsnmpd\fP
 is an SNMP MIB agent designed to interface with
-\fCntpd\fR(@NTPD_MS@)\f[].
+\fCntpd\f[]\fR(@NTPD_MS@)\f[].
 .SH "OPTIONS"
 .TP
 .NOP \f\*[B-Font]\-n\f[], \f\*[B-Font]\-\-nofork\f[]
@@ -109,7 +109,7 @@ when the NTPv4 MIB RFC is standardized.
 .ne 2
 
 If you have
-\fCsnmpwalk\fR(1)\f[]
+\fCsnmpwalk\f[]\fR(1)\f[]
 installed you can run
 .Dl % snmpwalk \-v2c \-c public localhost enterprises.5597.99
 to see a list of all currently supported NTP MIB objects
