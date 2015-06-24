@@ -1,6 +1,5 @@
 ---
 
-* [Bug 2855] Implement conditional leap smear feature.
 * [Bug 2778] Implement "apeers"  ntpq command to include associd.
 * [Bug 2805] ntpd fails to join multicast group.
 * [Bug 2824] Convert update-leap to perl. (also see 2769)
@@ -25,6 +24,7 @@
 * [Bug 2845] Harden memory allocation in ntpd.
 * [Bug 2852] 'make check' can't find unity.h.  Hal Murray.
 * [Bug 2854] Missing brace in libntp/strdup.c.  Masanari Iida.
+* [Bug 2855] Implement conditional leap smear code.  Martin Burnicki.
 * Initial support for experimental leap smear code.  Harlan Stenn.
 * Fixes to sntp/tests/fileHandlingTest.h.in.  Harlan Stenn.
 * Report select() debug messages at debug level 3 now.
