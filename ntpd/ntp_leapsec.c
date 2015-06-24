@@ -198,7 +198,7 @@ leapsec_load(
 	} else {
 		memset(&limit, 0, sizeof(limit));
 	}
-	
+
 	while (get_line(func, farg, linebuf, sizeof(linebuf))) {
 		cp = linebuf;
 		if (*cp == '#') {
@@ -214,7 +214,7 @@ leapsec_load(
 				pt->head.update = strtouv64(cp, &ep, 10);
 				if (parsefail(cp, ep))
 					goto fail_read;
-			}		    
+			}
 		} else if (isdigit((u_char)*cp)) {
 			ttime = strtouv64(cp, &ep, 10);
 			if (parsefail(cp, ep))
@@ -360,7 +360,7 @@ leapsec_query(
 	/* if not in the last day before transition, we're done. */
 	if (!betweenu32(due32 - SECSPERDAY, ts32, due32))
 		return fired;
-	
+
 	qr->proximity = LSPROX_ANNOUNCE;
 	if (!betweenu32(due32 - 10, ts32, due32))
 		return fired;
@@ -379,7 +379,7 @@ leapsec_query_era(
 {
 	const leap_table_t * pt;
 	vint64               ts64;
-	
+
 	pt   = leapsec_get_table(FALSE);
 	ts64 = ntpcal_ntp_to_ntp(ntpts, pivot);
 	fetch_leap_era(qr, pt, &ts64);
@@ -438,7 +438,7 @@ leapsec_load_stream(
 			msyslog(LOG_NOTICE, "%s ('%s'): good hash signature",
 				logPrefix, fname);
 			break;
-			
+
 		case LSVALID_NOHASH:
 			msyslog(LOG_ERR, "%s ('%s'): no hash signature",
 				logPrefix, fname);
@@ -488,7 +488,7 @@ leapsec_load_stream(
 			"%s ('%s'): loaded, expire=%s ofs=%d (no entries after build date)",
 			logPrefix, fname, lstostr(&pt->head.expire),
 			pt->head.base_tai);
-	
+
 	return leapsec_set_table(pt);
 }
 
@@ -507,7 +507,7 @@ leapsec_load_file(
 	/* just do nothing if there is no leap file */
 	if ( !(fname && *fname) )
 		return FALSE;
-	
+
 	/* try to stat the leapfile */
 	if (0 != stat(fname, &sb_new)) {
 		if (logall)
@@ -613,7 +613,7 @@ leapsec_add_fix(
 		time(&tpiv);
 		pivot = &tpiv;
 	}
-	
+
 	et64 = ntpcal_ntp_to_ntp(etime, pivot);
 	tt64 = ntpcal_ntp_to_ntp(ttime, pivot);
 	pt   = leapsec_get_table(TRUE);
@@ -659,10 +659,10 @@ leapsec_autokey_tai(
 	leap_era_t     era;
 	vint64         now64;
 	int            idx;
-	
+
 	(void)tai_offset;
 	pt = leapsec_get_table(FALSE);
-	
+
 	/* Bail out if the basic offset is not zero and the putative
 	 * offset is bigger than 10s. That was in 1972 -- we don't want
 	 * to go back that far!
@@ -677,7 +677,7 @@ leapsec_autokey_tai(
 	 * side the transition the sender might have been, so we use a
 	 * dead zone around the transition.
 	 */
-		
+
 	/* Check for static entries */
 	for (idx = 0; idx != pt->head.size; idx++)
 		if ( ! pt->info[idx].dynls)
@@ -686,7 +686,7 @@ leapsec_autokey_tai(
 	/* get the fulll time stamp and leap era for it */
 	now64 = ntpcal_ntp_to_ntp(ntpnow, pivot);
 	fetch_leap_era(&era, pt, &now64);
-	
+
 	/* check the limits with 20s dead band */
 	era.ebase = addv64i32(&era.ebase,  20);
 	if (ucmpv64(&now64, &era.ebase) < 0)
@@ -695,7 +695,7 @@ leapsec_autokey_tai(
 	era.ttime = addv64i32(&era.ttime, -20);
 	if (ucmpv64(&now64, &era.ttime) > 0)
 		return FALSE;
-	
+
 	/* Here we can proceed. Calculate the delta update. */
 	tai_offset -= era.taiof;
 
@@ -757,7 +757,7 @@ add_range(
 	}
 
 	/* make room in lower end and insert item */
-	memmove(pt->info+1, pt->info, pt->head.size*sizeof(*pt->info)); 
+	memmove(pt->info+1, pt->info, pt->head.size*sizeof(*pt->info));
 	pt->info[0] = *pi;
 	pt->head.size++;
 
@@ -789,7 +789,7 @@ get_line(
 {
 	int   ch;
 	char *ptr;
-	
+
 	/* if we cannot even store the delimiter, declare failure */
 	if (buff == NULL || size == 0)
 		return NULL;
@@ -877,7 +877,7 @@ reload_limits(
 			pt->head.dtime = addv64i32(
 				&pt->head.ttime,
 				pt->head.next_tai - pt->head.this_tai);
-		
+
 		pt->head.stime = subv64u32(
 			&pt->head.ttime, pt->info[idx].stime);
 
@@ -1109,7 +1109,7 @@ do_hash_data(
 				isc_sha1_update(
 					mdctx, text, sizeof(text));
 		}
-	
+
 	if (0 < tlen)
 		isc_sha1_update(mdctx, text, tlen);
 }

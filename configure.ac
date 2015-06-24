@@ -4360,6 +4360,8 @@ case "$ntp_ok" in
  yes)
     ntp_leap_smear_enabled=1
     AC_DEFINE([LEAP_SMEAR], [1], [leap smear mechanism])
+    AC_SUBST([HAVE_LEAPSMEARINTERVAL])
+    HAVE_LEAPSMEARINTERVAL="leapsmearinterval 0"
     ;;
 esac
 AC_MSG_RESULT([$ntp_ok])
@@ -4386,7 +4388,7 @@ AC_CONFIG_FILES([kernel/sys/Makefile])
 AC_CONFIG_FILES([libntp/Makefile])
 AC_CONFIG_FILES([libparse/Makefile])
 AC_CONFIG_FILES([ntpd/Makefile])
-AC_CONFIG_FILES([ntpd/complete.conf],	[sed -e '/^rlimit$/d' < ntpd/complete.conf > ntpd/complete.conf.new && mv ntpd/complete.conf.new ntpd/complete.conf])
+AC_CONFIG_FILES([ntpd/complete.conf],	[sed -e '/^rlimit$/d' -e '/^$/d' < ntpd/complete.conf > ntpd/complete.conf.new && mv ntpd/complete.conf.new ntpd/complete.conf])
 AC_CONFIG_FILES([ntpdate/Makefile])
 AC_CONFIG_FILES([ntpdc/Makefile])
 AC_CONFIG_FILES([ntpdc/nl.pl],		[chmod +x ntpdc/nl.pl])

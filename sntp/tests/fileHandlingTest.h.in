@@ -35,9 +35,9 @@ const char * CreatePath(const char* filename, enum DirectoryType argument) {
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 		printf("Current working dir: %s\n", cwd);
 	
-	printf("builddir is <@builddir@>\n");
-	printf("srcdir is   <@srcdir@>\n");
-	strcpy(path,"@srcdir@/data/");
+	printf("builddir is   <@builddir@>\n");
+	printf("abs_srcdir is <@abs_srcdir@>\n");
+	strcpy(path,"@abs_srcdir@/data/");
 
 	//strcpy(path,"");
 	strcat(path,filename);

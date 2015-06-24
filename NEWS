@@ -10,7 +10,7 @@ New features in this release:
 We've imported the Unity test framework, and have begun converting
 the existing google-test items to this new framework.  If you want
 to write new tests or change old ones, you'll need to have ruby
-installed.
+installed.  You don't need ruby to run the test suite.
 
 Bug Fixes and Improvements:
 
@@ -30,6 +30,7 @@ Bug Fixes and Improvements:
 * [Bug 2750] build for Win64
   Building for 32bit of loopback ppsapi needs def file
 * [Bug 2776] Improve ntpq's 'help keytype'.
+* [Bug 2778] Implement "apeers"  ntpq command to include associd.
 * [Bug 2782] Refactor refclock_shm.c, add memory barrier protection.
 * [Bug 2792] If the IFF_RUNNING interface flag is supported then an
   interface is ignored as long as this flag is not set since the
@@ -38,6 +39,7 @@ Bug Fixes and Improvements:
 * [Bug 2800] refclock_true.c true_debug() can't open debug log because
   of incompatible open/fdopen parameters.
 * [Bug 2804] install-local-data assumes GNU 'find' semantics.
+* [Bug 2805] ntpd fails to join multicast group.
 * [Bug 2806] refclock_jjy.c supports the Telephone JJY.
 * [Bug 2808] GPSD_JSON driver enhancements, step 1.
   Fix crash during cleanup if GPS device not present and char device.
@@ -51,7 +53,39 @@ Bug Fixes and Improvements:
 * [Bug 2815] net-snmp before v5.4 has circular library dependencies.
 * [Bug 2821] Add a missing NTP_PRINTF and a missing const.
 * [Bug 2822] New leap column in sntp broke NTP::Util.pm.
+* [Bug 2824] Convert update-leap to perl. (also see 2769)
 * [Bug 2825] Quiet file installation in html/ .
+* [Bug 2830] ntpd doesn't always transfer the correct TAI offset via autokey
+   NTPD transfers the current TAI (instead of an announcement) now.
+   This might still needed improvement.
+   Update autokey data ASAP when 'sys_tai' changes.
+   Fix unit test that was broken by changes for autokey update.
+   Avoid potential signature length issue and use DPRINTF where possible
+     in ntp_crypto.c.
+* [Bug 2832] refclock_jjy.c supports the TDC-300.
+* [Bug 2834] Correct a broken html tag in html/refclock.html
+* [Bug 2836] DFC77 patches from Frank Kardel to make decoding more
+  robust, and require 2 consecutive timestamps to be consistent.
+* [Bug 2837] Allow a configurable DSCP value.
+* [Bug 2837] add test for DSCP to ntpd/complete.conf.in
+* [Bug 2842] Glitch in ntp.conf.def documentation stanza.
+* [Bug 2842] Bug in mdoc2man.
+* [Bug 2843] make check fails on 4.3.36
+   Fixed compiler warnings about numeric range overflow
+   (The original topic was fixed in a byplay to bug#2830)
+* [Bug 2845] Harden memory allocation in ntpd.
+* [Bug 2852] 'make check' can't find unity.h.  Hal Murray.
+* [Bug 2854] Missing brace in libntp/strdup.c.  Masanari Iida.
+* [Bug 2855] Implement conditional leap smear code.  Martin Burnicki.
+* Initial support for experimental leap smear code.  Harlan Stenn.
+* Fixes to sntp/tests/fileHandlingTest.h.in.  Harlan Stenn.
+* Report select() debug messages at debug level 3 now.
+* sntp/scripts/genLocInfo: treat raspbian as debian.
+* Unity test framework fixes.
+  ** Requires ruby for changes to tests.
+* Initial support for PACKAGE_VERSION tests.
+* sntp/libpkgver belongs in EXTRA_DIST, not DIST_SUBDIRS.
+* tests/bug-2803/Makefile.am must distribute bug-2803.h.
 * Add an assert to the ntpq ifstats code.
 * Clean up the RLIMIT_STACK code.
 * Improve the ntpq documentation around the controlkey keyid.

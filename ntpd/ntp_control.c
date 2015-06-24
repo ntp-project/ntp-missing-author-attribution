@@ -221,7 +221,9 @@ static const struct ctl_proc control_codes[] = {
 #define	CS_TIMER_XMTS		87
 #define	CS_FUZZ			88
 #define	CS_WANDER_THRESH	89
-#define	CS_MAX_NOAUTOKEY	CS_WANDER_THRESH
+#define	CS_LEAPSMEARINTV	90
+#define	CS_LEAPSMEAROFFS	91
+#define	CS_MAX_NOAUTOKEY	CS_LEAPSMEAROFFS
 #ifdef AUTOKEY
 #define	CS_FLAGS		(1 + CS_MAX_NOAUTOKEY)
 #define	CS_HOST			(2 + CS_MAX_NOAUTOKEY)
@@ -417,6 +419,10 @@ static const struct ctl_var sys_var[] = {
 	{ CS_TIMER_XMTS,	RO, "timer_xmts" },	/* 87 */
 	{ CS_FUZZ,		RO, "fuzz" },		/* 88 */
 	{ CS_WANDER_THRESH,	RO, "clk_wander_threshold" }, /* 89 */
+#ifdef LEAP_SMEAR
+	{ CS_LEAPSMEARINTV,	RO, "leapsmearinterval" },    /* 90 */
+	{ CS_LEAPSMEAROFFS,	RO, "leapsmearoffset" },      /* 91 */
+#endif	 /* LEAP_SMEAR */
 #ifdef AUTOKEY
 	{ CS_FLAGS,	RO, "flags" },		/* 1 + CS_MAX_NOAUTOKEY */
 	{ CS_HOST,	RO, "host" },		/* 2 + CS_MAX_NOAUTOKEY */
@@ -459,6 +465,8 @@ static const u_char def_sys_var[] = {
 	CS_TAI,
 	CS_LEAPTAB,
 	CS_LEAPEND,
+	CS_LEAPSMEARINTV,
+	CS_LEAPSMEAROFFS,
 #ifdef AUTOKEY
 	CS_HOST,
 	CS_IDENT,
@@ -1971,6 +1979,19 @@ ctl_putsys(
 			ctl_putfs(sys_var[CS_LEAPEND].text, lsig.etime);
 		break;
 	}
+
+#ifdef LEAP_SMEAR
+	case CS_LEAPSMEARINTV:
+		if (leap_smear_intv > 0)
+			ctl_putuint(sys_var[CS_LEAPSMEARINTV].text, leap_smear_intv);
+		break;
+
+	case CS_LEAPSMEAROFFS:
+		if (leap_smear_intv > 0)
+			ctl_putdbl(sys_var[CS_LEAPSMEAROFFS].text,
+				   leap_smear.doffset * 1e3);
+		break;
+#endif	/* LEAP_SMEAR */
 
 	case CS_RATE:
 		ctl_putuint(sys_var[CS_RATE].text, ntp_minpoll);

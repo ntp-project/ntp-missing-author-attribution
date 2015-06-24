@@ -2,6 +2,7 @@ saveconfigdir "/etc/ntp/conf"
 driftfile "/etc/ntp.drift" 1e-7
 logfile "/var/log/ntp.log"
 leapfile "/etc/ntp.leapseconds"
+@HAVE_LEAPSMEARINTERVAL@
 nonvolatile 1e-7
 ident "udent"
 dscp 46

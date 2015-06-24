@@ -90,7 +90,7 @@ typedef struct leap_era leap_era_t;
  * 'proximity' is a proximity warning. See definitions below. This is
  *	more useful than an absolute difference to the leap second.
  * 'dynamic' != 0 if entry was requested by clock/peer
- */ 
+ */
 struct leap_result {
 	vint64   ebase;
 	vint64   ttime;
@@ -111,13 +111,31 @@ typedef struct leap_result leap_result_t;
  *  - it is used to query data for AUTOKEY updates, and then it contains
  *    the *current* TAI offset, the *next* transition time and the
  *    expiration time of the table.
- */   
+ */
 struct leap_signature {
 	uint32_t etime;	/* expiration time	*/
 	uint32_t ttime;	/* transition time	*/
 	int16_t  taiof;	/* total offset to TAI	*/
 };
 typedef struct leap_signature leap_signature_t;
+
+
+#ifdef LEAP_SMEAR
+
+struct leap_smear_info {
+	int enabled;        /* not 0 if smearing is generally enabled */
+	int in_progress;    /* not 0 if smearing is in progress, i.e. the offset has been computed */
+	int leap_occurred;  /* not 0 if the leap second has already occurred, i.e., during the leap second */
+	double doffset;     /* the current smear offset as double */
+	l_fp offset;        /* the current smear offset */
+	uint32_t t_offset;  /* the current time for which a smear offset has been computed */
+	long interval;      /* smear interval, in [s], should be at least some hours */
+	double intv_start;  /* start time of the smear interval */
+	double intv_end;    /* end time of the smear interval */
+};
+typedef struct leap_smear_info leap_smear_info_t;
+
+#endif  /* LEAP_SMEAR */
 
 
 #define LSPROX_NOWARN	0	/* clear radar screen         */
