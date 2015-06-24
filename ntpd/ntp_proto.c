@@ -3541,7 +3541,7 @@ fast_xmit(
 			leap_smear_add_offs(&this_ref_time, NULL);
 		HTONL_FP(&this_ref_time, &xpkt.reftime);
 #else
-		HTONL_FP(&sys_ref_time, &xpkt.reftime);
+		HTONL_FP(&sys_reftime, &xpkt.reftime);
 #endif
 
 		xpkt.org = rpkt->xmt;
