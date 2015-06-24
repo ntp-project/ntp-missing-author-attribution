@@ -3281,6 +3281,35 @@ write_variables(
 	ctl_flushpkt(0);
 }
 
+/* Bug 2853 */
+/* evaluate the length of the command sequence. This breaks at the first
+ * char that is not >= SPACE and <= 127 after trimming from the right.
+ */
+static size_t
+cmdlength(
+	const char *src_buf,
+	const char *src_end
+	)
+{
+	const char *scan;
+	unsigned char ch;
+
+	/* trim whitespace & garbage from the right */
+	while (src_end != src_buf) {
+		ch = src_end[-1];
+		if (ch > ' ' && ch < 128)
+			break;
+		--src_end;
+	}
+	/* now do a forward scan */
+	for (scan = src_buf; scan != src_end; ++scan) {
+		ch = scan[0];
+		if ((ch < ' ' || ch >= 128) && ch != '\t')
+			break;
+	}
+	return (size_t)(scan - src_buf);
+}
+
 /*
  * configure() processes ntpq :config/config-from-file, allowing
  *		generic runtime reconfiguration.
@@ -3292,7 +3321,6 @@ static void configure(
 {
 	size_t data_count;
 	int retval;
-	int replace_nl;
 
 	/* I haven't yet implemented changes to an existing association.
 	 * Hence check if the association id is 0
@@ -3318,7 +3346,7 @@ static void configure(
 	}
 
 	/* Initialize the remote config buffer */
-	data_count = reqend - reqpt;
+	data_count = cmdlength(reqpt, reqend);
 
 	if (data_count > sizeof(remote_config.buffer) - 2) {
 		snprintf(remote_config.err_msg,
@@ -3332,34 +3360,41 @@ static void configure(
 			stoa(&rbufp->recv_srcadr));
 		return;
 	}
-
-	memcpy(remote_config.buffer, reqpt, data_count);
-	if (data_count > 0
-	    && '\n' != remote_config.buffer[data_count - 1])
-		remote_config.buffer[data_count++] = '\n';
-	remote_config.buffer[data_count] = '\0';
-	remote_config.pos = 0;
-	remote_config.err_pos = 0;
-	remote_config.no_errors = 0;
-
-	/* do not include terminating newline in log */
-	if (data_count > 0
-	    && '\n' == remote_config.buffer[data_count - 1]) {
-		remote_config.buffer[data_count - 1] = '\0';
-		replace_nl = TRUE;
-	} else {
-		replace_nl = FALSE;
+	/* Bug 2853 -- check if all characters were acceptable */
+	if (data_count != (size_t)(reqend - reqpt)) {
+		snprintf(remote_config.err_msg,
+			 sizeof(remote_config.err_msg),
+			 "runtime configuration failed: request contains an unprintable character");
+		ctl_putdata(remote_config.err_msg,
+			    strlen(remote_config.err_msg), 0);
+		ctl_flushpkt(0);
+		msyslog(LOG_NOTICE,
+			"runtime config from %s rejected: request contains an unprintable character: %0x",
+			stoa(&rbufp->recv_srcadr),
+			reqpt[data_count]);
+		return;
 	}
 
+	memcpy(remote_config.buffer, reqpt, data_count);
+	/* The buffer has no trailing linefeed or NUL right now. For
+	 * logging, we do not want a newline, so we do that first after
+	 * adding the necessary NUL byte.
+	 */
+	remote_config.buffer[data_count] = '\0';
 	DPRINTF(1, ("Got Remote Configuration Command: %s\n",
 		remote_config.buffer));
 	msyslog(LOG_NOTICE, "%s config: %s",
 		stoa(&rbufp->recv_srcadr),
 		remote_config.buffer);
 
-	if (replace_nl)
-		remote_config.buffer[data_count - 1] = '\n';
-
+	/* Now we have to make sure there is a NL/NUL sequence at the
+	 * end of the buffer before we parse it.
+	 */
+	remote_config.buffer[data_count++] = '\n';
+	remote_config.buffer[data_count] = '\0';
+	remote_config.pos = 0;
+	remote_config.err_pos = 0;
+	remote_config.no_errors = 0;
 	config_remotely(&rbufp->recv_srcadr);
 
 	/*

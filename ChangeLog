@@ -23,6 +23,7 @@
    (The original topic was fixed in a byplay to bug#2830)
 * [Bug 2845] Harden memory allocation in ntpd.
 * [Bug 2852] 'make check' can't find unity.h.  Hal Murray.
+* [Bug 2853] FICORA #829967
 * [Bug 2854] Missing brace in libntp/strdup.c.  Masanari Iida.
 * Initial support for experimental leap smear code.  Harlan Stenn.
 * Fixes to sntp/tests/fileHandlingTest.h.in.  Harlan Stenn.
