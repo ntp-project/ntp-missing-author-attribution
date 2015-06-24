@@ -1,3 +1,4 @@
+(4.3.45) 2015/06/24 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p3:
 * [Bug 2855] Implement conditional leap smear code.  Martin Burnicki.
 * [Bug 2855] leap smear cleanup.  Harlan Stenn.
