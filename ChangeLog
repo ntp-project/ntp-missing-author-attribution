@@ -1,3 +1,8 @@
+Below are from 4.2.8p3:
+* [Bug 2855] Implement conditional leap smear code.  Martin Burnicki.
+* [Bug 2855] leap smear cleanup.  Harlan Stenn.
+* Initial support for experimental leap smear code.  Harlan Stenn.
+* automake-1.15 cleanup for sntp/tests/fileHandlingTest.h.in .  Harlan Stenn.
 (4.3.44) 2015/06/22 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p3:
 * Initial support for experimental leap smear code.  Harlan Stenn.
