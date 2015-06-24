@@ -30,7 +30,7 @@
 * Report select() debug messages at debug level 3 now.
 * sntp/scripts/genLocInfo: treat raspbian as debian.
 * Unity test framework fixes.
-  ** Requires ruby.
+  ** Requires ruby for changes to tests.
 * Initial support for PACKAGE_VERSION tests.
 * sntp/libpkgver belongs in EXTRA_DIST, not DIST_SUBDIRS.
 * tests/bug-2803/Makefile.am must distribute bug-2803.h.
