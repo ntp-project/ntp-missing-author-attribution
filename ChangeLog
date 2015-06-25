@@ -1,5 +1,13 @@
 ---
 
+* Modified tests/bug-2803/Makefile.am so it builds Unity framework tests. Damir Tomić
+* Modified tests/libtnp/Makefile.am so it builds Unity framework tests. Damir Tomić
+* Modified sntp/tests/Makefile.am so it builds Unity framework tests. Damir Tomić
+* Converted from gtest to Unity: tests/bug-2803/. Damir Tomić
+* Converted from gtest to Unity: tests/libntp/ a_md5encrypt, atoint.c, atouint.c, authkeys.c, buftvtots.c, calendar.c, caljulian.c, calyearstart.c, clocktime.c, hextoint.c, lfpfunc.c, modetoa.c, numtoa.c, numtohost.c, refnumtoa.c, ssl_init.c, statestr.c, timespecops.c, timevalops.c, uglydate.c, vi64ops.c, ymd2yd.c. Damir Tomić
+* Converted from gtest to Unity: sntp/tests/ kodDatabase.c, kodFile.c, networking.c, keyFile.c, utilities.cpp, sntptest.h, fileHandlingTest.h. Damir Tomić
+---
+
 * [Bug 2855] Parser fix for conditional leap smear code.  Harlan Stenn.
 ---
 (4.2.8p3-RC2) 2015/06/24 Released by Harlan Stenn <stenn@ntp.org>
