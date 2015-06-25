@@ -18,6 +18,7 @@ check_PROGRAMS =			\
 	test-networking			\
 	test-packetProcessing		\
 	test-utilities			\
+	test-packetHandling		\
 	$(NULL)
 
 if GTEST_AVAILABLE
@@ -37,7 +38,8 @@ base_SOURCES =			\
 tests_SOURCES =			\
 	$(base_SOURCES)		\
 	g_networking.cpp	\
-	packetHandling.cpp	\
+	nameresolution.cpp	\
+	g_packetHandling.cpp	\
 	g_packetProcessing.cpp	\
 	$(NULL)
 
@@ -121,8 +123,9 @@ BUILT_SOURCES +=				\
 	$(srcdir)/run-kodDatabase.c		\
 	$(srcdir)/run-kodFile.c			\
 	$(srcdir)/run-networking.c		\
-	$(srcdir)/packetProcessing.c	\
+	$(srcdir)/run-packetProcessing.c	\
 	$(srcdir)/run-utilities.c		\
+	$(srcdir)/run-packetHandling.c		\
 	$(NULL)
 
 test_keyFile_CFLAGS =			\
@@ -157,14 +160,6 @@ test_networking_LDADD =			\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
-test_packetProcessing_CFLAGS =			\
-	-I$(top_srcdir)/unity		\
-	$(NULL)
-
-test_packetProcessing_LDADD =			\
-	$(unity_tests_LDADD)		\
-	$(NULL)
-
 test_utilities_CFLAGS =			\
 	-I$(top_srcdir)/unity		\
 	$(NULL)
@@ -181,9 +176,31 @@ test_crypto_LDADD =			\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
+test_packetProcessing_CFLAGS =		\
+	-I$(top_srcdir)/unity		\
+	$(NULL)
+
+test_packetProcessing_LDADD =		\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
+test_packetHandling_CFLAGS =		\
+	-I$(top_srcdir)/unity		\
+	$(NULL)
+
+test_packetHandling_LDADD =		\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
 test_networking_SOURCES =		\
 	networking.c			\
 	run-networking.c		\
+	$(top_builddir)/version.c	\
+	$(NULL)
+
+test_packetHandling_SOURCES =		\
+	packetHandling.c			\
+	run-packetHandling.c		\
 	$(top_builddir)/version.c	\
 	$(NULL)
 
@@ -237,6 +254,9 @@ $(srcdir)/run-networking.c: $(srcdir)/networking.c $(std_unity_list)
 
 $(srcdir)/run-packetProcessing.c: $(srcdir)/packetProcessing.c $(std_unity_list)
 	$(run_unity) packetProcessing.c run-packetProcessing.c
+
+$(srcdir)/run-packetHandling.c: $(srcdir)/packetHandling.c $(std_unity_list)
+	$(run_unity) packetHandling.c run-packetHandling.c
 
 $(srcdir)/run-utilities.c: $(srcdir)/utilities.c $(std_unity_list)
 	$(run_unity) utilities.c run-utilities.c
