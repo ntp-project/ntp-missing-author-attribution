@@ -1,7 +1,5 @@
 #include <config.h>
 
-//#include <ntp_fp.h>
-
 #include "unity.h"
 
 void setUp(void);
