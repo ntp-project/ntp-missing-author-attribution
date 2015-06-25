@@ -64,7 +64,7 @@ check-libunity: ../../sntp/unity/libunity.a
 	@echo stamp > $@
 
 ../../sntp/unity/libunity.a:
-	cd ../../libunity && $(MAKE) $(AM_MAKEFLAGS) libunity.a
+	cd ../../sntp/unity && $(MAKE) $(AM_MAKEFLAGS) libunity.a
 
 include $(top_srcdir)/depsver.mf
 include $(top_srcdir)/includes.mf

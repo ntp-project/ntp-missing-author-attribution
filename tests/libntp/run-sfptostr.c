@@ -26,6 +26,7 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
+void resetTest(void);
 extern void test_PositiveInteger(void);
 extern void test_NegativeInteger(void);
 extern void test_PositiveIntegerPositiveFraction(void);

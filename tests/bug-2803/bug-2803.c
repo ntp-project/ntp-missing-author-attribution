@@ -93,14 +93,14 @@ int test_loop( long long start_sec, long start_usec,
 
 int simpleTest( void )
 {
-
+	int x;
 	// loop from {0.0} to {1.1000000} stepping by tv_sec by 1 and tv_usec by 100000
-	test_loop( 0, 0,   1,  MICROSECONDS,   1,  MICROSECONDS / 10 );
+	x = test_loop( 0, 0,   1,  MICROSECONDS,   1,  MICROSECONDS / 10 );
 
-	// test_loop( 0, 0,   5,  MICROSECONDS,   1,  MICROSECONDS / 1000 );
-	// test_loop( 0, 0,  -5, -MICROSECONDS,  -1, -MICROSECONDS / 1000 );
+	// x = test_loop( 0, 0,   5,  MICROSECONDS,   1,  MICROSECONDS / 1000 );
+	// x = test_loop( 0, 0,  -5, -MICROSECONDS,  -1, -MICROSECONDS / 1000 );
 
-	return 0;
+	return x;
 }
 
 
