@@ -47,14 +47,13 @@ void test_main( void )
 
 int basic_good( void )
 {
-	const char *string = "good";
+	const char string[] = "good";
 	const char *EOstring;
 	char *cp;
 	size_t len;
 	int failed;
 
-	EOstring = string;
-	for (cp = string; *cp++; ++EOstring) ;
+	EOstring = string + sizeof string;
 
 	len = remoteconfig_cmdlength(string, EOstring);
 
@@ -98,14 +97,13 @@ int embedded_nul( void )
 
 int trailing_space( void )
 {
-	const char *string = "trailing space ";
+	const char string[] = "trailing space ";
 	const char *EOstring;
 	char *cp;
 	size_t len;
 	int failed;
 
-	EOstring = string;
-	for (cp = string; *cp++; ++EOstring) ;
+	EOstring = string + sizeof string;
 
 	len = remoteconfig_cmdlength(string, EOstring);
 
