@@ -8,7 +8,7 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
 # Use EXTRA_PROGRAMS for test files that are under development but
 # not production-ready
-#EXTRA_PROGRAMS +=	test-keyFile
+#EXTRA_PROGRAMS +=		test-packetHandling test-packetProcessing
 
 check_PROGRAMS =			\
 	test-crypto			\
@@ -16,9 +16,9 @@ check_PROGRAMS =			\
 	test-kodDatabase		\
 	test-kodFile			\
 	test-networking			\
+	test-packetHandling		\
 	test-packetProcessing		\
 	test-utilities			\
-	test-packetHandling		\
 	$(NULL)
 
 if GTEST_AVAILABLE
@@ -38,7 +38,7 @@ base_SOURCES =			\
 tests_SOURCES =			\
 	$(base_SOURCES)		\
 	g_networking.cpp	\
-	nameresolution.cpp	\
+	g_nameresolution.cpp	\
 	g_packetHandling.cpp	\
 	g_packetProcessing.cpp	\
 	$(NULL)
@@ -199,7 +199,7 @@ test_networking_SOURCES =		\
 	$(NULL)
 
 test_packetHandling_SOURCES =		\
-	packetHandling.c			\
+	packetHandling.c		\
 	run-packetHandling.c		\
 	$(top_builddir)/version.c	\
 	$(NULL)
@@ -224,8 +224,8 @@ test_kodFile_SOURCES =			\
 #	../version.c
 
 test_packetProcessing_SOURCES =		\
-	packetProcessing.c			\
-	run-packetProcessing.c			\
+	packetProcessing.c		\
+	run-packetProcessing.c		\
 	$(NULL)
 
 test_utilities_SOURCES =		\
