@@ -38,12 +38,14 @@ base_SOURCES =			\
 tests_SOURCES =			\
 	$(base_SOURCES)		\
 	g_networking.cpp	\
-	g_nameresolution.cpp	\
 	g_packetHandling.cpp	\
 	g_packetProcessing.cpp	\
 	$(NULL)
 
-#HMS: Somebody needs to audit the following files to
+# HMS: this test was for the 4.2.6 sntp code.
+#	g_nameresolution.cpp	
+
+# HMS: Somebody needs to audit the following files to
 # make sure all of these tests are now handled by Unity
 #
 #	g_utilities.cpp		
