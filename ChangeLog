@@ -1,4 +1,7 @@
 ---
+
+* [Bug 2855] Parser fix for conditional leap smear code.  Harlan Stenn.
+---
 (4.2.8p3-RC2) 2015/06/24 Released by Harlan Stenn <stenn@ntp.org>
 
 * [Bug 2778] Implement "apeers"  ntpq command to include associd.
