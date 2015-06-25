@@ -63,12 +63,12 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "packetProcessing.c";
   UnityBegin("packetProcessing.c");
-  RUN_TEST(test_TooShortLength, 81);
-  RUN_TEST(test_LengthNotMultipleOfFour, 90);
-  RUN_TEST(test_TooShortExtensionFieldLength, 99);
-  RUN_TEST(test_UnauthenticatedPacketReject, 115);
-  RUN_TEST(test_CryptoNAKPacketReject, 129);
-  RUN_TEST(test_AuthenticatedPacketInvalid, 142);
+  RUN_TEST(test_TooShortLength, 83);
+  RUN_TEST(test_LengthNotMultipleOfFour, 92);
+  RUN_TEST(test_TooShortExtensionFieldLength, 101);
+  RUN_TEST(test_UnauthenticatedPacketReject, 117);
+  RUN_TEST(test_CryptoNAKPacketReject, 131);
+  RUN_TEST(test_AuthenticatedPacketInvalid, 143);
   RUN_TEST(test_AuthenticatedPacketUnknownKey, 166);
   RUN_TEST(test_ServerVersionTooOld, 186);
   RUN_TEST(test_ServerVersionTooNew, 201);
