@@ -1,4 +1,4 @@
-#include "sntptest.h"
+#include "g_sntptest.h"
 
 extern "C" {
 #include "crypto.h"
