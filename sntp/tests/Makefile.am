@@ -10,13 +10,14 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 # not production-ready
 #EXTRA_PROGRAMS +=	test-keyFile
 
-check_PROGRAMS =		\
-	test-crypto		\
-	test-keyFile		\
-	test-kodDatabase	\
-	test-kodFile		\
-	test-networking		\
-	test-utilities		\
+check_PROGRAMS =			\
+	test-crypto			\
+	test-keyFile			\
+	test-kodDatabase		\
+	test-kodFile			\
+	test-networking			\
+	test-packetProcessing		\
+	test-utilities			\
 	$(NULL)
 
 if GTEST_AVAILABLE
@@ -37,7 +38,7 @@ tests_SOURCES =			\
 	$(base_SOURCES)		\
 	g_networking.cpp	\
 	packetHandling.cpp	\
-	packetProcessing.cpp	\
+	g_packetProcessing.cpp	\
 	$(NULL)
 
 #HMS: Somebody needs to audit the following files to
@@ -114,13 +115,14 @@ AM_CPPFLAGS += $(CPPFLAGS_NTP)
 
 AM_LDFLAGS = $(LDFLAGS_NTP)
 
-BUILT_SOURCES +=			\
-	$(srcdir)/run-crypto.c		\
-	$(srcdir)/run-keyFile.c		\
-	$(srcdir)/run-kodDatabase.c	\
-	$(srcdir)/run-kodFile.c		\
-	$(srcdir)/run-networking.c	\
-	$(srcdir)/run-utilities.c	\
+BUILT_SOURCES +=				\
+	$(srcdir)/run-crypto.c			\
+	$(srcdir)/run-keyFile.c			\
+	$(srcdir)/run-kodDatabase.c		\
+	$(srcdir)/run-kodFile.c			\
+	$(srcdir)/run-networking.c		\
+	$(srcdir)/packetProcessing.c	\
+	$(srcdir)/run-utilities.c		\
 	$(NULL)
 
 test_keyFile_CFLAGS =			\
@@ -152,6 +154,14 @@ test_networking_CFLAGS =		\
 	$(NULL)
 
 test_networking_LDADD =			\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
+test_packetProcessing_CFLAGS =			\
+	-I$(top_srcdir)/unity		\
+	$(NULL)
+
+test_packetProcessing_LDADD =			\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
@@ -196,6 +206,11 @@ test_kodFile_SOURCES =			\
 	$(NULL)
 #	../version.c
 
+test_packetProcessing_SOURCES =		\
+	packetProcessing.c			\
+	run-packetProcessing.c			\
+	$(NULL)
+
 test_utilities_SOURCES =		\
 	utilities.c			\
 	run-utilities.c			\
@@ -219,6 +234,9 @@ $(srcdir)/run-kodDatabase.c: $(srcdir)/kodDatabase.c $(std_unity_list)
 
 $(srcdir)/run-networking.c: $(srcdir)/networking.c $(std_unity_list)
 	$(run_unity) networking.c run-networking.c
+
+$(srcdir)/run-packetProcessing.c: $(srcdir)/packetProcessing.c $(std_unity_list)
+	$(run_unity) packetProcessing.c run-packetProcessing.c
 
 $(srcdir)/run-utilities.c: $(srcdir)/utilities.c $(std_unity_list)
 	$(run_unity) utilities.c run-utilities.c
