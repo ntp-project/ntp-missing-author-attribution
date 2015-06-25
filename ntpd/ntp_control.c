@@ -32,6 +32,7 @@
 # include "ntp_syscall.h"
 #endif
 
+extern size_t remoteconfig_cmdlength( const char *src_buf, const char *src_end );
 
 /*
  * Structure to hold request procedure information
@@ -3302,34 +3303,6 @@ write_variables(
 	ctl_flushpkt(0);
 }
 
-/* Bug 2853 */
-/* evaluate the length of the command sequence. This breaks at the first
- * char that is not >= SPACE and <= 127 after trimming from the right.
- */
-static size_t
-cmdlength(
-	const char *src_buf,
-	const char *src_end
-	)
-{
-	const char *scan;
-	unsigned char ch;
-
-	/* trim whitespace & garbage from the right */
-	while (src_end != src_buf) {
-		ch = src_end[-1];
-		if (ch > ' ' && ch < 128)
-			break;
-		--src_end;
-	}
-	/* now do a forward scan */
-	for (scan = src_buf; scan != src_end; ++scan) {
-		ch = scan[0];
-		if ((ch < ' ' || ch >= 128) && ch != '\t')
-			break;
-	}
-	return (size_t)(scan - src_buf);
-}
 
 /*
  * configure() processes ntpq :config/config-from-file, allowing
@@ -3367,7 +3340,7 @@ static void configure(
 	}
 
 	/* Initialize the remote config buffer */
-	data_count = cmdlength(reqpt, reqend);
+	data_count = remoteconfig_cmdlength(reqpt, reqend);
 
 	if (data_count > sizeof(remote_config.buffer) - 2) {
 		snprintf(remote_config.err_msg,

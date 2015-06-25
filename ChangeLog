@@ -1,5 +1,6 @@
 ---
 * [Sec 2853] FICORA #829967.  Juergen Perlinger, Harlan Stenn.
+* [Sec 2853] Initial work on tests/sec-2853/.  Harlan Stenn.
 
 ---
 (4.2.8p3-RC2) 2015/06/24 Released by Harlan Stenn <stenn@ntp.org>

@@ -14,7 +14,7 @@ check_PROGRAMS = sec-2853
 # HMS: we may not need some of these:
 LDADD =					\
 	$(top_builddir)/sntp/unity/libunity.a	\
-	$(top_builddir)/libntp/libntp.a	\
+	$(top_builddir)/ntpd/rc_cmdlength.o	\
 	$(LDADD_LIBNTP)			\
 	$(PTHREAD_LIBS)			\
 	$(LDADD_NTP)			\
@@ -53,8 +53,8 @@ endif
 ## check-libntp.mf - automake fragment
 ## slightly adapted for deeper directory
 
-BUILT_SOURCES	+= check-libntp check-libunity
-CLEANFILES	+= check-libntp check-libunity
+BUILT_SOURCES	+= check-libntp check-libunity check-rc-cmdlength
+CLEANFILES	+= check-libntp check-libunity check-rc-cmdlength
 
 check-libntp: ../../libntp/libntp.a
 	@echo stamp > $@
@@ -67,6 +67,12 @@ check-libunity: ../../sntp/unity/libunity.a
 
 ../../sntp/unity/libunity.a:
 	cd ../../libunity && $(MAKE) $(AM_MAKEFLAGS) libunity.a
+
+check-rc-cmdlength: ../../ntpd/rc_cmdlength.o
+	@echo stamp > $@
+
+../../ntpd/rc_cmdlength.o:
+	cd ../../ntpd && $(MAKE) $(AM_MAKEFLAGS) rc_cmdlength.o
 
 include $(top_srcdir)/depsver.mf
 include $(top_srcdir)/includes.mf
