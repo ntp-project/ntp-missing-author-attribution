@@ -14,7 +14,7 @@ extern int key_cnt;
 static struct pkt testpkt;
 static struct pkt testspkt;
 static sockaddr_u testsock;
-static bool restoreKeyDb;
+bool restoreKeyDb;
 
 void PrepareAuthenticationTest(int key_id,
 							   int key_len,
@@ -61,14 +61,19 @@ void SetUp() {
 
 	HTONL_FP(&tmp, &testpkt.org);
 	HTONL_FP(&tmp, &testspkt.xmt);
+
 }
 
 void TearDown() {
+	
 	if (restoreKeyDb) {
 		key_cnt = 0;
 		free(key_ptr);
 		key_ptr = NULL;
 	}
+
+	//sntptest_destroy(); //only on the final test!! if counter == 0 etc...
+
 }
 
 
@@ -108,6 +113,7 @@ void test_TooShortExtensionFieldLength(void) {
 }
 
 void test_UnauthenticatedPacketReject(void) {
+	sntptest();
 	// Activate authentication option
 	ActivateOption("-a", "123");
 	TEST_ASSERT_TRUE(ENABLED_OPT(AUTHENTICATION));
@@ -121,6 +127,7 @@ void test_UnauthenticatedPacketReject(void) {
 }
 
 void test_CryptoNAKPacketReject(void) {
+sntptest_destroy();
 	// Activate authentication option
 	ActivateOption("-a", "123");
 	TEST_ASSERT_TRUE(ENABLED_OPT(AUTHENTICATION));
@@ -133,6 +140,7 @@ void test_CryptoNAKPacketReject(void) {
 }
 
 void test_AuthenticatedPacketInvalid(void) {
+sntptest_destroy();
 	// Activate authentication option
 	PrepareAuthenticationTestMD5(50, 9, "123456789");
 	TEST_ASSERT_TRUE(ENABLED_OPT(AUTHENTICATION));
@@ -155,7 +163,7 @@ void test_AuthenticatedPacketInvalid(void) {
 						  MODE_SERVER, &testspkt, "UnitTest"));
 }
 
-void test_AuthenticatedPacketUnknownKey(void) {
+void test_AuthenticatedPacketUnknownKey(void) {sntptest_destroy();
 	// Activate authentication option
 	PrepareAuthenticationTestMD5(30, 9, "123456789");
 	TEST_ASSERT_TRUE(ENABLED_OPT(AUTHENTICATION));
@@ -271,7 +279,7 @@ void test_RejectWrongResponseServerMode(void) {
 						  MODE_SERVER, &testspkt, "UnitTest"));
 }
 
-void test_AcceptNoSentPacketBroadcastMode(void) {
+void test_AcceptNoSentPacketBroadcastMode(void) { sntptest_destroy();
 	TEST_ASSERT_FALSE(ENABLED_OPT(AUTHENTICATION));
 
 	testpkt.li_vn_mode = PKT_LI_VN_MODE(LEAP_NOWARNING,
@@ -283,7 +291,7 @@ void test_AcceptNoSentPacketBroadcastMode(void) {
 			      MODE_BROADCAST, NULL, "UnitTest"));
 }
 
-void test_CorrectUnauthenticatedPacket(void) {
+void test_CorrectUnauthenticatedPacket(void) { sntptest_destroy();
 	TEST_ASSERT_FALSE(ENABLED_OPT(AUTHENTICATION));
 
 	TEST_ASSERT_EQUAL(LEN_PKT_NOMAC,
@@ -291,7 +299,7 @@ void test_CorrectUnauthenticatedPacket(void) {
 						  MODE_SERVER, &testspkt, "UnitTest"));
 }
 
-void test_CorrectAuthenticatedPacketMD5(void) {
+void test_CorrectAuthenticatedPacketMD5(void) { sntptest_destroy();
 	PrepareAuthenticationTestMD5(10, 15, "123456789abcdef");
 	TEST_ASSERT_TRUE(ENABLED_OPT(AUTHENTICATION));
 
@@ -311,7 +319,7 @@ void test_CorrectAuthenticatedPacketMD5(void) {
 
 }
 
-void test_CorrectAuthenticatedPacketSHA1(void) {
+void test_CorrectAuthenticatedPacketSHA1(void) { sntptest_destroy();
 	PrepareAuthenticationTest(20, 15, "SHA1", "abcdefghijklmno");
 	TEST_ASSERT_TRUE(ENABLED_OPT(AUTHENTICATION));
 
