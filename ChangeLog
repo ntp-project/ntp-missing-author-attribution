@@ -1,3 +1,4 @@
+(4.3.46) 2015/06/25 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p3:
 * [Bug 2855] Parser fix for conditional leap smear code.  Harlan Stenn.
 (4.3.45) 2015/06/24 Released by Harlan Stenn <stenn@ntp.org>

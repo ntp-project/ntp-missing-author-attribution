@@ -10,11 +10,11 @@
 .ds B-Font B
 .ds I-Font I
 .ds R-Font R
-.TH calc_tickadj 1calc_tickadjman "24 Jun 2015" "ntp (4.3.45)" "User Commands"
+.TH calc_tickadj 1calc_tickadjman "25 Jun 2015" "ntp (4.3.46)" "User Commands"
 .\"
-.\" EDIT THIS FILE WITH CAUTION (/tmp/.ag-2laWzj/ag-FmaOwj)
+.\" EDIT THIS FILE WITH CAUTION (/tmp/.ag-KuaWdU/ag-Xua4cU)
 .\"
-.\" It has been AutoGen-ed June 24, 2015 at 04:02:32 PM by AutoGen 5.18.5
+.\" It has been AutoGen-ed June 25, 2015 at 11:53:07 AM by AutoGen 5.18.5
 .\" From the definitions calc_tickadj-opts.def
 .\" and the template file agman-cmd.tpl
 .SH NAME

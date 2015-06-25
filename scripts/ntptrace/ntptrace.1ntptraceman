@@ -10,11 +10,11 @@
 .ds B-Font B
 .ds I-Font I
 .ds R-Font R
-.TH ntptrace 1ntptraceman "24 Jun 2015" "ntp (4.3.45)" "User Commands"
+.TH ntptrace 1ntptraceman "25 Jun 2015" "ntp (4.3.46)" "User Commands"
 .\"
-.\" EDIT THIS FILE WITH CAUTION (/tmp/.ag-BoaiAr/ag-RpaWxr)
+.\" EDIT THIS FILE WITH CAUTION (/tmp/.ag-nuaWlY/ag-Aua4kY)
 .\"
-.\" It has been AutoGen-ed June 24, 2015 at 04:03:25 PM by AutoGen 5.18.5
+.\" It has been AutoGen-ed June 25, 2015 at 11:53:35 AM by AutoGen 5.18.5
 .\" From the definitions ntptrace-opts.def
 .\" and the template file agman-cmd.tpl
 .SH NAME
