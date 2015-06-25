@@ -55,16 +55,16 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "packetHandling.c";
   UnityBegin("packetHandling.c");
-  RUN_TEST(test_GenerateUnauthenticatedPacket, 21);
-  RUN_TEST(test_GenerateAuthenticatedPacket, 44);
-  RUN_TEST(test_OffsetCalculationPositiveOffset, 83);
-  RUN_TEST(test_OffsetCalculationNegativeOffset, 127);
-  RUN_TEST(test_HandleUnusableServer, 170);
-  RUN_TEST(test_HandleUnusablePacket, 181);
-  RUN_TEST(test_HandleServerAuthenticationFailure, 192);
-  RUN_TEST(test_HandleKodDemobilize, 203);
-  RUN_TEST(test_HandleKodRate, 227);
-  RUN_TEST(test_HandleCorrectPacket, 238);
+  RUN_TEST(test_GenerateUnauthenticatedPacket, 35);
+  RUN_TEST(test_GenerateAuthenticatedPacket, 58);
+  RUN_TEST(test_OffsetCalculationPositiveOffset, 97);
+  RUN_TEST(test_OffsetCalculationNegativeOffset, 141);
+  RUN_TEST(test_HandleUnusableServer, 184);
+  RUN_TEST(test_HandleUnusablePacket, 195);
+  RUN_TEST(test_HandleServerAuthenticationFailure, 206);
+  RUN_TEST(test_HandleKodDemobilize, 217);
+  RUN_TEST(test_HandleKodRate, 241);
+  RUN_TEST(test_HandleCorrectPacket, 252);
 
   return (UnityEnd());
 }

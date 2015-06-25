@@ -1,14 +1,28 @@
 #include "config.h"
-#include "unity.h"
-//#include "ntp_stdlib.h"
-#include "ntp_types.h"
 #include "ntp_debug.h"
+#include "ntp_stdlib.h"
+#include "ntp_types.h"
+
 #include "sntptest.h"
 
 #include "kod_management.h"
 #include "main.h"
 #include "networking.h"
 #include "ntp.h"
+
+#include "unity.h"
+
+
+int counter = 0;
+
+
+// old code from google test framework, moved to SetUp() for unity
+void setUp(void)
+{ 
+	init_lib(); 
+}
+
+
 
 int LfpEquality(const l_fp expected, const l_fp actual) {
 		if (L_ISEQU(&expected, &actual)) {
