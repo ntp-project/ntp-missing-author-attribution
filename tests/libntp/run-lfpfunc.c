@@ -26,6 +26,7 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
+void resetTest(void);
 extern void test_AdditionLR();
 extern void test_AdditionRL();
 extern void test_SubtractionLR();
@@ -53,15 +54,15 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "lfpfunc.c";
   UnityBegin("lfpfunc.c");
-  RUN_TEST(test_AdditionLR, 315);
-  RUN_TEST(test_AdditionRL, 333);
-  RUN_TEST(test_SubtractionLR, 351);
-  RUN_TEST(test_SubtractionRL, 365);
-  RUN_TEST(test_Negation, 382);
-  RUN_TEST(test_Absolute, 401);
-  RUN_TEST(test_FDF_RoundTrip, 432);
-  RUN_TEST(test_SignedRelOps, 463);
-  RUN_TEST(test_UnsignedRelOps, 506);
+  RUN_TEST(test_AdditionLR, 320);
+  RUN_TEST(test_AdditionRL, 339);
+  RUN_TEST(test_SubtractionLR, 358);
+  RUN_TEST(test_SubtractionRL, 373);
+  RUN_TEST(test_Negation, 391);
+  RUN_TEST(test_Absolute, 412);
+  RUN_TEST(test_FDF_RoundTrip, 447);
+  RUN_TEST(test_SignedRelOps, 479);
+  RUN_TEST(test_UnsignedRelOps, 522);
 
   return (UnityEnd());
 }
