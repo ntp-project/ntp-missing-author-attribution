@@ -36,20 +36,14 @@ convertRefIDToLFP(uint32_t r)
 {
 	l_fp temp;
 
-	printf("%02x %02x %02x %x: ",
-		(r >> 22) & 0x3,
-		(r >> 14) & 0xff,
-		(r >>  6) & 0xff,
-		(r & 0x0f)
-		);
+	r = ntohl(r);
+
+	printf("%03d %08x: ", (r >> 24) & 0xFF, (r & 0x00FFFFFF) );
+
+	temp.l_uf = (r << 10);	/* 22 fractional bits */
 
 	temp.l_ui = (r >> 22) & 0x3;
-	temp.l_uf = ((uint32_t) ((r >> 14) & 0xFF) << 26)
-		  | ((uint32_t) ((r >>  6) & 0xFF) << 18)
-		  | ((uint32_t) ((r >>  0) & 0x0F) << 10);
-
-	if (temp.l_ui & 2)
-		temp.l_ui |= 0xFFFFFFFEu;
+	temp.l_ui |= ~(temp.l_ui & 2) + 1;
 
 	return temp;
 }
@@ -60,13 +54,27 @@ convertLFPToRefID(l_fp num)
 {
 	uint32_t temp;
 
-	temp  = (uint8_t) (num.l_ui << 6) | (num.l_uf >> 26);
-	temp |= (uint8_t) (num.l_uf >> 18);
-	temp |= (uint8_t) (num.l_uf >> 10);
+	/* round the input with the highest bit to shift out from the
+	 * fraction, then keep just two bits from the integral part.
+	 *
+	 * TODO: check for overflows; should we clamp/saturate or just
+	 * complain?
+	 */
+	L_ADDUF(&num, 0x200);
+	num.l_ui &= 3;
+
+	/* combine integral and fractional part to 24 bits */
+	temp  = (num.l_ui << 22) | (num.l_uf >> 10);
+
+	/* put in the leading 254.0.0.0 */
+	temp |= UINT32_C(0xFE000000);
+
+	printf("%03d %08x: ", (temp >> 24) & 0xFF, (temp & 0x00FFFFFF) );
 
 	return temp;
 }
 
+/* Tests start here */
 
 void rtol(uint32_t r);
 
@@ -75,8 +83,9 @@ rtol(uint32_t r)
 {
 	l_fp l;
 
-	// l = convertRefIDToLFP(htonl(r));
-	l = convertRefIDToLFP(r);
+	printf("rtol: ");
+
+	l = convertRefIDToLFP(htonl(r));
 	printf("refid %#x, smear %s\n", r, lfptoa(&l, 8));
 
 	return;
