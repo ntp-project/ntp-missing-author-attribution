@@ -97,8 +97,8 @@ main()
 
 	rtol(0xfe000000);
 	rtol(0xfe000001);
-	rtol(0xfe3ffffe);
-	rtol(0xfe3fffff);
+	rtol(0xfe6ffffe);
+	rtol(0xfe6fffff);
 	rtol(0xfe700000);
 	rtol(0xfe700001);
 	rtol(0xfe7ffffe);
