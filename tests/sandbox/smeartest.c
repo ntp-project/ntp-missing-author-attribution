@@ -71,7 +71,7 @@ convertLFPToRefID(l_fp num)
 
 	printf("%03d %08x: ", (temp >> 24) & 0xFF, (temp & 0x00FFFFFF) );
 
-	return temp;
+	return htonl(temp);
 }
 
 /* Tests start here */
@@ -87,6 +87,39 @@ rtol(uint32_t r)
 
 	l = convertRefIDToLFP(htonl(r));
 	printf("refid %#x, smear %s\n", r, lfptoa(&l, 8));
+
+	return;
+}
+
+
+void rtoltor(uint32_t r);
+
+void
+rtoltor(uint32_t r)
+{
+	l_fp l;
+
+	printf("rtoltor: ");
+	l = convertRefIDToLFP(htonl(r));
+
+	r = convertLFPToRefID(l);
+	printf("smear %s, refid %#.8x\n", lfptoa(&l, 8), ntohl(r));
+
+	return;
+}
+
+
+void ltor(l_fp l);
+
+void
+ltor(l_fp l)
+{
+	uint32_t r;
+
+	printf("ltor: ");
+
+	r = convertLFPToRefID(l);
+	printf("smear %s, refid %#.8x\n", lfptoa(&l, 8), ntohl(r));
 
 	return;
 }
@@ -112,6 +145,24 @@ main()
 	rtol(0xfe700001);
 	rtol(0xfe7ffffe);
 	rtol(0xfe7fffff);
+
+	rtoltor(0xfe800000);
+	rtoltor(0xfe800001);
+	rtoltor(0xfe8ffffe);
+	rtoltor(0xfe8fffff);
+	rtoltor(0xfef00000);
+	rtoltor(0xfef00001);
+	rtoltor(0xfefffffe);
+	rtoltor(0xfeffffff);
+
+	rtoltor(0xfe000000);
+	rtoltor(0xfe000001);
+	rtoltor(0xfe6ffffe);
+	rtoltor(0xfe6fffff);
+	rtoltor(0xfe700000);
+	rtoltor(0xfe700001);
+	rtoltor(0xfe7ffffe);
+	rtoltor(0xfe7fffff);
 
 	return 0;
 }
