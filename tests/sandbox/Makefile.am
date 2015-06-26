@@ -5,7 +5,7 @@ CLEANFILES =
 
 run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
-check_PROGRAMS = bug-2803 first-test second-test
+check_PROGRAMS = bug-2803 first-test second-test smeartest
 
 # HMS: we may not need some of these:
 LDADD =					\
