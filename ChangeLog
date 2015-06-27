@@ -1,6 +1,7 @@
 ---
 
 * [Bug 2855] Parser fix for conditional leap smear code.  Harlan Stenn.
+* refidsmear function support and tests.  Harlan Stenn.
 * sntp/tests/Makefile.am: remove g_nameresolution.cpp as it tested
   something that was only in the 4.2.6 sntp.  Harlan Stenn.
 * Modified tests/bug-2803/Makefile.am so it builds Unity framework tests.
