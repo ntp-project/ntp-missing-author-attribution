@@ -1,3 +1,6 @@
+Below are from 4.2.8p3:
+* [Bug 1060] Buffer overruns in libparse/clk_rawdcf.c.  Helge Oldach.
+* [Bug 2859] Improve raw DCF77 robustness deconding.  Frank Kardel.
 (4.3.47) 2015/06/27 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p3:
 * [Bug 2855] Report leap smear in the REFID.  Harlan Stenn.
