@@ -1,3 +1,4 @@
+(4.3.47) 2015/06/27 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p3:
 * [Bug 2855] Report leap smear in the REFID.  Harlan Stenn.
 * [Bug 2856] ntpd should wait() on terminated child processes.  Paul Green.
