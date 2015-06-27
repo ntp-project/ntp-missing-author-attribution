@@ -1,5 +1,6 @@
 Below are from 4.2.8p3:
 * [Bug 2855] Report leap smear in the REFID.  Harlan Stenn.
+* [Bug 2856] ntpd should wait() on terminated child processes.  Paul Green.
 * refidsmear test cleanup.  Tomasz Flendrich.
 * refidsmear function support and tests.  Harlan Stenn.
 * sntp/tests/Makefile.am: remove g_nameresolution.cpp as it tested
