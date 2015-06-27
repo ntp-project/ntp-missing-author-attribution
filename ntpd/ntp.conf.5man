@@ -10,11 +10,11 @@
 .ds B-Font B
 .ds I-Font I
 .ds R-Font R
-.TH ntp.conf 5man "24 Jun 2015" "4.2.8p3-RC2" "File Formats"
+.TH ntp.conf 5man "27 Jun 2015" "4.2.8p3-RC3" "File Formats"
 .\"
-.\" EDIT THIS FILE WITH CAUTION (/tmp/.ag-jlaOBt/ag-vlaGAt)
+.\" EDIT THIS FILE WITH CAUTION (/tmp/.ag-zzaaDD/ag-Lza4BD)
 .\"
-.\" It has been AutoGen-ed June 24, 2015 at 11:04:22 AM by AutoGen 5.18.5
+.\" It has been AutoGen-ed June 27, 2015 at 05:19:25 AM by AutoGen 5.18.5
 .\" From the definitions ntp.conf.def
 .\" and the template file agman-cmd.tpl
 .SH NAME

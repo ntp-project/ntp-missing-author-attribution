@@ -2,10 +2,14 @@
 
 * [Sec 2853] FICORA #829967.  Juergen Perlinger, Harlan Stenn.
 * [Sec 2853] Initial work on tests/sec-2853/.  Harlan Stenn.
+---
+(4.2.8p3-RC3) 2015/06/27 Released by Harlan Stenn <stenn@ntp.org>
+
 * [Bug 2855] Parser fix for conditional leap smear code.  Harlan Stenn.
 * [Bug 2855] Report leap smear in the REFID.  Harlan Stenn.
 * [Bug 2856] ntpd should wait() on terminated child processes.  Paul Green.
 * [Bug 2857] Stratus VOS does not support SIGIO.  Paul Green.
+* html/drivers/driver22.html: typo fix.  Harlan Stenn.
 * refidsmear test cleanup.  Tomasz Flendrich.
 * refidsmear function support and tests.  Harlan Stenn.
 * sntp/tests/Makefile.am: remove g_nameresolution.cpp as it tested
