@@ -4,6 +4,7 @@
 * [Bug 2855] Report leap smear in the REFID.  Harlan Stenn.
 * [Bug 2856] ntpd should wait() on terminated child processes.  Paul Green.
 * [Bug 2857] Stratus VOS does not support SIGIO.  Paul Green.
+* html/drivers/driver22.html: typo fix.  Harlan Stenn.
 * refidsmear test cleanup.  Tomasz Flendrich.
 * refidsmear function support and tests.  Harlan Stenn.
 * sntp/tests/Makefile.am: remove g_nameresolution.cpp as it tested
