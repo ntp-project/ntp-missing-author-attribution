@@ -1,4 +1,8 @@
 ---
+
+* [Bug 1060] Buffer overruns in libparse/clk_rawdcf.c.  Helge Oldach.
+* [Bug 2859] Improve raw DCF77 robustness deconding.  Frank Kardel.
+---
 (4.2.8p3-RC3) 2015/06/27 Released by Harlan Stenn <stenn@ntp.org>
 
 * [Bug 2855] Parser fix for conditional leap smear code.  Harlan Stenn.
