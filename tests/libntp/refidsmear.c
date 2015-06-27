@@ -9,6 +9,8 @@
 
 #include "unity.h"
 
+#include <stdio.h>
+
 /*
  * we want to test a refid format of:
  * 254.x.y.x
@@ -33,13 +35,19 @@ rtol(uint32_t r, char *es)
 {
 	l_fp l;
 	char *as;
+	char msg[100];
 
-	printf("rtol: ");
+	snprintf(msg, 100, "rtol was called with r=%#.8x, es=%s", r, es);
 
 	l = convertRefIDToLFP(htonl(r));
 	as = lfptoa(&l, 8);
-	printf("refid %#x, smear %s\n", r, as);
-	// ASSERT: as and es are equal
+	
+	//printf("refid %#x, smear %s\n", r, as);
+
+	TEST_ASSERT_NOT_NULL_MESSAGE(as, msg);
+	TEST_ASSERT_NOT_NULL_MESSAGE(es, msg);
+	TEST_ASSERT_EQUAL_STRING_MESSAGE(es, as, msg);
+
 
 	return;
 }
@@ -53,16 +61,21 @@ rtoltor(uint32_t er, char *es)
 	l_fp l;
 	char *as;
 	uint32_t ar;
+	char msg[100];
 
-	printf("rtoltor: ");
+	snprintf(msg, 100, "rtoltor was called with er=%#.8x, es=%s", er, es);
+
 	l = convertRefIDToLFP(htonl(er));
 	as = lfptoa(&l, 8);
 
 	ar = convertLFPToRefID(l);
-	printf("smear %s, refid %#.8x\n", lfptoa(&l, 8), ntohl(ar));
 
-	//ASSERT es == as
-	//ASSERT er == ar
+	//printf("smear %s, refid %#.8x\n", lfptoa(&l, 8), ntohl(ar));
+
+	TEST_ASSERT_NOT_NULL_MESSAGE(as, msg);
+	TEST_ASSERT_NOT_NULL_MESSAGE(es, msg);
+	TEST_ASSERT_EQUAL_STRING_MESSAGE(es, as, msg);
+	TEST_ASSERT_EQUAL_UINT_MESSAGE(er, ntohl(ar), msg);
 
 	return;
 }
