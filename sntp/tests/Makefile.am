@@ -8,15 +8,17 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
 # Use EXTRA_PROGRAMS for test files that are under development but
 # not production-ready
-#EXTRA_PROGRAMS +=	test-keyFile
+#EXTRA_PROGRAMS +=		test-packetHandling test-packetProcessing
 
-check_PROGRAMS =		\
-	test-crypto		\
-	test-keyFile		\
-	test-kodDatabase	\
-	test-kodFile		\
-	test-networking		\
-	test-utilities		\
+check_PROGRAMS =			\
+	test-crypto			\
+	test-keyFile			\
+	test-kodDatabase		\
+	test-kodFile			\
+	test-networking			\
+	test-packetHandling		\
+	test-packetProcessing		\
+	test-utilities			\
 	$(NULL)
 
 if GTEST_AVAILABLE
@@ -36,11 +38,14 @@ base_SOURCES =			\
 tests_SOURCES =			\
 	$(base_SOURCES)		\
 	g_networking.cpp	\
-	packetHandling.cpp	\
-	packetProcessing.cpp	\
+	g_packetHandling.cpp	\
+	g_packetProcessing.cpp	\
 	$(NULL)
 
-#HMS: Somebody needs to audit the following files to
+# HMS: this test was for the 4.2.6 sntp code.
+#	g_nameresolution.cpp	
+
+# HMS: Somebody needs to audit the following files to
 # make sure all of these tests are now handled by Unity
 #
 #	g_utilities.cpp		
@@ -114,13 +119,15 @@ AM_CPPFLAGS += $(CPPFLAGS_NTP)
 
 AM_LDFLAGS = $(LDFLAGS_NTP)
 
-BUILT_SOURCES +=			\
-	$(srcdir)/run-crypto.c		\
-	$(srcdir)/run-keyFile.c		\
-	$(srcdir)/run-kodDatabase.c	\
-	$(srcdir)/run-kodFile.c		\
-	$(srcdir)/run-networking.c	\
-	$(srcdir)/run-utilities.c	\
+BUILT_SOURCES +=				\
+	$(srcdir)/run-crypto.c			\
+	$(srcdir)/run-keyFile.c			\
+	$(srcdir)/run-kodDatabase.c		\
+	$(srcdir)/run-kodFile.c			\
+	$(srcdir)/run-networking.c		\
+	$(srcdir)/run-packetProcessing.c	\
+	$(srcdir)/run-utilities.c		\
+	$(srcdir)/run-packetHandling.c		\
 	$(NULL)
 
 test_keyFile_CFLAGS =			\
@@ -171,9 +178,31 @@ test_crypto_LDADD =			\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
+test_packetProcessing_CFLAGS =		\
+	-I$(top_srcdir)/unity		\
+	$(NULL)
+
+test_packetProcessing_LDADD =		\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
+test_packetHandling_CFLAGS =		\
+	-I$(top_srcdir)/unity		\
+	$(NULL)
+
+test_packetHandling_LDADD =		\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
 test_networking_SOURCES =		\
 	networking.c			\
 	run-networking.c		\
+	$(top_builddir)/version.c	\
+	$(NULL)
+
+test_packetHandling_SOURCES =		\
+	packetHandling.c		\
+	run-packetHandling.c		\
 	$(top_builddir)/version.c	\
 	$(NULL)
 
@@ -195,6 +224,11 @@ test_kodFile_SOURCES =			\
 	$(top_builddir)/version.c	\
 	$(NULL)
 #	../version.c
+
+test_packetProcessing_SOURCES =		\
+	packetProcessing.c		\
+	run-packetProcessing.c		\
+	$(NULL)
 
 test_utilities_SOURCES =		\
 	utilities.c			\
@@ -219,6 +253,12 @@ $(srcdir)/run-kodDatabase.c: $(srcdir)/kodDatabase.c $(std_unity_list)
 
 $(srcdir)/run-networking.c: $(srcdir)/networking.c $(std_unity_list)
 	$(run_unity) networking.c run-networking.c
+
+$(srcdir)/run-packetProcessing.c: $(srcdir)/packetProcessing.c $(std_unity_list)
+	$(run_unity) packetProcessing.c run-packetProcessing.c
+
+$(srcdir)/run-packetHandling.c: $(srcdir)/packetHandling.c $(std_unity_list)
+	$(run_unity) packetHandling.c run-packetHandling.c
 
 $(srcdir)/run-utilities.c: $(srcdir)/utilities.c $(std_unity_list)
 	$(run_unity) utilities.c run-utilities.c
