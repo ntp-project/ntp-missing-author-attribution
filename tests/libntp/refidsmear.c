@@ -33,11 +33,11 @@ void rtol(uint32_t r, char *es);
 void
 rtol(uint32_t r, char *es)
 {
-	TEST_ASSERT_NOT_NULL(es);
-
 	l_fp l;
 	char *as;
 	char msg[100];
+
+	TEST_ASSERT_NOT_NULL(es);
 
 	snprintf(msg, 100, "rtol was called with r=%#.8x, es=%s", r, es);
 
@@ -49,7 +49,6 @@ rtol(uint32_t r, char *es)
 	TEST_ASSERT_NOT_NULL_MESSAGE(as, msg);
 	TEST_ASSERT_EQUAL_STRING_MESSAGE(es, as, msg);
 
-
 	return;
 }
 
@@ -59,12 +58,12 @@ void rtoltor(uint32_t er, char *es);
 void
 rtoltor(uint32_t er, char *es)
 {
-	TEST_ASSERT_NOT_NULL(es);
-
 	l_fp l;
 	char *as;
 	uint32_t ar;
 	char msg[100];
+
+	TEST_ASSERT_NOT_NULL(es);
 
 	snprintf(msg, 100, "rtoltor was called with er=%#.8x, es=%s", er, es);
 
