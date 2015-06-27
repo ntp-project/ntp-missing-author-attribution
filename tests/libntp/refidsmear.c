@@ -33,6 +33,8 @@ void rtol(uint32_t r, char *es);
 void
 rtol(uint32_t r, char *es)
 {
+	TEST_ASSERT_NOT_NULL(es);
+
 	l_fp l;
 	char *as;
 	char msg[100];
@@ -45,7 +47,6 @@ rtol(uint32_t r, char *es)
 	//printf("refid %#x, smear %s\n", r, as);
 
 	TEST_ASSERT_NOT_NULL_MESSAGE(as, msg);
-	TEST_ASSERT_NOT_NULL_MESSAGE(es, msg);
 	TEST_ASSERT_EQUAL_STRING_MESSAGE(es, as, msg);
 
 
@@ -58,6 +59,8 @@ void rtoltor(uint32_t er, char *es);
 void
 rtoltor(uint32_t er, char *es)
 {
+	TEST_ASSERT_NOT_NULL(es);
+
 	l_fp l;
 	char *as;
 	uint32_t ar;
@@ -73,7 +76,6 @@ rtoltor(uint32_t er, char *es)
 	//printf("smear %s, refid %#.8x\n", lfptoa(&l, 8), ntohl(ar));
 
 	TEST_ASSERT_NOT_NULL_MESSAGE(as, msg);
-	TEST_ASSERT_NOT_NULL_MESSAGE(es, msg);
 	TEST_ASSERT_EQUAL_STRING_MESSAGE(es, as, msg);
 	TEST_ASSERT_EQUAL_UINT_MESSAGE(er, ntohl(ar), msg);
 
