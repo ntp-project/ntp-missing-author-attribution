@@ -3458,6 +3458,9 @@ AC_CACHE_CHECK(
 	 *-sni-sysv*)
 	    ans=dosynctodr
 	    ;;
+	 *-stratus-vos)
+	    ans=no
+	    ;;
 	 *-*-aix*)
 	    ans=dosynctodr
 	    ;;
@@ -3511,6 +3514,9 @@ AC_CACHE_CHECK(
 	    ;;
 	 *-sni-sysv*)
 	    ans=noprintf
+	    ;;
+	 *-stratus-vos)
+	    ans=no
 	    ;;
 	 *-*-aix*)
 	    ans=noprintf
@@ -4022,6 +4028,9 @@ AC_MSG_CHECKING([if we should step and slew the time])
 case "$host" in
  *-sni-sysv*)
     ans=yes
+    ;;
+ *-stratus-vos)
+    ans=no
     ;;
  *-univel-sysv*)
     ans=no

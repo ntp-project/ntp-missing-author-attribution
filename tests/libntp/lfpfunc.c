@@ -10,6 +10,12 @@
 #include <math.h>
 
 
+//replaced TEST_ASSERT_EQUAL_MEMORY(&a,&b,sizeof(a)) with TEST_ASSERT_EQUAL_l_fp(a,b). It's safer this way, because structs can be compared even if they aren't initiated with memset (due to padding bytes)
+#define TEST_ASSERT_EQUAL_l_fp(a, b) { \
+    TEST_ASSERT_EQUAL_MESSAGE(a.l_i, b.l_i, "Field l_i"); \
+    TEST_ASSERT_EQUAL_UINT_MESSAGE(a.l_uf, b.l_uf, "Field l_uf");	\
+}
+
 typedef struct  {
 	uint32_t h, l;
 } lfp_hl;
@@ -326,7 +332,8 @@ void test_AdditionLR() {
 		//LFP res(op1 + op2);
 		l_fp res = l_fp_add(op1,op2);		
 
-		TEST_ASSERT_EQUAL_MEMORY(&exp, &res,sizeof(exp));
+		TEST_ASSERT_EQUAL_l_fp(exp,res);
+		//TEST_ASSERT_EQUAL_MEMORY(&exp, &res,sizeof(exp));
 	}	
 }
 
@@ -339,7 +346,8 @@ void test_AdditionRL() {
 		l_fp exp = l_fp_init(addsub_tab[idx][2].h, addsub_tab[idx][2].l);
 		l_fp res = l_fp_add(op1,op2);
 
-		TEST_ASSERT_EQUAL_MEMORY(&exp, &res,sizeof(exp));
+		TEST_ASSERT_EQUAL_l_fp(exp,res);
+		//TEST_ASSERT_EQUAL_MEMORY(&exp, &res,sizeof(exp));
 	}	
 }
 
@@ -357,8 +365,9 @@ void test_SubtractionLR() {
 		l_fp op1 = l_fp_init(addsub_tab[idx][2].h, addsub_tab[idx][2].l);
 		l_fp res = l_fp_subtract(op1,op2);
 		//LFP res(op1 - op2);
-				
-		TEST_ASSERT_EQUAL_MEMORY(&exp, &res,sizeof(exp));
+		
+		TEST_ASSERT_EQUAL_l_fp(exp,res);		
+		//TEST_ASSERT_EQUAL_MEMORY(&exp, &res,sizeof(exp));
 	}	
 }
 
@@ -371,7 +380,8 @@ void test_SubtractionRL() {
 		l_fp op1 = l_fp_init(addsub_tab[idx][2].h, addsub_tab[idx][2].l);
 		l_fp res = l_fp_subtract(op1,op2);
 
-		TEST_ASSERT_EQUAL_MEMORY(&exp, &res,sizeof(exp));
+		TEST_ASSERT_EQUAL_l_fp(exp,res);
+		//TEST_ASSERT_EQUAL_MEMORY(&exp, &res,sizeof(exp));
 	}	
 }
 
@@ -388,7 +398,9 @@ void test_Negation() {
 		l_fp sum = l_fp_add(op1, op2);
 		
 		l_fp zero = l_fp_init(0,0);
-		TEST_ASSERT_EQUAL_MEMORY(&zero, &sum,sizeof(sum));
+
+		TEST_ASSERT_EQUAL_l_fp(zero,sum);
+		//TEST_ASSERT_EQUAL_MEMORY(&zero, &sum,sizeof(sum));
 	
 	}	
 }
@@ -413,7 +425,9 @@ void test_Absolute() {
 			op1 = l_fp_add(op1,op2);
 		
 		l_fp zero = l_fp_init(0,0);
-		TEST_ASSERT_EQUAL_MEMORY(&zero, &op1,sizeof(op1));
+		
+		TEST_ASSERT_EQUAL_l_fp(zero,op1);
+		//TEST_ASSERT_EQUAL_MEMORY(&zero, &op1,sizeof(op1));
 	}
 
 	// There is one special case we have to check: the minimum
@@ -422,7 +436,9 @@ void test_Absolute() {
 	l_fp minVal = l_fp_init(0x80000000, 0x00000000);
 	l_fp minAbs = l_fp_abs(minVal);
 	TEST_ASSERT_EQUAL(-1, l_fp_signum(minVal));
-	TEST_ASSERT_EQUAL_MEMORY(&minVal, &minAbs,sizeof(minAbs));
+
+	TEST_ASSERT_EQUAL_l_fp(minVal,minAbs);
+	//TEST_ASSERT_EQUAL_MEMORY(&minVal, &minAbs,sizeof(minAbs));
 }
 
 
@@ -450,6 +466,7 @@ void test_FDF_RoundTrip() {
  		TEST_ASSERT_DOUBLE_WITHIN(eps(op2),0.0, fabs(d)); //delta,epected,actual
 		  		
 		//ASSERT_LE(fabs(op1-op3), eps(op2)); //unity has no equivalent of LE!!!
+		//you could use TEST_ASSERT_TRUE(IsLE(fabs(op1-op3), eps(op2)));
 	}	
 }
 

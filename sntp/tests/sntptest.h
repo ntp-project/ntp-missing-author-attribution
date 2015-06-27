@@ -1,8 +1,6 @@
 #ifndef SNTPTEST_H
 #define SNTPTEST_H
 
-//#include "tests_main.h"
-
 #include "ntp_stdlib.h"
 #include "sntp-opts.h"
 
@@ -10,12 +8,13 @@
 sntptest() {
 	optionSaveState(&sntpOptions);
 }
-/*
-~sntptest() {
+
+sntptest_destroy() {
 	optionRestore(&sntpOptions);
 }
-*/
+
 void ActivateOption(const char* option, const char* argument) {
+
 	const int ARGV_SIZE = 4;
 
 	char* opts[ARGV_SIZE];

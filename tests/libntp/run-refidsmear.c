@@ -27,14 +27,7 @@
 extern void setUp(void);
 extern void tearDown(void);
 void resetTest(void);
-extern void test_PositiveInteger(void);
-extern void test_NegativeInteger(void);
-extern void test_PositiveIntegerPositiveFraction(void);
-extern void test_NegativeIntegerNegativeFraction(void);
-extern void test_PositiveIntegerNegativeFraction(void);
-extern void test_NegativeIntegerPositiveFraction(void);
-extern void test_SingleDecimalInteger(void);
-extern void test_SingleDecimalRounding(void);
+extern void test_refidsmear(void);
 
 
 //=======Test Reset Option=====
@@ -51,16 +44,9 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "sfptostr.c";
-  UnityBegin("sfptostr.c");
-  RUN_TEST(test_PositiveInteger, 11);
-  RUN_TEST(test_NegativeInteger, 19);
-  RUN_TEST(test_PositiveIntegerPositiveFraction, 27);
-  RUN_TEST(test_NegativeIntegerNegativeFraction, 35);
-  RUN_TEST(test_PositiveIntegerNegativeFraction, 43);
-  RUN_TEST(test_NegativeIntegerPositiveFraction, 51);
-  RUN_TEST(test_SingleDecimalInteger, 59);
-  RUN_TEST(test_SingleDecimalRounding, 67);
+  Unity.TestFile = "refidsmear.c";
+  UnityBegin("refidsmear.c");
+  RUN_TEST(test_refidsmear, 100);
 
   return (UnityEnd());
 }

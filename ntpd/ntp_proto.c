@@ -14,6 +14,7 @@
 #include "ntp_control.h"
 #include "ntp_string.h"
 #include "ntp_leapsec.h"
+#include "refidsmear.h"
 
 #include <stdio.h>
 #ifdef HAVE_LIBSCF_H
@@ -3534,11 +3535,16 @@ fast_xmit(
 		xpkt.rootdelay = HTONS_FP(DTOFP(sys_rootdelay));
 		xpkt.rootdisp = HTONS_FP(DTOUFP(sys_rootdisp));
 
-
 #ifdef LEAP_SMEAR
 		this_ref_time = sys_reftime;
-		if (leap_smear.in_progress)
+		if (leap_smear.in_progress) {
 			leap_smear_add_offs(&this_ref_time, NULL);
+			xpkt.refid = convertLFPToRefID(leap_smear.offset);
+			DPRINTF(2, ("fast_xmit: leap_smear.in_progress: refid %8x, smear %s\n",
+				ntohl(xpkt.refid),
+				lfptoa(&leap_smear.offset, 8)
+				));
+		}
 		HTONL_FP(&this_ref_time, &xpkt.reftime);
 #else
 		HTONL_FP(&sys_reftime, &xpkt.reftime);
