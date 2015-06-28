@@ -1,3 +1,4 @@
+(4.3.48) 2015/06/28 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p3:
 * [Bug 1060] Buffer overruns in libparse/clk_rawdcf.c.  Helge Oldach.
 * [Bug 2859] Improve raw DCF77 robustness deconding.  Frank Kardel.
