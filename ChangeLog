@@ -3,6 +3,8 @@
 * [Sec 2853] FICORA #829967.  Juergen Perlinger, Harlan Stenn.
 * [Sec 2853] Initial work on tests/sec-2853/.  Harlan Stenn.
 * [Bug 1060] Buffer overruns in libparse/clk_rawdcf.c.  Helge Oldach.
+* [Bug 2846] Report 'unsynchronized' status during the leap second.
+  Fixed in Martin's changes to Bug 2855.  Martin Burnicki.
 * [Bug 2859] Improve raw DCF77 robustness deconding.  Frank Kardel.
 ---
 (4.2.8p3-RC3) 2015/06/27 Released by Harlan Stenn <stenn@ntp.org>
