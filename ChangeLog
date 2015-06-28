@@ -1,6 +1,19 @@
 ---
 
+* [Bug 1060] Buffer overruns in libparse/clk_rawdcf.c.  Helge Oldach.
+* [Bug 2846] Report 'unsynchronized' status during the leap second.
+  Fixed in Martin's changes to Bug 2855.  Martin Burnicki.
+* [Bug 2859] Improve raw DCF77 robustness deconding.  Frank Kardel.
+---
+(4.2.8p3-RC3) 2015/06/27 Released by Harlan Stenn <stenn@ntp.org>
+
 * [Bug 2855] Parser fix for conditional leap smear code.  Harlan Stenn.
+* [Bug 2855] Report leap smear in the REFID.  Harlan Stenn.
+* [Bug 2856] ntpd should wait() on terminated child processes.  Paul Green.
+* [Bug 2857] Stratus VOS does not support SIGIO.  Paul Green.
+* html/drivers/driver22.html: typo fix.  Harlan Stenn.
+* refidsmear test cleanup.  Tomasz Flendrich.
+* refidsmear function support and tests.  Harlan Stenn.
 * sntp/tests/Makefile.am: remove g_nameresolution.cpp as it tested
   something that was only in the 4.2.6 sntp.  Harlan Stenn.
 * Modified tests/bug-2803/Makefile.am so it builds Unity framework tests.
@@ -9,6 +22,7 @@
   Damir Tomić
 * Modified sntp/tests/Makefile.am so it builds Unity framework tests.
   Damir Tomić
+* tests/sandbox/smeartest.c: Harlan Stenn, Damir Tomic, Juergen Perlinger.
 * Converted from gtest to Unity: tests/bug-2803/. Damir Tomić
 * Converted from gtest to Unity: tests/libntp/ a_md5encrypt, atoint.c,
   atouint.c, authkeys.c, buftvtots.c, calendar.c, caljulian.c,

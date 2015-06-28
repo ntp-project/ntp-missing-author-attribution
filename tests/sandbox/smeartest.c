@@ -36,116 +36,133 @@ convertRefIDToLFP(uint32_t r)
 {
 	l_fp temp;
 
-	printf("%02x %02x %02x %x: ",
-		(r >> 22) & 0x3,
-		(r >> 14) & 0xff,
-		(r >>  6) & 0xff,
-		(r & 0x0f)
-		);
+	r = ntohl(r);
+
+	printf("%03d %08x: ", (r >> 24) & 0xFF, (r & 0x00FFFFFF) );
+
+	temp.l_uf = (r << 10);	/* 22 fractional bits */
 
 	temp.l_ui = (r >> 22) & 0x3;
-	temp.l_uf = ((uint32_t) ((r & 0x003FC000) << 10))
-		  | ((uint32_t) ((r & 0x00003FC0) << 10))
-		  | ((uint32_t) ((r & 0x0000003F) << 10));
-
-	if (temp.l_ui & 2)
-		temp.l_ui |= 0xFFFFFFFEu;
+	temp.l_ui |= ~(temp.l_ui & 2) + 1;
 
 	return temp;
 }
 
 
 uint32_t
-convertLFPToRefID(l_fp num) //unfinished
+convertLFPToRefID(l_fp num)
 {
 	uint32_t temp;
 
-	temp  = (uint8_t) (num.l_ui << 6) | (num.l_uf >> 26);
-	temp |= (uint8_t) (num.l_uf >> 18); //should I add & 0x?? here or are only the lowest bits taken to unint8_t?
-	temp |= (uint8_t) (num.l_uf >> 10);
+	/* round the input with the highest bit to shift out from the
+	 * fraction, then keep just two bits from the integral part.
+	 *
+	 * TODO: check for overflows; should we clamp/saturate or just
+	 * complain?
+	 */
+	L_ADDUF(&num, 0x200);
+	num.l_ui &= 3;
 
-	printf("%02x %02x %02x %x: ",
-		(temp >> 22) & 0x3,
-		(temp >> 14) & 0xff,
-		(temp >>  6) & 0xff,
-		(temp & 0x0f)
-		);
+	/* combine integral and fractional part to 24 bits */
+	temp  = (num.l_ui << 22) | (num.l_uf >> 10);
 
-	return temp;
+	/* put in the leading 254.0.0.0 */
+	temp |= UINT32_C(0xFE000000);
+
+	printf("%03d %08x: ", (temp >> 24) & 0xFF, (temp & 0x00FFFFFF) );
+
+	return htonl(temp);
 }
 
+/* Tests start here */
 
-//void rtol(uint32_t r);
+void rtol(uint32_t r);
 
-l_fp 
+void
 rtol(uint32_t r)
 {
 	l_fp l;
 
-	// l = convertRefIDToLFP(htonl(r));
-	l = convertRefIDToLFP(r);
+	printf("rtol: ");
+
+	l = convertRefIDToLFP(htonl(r));
 	printf("refid %#x, smear %s\n", r, lfptoa(&l, 8));
 
-	return l;
+	return;
 }
 
-uint32_t
+
+void rtoltor(uint32_t r);
+
+void
+rtoltor(uint32_t r)
+{
+	l_fp l;
+
+	printf("rtoltor: ");
+	l = convertRefIDToLFP(htonl(r));
+
+	r = convertLFPToRefID(l);
+	printf("smear %s, refid %#.8x\n", lfptoa(&l, 8), ntohl(r));
+
+	return;
+}
+
+
+void ltor(l_fp l);
+
+void
 ltor(l_fp l)
 {
 	uint32_t r;
 
-	// l = convertRefIDToLFP(htonl(r));
-	r = convertLFPToRefID(l);
-	printf("refid %#x, smear %s\n", r, lfptoa(&l, 8));
+	printf("ltor: ");
 
-	return r;
+	r = convertLFPToRefID(l);
+	printf("smear %s, refid %#.8x\n", lfptoa(&l, 8), ntohl(r));
+
+	return;
 }
 
 
 main()
 {
 
-	l_fp test1 =	rtol(0xfe800000);
-	l_fp test2=	rtol(0xfe800001);
-	l_fp test3 =	rtol(0xfe8ffffe);
-	l_fp test4 =	rtol(0xfe8fffff);
-	l_fp test6 = 	rtol(0xfef00000);
-	l_fp test7 =	rtol(0xfef00001);
-	l_fp test8 =	rtol(0xfefffffe);
-	l_fp test9 =	rtol(0xfeffffff);
+	rtol(0xfe800000);
+	rtol(0xfe800001);
+	rtol(0xfe8ffffe);
+	rtol(0xfe8fffff);
+	rtol(0xfef00000);
+	rtol(0xfef00001);
+	rtol(0xfefffffe);
+	rtol(0xfeffffff);
 
-	l_fp test10 =	rtol(0xfe000000);
-	l_fp test11 =	rtol(0xfe000001);
-	l_fp test12 =	rtol(0xfe5ffffe);
-	l_fp test13 =	rtol(0xfe5fffff);
-	l_fp test14 =	rtol(0xfe6ffffe);
-	l_fp test15 =	rtol(0xfe6fffff);
-	l_fp test16 =	rtol(0xfe700000);
-	l_fp test17 =	rtol(0xfe700001);
-	l_fp test18 =	rtol(0xfe7ffffe);
-	l_fp test19 =	rtol(0xfe7fffff);
+	rtol(0xfe000000);
+	rtol(0xfe000001);
+	rtol(0xfe6ffffe);
+	rtol(0xfe6fffff);
+	rtol(0xfe700000);
+	rtol(0xfe700001);
+	rtol(0xfe7ffffe);
+	rtol(0xfe7fffff);
 
-	printf("\n\n");
+	rtoltor(0xfe800000);
+	rtoltor(0xfe800001);
+	rtoltor(0xfe8ffffe);
+	rtoltor(0xfe8fffff);
+	rtoltor(0xfef00000);
+	rtoltor(0xfef00001);
+	rtoltor(0xfefffffe);
+	rtoltor(0xfeffffff);
 
-	ltor(test1);
-	ltor(test2);
-	ltor(test3);
-	ltor(test4);
-	ltor(test6);
-	ltor(test7);
-	ltor(test8);
-	ltor(test9);
-
-	ltor(test10);
-	ltor(test11);
-	ltor(test12);
-	ltor(test13);
-	ltor(test14);
-	ltor(test15);
-	ltor(test16);
-	ltor(test17);
-	ltor(test18);
-	ltor(test19);
+	rtoltor(0xfe000000);
+	rtoltor(0xfe000001);
+	rtoltor(0xfe6ffffe);
+	rtoltor(0xfe6fffff);
+	rtoltor(0xfe700000);
+	rtoltor(0xfe700001);
+	rtoltor(0xfe7ffffe);
+	rtoltor(0xfe7fffff);
 
 	return 0;
 }

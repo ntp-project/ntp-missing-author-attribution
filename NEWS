@@ -7,6 +7,16 @@ Severity: MEDIUM
 
 New features in this release:
 
+Optional (disabled by default) support to have ntpd provide smeared
+leap second time.  A specially built and configured ntpd will only
+offer smeared time in response to client packets.  These response
+packets will also contain a "refid" of 254.a.b.c, where the 24 bits
+of a, b, and c encode the amount of smear in a 2:22 integer:fraction 
+format.  See http://bugs.ntp.org/2855 for more information.
+
+   *IF YOU CHOOSE TO CONFIGURE NTPD TO PROVIDE LEAP SMEAR TIME*
+   *BE SURE YOU DO NOT OFFER THAT TIME ON PUBLIC TIMESERVERS.*
+
 We've imported the Unity test framework, and have begun converting
 the existing google-test items to this new framework.  If you want
 to write new tests or change old ones, you'll need to have ruby
@@ -18,6 +28,7 @@ Bug Fixes and Improvements:
 * CID 1295478: Quiet a pedantic potential error from the fix for Bug 2776.
 * CID 1296235: Fix refclock_jjy.c and correcting type of the driver40-ja.html
 * CID 1269537: Clean up a line of dead code in getShmTime().
+* [Bug 1060] Buffer overruns in libparse/clk_rawdcf.c.  Helge Oldach.
 * [Bug 2590] autogen-5.18.5.
 * [Bug 2612] restrict: Warn when 'monitor' can't be disabled because
   of 'limited'.
@@ -76,7 +87,34 @@ Bug Fixes and Improvements:
 * [Bug 2845] Harden memory allocation in ntpd.
 * [Bug 2852] 'make check' can't find unity.h.  Hal Murray.
 * [Bug 2854] Missing brace in libntp/strdup.c.  Masanari Iida.
+* [Bug 2855] Parser fix for conditional leap smear code.  Harlan Stenn.
+* [Bug 2855] Report leap smear in the REFID.  Harlan Stenn.
 * [Bug 2855] Implement conditional leap smear code.  Martin Burnicki.
+* [Bug 2856] ntpd should wait() on terminated child processes.  Paul Green.
+* [Bug 2857] Stratus VOS does not support SIGIO.  Paul Green.
+* [Bug 2859] Improve raw DCF77 robustness deconding.  Frank Kardel.
+* html/drivers/driver22.html: typo fix.  Harlan Stenn.
+* refidsmear test cleanup.  Tomasz Flendrich.
+* refidsmear function support and tests.  Harlan Stenn.
+* sntp/tests/Makefile.am: remove g_nameresolution.cpp as it tested
+  something that was only in the 4.2.6 sntp.  Harlan Stenn.
+* Modified tests/bug-2803/Makefile.am so it builds Unity framework tests.
+  Damir Tomić
+* Modified tests/libtnp/Makefile.am so it builds Unity framework tests.
+  Damir Tomić
+* Modified sntp/tests/Makefile.am so it builds Unity framework tests.
+  Damir Tomić
+* tests/sandbox/smeartest.c: Harlan Stenn, Damir Tomic, Juergen Perlinger.
+* Converted from gtest to Unity: tests/bug-2803/. Damir Tomić
+* Converted from gtest to Unity: tests/libntp/ a_md5encrypt, atoint.c,
+  atouint.c, authkeys.c, buftvtots.c, calendar.c, caljulian.c,
+  calyearstart.c, clocktime.c, hextoint.c, lfpfunc.c, modetoa.c,
+  numtoa.c, numtohost.c, refnumtoa.c, ssl_init.c, statestr.c,
+  timespecops.c, timevalops.c, uglydate.c, vi64ops.c, ymd2yd.c.
+  Damir Tomić
+* Converted from gtest to Unity: sntp/tests/ kodDatabase.c, kodFile.c,
+  networking.c, keyFile.c, utilities.cpp, sntptest.h,
+  fileHandlingTest.h. Damir Tomić
 * Initial support for experimental leap smear code.  Harlan Stenn.
 * Fixes to sntp/tests/fileHandlingTest.h.in.  Harlan Stenn.
 * Report select() debug messages at debug level 3 now.
