@@ -4,6 +4,7 @@
 * [Bug 2846] Report 'unsynchronized' status during the leap second.
   Fixed in Martin's changes to Bug 2855.  Martin Burnicki.
 * [Bug 2859] Improve raw DCF77 robustness deconding.  Frank Kardel.
+* tests/libntp/msyslog.c: fixed a gcc warning. Tomasz Flendrich
 ---
 (4.2.8p3-RC3) 2015/06/27 Released by Harlan Stenn <stenn@ntp.org>
 
@@ -36,7 +37,6 @@
 * Converted from gtest to Unity: sntp/tests/ caltontp.c, humandate.c,
   msyslog.c, prettydate.c, recvbuff.c, sfptostr.c, tstotv.c, tvtots.c,
   sntp/tests/packetProcessing.c. Tomasz Flendrich
-* tests/libntp/msyslog.c: fixed a gcc warning. Tomasz Flendrich
 ---
 (4.2.8p3-RC2) 2015/06/24 Released by Harlan Stenn <stenn@ntp.org>
 
