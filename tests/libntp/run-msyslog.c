@@ -26,6 +26,7 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
+void resetTest(void);
 extern void test_msnprintf(void);
 extern void test_msnprintfLiteralPercentm(void);
 extern void test_msnprintfBackslashLiteralPercentm(void);

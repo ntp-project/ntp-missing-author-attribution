@@ -10,6 +10,7 @@
 * [Bug 2860] ntpq ifstats sanity check is too stringent.  Frank Kardel.
 * README.leapsmear added.  Martin Burnicki.
 * README.leapsmear edited.  Harlan Stenn.
+* tests/libntp/msyslog.c: fixed a gcc warning. Tomasz Flendrich.
 ---
 (4.2.8p3-RC3) 2015/06/27 Released by Harlan Stenn <stenn@ntp.org>
 
@@ -39,6 +40,9 @@
 * Converted from gtest to Unity: sntp/tests/ kodDatabase.c, kodFile.c,
   networking.c, keyFile.c, utilities.cpp, sntptest.h,
   fileHandlingTest.h. Damir Tomić
+* Converted from gtest to Unity: sntp/tests/ caltontp.c, humandate.c,
+  msyslog.c, prettydate.c, recvbuff.c, sfptostr.c, tstotv.c, tvtots.c,
+  sntp/tests/packetProcessing.c. Tomasz Flendrich
 ---
 (4.2.8p3-RC2) 2015/06/24 Released by Harlan Stenn <stenn@ntp.org>
 
