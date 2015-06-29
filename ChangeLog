@@ -4,6 +4,7 @@
 * [Bug 2846] Report 'unsynchronized' status during the leap second.
   Fixed in Martin's changes to Bug 2855.  Martin Burnicki.
 * [Bug 2859] Improve raw DCF77 robustness deconding.  Frank Kardel.
+* [Bug 2860] ntpq ifstats sanity check is too stringent.  Frank Kardel.
 * README.leapsmear added.  Martin Burnicki.
 * README.leapsmear edited.  Harlan Stenn.
 ---
