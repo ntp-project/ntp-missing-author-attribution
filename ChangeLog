@@ -1,6 +1,7 @@
 ---
 
-* [Sec 2853] FICORA #829967.  Juergen Perlinger, Harlan Stenn.
+* [Sec 2853] Crafted remote config packet can crash some versions of
+  ntpd.  Aleksis Kauppinen, Juergen Perlinger, Harlan Stenn.
 * [Sec 2853] Initial work on tests/sec-2853/.  Harlan Stenn.
 * [Bug 1060] Buffer overruns in libparse/clk_rawdcf.c.  Helge Oldach.
 * [Bug 2846] Report 'unsynchronized' status during the leap second.
