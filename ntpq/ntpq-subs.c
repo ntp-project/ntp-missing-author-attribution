@@ -3238,7 +3238,7 @@ validate_ifnum(
 {
 	if (prow->ifnum == ifnum)
 		return;
-	if (prow->ifnum + 1 == ifnum) {
+	if (prow->ifnum + 1 <= ifnum) {
 		if (*pfields < IFSTATS_FIELDS)
 			fprintf(fp, "Warning: incomplete row with %d (of %d) fields",
 				*pfields, IFSTATS_FIELDS);
