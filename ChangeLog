@@ -5,6 +5,8 @@ Below are from 4.2.8p3:
 * README.leapsmear added.  Martin Burnicki.
 * README.leapsmear edited.  Harlan Stenn.
 * tests/libntp/msyslog.c: fixed a gcc warning. Tomasz Flendrich.
+* ntpd/ntp.conf.def: Document DSCP and leapsmearinterval.  Harlan Stenn.
+* html/miscopt.html: Document leapsmearinterval, other cleanup.  Harlan Stenn.
 (4.3.48) 2015/06/28 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p3:
 * [Bug 1060] Buffer overruns in libparse/clk_rawdcf.c.  Helge Oldach.
