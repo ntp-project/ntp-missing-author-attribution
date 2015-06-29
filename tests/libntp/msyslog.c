@@ -80,8 +80,8 @@ test_msnprintfHangingPercent(void) {
 
 	ZERO(exp_buf);
 	ZERO(act_buf);
-	exp_cnt = snprintf(exp_buf, sizeof(exp_buf), fmt);
-	act_cnt = msnprintf(act_buf, sizeof(act_buf), fmt);
+	exp_cnt = snprintf(exp_buf, sizeof(exp_buf), "%s", fmt);
+	act_cnt = msnprintf(act_buf, sizeof(act_buf), "%s", fmt);
 	TEST_ASSERT_EQUAL(exp_cnt, act_cnt);
 	TEST_ASSERT_EQUAL_STRING(exp_buf, act_buf);
 	TEST_ASSERT_EQUAL_STRING("", act_buf + 1 + strlen(act_buf));
