@@ -34,6 +34,7 @@ EXTRA_DIST =			\
 	NOTES.y2kfixes		\
 	README.bk		\
 	README.hackers		\
+	README.leapsmear	\
 	README.patches		\
 	README.refclocks	\
 	README.versions		\
