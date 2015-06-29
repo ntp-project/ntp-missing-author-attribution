@@ -26,6 +26,7 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
+void resetTest(void);
 extern void test_Encrypt();
 extern void test_DecryptValid();
 extern void test_DecryptInvalid();
@@ -50,10 +51,10 @@ int main(int argc, char *argv[])
   Unity.TestFile = "a_md5encrypt.c";
   UnityBegin("a_md5encrypt.c");
   RUN_TEST(test_Encrypt, 36);
-  RUN_TEST(test_DecryptValid, 54);
-  RUN_TEST(test_DecryptInvalid, 60);
-  RUN_TEST(test_IPv4AddressToRefId, 68);
-  RUN_TEST(test_IPv6AddressToRefId, 79);
+  RUN_TEST(test_DecryptValid, 55);
+  RUN_TEST(test_DecryptInvalid, 61);
+  RUN_TEST(test_IPv4AddressToRefId, 69);
+  RUN_TEST(test_IPv6AddressToRefId, 80);
 
   return (UnityEnd());
 }
