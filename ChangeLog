@@ -1,3 +1,9 @@
+Below are from 4.2.8p3:
+* [Bug 2846] Report 'unsynchronized' status during the leap second.
+  Fixed in Martin's changes to Bug 2855.  Martin Burnicki.
+* [Bug 2860] ntpq ifstats sanity check is too stringent.  Frank Kardel.
+* README.leapsmear added.  Martin Burnicki.
+* README.leapsmear edited.  Harlan Stenn.
 (4.3.48) 2015/06/28 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p3:
 * [Bug 1060] Buffer overruns in libparse/clk_rawdcf.c.  Helge Oldach.
