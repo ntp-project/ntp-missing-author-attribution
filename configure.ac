@@ -4426,6 +4426,7 @@ AC_CONFIG_FILES([tests/bug-2803/Makefile])
 AC_CONFIG_FILES([tests/libntp/Makefile])
 AC_CONFIG_FILES([tests/ntpd/Makefile])
 AC_CONFIG_FILES([tests/sandbox/Makefile])
+AC_CONFIG_FILES([tests/sec-2853/Makefile])
 AC_CONFIG_FILES([util/Makefile])
 
 perllibdir="${datadir}/ntp/lib"

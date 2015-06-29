@@ -1,9 +1,24 @@
 ---
-NTP 4.2.8p3 (Harlan Stenn <stenn@ntp.org>, 2015/06/xx) 
+NTP 4.2.8p3 (Harlan Stenn <stenn@ntp.org>, 2015/06/29) 
 
-Focus: Bug fixes and enhancements.  Leap-second improvements.
+Focus: 1 Security fix.  Bug fixes and enhancements.  Leap-second improvements.
 
 Severity: MEDIUM
+
+Security Fix:
+
+* [Sec 2853] Crafted remote config packet can crash some versions of
+  ntpd.  Aleksis Kauppinen, Juergen Perlinger, Harlan Stenn.
+
+Under specific circumstances an attacker can send a crafted packet to
+cause a vulnerable ntpd instance to crash. This requires each of the
+following to be true:
+
+1) ntpd set up to allow remote configuration (not allowed by default), and
+2) knowledge of the configuration password, and
+3) access to a computer entrusted to perform remote configuration. 
+
+This vulnerability is considered low-risk.
 
 New features in this release:
 
