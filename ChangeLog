@@ -1,3 +1,4 @@
+(4.3.49) 2015/06/30 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p3:
 * [Bug 2846] Report 'unsynchronized' status during the leap second.
   Fixed in Martin's changes to Bug 2855.  Martin Burnicki.

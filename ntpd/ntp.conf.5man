@@ -10,11 +10,11 @@
 .ds B-Font B
 .ds I-Font I
 .ds R-Font R
-.TH ntp.conf 5man "28 Jun 2015" "4.3.48" "File Formats"
+.TH ntp.conf 5man "30 Jun 2015" "4.3.49" "File Formats"
 .\"
-.\" EDIT THIS FILE WITH CAUTION (/tmp/.ag-niaO0E/ag-4iaGZE)
+.\" EDIT THIS FILE WITH CAUTION (/tmp/.ag-vRaWlF/ag-HRaOkF)
 .\"
-.\" It has been AutoGen-ed June 28, 2015 at 11:57:11 AM by AutoGen 5.18.5
+.\" It has been AutoGen-ed June 30, 2015 at 11:57:44 AM by AutoGen 5.18.5
 .\" From the definitions ntp.conf.def
 .\" and the template file agman-cmd.tpl
 .SH NAME
@@ -2569,6 +2569,10 @@ must have write permission for the directory the
 drift file is located in, and that file system links, symbolic or
 otherwise, should be avoided.
 .TP 7
+.NOP \f\*[B-Font]dscp\f[] \f\*[I-Font]value\f[]
+This option specifies the Differentiated Services Control Point (DSCP) value,
+a 6-bit code.  The default value is 46, signifying Expedited Forwarding.
+.TP 7
 .NOP \f\*[B-Font]enable\f[] [\f\*[B-Font]auth\f[] | \f\*[B-Font]bclient\f[] | \f\*[B-Font]calibrate\f[] | \f\*[B-Font]kernel\f[] | \f\*[B-Font]mode7\f[] | \f\*[B-Font]monitor\f[] | \f\*[B-Font]ntp\f[] | \f\*[B-Font]stats\f[]]
 .TP 7
 .NOP \f\*[B-Font]disable\f[] [\f\*[B-Font]auth\f[] | \f\*[B-Font]bclient\f[] | \f\*[B-Font]calibrate\f[] | \f\*[B-Font]kernel\f[] | \f\*[B-Font]mode7\f[] | \f\*[B-Font]monitor\f[] | \f\*[B-Font]ntp\f[] | \f\*[B-Font]stats\f[]]
@@ -2664,6 +2668,20 @@ This option is useful for sites that run
 \fCntpd\f[]\fR(1ntpdmdoc)\f[]
 on multiple hosts, with (mostly) common options (e.g., a
 restriction list).
+.TP 7
+.NOP \f\*[B-Font]leapsmearinterval\f[] \f\*[I-Font]seconds\f[]
+This EXPERIMENTAL option is only available if
+\fCntpd\f[]\fR(1ntpdmdoc)\f[]
+was built with the
+\f\*[B-Font]\--enable-leap-smear\f[]
+option to the
+\f\*[B-Font]configure\f[]
+script.
+It specifies the interval over which a leap second correction will be applied.
+Recommended values for this option are between
+7200 (2 hours) and 86400 (24 hours).
+.Sy DO NOT USE THIS OPTION ON PUBLIC-ACCESS SERVERS!
+See http://bugs.ntp.org/2855 for more information.
 .TP 7
 .NOP \f\*[B-Font]logconfig\f[] \f\*[I-Font]configkeyword\f[]
 This command controls the amount and type of output written to
