@@ -9,6 +9,7 @@
   Fixed in Martin's changes to Bug 2855.  Martin Burnicki.
 * [Bug 2859] Improve raw DCF77 robustness deconding.  Frank Kardel.
 * [Bug 2860] ntpq ifstats sanity check is too stringent.  Frank Kardel.
+* [Bug 2867] ntpd with autokey active crashed by 'ntpq -crv'. J.Perlinger
 * README.leapsmear added.  Martin Burnicki.
 * README.leapsmear edited.  Harlan Stenn.
 * tests/libntp/msyslog.c: fixed a gcc warning. Tomasz Flendrich.
