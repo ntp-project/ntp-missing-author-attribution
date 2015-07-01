@@ -15,8 +15,8 @@ EXTRA_PROGRAMS = tests
 endif
 
 LDADD =					\
-	$(top_builddir)/libntp/libntp.a	\
 	$(top_builddir)/ntpd/libntpd.a	\
+	$(top_builddir)/libntp/libntp.a	\
 	$(LDADD_LIBNTP)			\
 	$(PTHREAD_LIBS)			\
 	$(LDADD_NTP)			\
@@ -80,14 +80,21 @@ $(srcdir)/run-leapsec.c: $(srcdir)/leapsec.c $(std_unity_list)
 TESTS =
 
 if !NTP_CROSSCOMPILE
-TESTS += tests
+TESTS += $(check_PROGRAMS)
 endif
 
 ## check-libntp.mf - automake fragment
 ## slightly adapted for deeper directory
 
-BUILT_SOURCES	+= check-libntp check-libunity check-libntpd
-CLEANFILES	+= check-libntp check-libunity check-libntpd
+BUILT_SOURCES	+= check-libntpd check-libntp check-libunity 
+CLEANFILES	+= check-libntpd check-libntp check-libunity 
+
+check-libntpd: ../../ntpd/libntpd.a
+	@echo stamp > $@
+
+../../ntpd/libntpd.a:
+	cd ../../ntpd && $(MAKE) $(AM_MAKEFLAGS) libntpd.a
+
 
 check-libntp: ../../libntp/libntp.a
 	@echo stamp > $@
@@ -95,11 +102,6 @@ check-libntp: ../../libntp/libntp.a
 ../../libntp/libntp.a:
 	cd ../../libntp && $(MAKE) $(AM_MAKEFLAGS) libntp.a
 
-check-libntpd: ../../ntpd/libntpd.a
-	@echo stamp > $@
-
-../../ntpd/libntpd.a:
-	cd ../../ntpd && $(MAKE) $(AM_MAKEFLAGS) libntpd.a
 
 check-libunity: ../../sntp/unity/libunity.a
 	@echo stamp > $@

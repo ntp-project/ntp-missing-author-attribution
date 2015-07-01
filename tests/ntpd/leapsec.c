@@ -13,6 +13,8 @@
 #include <string.h>
 //#include <sstream>
 
+#include "test-libntp.h"
+
 static const char leap1 [] =
     "#\n"
     "#@ 	3610569600\n"
@@ -315,7 +317,7 @@ void setUp()
 {
 	//init_lib();
 	//init_auth();
-extern time_t timefunc;
+//extern time_t timefunc;
     ntpcal_set_timefunc(timefunc);
     settime(1970, 1, 1, 0, 0, 0);
     leapsec_ut_pristine();
@@ -383,11 +385,11 @@ void test_tableSelect() {
 
 	pt1 = leapsec_get_table(0);
 	pt2 = leapsec_get_table(0);
-	TEST_ASSERT_EQUAL(pt1, pt2);
+	TEST_ASSERT_EQUAL_MESSAGE(pt1, pt2,"first");
 
 	pt1 = leapsec_get_table(1);
 	pt2 = leapsec_get_table(1);
-	TEST_ASSERT_EQUAL(pt1, pt2);
+	TEST_ASSERT_EQUAL_MESSAGE(pt1, pt2,"second");
 
 	pt1 = leapsec_get_table(1);
 	pt2 = leapsec_get_table(0);
@@ -413,6 +415,7 @@ void test_tableSelect() {
 
 // ----------------------------------------------------------------------
 // load file & check expiration
+
 void test_loadFileExpire() {
 	const char *cp = leap1;
 	int rc;
@@ -420,7 +423,7 @@ void test_loadFileExpire() {
 
 	rc =   leapsec_load(pt, stringreader, &cp, FALSE)
 	    && leapsec_set_table(pt);
-	TEST_ASSERT_EQUAL(1, rc);
+	TEST_ASSERT_EQUAL_MESSAGE(1, rc,"first");
 	rc = leapsec_expired(3439756800u, NULL);
 	TEST_ASSERT_EQUAL(0, rc);
 	rc = leapsec_expired(3610569601u, NULL);
@@ -429,6 +432,7 @@ void test_loadFileExpire() {
 
 // ----------------------------------------------------------------------
 // load file & check time-to-live
+
 void test_loadFileTTL() {
 	const char *cp = leap1;
 	int rc;
