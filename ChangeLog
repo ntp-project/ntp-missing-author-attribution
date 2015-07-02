@@ -1,4 +1,8 @@
+Below are from 4.2.8p4:
+* [Bug 2864] 4.2.8p3 fails to compile on Windows. Juergen Perlinger
+* [Bug 2867] ntpd with autokey active crashed by 'ntpq -crv'. J.Perlinger
 (4.3.50) 2015/07/01 Released by Harlan Stenn <stenn@ntp.org>
+* internal infrastructure update.
 (4.3.49) 2015/06/30 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p3:
 * [Bug 2846] Report 'unsynchronized' status during the leap second.
