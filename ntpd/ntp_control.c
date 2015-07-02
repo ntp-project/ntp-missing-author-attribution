@@ -420,10 +420,10 @@ static const struct ctl_var sys_var[] = {
 	{ CS_TIMER_XMTS,	RO, "timer_xmts" },	/* 87 */
 	{ CS_FUZZ,		RO, "fuzz" },		/* 88 */
 	{ CS_WANDER_THRESH,	RO, "clk_wander_threshold" }, /* 89 */
-#ifdef LEAP_SMEAR
+
 	{ CS_LEAPSMEARINTV,	RO, "leapsmearinterval" },    /* 90 */
 	{ CS_LEAPSMEAROFFS,	RO, "leapsmearoffset" },      /* 91 */
-#endif	 /* LEAP_SMEAR */
+
 #ifdef AUTOKEY
 	{ CS_FLAGS,	RO, "flags" },		/* 1 + CS_MAX_NOAUTOKEY */
 	{ CS_HOST,	RO, "host" },		/* 2 + CS_MAX_NOAUTOKEY */
@@ -2402,6 +2402,9 @@ ctl_putsys(
 			    ntohl(hostval.tstamp));
 		break;
 #endif	/* AUTOKEY */
+
+	default:
+		break;
 	}
 }
 
