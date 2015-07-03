@@ -4,7 +4,6 @@ CLEANFILES =
 
 run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
-#removed test-libntp
 check_PROGRAMS =		\
 	test-a_md5encrypt	\
 	test-atoint		\
