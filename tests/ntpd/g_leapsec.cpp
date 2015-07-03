@@ -1,4 +1,4 @@
-#include "ntpdtest.h"
+#include "g_ntpdtest.h"
 
 extern "C" {
 #include "ntp.h"
