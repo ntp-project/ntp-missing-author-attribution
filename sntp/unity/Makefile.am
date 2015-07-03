@@ -6,7 +6,7 @@ CLEANFILES =
 noinst_LIBRARIES = libunity.a
 
 libunity_a_CFLAGS =                  	\
-	-DUNITY_INCLUDE_DOUBLE		\
+	-DUNITY_INCLUDE_CONFIG_H	\
 	$(NULL)
 
 libunity_a_SOURCES =				\

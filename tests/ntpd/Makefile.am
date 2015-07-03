@@ -21,6 +21,8 @@ AM_CPPFLAGS += -I$(top_srcdir)/sntp
 AM_CPPFLAGS += -I$(top_srcdir)/ntpd
 AM_CPPFLAGS += $(GTEST_CPPFLAGS)
 AM_CPPFLAGS += $(CPPFLAGS_NTP)
+AM_CPPFLAGS += -DUNITY_INCLUDE_CONFIG_H
+AM_CPPFLAGS += -I$(top_srcdir)/sntp/unity
 
 AM_LDFLAGS = $(LDFLAGS_NTP)
 

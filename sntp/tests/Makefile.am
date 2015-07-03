@@ -37,9 +37,11 @@ base_SOURCES =			\
 
 tests_SOURCES =			\
 	$(base_SOURCES)		\
+	g_fileHandlingTest.h	\
 	g_networking.cpp	\
 	g_packetHandling.cpp	\
 	g_packetProcessing.cpp	\
+	g_sntptest.h		\
 	$(NULL)
 
 # HMS: this test was for the 4.2.6 sntp code.
@@ -57,8 +59,6 @@ tests_SOURCES =			\
 noinst_HEADERS =		\
 	fileHandlingTest.h	\
 	sntptest.h		\
-	g_fileHandlingTest.h	\
-	g_sntptest.h		\
 	$(NULL)
 
 dist_check_SCRIPTS =	tests-runner
@@ -116,6 +116,8 @@ AM_CPPFLAGS += $(LIBOPTS_CFLAGS)
 AM_CPPFLAGS += $(CPPFLAGS_LIBEVENT)
 AM_CPPFLAGS += $(GTEST_CPPFLAGS)
 AM_CPPFLAGS += $(CPPFLAGS_NTP)
+AM_CPPFLAGS += -DUNITY_INCLUDE_CONFIG_H
+AM_CPPFLAGS += -I$(top_srcdir)/sntp/unity
 
 AM_LDFLAGS = $(LDFLAGS_NTP)
 
