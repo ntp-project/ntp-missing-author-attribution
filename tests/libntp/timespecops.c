@@ -74,10 +74,7 @@ bool AssertFpClose(const l_fp m,const l_fp n, const l_fp limit)
 		return TRUE;
 	}
 	else {
-		//<< m_expr << " which is " << l_fp_wrap(m)
-		//<< "\nand\n"
-		//<< n_expr << " which is " << l_fp_wrap(n)
-		//<< "\nare not close; diff=" << l_fp_wrap(diff);
+		printf("m_expr which is %s \nand\nn_expr which is %s\nare not close; diff=%susec\n",lfptoa(&m,10),lfptoa(&n,10),lfptoa(&diff,10)); 
 		return FALSE;
 	}
 }
@@ -92,10 +89,7 @@ bool AssertTimespecClose(const struct timespec m,const struct timespec n, const 
 		return TRUE;
 	else
 	{
-		//<< m_expr << " which is " << timespec_wrap(m)
-		//<< "\nand\n"
-		//<< n_expr << " which is " << timespec_wrap(n)
-		//<< "\nare not close; diff=" << timespec_wrap(diff);
+		printf("m_expr which is %ld.%lu \nand\nn_expr which is %ld.%lu\nare not close; diff=%ld.%lunsec\n",m.tv_sec,m.tv_nsec,n.tv_sec,n.tv_nsec,diff.tv_sec,diff.tv_nsec); 
 		return FALSE;
 	}
 }
@@ -428,7 +422,7 @@ void test_Helpers2(void) {
 				}
 				else
 				{
-					TEST_ASSERT_FALSE(AssertTimespecClose(x,y,limit));//ASSERT_PRED_FORMAT2(!isClose, x, y);
+					TEST_ASSERT_FALSE(AssertTimespecClose(x,y,limit));
 				}
 			}
 		}
@@ -451,7 +445,7 @@ void test_ToLFPbittest(void) {
 		l_fp r;
 
 		r = tspec_intv_to_lfp(a);
-		TEST_ASSERT_TRUE(AssertFpClose(E,r,lfpClose)); //ASSERT_PRED_FORMAT2(FpClose, E, r);
+		TEST_ASSERT_TRUE(AssertFpClose(E,r,lfpClose));
 	}
 }
 
@@ -509,7 +503,7 @@ void test_FromLFPbittest(void) {
 		r = lfp_intv_to_tspec(a);
 		// The conversion might be off by one nanosecond when
 		// comparing to calculated value.
-		TEST_ASSERT_TRUE(AssertTimespecClose(E,r,limit)); //ASSERT_PRED_FORMAT2(TimespecClose, E, r);
+		TEST_ASSERT_TRUE(AssertTimespecClose(E,r,limit));
 	}
 }
 
@@ -522,7 +516,7 @@ void test_FromLFPrelPos(void) {
 		struct timespec r;
 
 		r = lfp_intv_to_tspec(a);
-		TEST_ASSERT_TRUE(AssertTimespecClose(E,r,limit)); //ASSERT_PRED_FORMAT2(TimespecClose, E, r);
+		TEST_ASSERT_TRUE(AssertTimespecClose(E,r,limit));
 	}
 }
 
@@ -535,7 +529,7 @@ void test_FromLFPrelNeg(void) {
 		struct timespec r;
 
 		r = lfp_intv_to_tspec(a);
-		TEST_ASSERT_TRUE(AssertTimespecClose(E,r,limit)); //ASSERT_PRED_FORMAT2(TimespecClose, E, r);
+		TEST_ASSERT_TRUE(AssertTimespecClose(E,r,limit));
 	}
 }
 
