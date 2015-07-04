@@ -63,7 +63,7 @@ bool AssertTimevalClose(const struct timeval m, const struct timeval n, const st
 	
 	else 
 	{
-		printf("m_expr which is %ld.%ld \nand\nn_expr which is %ld.%ld\nare not close; diff=%ld.%ldusec\n",m.tv_sec,m.tv_usec,n.tv_sec,n.tv_usec,diff.tv_sec,diff.tv_usec); 
+		printf("m_expr which is %ld.%lu \nand\nn_expr which is %ld.%lu\nare not close; diff=%ld.%luusec\n",m.tv_sec,m.tv_usec,n.tv_sec,n.tv_usec,diff.tv_sec,diff.tv_usec); 
 		//I don't have variables m_expr and n_expr in unity, those are command line arguments which only getst has!!!
 		
 		return FALSE;
