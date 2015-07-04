@@ -1,6 +1,12 @@
 Below are from 4.2.8p4:
+* [Bug 2866] segmentation fault at initgroups().  Harlan Stenn.
 * Phase 1 deprecation of google test in sntp/tests/.  Harlan Stenn.
 * On some versions of HP-UX, inttypes.h does not include stdint.h.  H.Stenn.
+* sntp/tests/ function parameter list cleanup.  Damir Tomić.
+* tests/libntp/ function parameter list cleanup.  Damir Tomić.
+* tests/ntpd/ function parameter list cleanup.  Damir Tomić.
+* sntp/unity/unity_config.h: handle stdint.h.  Harlan Stenn.
+* sntp/unity/unity_internals.h: handle *INTPTR_MAX on old Solaris.  H.Stenn.
 (4.3.52) 2015/07/03 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * libntp/emalloc.c: Remove explicit include of stdint.h.  Harlan Stenn.
