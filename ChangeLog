@@ -1,5 +1,6 @@
 Below are from 4.2.8p4:
 * Phase 1 deprecation of google test in sntp/tests/.  Harlan Stenn.
+* On some versions of HP-UX, inttypes.h does not include stdint.h.  H.Stenn.
 (4.3.52) 2015/07/03 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * libntp/emalloc.c: Remove explicit include of stdint.h.  Harlan Stenn.
