@@ -4,7 +4,6 @@ CLEANFILES =
 
 run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
-#removed test-libntp
 check_PROGRAMS =		\
 	test-a_md5encrypt	\
 	test-atoint		\
@@ -78,6 +77,8 @@ AM_CPPFLAGS  = $(NTP_INCS)
 AM_CPPFLAGS += -I$(top_srcdir)/sntp
 AM_CPPFLAGS += $(GTEST_CPPFLAGS)
 AM_CPPFLAGS += $(CPPFLAGS_NTP)
+AM_CPPFLAGS += -DUNITY_INCLUDE_CONFIG_H
+AM_CPPFLAGS += -I$(top_srcdir)/sntp/unity
 
 AM_LDFLAGS = $(LDFLAGS_NTP)
 
@@ -260,7 +261,6 @@ test_buftvtots_SOURCES =		\
 
 test_buftvtots_CFLAGS =			\
 	-I$(top_srcdir)/sntp/unity	\
-	-DUNITY_INCLUDE_DOUBLE		\
 	$(NULL)
 
 $(srcdir)/run-buftvtots.c: $(srcdir)/buftvtots.c $(std_unity_list)
@@ -439,7 +439,6 @@ $(srcdir)/run-humandate.c: $(srcdir)/humandate.c $(std_unity_list)
 
 test_lfpfunc_CFLAGS =			\
 	-I$(top_srcdir)/sntp/unity	\
-	-DUNITY_INCLUDE_DOUBLE		\
 	$(NULL)
 
 test_lfpfunc_LDADD =			\
@@ -656,7 +655,6 @@ $(srcdir)/run-refnumtoa.c: $(srcdir)/refnumtoa.c $(std_unity_list)
 
 test_sfptostr_CFLAGS =			\
 	-I$(top_srcdir)/sntp/unity	\
-	-DUNITY_INCLUDE_DOUBLE		\
 	$(NULL)
 
 test_sfptostr_LDADD =			\
@@ -802,7 +800,6 @@ $(srcdir)/run-tstotv.c: $(srcdir)/tstotv.c $(std_unity_list)
 
 test_tvtots_CFLAGS =			\
 	-I$(top_srcdir)/sntp/unity	\
-	-DUNITY_INCLUDE_DOUBLE		\
 	$(NULL)
 
 test_tvtots_LDADD =			\

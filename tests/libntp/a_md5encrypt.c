@@ -46,7 +46,8 @@ void test_Encrypt() {
 	TEST_ASSERT_TRUE(MD5authdecrypt(keytype, (u_char*)key, (u_int32*)packetPtr, packetLength, length));
 
 	TEST_ASSERT_EQUAL(20, length);
-	TEST_ASSERT_TRUE(memcmp(expectedPacket, packetPtr, totalLength) == 0);
+	//TEST_ASSERT_TRUE(memcmp(expectedPacket, packetPtr, totalLength) == 0);
+	TEST_ASSERT_EQUAL_MEMORY(expectedPacket, packetPtr, totalLength);
 
 	free(packetPtr); //delete[] packetPtr;
 }

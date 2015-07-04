@@ -21,44 +21,35 @@ check_PROGRAMS =			\
 	test-utilities			\
 	$(NULL)
 
-if GTEST_AVAILABLE
-check_PROGRAMS += tests
-else
 EXTRA_PROGRAMS += tests
-endif
-
-#if BUILD_SNTP
-#check_PROGRAMS += tests
-#endif
-
-base_SOURCES =			\
-	../tests_main.cpp	\
-	$(NULL)
 
 tests_SOURCES =			\
-	$(base_SOURCES)		\
+	../tests_main.cpp	\
+	g_crypto.cpp		\
+	g_fileHandlingTest.h	\
 	g_networking.cpp	\
 	g_packetHandling.cpp	\
 	g_packetProcessing.cpp	\
+	g_sntptest.h		\
 	$(NULL)
 
-# HMS: this test was for the 4.2.6 sntp code.
-#	g_nameresolution.cpp	
+tests_LDADD =			\
+	$(base_LDADD)		\
+	$(GTEST_LDFLAGS)	\
+	$(GTEST_LIBS)		\
+	$(NULL)
 
-# HMS: Somebody needs to audit the following files to
-# make sure all of these tests are now handled by Unity
-#
-#	g_utilities.cpp		
-#	g_kodDatabase.cpp	
-#	g_keyFile.cpp		
-#	g_crypto.cpp		
-#	g_kodFile.cpp		
+tests_CPPFLAGS =		\
+	$(AM_CPPFLAGS)		\
+	$(CPPFLAGS)		\
+	$(GTEST_CPPFLAGS)	\
+	$(NULL)
+
+AM_CXXFLAGS = $(GTEST_CXXFLAGS)
 
 noinst_HEADERS =		\
 	fileHandlingTest.h	\
 	sntptest.h		\
-	g_fileHandlingTest.h	\
-	g_sntptest.h		\
 	$(NULL)
 
 dist_check_SCRIPTS =	tests-runner
@@ -89,33 +80,32 @@ CLEANFILES +=				\
 	$(NULL)
 
 #split into LDADD and tests_LDADD?
-LDADD =						\
+base_LDADD =					\
 	../libsntp.a				\
 	$(LIBOPTS_LDADD)			\
 	$(LDADD_LIBEVENT)			\
 	$(top_builddir)/../libntp/libntp.a	\
 	$(LDADD_LIBNTP)				\
 	$(LDADD_NTP)				\
-	$(GTEST_LDFLAGS)			\
-	$(GTEST_LIBS)				\
 	$(NULL)
 
-unity_tests_LDADD =				\
-	$(LDADD)				\
+LDADD =						\
+	$(base_LDADD)				\
 	$(top_builddir)/unity/libunity.a	\
 	$(LIBM)					\
 	$(NULL)
 
-AM_CFLAGS   = $(CFLAGS_NTP)
-AM_CXXFLAGS = $(GTEST_CXXFLAGS)
+AM_CFLAGS  = $(CFLAGS_NTP)
 
 AM_CPPFLAGS  = $(SNTP_INCS)
 AM_CPPFLAGS += -I$(srcdir)/..
 AM_CPPFLAGS += -I$(top_srcdir)/../tests
 AM_CPPFLAGS += $(LIBOPTS_CFLAGS)
 AM_CPPFLAGS += $(CPPFLAGS_LIBEVENT)
-AM_CPPFLAGS += $(GTEST_CPPFLAGS)
 AM_CPPFLAGS += $(CPPFLAGS_NTP)
+AM_CPPFLAGS += -DUNITY_INCLUDE_CONFIG_H
+AM_CPPFLAGS += -I$(top_srcdir)/sntp/unity
+#AM_CPPFLAGS += -I$(top_srcdir)/unity
 
 AM_LDFLAGS = $(LDFLAGS_NTP)
 
@@ -128,70 +118,6 @@ BUILT_SOURCES +=				\
 	$(srcdir)/run-packetProcessing.c	\
 	$(srcdir)/run-utilities.c		\
 	$(srcdir)/run-packetHandling.c		\
-	$(NULL)
-
-test_keyFile_CFLAGS =			\
-	-I$(top_srcdir)/unity		\
-	$(NULL)
-
-test_keyFile_LDADD =			\
-	$(unity_tests_LDADD)		\
-	$(NULL)
-
-test_kodDatabase_CFLAGS =		\
-	-I$(top_srcdir)/unity		\
-	$(NULL)
-
-test_kodDatabase_LDADD =		\
-	$(unity_tests_LDADD)		\
-	$(NULL)
-
-test_kodFile_CFLAGS =			\
-	-I$(top_srcdir)/unity		\
-	$(NULL)
-
-test_kodFile_LDADD =			\
-	$(unity_tests_LDADD)		\
-	$(NULL)
-
-test_networking_CFLAGS =		\
-	-I$(top_srcdir)/unity		\
-	$(NULL)
-
-test_networking_LDADD =			\
-	$(unity_tests_LDADD)		\
-	$(NULL)
-
-test_utilities_CFLAGS =			\
-	-I$(top_srcdir)/unity		\
-	$(NULL)
-
-test_utilities_LDADD =			\
-	$(unity_tests_LDADD)		\
-	$(NULL)
-
-test_crypto_CFLAGS =			\
-	-I$(top_srcdir)/unity		\
-	$(NULL)
-
-test_crypto_LDADD =			\
-	$(unity_tests_LDADD)		\
-	$(NULL)
-
-test_packetProcessing_CFLAGS =		\
-	-I$(top_srcdir)/unity		\
-	$(NULL)
-
-test_packetProcessing_LDADD =		\
-	$(unity_tests_LDADD)		\
-	$(NULL)
-
-test_packetHandling_CFLAGS =		\
-	-I$(top_srcdir)/unity		\
-	$(NULL)
-
-test_packetHandling_LDADD =		\
-	$(unity_tests_LDADD)		\
 	$(NULL)
 
 test_networking_SOURCES =		\
@@ -223,7 +149,6 @@ test_kodFile_SOURCES =			\
 	run-kodFile.c			\
 	$(top_builddir)/version.c	\
 	$(NULL)
-#	../version.c
 
 test_packetProcessing_SOURCES =		\
 	packetProcessing.c		\
