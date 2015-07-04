@@ -1,3 +1,6 @@
+
+* tests/libntp/timevalops.c and timespecops.c fixd error printing
+* tests/libntp/ improvements in code and fixed error printing
 ---
 
 * [Bug 2864] 4.2.8p3 fails to compile on Windows. Juergen Perlinger
