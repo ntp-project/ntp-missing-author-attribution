@@ -1,3 +1,8 @@
+Below are from 4.2.8p4:
+* tests/libntp: a_md5encrypt.c, authkeys.c, buftvtots.c, calendar.c, caljulian.c,
+  caltontp.c, clocktime.c, humandate.c, hextolfp.c, decodenetnum.c - fixed
+  formatting; first declaration, then code (C90); deleted unnecessary comments;
+  changed from sprintf to snprintf; fixed order of includes. Tomasz Flendrich
 (4.3.53) 2015/07/04 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * [Bug 2866] segmentation fault at initgroups().  Harlan Stenn.
