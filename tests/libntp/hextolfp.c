@@ -7,7 +7,8 @@
 #include "lfptest.h"
 
 
-void test_PositiveInteger(void) {
+void
+test_PositiveInteger(void) {
 	const char *str = "00001000.00000000";
 	l_fp actual;
 
@@ -17,7 +18,8 @@ void test_PositiveInteger(void) {
 	TEST_ASSERT_TRUE(IsEqual(expected, actual));
 }
 
-void test_NegativeInteger(void) {
+void
+test_NegativeInteger(void) {
 	const char *str = "ffffffff.00000000"; // -1 decimal
 	l_fp actual;
 
@@ -27,7 +29,8 @@ void test_NegativeInteger(void) {
 	TEST_ASSERT_TRUE(IsEqual(expected, actual));
 }
 
-void test_PositiveFraction(void) {
+void
+test_PositiveFraction(void) {
 	const char *str = "00002000.80000000"; // 8196.5 decimal
 	l_fp actual;
 
@@ -37,7 +40,8 @@ void test_PositiveFraction(void) {
 	TEST_ASSERT_TRUE(IsEqual(expected, actual));
 }
 
-void test_NegativeFraction(void) {
+void
+test_NegativeFraction(void) {
 	const char *str = "ffffffff.40000000"; // -1 + 0.25 decimal
 	l_fp actual;
 
@@ -47,17 +51,18 @@ void test_NegativeFraction(void) {
 	TEST_ASSERT_TRUE(IsEqual(expected, actual));
 }
 
-void test_IllegalNumberOfInteger(void) {
+void
+test_IllegalNumberOfInteger(void) {
 	const char *str = "1000000.00000000"; // Missing one digit in integral part.
 	l_fp actual;
 
 	TEST_ASSERT_FALSE(hextolfp(str, &actual));
 }
 
-void test_IllegalChar(void) {
+void
+test_IllegalChar(void) {
 	const char *str = "10000000.0000h000"; // Illegal character h.
 	l_fp actual;
 
 	TEST_ASSERT_FALSE(hextolfp(str, &actual));
 }
-

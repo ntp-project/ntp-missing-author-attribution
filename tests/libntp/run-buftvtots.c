@@ -49,10 +49,10 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "buftvtots.c";
   UnityBegin("buftvtots.c");
-  RUN_TEST(test_ZeroBuffer, 16);
-  RUN_TEST(test_IntegerAndFractionalBuffer, 30);
-  RUN_TEST(test_IllegalMicroseconds, 53);
-  RUN_TEST(test_AlwaysFalseOnWindows, 66);
+  RUN_TEST(test_ZeroBuffer, 17);
+  RUN_TEST(test_IntegerAndFractionalBuffer, 32);
+  RUN_TEST(test_IllegalMicroseconds, 55);
+  RUN_TEST(test_AlwaysFalseOnWindows, 69);
 
   return (UnityEnd());
 }

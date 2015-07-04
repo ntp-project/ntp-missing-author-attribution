@@ -51,12 +51,12 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "hextolfp.c";
   UnityBegin("hextolfp.c");
-  RUN_TEST(test_PositiveInteger, 10);
-  RUN_TEST(test_NegativeInteger, 20);
-  RUN_TEST(test_PositiveFraction, 30);
-  RUN_TEST(test_NegativeFraction, 40);
-  RUN_TEST(test_IllegalNumberOfInteger, 50);
-  RUN_TEST(test_IllegalChar, 57);
+  RUN_TEST(test_PositiveInteger, 11);
+  RUN_TEST(test_NegativeInteger, 22);
+  RUN_TEST(test_PositiveFraction, 33);
+  RUN_TEST(test_NegativeFraction, 44);
+  RUN_TEST(test_IllegalNumberOfInteger, 55);
+  RUN_TEST(test_IllegalChar, 63);
 
   return (UnityEnd());
 }

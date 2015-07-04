@@ -19,6 +19,7 @@ libunity_a_SOURCES =				\
 	unity_fixture.h				\
 	unity_fixture_internals.h		\
 	unity_fixture_malloc_overrides.h	\
+	unity_config.h				\
 	$(NULL)
 
 include $(top_srcdir)/depsver.mf
