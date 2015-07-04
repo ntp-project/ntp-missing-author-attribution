@@ -26,12 +26,13 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_ReadEmptyFile();
-extern void test_ReadCorrectFile();
-extern void test_ReadFileWithBlankLines();
-extern void test_WriteEmptyFile();
-extern void test_WriteFileWithSingleEntry();
-extern void test_WriteFileWithMultipleEntries();
+void resetTest(void);
+extern void test_ReadEmptyFile(void);
+extern void test_ReadCorrectFile(void);
+extern void test_ReadFileWithBlankLines(void);
+extern void test_WriteEmptyFile(void);
+extern void test_WriteFileWithSingleEntry(void);
+extern void test_WriteFileWithMultipleEntries(void);
 
 
 //=======Test Reset Option=====

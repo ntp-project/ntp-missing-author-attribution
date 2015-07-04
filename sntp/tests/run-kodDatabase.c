@@ -26,11 +26,12 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_SingleEntryHandling();
-extern void test_MultipleEntryHandling();
-extern void test_NoMatchInSearch();
-extern void test_AddDuplicate();
-extern void test_DeleteEntry();
+void resetTest(void);
+extern void test_SingleEntryHandling(void);
+extern void test_MultipleEntryHandling(void);
+extern void test_NoMatchInSearch(void);
+extern void test_AddDuplicate(void);
+extern void test_DeleteEntry(void);
 
 
 //=======Test Reset Option=====

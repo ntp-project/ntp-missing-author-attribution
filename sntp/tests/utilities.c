@@ -34,8 +34,6 @@ struct addrinfo CreateAddrinfo( sockaddr_u* sock) {
 bool outputFileOpened;
 FILE* outputFile;
 
-//debugUtilitiesTest() : outputFileOpened(false) {}
-
 void InitDebugTest(const char * filename) {
 	// Clear the contents of the current file.
 	// Open the output file
@@ -65,7 +63,7 @@ void FinishDebugTest(const char * expected,
  * tests can be removed.
  */
 
-void test_IPv4Address() {
+void test_IPv4Address(void) {
 	const char* ADDR = "192.0.2.10";
 
 	sockaddr_u input = CreateSockaddr4(ADDR);
@@ -75,7 +73,7 @@ void test_IPv4Address() {
 	TEST_ASSERT_EQUAL_STRING(ADDR, addrinfo_to_str(&inputA));
 }
 
-void test_IPv6Address() {
+void test_IPv6Address(void) {
 	const struct in6_addr address = {
 						0x20, 0x01, 0x0d, 0xb8,
 						0x85, 0xa3, 0x08, 0xd3, 
@@ -95,7 +93,7 @@ void test_IPv6Address() {
 	TEST_ASSERT_EQUAL_STRING(expected, addrinfo_to_str(&inputA));
 }
 
-void test_SetLiVnMode1() {
+void test_SetLiVnMode1(void) {
 	struct pkt expected;
 	expected.li_vn_mode = PKT_LI_VN_MODE(LEAP_NOWARNING,
 					     NTP_VERSION,
@@ -108,7 +106,7 @@ void test_SetLiVnMode1() {
 	TEST_ASSERT_EQUAL(expected.li_vn_mode, actual.li_vn_mode);
 }
 
-void test_SetLiVnMode2() {
+void test_SetLiVnMode2(void) {
 	struct pkt expected;
 	expected.li_vn_mode = PKT_LI_VN_MODE(LEAP_NOTINSYNC,
 					     NTP_OLDVERSION,
@@ -123,7 +121,7 @@ void test_SetLiVnMode2() {
 
 /* Debug utilities tests */
 
-void test_PktOutput() {
+void test_PktOutput(void) {
 	char * filename = "debug-output-pkt";//CreatePath("debug-output-pkt", OUTPUT_DIR);
 	InitDebugTest(filename);
 
@@ -143,7 +141,7 @@ void test_PktOutput() {
 	FinishDebugTest(CreatePath("debug-input-pkt", INPUT_DIR), filename);
 }
 
-void test_LfpOutputBinaryFormat() {
+void test_LfpOutputBinaryFormat(void) {
 	char * filename = "debug-output-lfp-bin";//CreatePath("debug-output-lfp-bin", OUTPUT_DIR);
 	InitDebugTest(filename);
 
@@ -159,7 +157,7 @@ void test_LfpOutputBinaryFormat() {
 	FinishDebugTest(CreatePath("debug-input-lfp-bin", INPUT_DIR), filename);
 }
 
-void test_LfpOutputDecimalFormat() {
+void test_LfpOutputDecimalFormat(void) {
 	char * filename = "debug-output-lfp-dec"; //CreatePath("debug-output-lfp-dec", OUTPUT_DIR);
 	InitDebugTest(filename);
 

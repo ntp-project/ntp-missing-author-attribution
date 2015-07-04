@@ -8,6 +8,7 @@
 #define MD5_LENGTH 16
 #define SHA1_LENGTH 20
 
+
 void test_MakeMd5Mac(void) {
 
 	const char* PKT_DATA = "abcdefgh0123";

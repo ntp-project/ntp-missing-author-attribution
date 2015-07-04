@@ -27,13 +27,13 @@
 extern void setUp(void);
 extern void tearDown(void);
 void resetTest(void);
-extern void test_IPv4Address();
-extern void test_IPv6Address();
-extern void test_SetLiVnMode1();
-extern void test_SetLiVnMode2();
-extern void test_PktOutput();
-extern void test_LfpOutputBinaryFormat();
-extern void test_LfpOutputDecimalFormat();
+extern void test_IPv4Address(void);
+extern void test_IPv6Address(void);
+extern void test_SetLiVnMode1(void);
+extern void test_SetLiVnMode2(void);
+extern void test_PktOutput(void);
+extern void test_LfpOutputBinaryFormat(void);
+extern void test_LfpOutputDecimalFormat(void);
 
 
 //=======Test Reset Option=====
@@ -52,13 +52,13 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "utilities.c";
   UnityBegin("utilities.c");
-  RUN_TEST(test_IPv4Address, 68);
-  RUN_TEST(test_IPv6Address, 78);
-  RUN_TEST(test_SetLiVnMode1, 98);
-  RUN_TEST(test_SetLiVnMode2, 111);
-  RUN_TEST(test_PktOutput, 126);
-  RUN_TEST(test_LfpOutputBinaryFormat, 146);
-  RUN_TEST(test_LfpOutputDecimalFormat, 162);
+  RUN_TEST(test_IPv4Address, 66);
+  RUN_TEST(test_IPv6Address, 76);
+  RUN_TEST(test_SetLiVnMode1, 96);
+  RUN_TEST(test_SetLiVnMode2, 109);
+  RUN_TEST(test_PktOutput, 124);
+  RUN_TEST(test_LfpOutputBinaryFormat, 144);
+  RUN_TEST(test_LfpOutputDecimalFormat, 160);
 
   return (UnityEnd());
 }

@@ -19,7 +19,7 @@ void tearDown(void)
 }
 
 
-void test_SingleEntryHandling() {
+void test_SingleEntryHandling(void) {
 	char HOST[] = "192.0.2.5";
 	char REASON[] = "DENY";
 
@@ -32,7 +32,7 @@ void test_SingleEntryHandling() {
 	TEST_ASSERT_EQUAL_STRING(REASON, result->type);
 }
 
-void test_MultipleEntryHandling() {
+void test_MultipleEntryHandling(void) {
 	char HOST1[] = "192.0.2.3";
 	char REASON1[] = "DENY";
 
@@ -63,7 +63,7 @@ void test_MultipleEntryHandling() {
 	free(result);
 }
 
-void test_NoMatchInSearch() {
+void test_NoMatchInSearch(void) {
 	char HOST_ADD[] = "192.0.2.6";
 	char HOST_NOTADD[] = "192.0.6.1";
 	char REASON[] = "DENY";
@@ -76,7 +76,7 @@ void test_NoMatchInSearch() {
 	TEST_ASSERT_TRUE(result == NULL);
 }
 
-void test_AddDuplicate() {
+void test_AddDuplicate(void) {
 	char HOST[] = "192.0.2.3";
 	char REASON1[] = "RATE";
 	char REASON2[] = "DENY";
@@ -101,7 +101,7 @@ void test_AddDuplicate() {
 	free(result2);
 }
 
-void test_DeleteEntry() {
+void test_DeleteEntry(void) {
 	char HOST1[] = "192.0.2.1";
 	char HOST2[] = "192.0.2.2";
 	char HOST3[] = "192.0.2.3";
