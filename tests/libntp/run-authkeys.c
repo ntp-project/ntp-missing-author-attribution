@@ -26,6 +26,7 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
+void resetTest(void);
 extern void test_AddTrustedKeys();
 extern void test_AddUntrustedKey();
 extern void test_HaveKeyCorrect();
@@ -50,12 +51,12 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "authkeys.c";
   UnityBegin("authkeys.c");
-  RUN_TEST(test_AddTrustedKeys, 71);
+  RUN_TEST(test_AddTrustedKeys, 70);
   RUN_TEST(test_AddUntrustedKey, 82);
-  RUN_TEST(test_HaveKeyCorrect, 90);
-  RUN_TEST(test_HaveKeyIncorrect, 99);
-  RUN_TEST(test_AddWithAuthUseKey, 106);
-  RUN_TEST(test_EmptyKey, 113);
+  RUN_TEST(test_HaveKeyCorrect, 91);
+  RUN_TEST(test_HaveKeyIncorrect, 101);
+  RUN_TEST(test_AddWithAuthUseKey, 109);
+  RUN_TEST(test_EmptyKey, 117);
 
   return (UnityEnd());
 }

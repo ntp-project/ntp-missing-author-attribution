@@ -26,14 +26,15 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_CurrentYear();
-extern void test_CurrentYearFuzz();
-extern void test_TimeZoneOffset();
-extern void test_WrongYearStart();
-extern void test_PreviousYear();
-extern void test_NextYear();
-extern void test_NoReasonableConversion();
-extern void test_AlwaysInLimit();
+void resetTest(void);
+extern void test_CurrentYear(void);
+extern void test_CurrentYearFuzz(void);
+extern void test_TimeZoneOffset(void);
+extern void test_WrongYearStart(void);
+extern void test_PreviousYear(void);
+extern void test_NextYear(void);
+extern void test_NoReasonableConversion(void);
+extern void test_AlwaysInLimit(void);
 
 
 //=======Test Reset Option=====
@@ -52,14 +53,14 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "clocktime.c";
   UnityBegin("clocktime.c");
-  RUN_TEST(test_CurrentYear, 32);
-  RUN_TEST(test_CurrentYearFuzz, 47);
-  RUN_TEST(test_TimeZoneOffset, 69);
-  RUN_TEST(test_WrongYearStart, 89);
-  RUN_TEST(test_PreviousYear, 108);
-  RUN_TEST(test_NextYear, 127);
-  RUN_TEST(test_NoReasonableConversion, 145);
-  RUN_TEST(test_AlwaysInLimit, 167);
+  RUN_TEST(test_CurrentYear, 35);
+  RUN_TEST(test_CurrentYearFuzz, 51);
+  RUN_TEST(test_TimeZoneOffset, 74);
+  RUN_TEST(test_WrongYearStart, 95);
+  RUN_TEST(test_PreviousYear, 115);
+  RUN_TEST(test_NextYear, 135);
+  RUN_TEST(test_NoReasonableConversion, 154);
+  RUN_TEST(test_AlwaysInLimit, 177);
 
   return (UnityEnd());
 }

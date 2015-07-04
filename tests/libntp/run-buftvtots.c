@@ -26,10 +26,11 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_ZeroBuffer();
-extern void test_IntegerAndFractionalBuffer();
-extern void test_IllegalMicroseconds();
-extern void test_AlwaysFalseOnWindows();
+void resetTest(void);
+extern void test_ZeroBuffer(void);
+extern void test_IntegerAndFractionalBuffer(void);
+extern void test_IllegalMicroseconds(void);
+extern void test_AlwaysFalseOnWindows(void);
 
 
 //=======Test Reset Option=====
@@ -48,10 +49,10 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "buftvtots.c";
   UnityBegin("buftvtots.c");
-  RUN_TEST(test_ZeroBuffer, 16);
-  RUN_TEST(test_IntegerAndFractionalBuffer, 30);
-  RUN_TEST(test_IllegalMicroseconds, 53);
-  RUN_TEST(test_AlwaysFalseOnWindows, 66);
+  RUN_TEST(test_ZeroBuffer, 17);
+  RUN_TEST(test_IntegerAndFractionalBuffer, 32);
+  RUN_TEST(test_IllegalMicroseconds, 55);
+  RUN_TEST(test_AlwaysFalseOnWindows, 69);
 
   return (UnityEnd());
 }
