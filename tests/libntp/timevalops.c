@@ -43,6 +43,50 @@ struct timeval timeval_init( time_t hi, long lo){
 const bool timeval_isValid(struct timeval V)
 	{ return V.tv_usec >= 0 && V.tv_usec < 1000000; }
 
+char * timevaltoa( const struct timeval *in)
+{
+	suseconds_t usec, q;
+	long long   sec;
+	char        sign;
+
+	usec = in->tv_usec;
+	sec  = in->tv_sec;
+
+	/* normalise time stamp first. This is a floor division. Let
+	 * the compiler sort out the division itself.
+	 */
+	q    = usec / 1000000;
+	usec = usec % 1000000;
+	if (usec < 0) {
+		q    -= 1;
+		usec += 1000000;
+	}
+	sec += q;
+	
+	/* get absolute value */
+	if (sec < 0) {
+		sign = '-';
+		sec  = -sec;
+		if (usec) {
+			usec = 1000000 - usec;
+			sec -= 1;
+		}
+	} else {
+		sign = '+';
+	}
+
+	size_t sz;
+	char * buf = (char *)malloc(48);
+	sz = snprintf(buf, 48, "%c%llu.%06u", sign, (unsigned long long)sec, (unsigned int)usec);
+
+	if(sz > 48){
+		printf("ERROR: insufficient space allocated");
+	} //this should never happen
+
+	return buf;
+}
+
+
 //taken from lfpfunc.c -> maybe remove this from timevalops.c and lfpfunc. and put in c_timstructs.h ????!!!!!
 l_fp l_fp_init(int32 i, u_int32 f)
 {
@@ -63,7 +107,15 @@ bool AssertTimevalClose(const struct timeval m, const struct timeval n, const st
 	
 	else 
 	{
-		printf("m_expr which is %ld.%lu \nand\nn_expr which is %ld.%lu\nare not close; diff=%ld.%luusec\n",m.tv_sec,m.tv_usec,n.tv_sec,n.tv_usec,diff.tv_sec,diff.tv_usec); 
+		char * a = timevaltoa(&m);
+		char * b = timevaltoa(&n);
+		char * c = timevaltoa(&diff);
+		printf("TIMESPEC_PRINTF:\nm_expr %s n_expr %s diff %s\n",a,b,c);
+		free(a);
+		free(b);
+		free(c);
+		//printf below is wrong
+		//printf("m_expr which is %ld.%lu \nand\nn_expr which is %ld.%lu\nare not close; diff=%ld.%luusec\n",m.tv_sec,m.tv_usec,n.tv_sec,n.tv_usec,diff.tv_sec,diff.tv_usec); 
 		//I don't have variables m_expr and n_expr in unity, those are command line arguments which only getst has!!!
 		
 		return FALSE;

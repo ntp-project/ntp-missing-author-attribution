@@ -48,6 +48,55 @@ struct timespec timespec_init(time_t hi, long lo){
 	return V;
 }
 
+char * timespectoa( const struct timespec *in)
+{
+	long nsec, q;
+	long long   sec;
+	char        sign;
+
+	nsec = in->tv_nsec;
+	sec  = in->tv_sec;
+
+	/* normalise time stamp first. This is a floor division. Let
+	 * the compiler sort out the division itself.
+	 */
+	q    = nsec / 1000000000;
+	nsec = nsec % 1000000000;
+	if (nsec < 0) {
+		q    -= 1;
+		nsec += 1000000000;
+	}
+	sec += q;
+	
+	/* get absolute value */
+	if (sec < 0) {
+		sign = '-';
+		sec  = -sec;
+		if (nsec) {
+			nsec = 1000000000 - nsec;
+			sec -= 1;
+		}
+	} else {
+		sign = '+';
+	}
+
+	size_t sz;
+	//sz = snprintf(NULL, 0, "%c%llu.%09u", sign, (unsigned long long)sec, (unsigned int)nsec);
+	//printf("NUM: %d\n",sz);
+	//char * buf = (char *)malloc(sz+1);
+	//snprintf(buf, sz+1, "%c%llu.%09u", sign, (unsigned long long)sec, (unsigned int)nsec);
+	char * buf = (char *)malloc(48);
+	sz = snprintf(buf, 48, "%c%llu.%09u", sign, (unsigned long long)sec, (unsigned int)nsec);
+	//printf("NUM: %d\n",sz);
+	if(sz > 48){
+		printf("ERROR: insufficient space allocated\n");
+	} //this should never happen
+
+	return buf;
+}
+
+
+
 //taken from lfpfunc.c -> maybe remove this from timevalops.c and lfpfunc. and put in c_timstructs.h ????!!!!!
 l_fp l_fp_init(int32 i, u_int32 f)
 {
@@ -89,7 +138,15 @@ bool AssertTimespecClose(const struct timespec m,const struct timespec n, const 
 		return TRUE;
 	else
 	{
-		printf("m_expr which is %ld.%lu \nand\nn_expr which is %ld.%lu\nare not close; diff=%ld.%lunsec\n",m.tv_sec,m.tv_nsec,n.tv_sec,n.tv_nsec,diff.tv_sec,diff.tv_nsec); 
+		char * a = timespectoa(&m);
+		char * b = timespectoa(&n);
+		char * c = timespectoa(&diff);
+		printf("TIMESPEC_PRINTF:\nm_expr %s n_expr %s diff %s\n",a,b,c);
+		free(a);
+		free(b);
+		free(c);
+		//printf below is wrong
+		//printf("m_expr which is %ld.%lu \nand\nn_expr which is %ld.%lu\nare not close; diff=%ld.%lunsec\n",m.tv_sec,m.tv_nsec,n.tv_sec,n.tv_nsec,diff.tv_sec,diff.tv_nsec); 
 		return FALSE;
 	}
 }
