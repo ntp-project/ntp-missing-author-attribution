@@ -26,6 +26,7 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
+void resetTest(void);
 extern void test_RegularTime(void);
 extern void test_CurrentTime(void);
 
@@ -46,8 +47,8 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "humandate.c";
   UnityBegin("humandate.c");
-  RUN_TEST(test_RegularTime, 8);
-  RUN_TEST(test_CurrentTime, 22);
+  RUN_TEST(test_RegularTime, 9);
+  RUN_TEST(test_CurrentTime, 24);
 
   return (UnityEnd());
 }

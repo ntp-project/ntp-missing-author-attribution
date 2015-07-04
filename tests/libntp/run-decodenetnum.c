@@ -52,11 +52,11 @@ int main(int argc, char *argv[])
   Unity.TestFile = "decodenetnum.c";
   UnityBegin("decodenetnum.c");
   RUN_TEST(test_IPv4AddressOnly, 9);
-  RUN_TEST(test_IPv4AddressWithPort, 22);
-  RUN_TEST(test_IPv6AddressOnly, 35);
-  RUN_TEST(test_IPv6AddressWithPort, 55);
-  RUN_TEST(test_IllegalAddress, 75);
-  RUN_TEST(test_IllegalCharInPort, 82);
+  RUN_TEST(test_IPv4AddressWithPort, 23);
+  RUN_TEST(test_IPv6AddressOnly, 37);
+  RUN_TEST(test_IPv6AddressWithPort, 58);
+  RUN_TEST(test_IllegalAddress, 79);
+  RUN_TEST(test_IllegalCharInPort, 87);
 
   return (UnityEnd());
 }
