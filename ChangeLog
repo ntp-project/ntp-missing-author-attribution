@@ -11,6 +11,7 @@ Below are from 4.2.8p4:
 * tests/libntp/timevalops.c and timespecops.c fixd error printing.  D.Tomić.
 * tests/libntp/ improvements in code and fixed error printing.  Damir Tomić.
 * sntp/unity/unity_config.h: Distribute it.  Harlan Stenn.
+* sntp/libevent/evconfig-private.h: remove generated filefrom SCM.  H.Stenn.
 (4.3.52) 2015/07/03 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * libntp/emalloc.c: Remove explicit include of stdint.h.  Harlan Stenn.
