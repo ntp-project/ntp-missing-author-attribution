@@ -53,14 +53,14 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "msyslog.c";
   UnityBegin("msyslog.c");
-  RUN_TEST(test_msnprintf, 14);
-  RUN_TEST(test_msnprintfLiteralPercentm, 30);
-  RUN_TEST(test_msnprintfBackslashLiteralPercentm, 45);
-  RUN_TEST(test_msnprintfBackslashPercent, 59);
-  RUN_TEST(test_msnprintfHangingPercent, 74);
-  RUN_TEST(test_format_errmsgHangingPercent, 91);
-  RUN_TEST(test_msnprintfNullTarget, 106);
-  RUN_TEST(test_msnprintfTruncate, 117);
+  RUN_TEST(test_msnprintf, 13);
+  RUN_TEST(test_msnprintfLiteralPercentm, 29);
+  RUN_TEST(test_msnprintfBackslashLiteralPercentm, 44);
+  RUN_TEST(test_msnprintfBackslashPercent, 58);
+  RUN_TEST(test_msnprintfHangingPercent, 73);
+  RUN_TEST(test_format_errmsgHangingPercent, 90);
+  RUN_TEST(test_msnprintfNullTarget, 105);
+  RUN_TEST(test_msnprintfTruncate, 116);
 
   return (UnityEnd());
 }

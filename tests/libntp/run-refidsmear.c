@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "refidsmear.c";
   UnityBegin("refidsmear.c");
-  RUN_TEST(test_refidsmear, 100);
+  RUN_TEST(test_refidsmear, 101);
 
   return (UnityEnd());
 }

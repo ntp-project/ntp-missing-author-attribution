@@ -26,9 +26,10 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_NoWrapInDateRange();
-extern void test_NoWrapInDateRangeLeapYear();
-extern void test_WrapInDateRange();
+void resetTest(void);
+extern void test_NoWrapInDateRange(void);
+extern void test_NoWrapInDateRangeLeapYear(void);
+extern void test_WrapInDateRange(void);
 
 
 //=======Test Reset Option=====

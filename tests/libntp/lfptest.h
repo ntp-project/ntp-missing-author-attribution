@@ -3,6 +3,8 @@
 
 #include "ntp_fp.h"
 
+int IsEqual(const l_fp expected, const l_fp actual);
+
 int IsEqual(const l_fp expected, const l_fp actual) {
 	if (L_ISEQU(&expected, &actual)) {
 		return TRUE;

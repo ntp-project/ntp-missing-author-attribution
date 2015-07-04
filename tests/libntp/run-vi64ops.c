@@ -27,9 +27,9 @@
 extern void setUp(void);
 extern void tearDown(void);
 void resetTest(void);
-extern void test_ParseVUI64_pos();
-extern void test_ParseVUI64_neg();
-extern void test_ParseVUI64_case();
+extern void test_ParseVUI64_pos(void);
+extern void test_ParseVUI64_neg(void);
+extern void test_ParseVUI64_case(void);
 
 
 //=======Test Reset Option=====
@@ -48,9 +48,9 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "vi64ops.c";
   UnityBegin("vi64ops.c");
-  RUN_TEST(test_ParseVUI64_pos, 33);
-  RUN_TEST(test_ParseVUI64_neg, 47);
-  RUN_TEST(test_ParseVUI64_case, 60);
+  RUN_TEST(test_ParseVUI64_pos, 32);
+  RUN_TEST(test_ParseVUI64_neg, 46);
+  RUN_TEST(test_ParseVUI64_case, 59);
 
   return (UnityEnd());
 }

@@ -318,7 +318,7 @@ double eps(double d)
 //----------------------------------------------------------------------
 // test addition
 //----------------------------------------------------------------------
-void test_AdditionLR() {
+void test_AdditionLR(void) {
 	
 	size_t idx=0;
 	for (idx=0; idx < addsub_cnt; ++idx) {
@@ -337,7 +337,7 @@ void test_AdditionLR() {
 	}	
 }
 
-void test_AdditionRL() {
+void test_AdditionRL(void) {
 
 	size_t idx=0;
 	for (idx=0; idx < addsub_cnt; ++idx) {
@@ -356,7 +356,7 @@ void test_AdditionRL() {
 //----------------------------------------------------------------------
 // test subtraction
 //----------------------------------------------------------------------
-void test_SubtractionLR() {
+void test_SubtractionLR(void) {
 
 	size_t idx=0;
 	for (idx=0; idx < addsub_cnt; ++idx) {
@@ -371,7 +371,7 @@ void test_SubtractionLR() {
 	}	
 }
 
-void test_SubtractionRL() {
+void test_SubtractionRL(void) {
 
 	size_t idx=0;
 	for (idx=0; idx < addsub_cnt; ++idx) {
@@ -389,7 +389,7 @@ void test_SubtractionRL() {
 // test negation
 //----------------------------------------------------------------------
 
-void test_Negation() {
+void test_Negation(void) {
 
 	size_t idx=0;
 	for (idx=0; idx < addsub_cnt; ++idx) {
@@ -410,7 +410,7 @@ void test_Negation() {
 //----------------------------------------------------------------------
 // test absolute value
 //----------------------------------------------------------------------
-void test_Absolute() {
+void test_Absolute(void) {
 	size_t idx=0;
 	for (idx=0; idx < addsub_cnt; ++idx) {
 		l_fp op1 = l_fp_init(addsub_tab[idx][0].h, addsub_tab[idx][0].l);
@@ -445,7 +445,7 @@ void test_Absolute() {
 //----------------------------------------------------------------------
 // fp -> double -> fp rountrip test
 //----------------------------------------------------------------------
-void test_FDF_RoundTrip() {
+void test_FDF_RoundTrip(void) {
 	// since a l_fp has 64 bits in it's mantissa and a double has
 	// only 54 bits available (including the hidden '1') we have to
 	// make a few concessions on the roundtrip precision. The 'eps()'
@@ -477,8 +477,7 @@ void test_FDF_RoundTrip() {
 // This uses the local compare and checks if the operations using the
 // macros in 'ntp_fp.h' produce mathing results.
 // ----------------------------------------------------------------------
-void test_SignedRelOps() {
-	//const lfp_hl * tv(&addsub_tab[0][0]);
+void test_SignedRelOps(void) {
 	const lfp_hl * tv = (&addsub_tab[0][0]);
 	size_t lc ;
 	for (lc=addsub_tot-1; lc; --lc,++tv) {
@@ -520,7 +519,7 @@ void test_SignedRelOps() {
 	}
 }
 
-void test_UnsignedRelOps() {
+void test_UnsignedRelOps(void) {
 	const lfp_hl * tv =(&addsub_tab[0][0]);	
 	size_t lc;
 	for (lc=addsub_tot-1; lc; --lc,++tv) {
