@@ -17,22 +17,22 @@ extern int kod_db_cnt;
 extern struct kod_entry** kod_db;
 extern char* kod_db_file;
 
-void setUp() {
+void setUp(void) {
 		kod_db_cnt = 0;
 		kod_db = NULL;
 }
 
-void tearDown() {
+void tearDown(void) {
 }
 
 
-void test_ReadEmptyFile() {
+void test_ReadEmptyFile(void) {
 	kod_init_kod_db(CreatePath("kod-test-empty", INPUT_DIR), TRUE);
 
 	TEST_ASSERT_EQUAL(0, kod_db_cnt);
 }
 
-void test_ReadCorrectFile() {
+void test_ReadCorrectFile(void) {
 	kod_init_kod_db(CreatePath("kod-test-correct", INPUT_DIR), TRUE);
 	
 	TEST_ASSERT_EQUAL(2, kod_db_cnt);
@@ -50,7 +50,7 @@ void test_ReadCorrectFile() {
 	TEST_ASSERT_EQUAL(0xfff, res->timestamp);
 }
 
-void test_ReadFileWithBlankLines() {
+void test_ReadFileWithBlankLines(void) {
 	kod_init_kod_db(CreatePath("kod-test-blanks", INPUT_DIR), TRUE);
 
 	TEST_ASSERT_EQUAL(3, kod_db_cnt);
@@ -73,7 +73,7 @@ void test_ReadFileWithBlankLines() {
 	TEST_ASSERT_EQUAL(0xabcd, res->timestamp);
 }
 
-void test_WriteEmptyFile() {
+void test_WriteEmptyFile(void) {
 	//kod_db_file = estrdup(CreatePath("kod-output-blank", OUTPUT_DIR)); //causing issues on psp-at1, replaced
 	kod_db_file = estrdup("kod-output-blank");
 	//printf("kod PATH: %s\n",kod_db_file);
@@ -89,7 +89,7 @@ void test_WriteEmptyFile() {
 	fclose(is);
 }
 
-void test_WriteFileWithSingleEntry() {
+void test_WriteFileWithSingleEntry(void) {
 	//kod_db_file = estrdup(CreatePath("kod-output-single", OUTPUT_DIR)); //causing issues on psp-at1, replaced
 	kod_db_file = estrdup("kod-output-single"); 
     	//printf("kod PATH: %s\n",kod_db_file);
@@ -113,7 +113,7 @@ void test_WriteFileWithSingleEntry() {
 	TEST_ASSERT_TRUE(CompareFileContent(expected, actual));
 }
 
-void test_WriteFileWithMultipleEntries() {
+void test_WriteFileWithMultipleEntries(void) {
 	//kod_db_file = estrdup(CreatePath("kod-output-multiple", OUTPUT_DIR)); //causing issues on psp-at1, replaced
 	kod_db_file = estrdup("kod-output-multiple");
     	//printf("kod PATH: %s\n",kod_db_file);

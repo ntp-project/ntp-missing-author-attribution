@@ -26,11 +26,12 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_ReadEmptyKeyFile();
-extern void test_ReadASCIIKeys();
-extern void test_ReadHexKeys();
-extern void test_ReadKeyFileWithComments();
-extern void test_ReadKeyFileWithInvalidHex();
+void resetTest(void);
+extern void test_ReadEmptyKeyFile(void);
+extern void test_ReadASCIIKeys(void);
+extern void test_ReadHexKeys(void);
+extern void test_ReadKeyFileWithComments(void);
+extern void test_ReadKeyFileWithInvalidHex(void);
 
 
 //=======Test Reset Option=====

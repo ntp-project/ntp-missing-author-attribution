@@ -4,12 +4,15 @@
 #include "ntp_stdlib.h"
 #include "sntp-opts.h"
 
+void sntptest(void);
+void sntptest_destroy(void);
+void ActivateOption(const char* option, const char* argument);
 
-sntptest() {
+void sntptest(void) {
 	optionSaveState(&sntpOptions);
 }
 
-sntptest_destroy() {
+void sntptest_destroy(void) {
 	optionRestore(&sntpOptions);
 }
 

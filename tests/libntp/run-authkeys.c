@@ -26,12 +26,13 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_AddTrustedKeys();
-extern void test_AddUntrustedKey();
-extern void test_HaveKeyCorrect();
-extern void test_HaveKeyIncorrect();
-extern void test_AddWithAuthUseKey();
-extern void test_EmptyKey();
+void resetTest(void);
+extern void test_AddTrustedKeys(void);
+extern void test_AddUntrustedKey(void);
+extern void test_HaveKeyCorrect(void);
+extern void test_HaveKeyIncorrect(void);
+extern void test_AddWithAuthUseKey(void);
+extern void test_EmptyKey(void);
 
 
 //=======Test Reset Option=====

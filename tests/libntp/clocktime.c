@@ -15,13 +15,13 @@
 // dependent on the actual system time.
 
 
-void setUp()
+void setUp(void)
 {
     ntpcal_set_timefunc(timefunc);
     settime(2000, 1, 1, 0, 0, 0);
 }
 
-void tearDown()
+void tearDown(void)
 {
     ntpcal_set_timefunc(NULL);
 }
@@ -29,7 +29,7 @@ void tearDown()
 // ---------------------------------------------------------------------
 // test cases
 
-void test_CurrentYear() {
+void test_CurrentYear(void) {
 	// Timestamp: 2010-06-24 12:50:00Z
 	const u_int32 timestamp = 3486372600UL;
 	const u_int32 expected	= timestamp; // exactly the same.
@@ -44,7 +44,7 @@ void test_CurrentYear() {
 	TEST_ASSERT_EQUAL(expected, actual);
 }
 
-void test_CurrentYearFuzz() {
+void test_CurrentYearFuzz(void) {
 	/* 
 	 * Timestamp (rec_ui) is: 2010-06-24 12:50:00
 	 * Time sent into function is 12:00:00.
@@ -66,7 +66,7 @@ void test_CurrentYearFuzz() {
 	TEST_ASSERT_EQUAL(expected, actual);
 }
 
-void test_TimeZoneOffset() {
+void test_TimeZoneOffset(void) {
 	/*
 	 * Timestamp (rec_ui) is: 2010-06-24 12:00:00 +0800
 	 * (which is 2010-06-24 04:00:00Z)
@@ -86,7 +86,7 @@ void test_TimeZoneOffset() {
 	TEST_ASSERT_EQUAL(expected, actual);
 }
 
-void test_WrongYearStart() {
+void test_WrongYearStart(void) {
 	/* 
 	 * Timestamp (rec_ui) is: 2010-01-02 11:00:00Z
 	 * Time sent into function is 11:00:00.
@@ -105,7 +105,7 @@ void test_WrongYearStart() {
 	TEST_ASSERT_EQUAL(expected, actual);
 }
 
-void test_PreviousYear() {
+void test_PreviousYear(void) {
 	/*
 	 * Timestamp is: 2010-01-01 01:00:00Z
 	 * Time sent into function is 23:00:00
@@ -124,7 +124,7 @@ void test_PreviousYear() {
 	TEST_ASSERT_EQUAL(expected, actual);
 }
 
-void test_NextYear() {
+void test_NextYear(void) {
 	/*
 	 * Timestamp is: 2009-12-31 23:00:00Z
 	 * Time sent into function is 01:00:00
@@ -142,7 +142,7 @@ void test_NextYear() {
 	TEST_ASSERT_EQUAL(expected, actual);
 }
 
-void test_NoReasonableConversion() {
+void test_NoReasonableConversion(void) {
 	/* Timestamp is: 2010-01-02 11:00:00Z */
 	const u_int32 timestamp = 3471418800UL;
 	
@@ -164,7 +164,7 @@ int isLE(u_int32 diff,u_int32 actual){
 }
 
 
-void test_AlwaysInLimit() {
+void test_AlwaysInLimit(void) {
 	/* Timestamp is: 2010-01-02 11:00:00Z */
 	const u_int32 timestamp = 3471418800UL;
 	const u_short prime_incs[] = { 127, 151, 163, 179 };

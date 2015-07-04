@@ -26,17 +26,18 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_DaySplitMerge();
-extern void test_SplitYearDays1();
-extern void test_SplitYearDays2();
-extern void test_RataDie1();
-extern void test_LeapYears1();
-extern void test_LeapYears2();
-extern void test_RoundTripDate();
-extern void test_RoundTripYearStart();
-extern void test_RoundTripMonthStart();
-extern void test_RoundTripWeekStart();
-extern void test_RoundTripDayStart();
+void resetTest(void);
+extern void test_DaySplitMerge(void);
+extern void test_SplitYearDays1(void);
+extern void test_SplitYearDays2(void);
+extern void test_RataDie1(void);
+extern void test_LeapYears1(void);
+extern void test_LeapYears2(void);
+extern void test_RoundTripDate(void);
+extern void test_RoundTripYearStart(void);
+extern void test_RoundTripMonthStart(void);
+extern void test_RoundTripWeekStart(void);
+extern void test_RoundTripDayStart(void);
 
 
 //=======Test Reset Option=====
@@ -55,17 +56,17 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "calendar.c";
   UnityBegin("calendar.c");
-  RUN_TEST(test_DaySplitMerge, 230);
-  RUN_TEST(test_SplitYearDays1, 254);
-  RUN_TEST(test_SplitYearDays2, 268);
-  RUN_TEST(test_RataDie1, 283);
-  RUN_TEST(test_LeapYears1, 293);
-  RUN_TEST(test_LeapYears2, 308);
-  RUN_TEST(test_RoundTripDate, 326);
-  RUN_TEST(test_RoundTripYearStart, 355);
-  RUN_TEST(test_RoundTripMonthStart, 371);
-  RUN_TEST(test_RoundTripWeekStart, 387);
-  RUN_TEST(test_RoundTripDayStart, 403);
+  RUN_TEST(test_DaySplitMerge, 225);
+  RUN_TEST(test_SplitYearDays1, 249);
+  RUN_TEST(test_SplitYearDays2, 263);
+  RUN_TEST(test_RataDie1, 278);
+  RUN_TEST(test_LeapYears1, 288);
+  RUN_TEST(test_LeapYears2, 303);
+  RUN_TEST(test_RoundTripDate, 321);
+  RUN_TEST(test_RoundTripYearStart, 350);
+  RUN_TEST(test_RoundTripMonthStart, 366);
+  RUN_TEST(test_RoundTripWeekStart, 382);
+  RUN_TEST(test_RoundTripDayStart, 398);
 
   return (UnityEnd());
 }

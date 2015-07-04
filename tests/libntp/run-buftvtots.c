@@ -26,10 +26,11 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_ZeroBuffer();
-extern void test_IntegerAndFractionalBuffer();
-extern void test_IllegalMicroseconds();
-extern void test_AlwaysFalseOnWindows();
+void resetTest(void);
+extern void test_ZeroBuffer(void);
+extern void test_IntegerAndFractionalBuffer(void);
+extern void test_IllegalMicroseconds(void);
+extern void test_AlwaysFalseOnWindows(void);
 
 
 //=======Test Reset Option=====

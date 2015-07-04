@@ -105,7 +105,7 @@ AM_CPPFLAGS += $(CPPFLAGS_LIBEVENT)
 AM_CPPFLAGS += $(CPPFLAGS_NTP)
 AM_CPPFLAGS += -DUNITY_INCLUDE_CONFIG_H
 AM_CPPFLAGS += -I$(top_srcdir)/sntp/unity
-#AM_CPPFLAGS += -I$(top_srcdir)/unity
+AM_CPPFLAGS += -I$(top_srcdir)/unity
 
 AM_LDFLAGS = $(LDFLAGS_NTP)
 

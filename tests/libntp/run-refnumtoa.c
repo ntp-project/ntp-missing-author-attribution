@@ -26,8 +26,9 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_LocalClock();
-extern void test_UnknownId();
+void resetTest(void);
+extern void test_LocalClock(void);
+extern void test_UnknownId(void);
 
 
 //=======Test Reset Option=====

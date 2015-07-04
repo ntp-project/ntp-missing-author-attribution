@@ -13,7 +13,7 @@
 
 
 
-void test_ZeroBuffer() {
+void test_ZeroBuffer(void) {
 #ifndef SYS_WINNT
 	const struct timeval input = {0, 0};
 	const l_fp expected = {0 + JAN_1970, 0};
@@ -27,7 +27,7 @@ void test_ZeroBuffer() {
 #endif
 }
 
-void test_IntegerAndFractionalBuffer() {
+void test_IntegerAndFractionalBuffer(void) {
 #ifndef SYS_WINNT
 	const struct timeval input = {5, 500000}; // 5.5
 	const l_fp expected = {5 + JAN_1970, HALF};
@@ -50,7 +50,7 @@ void test_IntegerAndFractionalBuffer() {
 #endif
 }
 
-void test_IllegalMicroseconds() {
+void test_IllegalMicroseconds(void) {
 #ifndef SYS_WINNT
 	const struct timeval input = {0, 1100000}; // > 999 999 microseconds.
 	
@@ -63,7 +63,7 @@ void test_IllegalMicroseconds() {
 }
 
 
-void test_AlwaysFalseOnWindows() {
+void test_AlwaysFalseOnWindows(void) {
 #ifdef SYS_WINNT
 	/*
 	 * Under Windows, buftvtots will just return

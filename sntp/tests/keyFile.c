@@ -50,7 +50,7 @@ bool CompareKeysAlternative(int key_id,
 }
 
 
-void test_ReadEmptyKeyFile() {
+void test_ReadEmptyKeyFile(void) {
 	struct key* keys = NULL;
 
 	TEST_ASSERT_EQUAL(0, auth_init(CreatePath("key-test-empty", INPUT_DIR), &keys));
@@ -58,7 +58,7 @@ void test_ReadEmptyKeyFile() {
 	TEST_ASSERT_TRUE(keys == NULL);
 }
 
-void test_ReadASCIIKeys() {
+void test_ReadASCIIKeys(void) {
 	struct key* keys = NULL;
 
 	TEST_ASSERT_EQUAL(2, auth_init(CreatePath("key-test-ascii", INPUT_DIR), &keys));
@@ -76,7 +76,7 @@ void test_ReadASCIIKeys() {
 	TEST_ASSERT_TRUE(CompareKeysAlternative(50, 11, "MD5", "asciikeyOne", *result));
 }
 
-void test_ReadHexKeys() {
+void test_ReadHexKeys(void) {
 	struct key* keys = NULL;
 
 	TEST_ASSERT_EQUAL(3, auth_init(CreatePath("key-test-hex", INPUT_DIR), &keys));
@@ -102,7 +102,7 @@ void test_ReadHexKeys() {
 	TEST_ASSERT_TRUE(CompareKeysAlternative(30, 13, "MD5", data2, *result));
 }
 
-void test_ReadKeyFileWithComments() {
+void test_ReadKeyFileWithComments(void) {
 	struct key* keys = NULL;
 
 	TEST_ASSERT_EQUAL(2, auth_init(CreatePath("key-test-comments", INPUT_DIR), &keys));
@@ -121,7 +121,7 @@ void test_ReadKeyFileWithComments() {
 	TEST_ASSERT_TRUE(CompareKeysAlternative(34, 3, "MD5", "xyz", *result));
 }
 
-void test_ReadKeyFileWithInvalidHex() {
+void test_ReadKeyFileWithInvalidHex(void) {
 	struct key* keys = NULL;
 
 	TEST_ASSERT_EQUAL(1, auth_init(CreatePath("key-test-invalid-hex", INPUT_DIR), &keys));

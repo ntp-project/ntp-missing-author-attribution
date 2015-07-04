@@ -10,7 +10,6 @@ void	format_errmsg	(char *, size_t, const char *, int);
 #endif
 
 
-
 void test_msnprintf(void) {
 #define FMT_PREFIX "msyslog.cpp ENOENT: "
 	char	exp_buf[512];

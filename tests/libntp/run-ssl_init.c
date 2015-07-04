@@ -26,11 +26,12 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_MD5KeyTypeWithoutDigestLength();
-extern void test_MD5KeyTypeWithDigestLength();
-extern void test_SHA1KeyTypeWithDigestLength();
-extern void test_MD5KeyName();
-extern void test_SHA1KeyName();
+void resetTest(void);
+extern void test_MD5KeyTypeWithoutDigestLength(void);
+extern void test_MD5KeyTypeWithDigestLength(void);
+extern void test_SHA1KeyTypeWithDigestLength(void);
+extern void test_MD5KeyName(void);
+extern void test_SHA1KeyName(void);
 
 
 //=======Test Reset Option=====

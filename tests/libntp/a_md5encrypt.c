@@ -33,7 +33,7 @@ const char *packet = "ijklmnopqrstuvwx";
 const int totalLength = packetLength + keyIdLength + digestLength;
 const char *expectedPacket = "ijklmnopqrstuvwx\0\0\0\0\x0c\x0e\x84\xcf\x0b\xb7\xa8\x68\x8e\x52\x38\xdb\xbc\x1c\x39\x53";
 
-void test_Encrypt() {
+void test_Encrypt(void) {
 	char *packetPtr = malloc(totalLength*sizeof(*packetPtr)); //new char[totalLength];
 
 	memset(packetPtr+packetLength, 0, keyIdLength);
@@ -52,13 +52,13 @@ void test_Encrypt() {
 	free(packetPtr); //delete[] packetPtr;
 }
 
-void test_DecryptValid() {
+void test_DecryptValid(void) {
 	cache_secretsize = keyLength;
 
 	TEST_ASSERT_TRUE(MD5authdecrypt(keytype, (u_char*)key, (u_int32*)expectedPacket, packetLength, 20));
 }
 
-void test_DecryptInvalid() {
+void test_DecryptInvalid(void) {
 	cache_secretsize = keyLength;
 
 	const char *invalidPacket = "ijklmnopqrstuvwx\0\0\0\0\x0c\x0e\x84\xcf\x0b\xb7\xa8\x68\x8e\x52\x38\xdb\xbc\x1c\x39\x54";
@@ -66,7 +66,7 @@ void test_DecryptInvalid() {
 	TEST_ASSERT_FALSE(MD5authdecrypt(keytype, (u_char*)key, (u_int32*)invalidPacket, packetLength, 20));
 }
 
-void test_IPv4AddressToRefId() {
+void test_IPv4AddressToRefId(void) {
 	sockaddr_u addr;
 	addr.sa4.sin_family = AF_INET;
 	addr.sa4.sin_port = htons(80);
@@ -77,7 +77,7 @@ void test_IPv4AddressToRefId() {
 	TEST_ASSERT_EQUAL(address, addr2refid(&addr));
 }
 
-void test_IPv6AddressToRefId() {
+void test_IPv6AddressToRefId(void) {
 	const struct in6_addr address = {
 		0x20, 0x01, 0x0d, 0xb8,
 		0x85, 0xa3, 0x08, 0xd3,

@@ -43,7 +43,7 @@ void PrepareAuthenticationTestMD5(int key_id,
 	PrepareAuthenticationTest(key_id, key_len, "MD5", key_seq);
 }
 
-void setUp() {
+void setUp(void) {
 
 	sntptest();
 	restoreKeyDb = false;
@@ -66,7 +66,7 @@ void setUp() {
 
 }
 
-void tearDown() {
+void tearDown(void) {
 	
 	if (restoreKeyDb) {
 		key_cnt = 0;

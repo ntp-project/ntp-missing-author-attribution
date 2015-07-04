@@ -10,7 +10,7 @@
 static const int UNUSED_REFCLOCK_ID = 250;
 
 
-void test_LocalClock() {
+void test_LocalClock(void) {
 #ifdef REFCLOCK		/* clockname() is useless otherwise */
 	/* We test with a refclock address of type LOCALCLOCK.
 	 * with id 8
@@ -38,7 +38,7 @@ void test_LocalClock() {
 
 
 
-void test_UnknownId() {
+void test_UnknownId(void) {
 #ifdef REFCLOCK		/* refnumtoa() is useless otherwise */
 	/* We test with a currently unused refclock ID */
 	u_int32 addr = REFCLOCK_ADDR;
