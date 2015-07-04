@@ -10,6 +10,7 @@ Below are from 4.2.8p4:
 * sntp/unity/unity_internals.h: handle *INTPTR_MAX on old Solaris.  H.Stenn.
 * tests/libntp/timevalops.c and timespecops.c fixd error printing.  D.Tomić.
 * tests/libntp/ improvements in code and fixed error printing.  Damir Tomić.
+* sntp/unity/unity_config.h: Distribute it.  Harlan Stenn.
 (4.3.52) 2015/07/03 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * libntp/emalloc.c: Remove explicit include of stdint.h.  Harlan Stenn.

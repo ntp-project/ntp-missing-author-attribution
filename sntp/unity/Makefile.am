@@ -13,6 +13,7 @@ libunity_a_SOURCES =				\
 	../libpkgver/colcomp.c			\
 	unity.c					\
 	unity.h					\
+	unity_config.h				\
 	unity_internals.h			\
 	unity_fixture.c				\
 	unity_fixture.h				\
