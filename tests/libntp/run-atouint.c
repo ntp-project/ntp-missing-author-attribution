@@ -26,11 +26,12 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_RegularPositive();
-extern void test_PositiveOverflowBoundary();
-extern void test_PositiveOverflowBig();
-extern void test_Negative();
-extern void test_IllegalChar();
+void resetTest(void);
+extern void test_RegularPositive(void);
+extern void test_PositiveOverflowBoundary(void);
+extern void test_PositiveOverflowBig(void);
+extern void test_Negative(void);
+extern void test_IllegalChar(void);
 
 
 //=======Test Reset Option=====

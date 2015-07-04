@@ -152,7 +152,7 @@ u_int32 my_tsf_to_tick(u_int32 tsf)
 // test support stuff -- part 1
 // ---------------------------------------------------------------------
 
-void test_Helpers1() {
+void test_Helpers1(void) {
 	struct timespec x;
 
 	for (x.tv_sec = -2; x.tv_sec < 3; x.tv_sec++) {
@@ -172,7 +172,7 @@ void test_Helpers1() {
 // test normalisation
 //----------------------------------------------------------------------
 
-void test_Normalise() {
+void test_Normalise(void) {
 	long ns;
 	for ( ns = -2000000000; ns <= 2000000000; ns += 10000000) {
 		struct timespec x = timespec_init(0, ns);
@@ -186,7 +186,7 @@ void test_Normalise() {
 // test classification
 //----------------------------------------------------------------------
 
-void test_SignNoFrac() {
+void test_SignNoFrac(void) {
 	// sign test, no fraction
 	int i;
 	for (i = -4; i <= 4; ++i) {
@@ -198,7 +198,7 @@ void test_SignNoFrac() {
 	}
 }
 
-void test_SignWithFrac() {
+void test_SignWithFrac(void) {
 	// sign test, with fraction
 	int i;
 	for (i = -4; i <= 4; ++i) {
@@ -212,7 +212,7 @@ void test_SignWithFrac() {
 //----------------------------------------------------------------------
 // test compare
 //----------------------------------------------------------------------
-void test_CmpFracEQ() {
+void test_CmpFracEQ(void) {
 	// fractions are equal
 	int i,j;
 	for (i = -4; i <= 4; ++i)
@@ -225,7 +225,7 @@ void test_CmpFracEQ() {
 		}
 }
 
-void test_CmpFracGT() {
+void test_CmpFracGT(void) {
 	// fraction a bigger fraction b
 	int i,j;
 	for (i = -4; i <= 4; ++i)
@@ -238,7 +238,7 @@ void test_CmpFracGT() {
 		}
 }
 
-void test_CmpFracLT() {
+void test_CmpFracLT(void) {
 	// fraction a less fraction b
 	int i,j;
 	for (i = -4; i <= 4; ++i)
@@ -255,7 +255,7 @@ void test_CmpFracLT() {
 // Test addition (sum)
 //----------------------------------------------------------------------
 
-void test_AddFullNorm() {
+void test_AddFullNorm(void) {
 	int i,j;
 	for (i = -4; i <= 4; ++i)
 		for (j = -4; j <= 4; ++j) {
@@ -269,7 +269,7 @@ void test_AddFullNorm() {
 		}
 }
 
-void test_AddFullOflow1() {
+void test_AddFullOflow1(void) {
 	int i,j;
 	for (i = -4; i <= 4; ++i)
 		for (j = -4; j <= 4; ++j) {
@@ -283,7 +283,7 @@ void test_AddFullOflow1() {
 		}
 }
 
-void test_AddNsecNorm() {
+void test_AddNsecNorm(void) {
 	int i;
 	for (i = -4; i <= 4; ++i) {
 		struct timespec a = timespec_init(i, 200);
@@ -295,7 +295,7 @@ void test_AddNsecNorm() {
 	}
 }
 
-void test_AddNsecOflow1() {
+void test_AddNsecOflow1(void) {
 	int i;
 	for (i = -4; i <= 4; ++i) {
 		struct timespec a = timespec_init(i, 200);
@@ -311,7 +311,7 @@ void test_AddNsecOflow1() {
 // test subtraction (difference)
 //----------------------------------------------------------------------
 
-void test_SubFullNorm() {
+void test_SubFullNorm(void) {
 	int i,j;
 	for (i = -4; i <= 4; ++i)
 		for (j = -4; j <= 4; ++j) {
@@ -325,7 +325,7 @@ void test_SubFullNorm() {
 		}
 }
 
-void test_SubFullOflow() {
+void test_SubFullOflow(void) {
 	int i,j;
 	for (i = -4; i <= 4; ++i)
 		for (j = -4; j <= 4; ++j) {
@@ -339,7 +339,7 @@ void test_SubFullOflow() {
 		}
 }
 
-void test_SubNsecNorm() {
+void test_SubNsecNorm(void) {
 	int i;
 	for (i = -4; i <= 4; ++i) {
 		struct timespec a = timespec_init(i, 600);
@@ -351,7 +351,7 @@ void test_SubNsecNorm() {
 	}
 }
 
-void test_SubNsecOflow() {
+void test_SubNsecOflow(void) {
 	int i;
 	for (i = -4; i <= 4; ++i) {
 		struct timespec a = timespec_init( i , 100);
@@ -367,7 +367,7 @@ void test_SubNsecOflow() {
 // test negation
 //----------------------------------------------------------------------
 
-void test_Neg() {
+void test_Neg(void) {
 	int i;
 	for (i = -4; i <= 4; ++i) {
 		struct timespec a = timespec_init(i, 100);
@@ -384,7 +384,7 @@ void test_Neg() {
 // test abs value
 //----------------------------------------------------------------------
 
-void test_AbsNoFrac() {
+void test_AbsNoFrac(void) {
 	int i;
 	for (i = -4; i <= 4; ++i) {
 		struct timespec a = timespec_init(i , 0);
@@ -395,7 +395,7 @@ void test_AbsNoFrac() {
 	}
 }
 
-void test_AbsWithFrac() {
+void test_AbsWithFrac(void) {
 	int i;
 	for (i = -4; i <= 4; ++i) {
 		struct timespec a = timespec_init(i, 100);
@@ -410,7 +410,7 @@ void test_AbsWithFrac() {
 // test support stuff -- part 2
 // ---------------------------------------------------------------------
 
-void test_Helpers2() {
+void test_Helpers2(void) {
 	struct timespec limit = timespec_init(0,2);
 	
 	struct timespec x, y;
@@ -442,7 +442,7 @@ void test_Helpers2() {
 // conversion to l_fp
 //----------------------------------------------------------------------
 
-void test_ToLFPbittest() {
+void test_ToLFPbittest(void) {
 	l_fp lfpClose =  l_fp_init(0,1);
 	u_int32 i;
 	for (i = 0; i < 1000000000; i+=1000) {
@@ -455,7 +455,7 @@ void test_ToLFPbittest() {
 	}
 }
 
-void test_ToLFPrelPos() {
+void test_ToLFPrelPos(void) {
 	int i;
 	for (i = 0; i < COUNTOF(fdata); i++) {
 		struct timespec a = timespec_init(1, fdata[i].nsec);
@@ -467,7 +467,7 @@ void test_ToLFPrelPos() {
 	}
 }
 
-void test_ToLFPrelNeg() {
+void test_ToLFPrelNeg(void) {
 	int i;
 	for (i = 0; i < COUNTOF(fdata); i++) {
 		struct timespec a = timespec_init(-1, fdata[i].nsec);
@@ -479,7 +479,7 @@ void test_ToLFPrelNeg() {
 	}
 }
 
-void test_ToLFPabs() {
+void test_ToLFPabs(void) {
 	int i;
 	for (i = 0; i < COUNTOF(fdata); i++) {
 		struct timespec a = timespec_init(1, fdata[i].nsec);
@@ -494,7 +494,7 @@ void test_ToLFPabs() {
 //----------------------------------------------------------------------
 // conversion from l_fp
 //----------------------------------------------------------------------
-void test_FromLFPbittest() {
+void test_FromLFPbittest(void) {
 	struct timespec limit = timespec_init(0,2);
 
 	// Not *exactly* a bittest, because 2**32 tests would take a
@@ -513,7 +513,7 @@ void test_FromLFPbittest() {
 	}
 }
 
-void test_FromLFPrelPos() {
+void test_FromLFPrelPos(void) {
 	struct timespec limit = timespec_init(0,2);
 	int i;
 	for (i = 0; i < COUNTOF(fdata); i++) {
@@ -526,7 +526,7 @@ void test_FromLFPrelPos() {
 	}
 }
 
-void test_FromLFPrelNeg() {
+void test_FromLFPrelNeg(void) {
 	struct timespec limit = timespec_init(0,2);
 	int i;
 	for (i = 0; i < COUNTOF(fdata); i++) {
@@ -541,7 +541,7 @@ void test_FromLFPrelNeg() {
 
 
 // nsec -> frac -> nsec roundtrip, using a prime start and increment
-void test_LFProundtrip() {
+void test_LFProundtrip(void) {
 	int32_t t;
 	u_int32 i;
 	for (t = -1; t < 2; ++t)
@@ -560,7 +560,7 @@ void test_LFProundtrip() {
 // string formatting
 //----------------------------------------------------------------------
 
-void test_ToString() {
+void test_ToString(void) {
 	static const struct {
 		time_t		sec;
 		long		nsec;

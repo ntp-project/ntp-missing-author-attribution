@@ -68,7 +68,7 @@ void AddUntrustedKey(keyid_t keyno) {
 	authtrust(keyno, FALSE);
 }
 
-void test_AddTrustedKeys() {
+void test_AddTrustedKeys(void) {
 	const keyid_t KEYNO1 = 5;
 	const keyid_t KEYNO2 = 8;
 
@@ -79,7 +79,7 @@ void test_AddTrustedKeys() {
 	TEST_ASSERT_TRUE(authistrusted(KEYNO2));
 }
 
-void test_AddUntrustedKey() {
+void test_AddUntrustedKey(void) {
 	const keyid_t KEYNO = 3;
    
 	AddUntrustedKey(KEYNO);
@@ -87,7 +87,7 @@ void test_AddUntrustedKey() {
 	TEST_ASSERT_FALSE(authistrusted(KEYNO));
 }
 
-void test_HaveKeyCorrect() {
+void test_HaveKeyCorrect(void) {
 	const keyid_t KEYNO = 3;
 
 	AddTrustedKey(KEYNO);
@@ -96,21 +96,21 @@ void test_HaveKeyCorrect() {
 	TEST_ASSERT_TRUE(authhavekey(KEYNO));
 }
 
-void test_HaveKeyIncorrect() {
+void test_HaveKeyIncorrect(void) {
 	const keyid_t KEYNO = 2;
 
 	TEST_ASSERT_FALSE(auth_havekey(KEYNO));
 	TEST_ASSERT_FALSE(authhavekey(KEYNO));
 }
 
-void test_AddWithAuthUseKey() {
+void test_AddWithAuthUseKey(void) {
 	const keyid_t KEYNO = 5;
 	const char* KEY = "52a";
 
 	TEST_ASSERT_TRUE(authusekey(KEYNO, KEYTYPE, (u_char*)KEY));	
 }
 
-void test_EmptyKey() {
+void test_EmptyKey(void) {
 	const keyid_t KEYNO = 3;
 	const char* KEY = "";
 

@@ -6,11 +6,9 @@
 
 #include "test-libntp.h"
 
-
 #include <string.h>
 //#include <stdlib.h>
 
-//added struct to calendar!
 
 char * CalendarToString(const struct calendar cal) {
 	char * ss = malloc (sizeof (char) * 100);
@@ -58,20 +56,20 @@ int IsEqual(const struct calendar expected, const struct calendar actual) {
 }
 
 
-void setUp()
+void setUp(void)
 {
 
     ntpcal_set_timefunc(timefunc);
     settime(1970, 1, 1, 0, 0, 0);
 }
 
-void tearDown()
+void tearDown(void)
 {
     ntpcal_set_timefunc(NULL);
 }
 
 
-void test_RegularTime() {
+void test_RegularTime(void) {
 	u_long testDate = 3485080800UL; // 2010-06-09 14:00:00
 	struct calendar expected = {2010,160,6,9,14,0,0};
 
@@ -82,7 +80,7 @@ void test_RegularTime() {
 	TEST_ASSERT_TRUE(IsEqual(expected, actual));
 }
 
-void test_LeapYear() {
+void test_LeapYear(void) {
 	u_long input = 3549902400UL; // 2012-06-28 20:00:00Z
 	struct calendar expected = {2012, 179, 6, 28, 20, 0, 0};
 
@@ -93,7 +91,7 @@ void test_LeapYear() {
 	TEST_ASSERT_TRUE(IsEqual(expected, actual));
 }
 
-void test_uLongBoundary() {
+void test_uLongBoundary(void) {
 	u_long time = 4294967295UL; // 2036-02-07 6:28:15
 	struct calendar expected = {2036,0,2,7,6,28,15};
 
@@ -104,7 +102,7 @@ void test_uLongBoundary() {
 	TEST_ASSERT_TRUE(IsEqual(expected, actual));
 }
 
-void test_uLongWrapped() {
+void test_uLongWrapped(void) {
 	u_long time = 0;
 	struct calendar expected = {2036,0,2,7,6,28,16};
 

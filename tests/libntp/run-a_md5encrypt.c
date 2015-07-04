@@ -27,11 +27,11 @@
 extern void setUp(void);
 extern void tearDown(void);
 void resetTest(void);
-extern void test_Encrypt();
-extern void test_DecryptValid();
-extern void test_DecryptInvalid();
-extern void test_IPv4AddressToRefId();
-extern void test_IPv6AddressToRefId();
+extern void test_Encrypt(void);
+extern void test_DecryptValid(void);
+extern void test_DecryptInvalid(void);
+extern void test_IPv4AddressToRefId(void);
+extern void test_IPv6AddressToRefId(void);
 
 
 //=======Test Reset Option=====
