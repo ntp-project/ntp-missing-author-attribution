@@ -1,3 +1,4 @@
+(4.3.53) 2015/07/04 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * [Bug 2866] segmentation fault at initgroups().  Harlan Stenn.
 * Phase 1 deprecation of google test in sntp/tests/.  Harlan Stenn.
