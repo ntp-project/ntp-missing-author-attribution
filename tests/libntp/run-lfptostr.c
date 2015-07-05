@@ -26,6 +26,7 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
+void resetTest(void);
 extern void test_PositiveInteger(void);
 extern void test_NegativeInteger(void);
 extern void test_PositiveIntegerWithFraction(void);
@@ -56,16 +57,16 @@ int main(int argc, char *argv[])
   Unity.TestFile = "lfptostr.c";
   UnityBegin("lfptostr.c");
   RUN_TEST(test_PositiveInteger, 23);
-  RUN_TEST(test_NegativeInteger, 30);
-  RUN_TEST(test_PositiveIntegerWithFraction, 37);
-  RUN_TEST(test_NegativeIntegerWithFraction, 44);
-  RUN_TEST(test_RoundingDownToInteger, 51);
-  RUN_TEST(test_RoundingMiddleToInteger, 58);
-  RUN_TEST(test_RoundingUpToInteger, 65);
-  RUN_TEST(test_SingleDecimal, 72);
-  RUN_TEST(test_MillisecondsRoundingUp, 79);
-  RUN_TEST(test_MillisecondsRoundingDown, 88);
-  RUN_TEST(test_UnsignedInteger, 97);
+  RUN_TEST(test_NegativeInteger, 31);
+  RUN_TEST(test_PositiveIntegerWithFraction, 39);
+  RUN_TEST(test_NegativeIntegerWithFraction, 47);
+  RUN_TEST(test_RoundingDownToInteger, 55);
+  RUN_TEST(test_RoundingMiddleToInteger, 63);
+  RUN_TEST(test_RoundingUpToInteger, 71);
+  RUN_TEST(test_SingleDecimal, 79);
+  RUN_TEST(test_MillisecondsRoundingUp, 87);
+  RUN_TEST(test_MillisecondsRoundingDown, 97);
+  RUN_TEST(test_UnsignedInteger, 106);
 
   return (UnityEnd());
 }

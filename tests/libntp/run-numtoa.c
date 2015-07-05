@@ -26,6 +26,7 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
+void resetTest(void);
 extern void test_Address(void);
 extern void test_Netmask(void);
 
@@ -46,8 +47,8 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "numtoa.c";
   UnityBegin("numtoa.c");
-  RUN_TEST(test_Address, 18);
-  RUN_TEST(test_Netmask, 24);
+  RUN_TEST(test_Address, 10);
+  RUN_TEST(test_Netmask, 17);
 
   return (UnityEnd());
 }
