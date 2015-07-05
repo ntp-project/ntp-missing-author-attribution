@@ -17,7 +17,18 @@ Below are from 4.2.8p4:
 * tests/libntp/timevalops.c and timespecops.c fixd error printing.  D.Tomić.
 * tests/libntp/ improvements in code and fixed error printing.  Damir Tomić.
 * sntp/unity/unity_config.h: Distribute it.  Harlan Stenn.
-* sntp/libevent/evconfig-private.h: remove generated filefrom SCM.  H.Stenn.
+* sntp/libevent/evconfig-private.h: remove generated file from SCM.  H.Stenn.
+* tests/libntp/lfpfunc.c remove unnecessary include, remove old comments,
+  fix formatting, cleanup. Tomasz Flendrich
+* tests/libntp/lfptostr.c remove unnecessary include, add consts, fix formatting.
+  Tomasz Flendrich
+* tests/libntp/modetoa.c fixed formatting. Tomasz Flendrich
+* tests/libntp/msyslog.c fixed formatting. Tomasz Flendrich
+* tests/libntp/numtoa.c deleted unnecessary empty functions, fixed formatting.
+  Tomasz Flendrich
+* tests/libntp/numtohost.c added const, fixed formatting. Tomasz Flendrich
+* tests/libntp/refnumtoa.c fixed formatting. Tomasz Flendrich
+* sntp/unity/Makefile.am added a missing header. Tomasz Flendrich
 (4.3.52) 2015/07/03 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * libntp/emalloc.c: Remove explicit include of stdint.h.  Harlan Stenn.
