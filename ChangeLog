@@ -16,12 +16,13 @@
 * sntp/unity/unity_internals.h: handle *INTPTR_MAX on old Solaris.  H.Stenn.
 * tests/libntp/timevalops.c and timespecops.c fixd error printing.  D.Tomić.
 * tests/libntp/ improvements in code and fixed error printing.  Damir Tomić.
-* sntp/unity/unity_config.h: Distribute it.  Harlan Stenn.
-* sntp/libevent/evconfig-private.h: remove generated filefrom SCM.  H.Stenn.
 * tests/libntp: a_md5encrypt.c, authkeys.c, buftvtots.c, calendar.c, caljulian.c,
   caltontp.c, clocktime.c, humandate.c, hextolfp.c, decodenetnum.c - fixed
   formatting; first declaration, then code (C90); deleted unnecessary comments;
   changed from sprintf to snprintf; fixed order of includes. Tomasz Flendrich
+* sntp/unity/Makefile.am added a missing header. Tomasz Flendrich
+* sntp/unity/unity_config.h: Distribute it.  Harlan Stenn.
+* sntp/libevent/evconfig-private.h: remove generated filefrom SCM.  H.Stenn.
 ---
 (4.2.8p3) 2015/06/29 Released by Harlan Stenn <stenn@ntp.org>
 
