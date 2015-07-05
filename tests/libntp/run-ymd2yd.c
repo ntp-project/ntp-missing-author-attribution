@@ -26,6 +26,7 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
+void resetTest(void);
 extern void test_NonLeapYearFebruary(void);
 extern void test_NonLeapYearJune(void);
 extern void test_LeapYearFebruary(void);
@@ -48,10 +49,10 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "ymd2yd.c";
   UnityBegin("ymd2yd.c");
-  RUN_TEST(test_NonLeapYearFebruary, 17);
-  RUN_TEST(test_NonLeapYearJune, 21);
-  RUN_TEST(test_LeapYearFebruary, 26);
-  RUN_TEST(test_LeapYearDecember, 30);
+  RUN_TEST(test_NonLeapYearFebruary, 9);
+  RUN_TEST(test_NonLeapYearJune, 15);
+  RUN_TEST(test_LeapYearFebruary, 22);
+  RUN_TEST(test_LeapYearDecember, 28);
 
   return (UnityEnd());
 }

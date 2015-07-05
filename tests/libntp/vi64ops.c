@@ -1,35 +1,36 @@
 #include "config.h"
 
 #include "ntp_stdlib.h"
+#include "vint64ops.h"
 
 #include "unity.h"
 
-#include "vint64ops.h"
 
-//technically bool
-int IsEqual(const vint64 expected, const vint64 actual) {
+// technically bool
+int
+IsEqual(const vint64 expected, const vint64 actual) {
 	if (0 == memcmp(&expected, &actual, sizeof(vint64))) {
-		printf( "%x.", expected.D_s.hi); //<< std::hex << expected.D_s.hi << '.'
-		printf("%x",expected.D_s.lo);
+		printf( "%x.", expected.D_s.hi);
+		printf("%x", expected.D_s.lo);
 		printf(" but was ");
-		printf("%x.",actual.D_s.hi); 
-		printf("%x\n",actual.D_s.lo);
+		printf("%x.", actual.D_s.hi);
+		printf("%x\n", actual.D_s.lo);
 		return TRUE;
 	} else {
-		
 		printf("expected: ");
 		printf( "%d.", expected.D_s.hi);
-		printf("%d",expected.D_s.lo);
+		printf("%d", expected.D_s.lo);
 		printf(" but was ");
-		printf("%d",actual.D_s.lo);
-		printf("%d",actual.D_s.lo);
+		printf("%d", actual.D_s.lo);
+		printf("%d", actual.D_s.lo);
 		return FALSE;
 	}
 }
 
 // ----------------------------------------------------------------------
 // test number parser
-void test_ParseVUI64_pos(void) {
+void
+test_ParseVUI64_pos(void) {
 	vint64 act, exp;
 	const char *sp;
 	char       *ep;
@@ -43,7 +44,9 @@ void test_ParseVUI64_pos(void) {
 	TEST_ASSERT_EQUAL(*ep, 'x');
 }
 
-void test_ParseVUI64_neg(void) {
+
+void
+test_ParseVUI64_neg(void) {
 	vint64 act, exp;
 	const char *sp;
 	char       *ep;
@@ -56,7 +59,8 @@ void test_ParseVUI64_neg(void) {
 	TEST_ASSERT_EQUAL(*ep, 'x');
 }
 
-void test_ParseVUI64_case(void) {
+void
+test_ParseVUI64_case(void) {
 	vint64 act, exp;
 	const char *sp;
 	char       *ep;
@@ -68,4 +72,3 @@ void test_ParseVUI64_case(void) {
 	TEST_ASSERT_TRUE(IsEqual(exp, act));
 	TEST_ASSERT_EQUAL(*ep, '\0');
 }
-

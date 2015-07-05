@@ -26,6 +26,7 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
+void resetTest(void);
 extern void test_Seconds(void);
 extern void test_MicrosecondsRounded(void);
 extern void test_MicrosecondsExact(void);
@@ -47,9 +48,9 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "tvtots.c";
   UnityBegin("tvtots.c");
-  RUN_TEST(test_Seconds, 10);
-  RUN_TEST(test_MicrosecondsRounded, 21);
-  RUN_TEST(test_MicrosecondsExact, 36);
+  RUN_TEST(test_Seconds, 12);
+  RUN_TEST(test_MicrosecondsRounded, 25);
+  RUN_TEST(test_MicrosecondsExact, 43);
 
   return (UnityEnd());
 }

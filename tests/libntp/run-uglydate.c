@@ -26,6 +26,7 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
+void resetTest(void);
 extern void test_ConstantDateTime(void);
 
 
@@ -45,7 +46,7 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "uglydate.c";
   UnityBegin("uglydate.c");
-  RUN_TEST(test_ConstantDateTime, 11);
+  RUN_TEST(test_ConstantDateTime, 10);
 
   return (UnityEnd());
 }

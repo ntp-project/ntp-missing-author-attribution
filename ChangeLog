@@ -24,12 +24,20 @@
   fix formatting, cleanup. Tomasz Flendrich
 * tests/libntp/lfptostr.c remove unnecessary include, add consts, fix formatting.
   Tomasz Flendrich
+* tests/libntp/statestr.c remove empty functions, remove unnecessary include,
+  fix formatting. Tomasz Flendrich
 * tests/libntp/modetoa.c fixed formatting. Tomasz Flendrich
 * tests/libntp/msyslog.c fixed formatting. Tomasz Flendrich
 * tests/libntp/numtoa.c deleted unnecessary empty functions, fixed formatting.
   Tomasz Flendrich
 * tests/libntp/numtohost.c added const, fixed formatting. Tomasz Flendrich
 * tests/libntp/refnumtoa.c fixed formatting. Tomasz Flendrich
+* tests/libntp/ssl_init.c fixed formatting. Tomasz Flendrich
+* tests/libntp/tvtots.c fixed a bug, fixed formatting. Tomasz Flendrich
+* tests/libntp/uglydate.c removed an unnecessary include. Tomasz Flendrich
+* tests/libntp/vi64ops.c removed an unnecessary comment, fixed formatting.
+* tests/libntp/ymd3yd.c removed an empty function and an unnecessary include,
+fixed formatting. Tomasz Flendrich
 * sntp/unity/Makefile.am added a missing header. Tomasz Flendrich
 * sntp/unity/unity_config.h: Distribute it.  Harlan Stenn.
 * sntp/libevent/evconfig-private.h: remove generated filefrom SCM.  H.Stenn.

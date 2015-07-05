@@ -48,9 +48,9 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "vi64ops.c";
   UnityBegin("vi64ops.c");
-  RUN_TEST(test_ParseVUI64_pos, 32);
-  RUN_TEST(test_ParseVUI64_neg, 46);
-  RUN_TEST(test_ParseVUI64_case, 59);
+  RUN_TEST(test_ParseVUI64_pos, 33);
+  RUN_TEST(test_ParseVUI64_neg, 49);
+  RUN_TEST(test_ParseVUI64_case, 63);
 
   return (UnityEnd());
 }
