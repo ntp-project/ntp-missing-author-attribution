@@ -26,6 +26,7 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
+void resetTest(void);
 extern void test_KnownMode(void);
 extern void test_UnknownMode(void);
 
@@ -47,7 +48,7 @@ int main(int argc, char *argv[])
   Unity.TestFile = "modetoa.c";
   UnityBegin("modetoa.c");
   RUN_TEST(test_KnownMode, 9);
-  RUN_TEST(test_UnknownMode, 15);
+  RUN_TEST(test_UnknownMode, 16);
 
   return (UnityEnd());
 }
