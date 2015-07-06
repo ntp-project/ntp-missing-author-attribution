@@ -60,4 +60,3 @@ void test_IllegalChar(void) {
 
 	TEST_ASSERT_FALSE(hextolfp(str, &actual));
 }
-
