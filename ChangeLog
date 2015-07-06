@@ -1,4 +1,5 @@
 Below are from 4.2.8p4:
+* [Bug 2874] Don't distribute generated sntp/tests/fileHandlingTest.h. H.Stenn
 * sntp/unity/Makefile.am: fix some broken paths.  Harlan Stenn.
 (4.3.54) 2015/07/05 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
