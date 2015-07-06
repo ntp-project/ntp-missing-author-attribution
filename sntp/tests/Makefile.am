@@ -48,7 +48,6 @@ tests_CPPFLAGS =		\
 AM_CXXFLAGS = $(GTEST_CXXFLAGS)
 
 noinst_HEADERS =		\
-	fileHandlingTest.h	\
 	sntptest.h		\
 	$(NULL)
 
