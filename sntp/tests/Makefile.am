@@ -4,7 +4,7 @@ CLEANFILES = kod-output-blank kod-output-single kod-output-multiple debug-output
 DISTCLEANFILES = kod-output-blank kod-output-single kod-output-multiple
 EXTRA_PROGRAMS =
 
-run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
+run_unity =	cd $(srcdir) && ruby ../unity/auto/generate_test_runner.rb
 
 # Use EXTRA_PROGRAMS for test files that are under development but
 # not production-ready
@@ -104,7 +104,7 @@ AM_CPPFLAGS += $(LIBOPTS_CFLAGS)
 AM_CPPFLAGS += $(CPPFLAGS_LIBEVENT)
 AM_CPPFLAGS += $(CPPFLAGS_NTP)
 AM_CPPFLAGS += -DUNITY_INCLUDE_CONFIG_H
-AM_CPPFLAGS += -I$(top_srcdir)/sntp/unity
+#AM_CPPFLAGS += -I$(top_srcdir)/sntp/unity
 AM_CPPFLAGS += -I$(top_srcdir)/unity
 
 AM_LDFLAGS = $(LDFLAGS_NTP)
@@ -226,10 +226,10 @@ check-libntp: ../../libntp/libntp.a
 ../../libntp/libntp.a:
 	cd ../../libntp && $(MAKE) $(AM_MAKEFLAGS) libntp.a
 
-check-libunity: ../sntp/unity/libunity.a
+check-libunity: ../unity/libunity.a
 	@echo stamp > $@
 
-../sntp/unity/libunity.a:
+../unity/libunity.a:
 	cd ../unity && $(MAKE) $(AM_MAKEFLAGS) libunity.a
 
 include $(top_srcdir)/depsver.mf
