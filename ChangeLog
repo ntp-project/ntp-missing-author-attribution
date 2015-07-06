@@ -1,3 +1,5 @@
+Below are from 4.2.8p4:
+* sntp/unity/Makefile.am: fix some broken paths.  Harlan Stenn.
 (4.3.54) 2015/07/05 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * tests/libntp: a_md5encrypt.c, authkeys.c, buftvtots.c, calendar.c, caljulian.c,
