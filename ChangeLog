@@ -1,3 +1,6 @@
+Below are from 4.2.8p4:
+* [Bug 2873] libevent should not include .deps/ in the tarball.  H.Stenn
+* sntp/unity/unity.c: Clean up a printf().  Harlan Stenn.
 (4.3.55) 2015/07/06 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * [Bug 2874] Don't distribute generated sntp/tests/fileHandlingTest.h. H.Stenn
