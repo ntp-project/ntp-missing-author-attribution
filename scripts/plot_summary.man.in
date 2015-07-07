@@ -10,11 +10,11 @@
 .ds B-Font B
 .ds I-Font I
 .ds R-Font R
-.TH plot_summary 1plot_summaryman "06 Jul 2015" "ntp (4.3.55)" "User Commands"
+.TH plot_summary 1plot_summaryman "07 Jul 2015" "ntp (4.3.56)" "User Commands"
 .\"
-.\" EDIT THIS FILE WITH CAUTION (/tmp/.ag-vsa4oT/ag-IsaaoT)
+.\" EDIT THIS FILE WITH CAUTION (/tmp/.ag-Qpa4uF/ag-3paauF)
 .\"
-.\" It has been AutoGen-ed July 6, 2015 at 11:53:01 AM by AutoGen 5.18.5
+.\" It has been AutoGen-ed July 7, 2015 at 11:52:50 AM by AutoGen 5.18.5
 .\" From the definitions plot_summary-opts.def
 .\" and the template file agman-cmd.tpl
 .SH NAME
