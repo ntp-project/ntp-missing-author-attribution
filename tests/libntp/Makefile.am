@@ -237,6 +237,11 @@ $(srcdir)/run-calendar.c: $(srcdir)/calendar.c $(std_unity_list)
 
 ###
 
+test_caltontp_LDADD =		\
+	$(LDADD)		\
+	-lpthread		\
+	$(NULL)
+
 test_caltontp_SOURCES =			\
 	caltontp.c			\
 	run-caltontp.c			\

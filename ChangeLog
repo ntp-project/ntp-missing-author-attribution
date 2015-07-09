@@ -389,6 +389,7 @@ ntp-4.3 begins.
 * sntp/unity/unity.c: Clean up a printf().  Harlan Stenn.
 * Phase 1 deprecation of google test in tests/libntp/.  Harlan Stenn.
 * Don't build sntp/libevent/sample/.  Harlan Stenn.
+* tests/libntp/test_caltontp needs -lpthread.  Harlan Stenn.
 ---
 (4.2.8p3) 2015/06/29 Released by Harlan Stenn <stenn@ntp.org>
 
