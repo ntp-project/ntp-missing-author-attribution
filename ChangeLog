@@ -1,5 +1,6 @@
 Below are from 4.2.8p4:
 * Phase 1 deprecation of google test in tests/libntp/.  Harlan Stenn.
+* Don't build sntp/libevent/sample/.  Harlan Stenn.
 (4.3.56) 2015/07/07 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * [Bug 2873] libevent should not include .deps/ in the tarball.  H.Stenn
