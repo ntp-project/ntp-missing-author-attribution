@@ -51,12 +51,12 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "kodFile.c";
   UnityBegin("kodFile.c");
-  RUN_TEST(test_ReadEmptyFile, 29);
+  RUN_TEST(test_ReadEmptyFile, 27);
   RUN_TEST(test_ReadCorrectFile, 35);
-  RUN_TEST(test_ReadFileWithBlankLines, 53);
-  RUN_TEST(test_WriteEmptyFile, 76);
-  RUN_TEST(test_WriteFileWithSingleEntry, 92);
-  RUN_TEST(test_WriteFileWithMultipleEntries, 116);
+  RUN_TEST(test_ReadFileWithBlankLines, 55);
+  RUN_TEST(test_WriteEmptyFile, 80);
+  RUN_TEST(test_WriteFileWithSingleEntry, 95);
+  RUN_TEST(test_WriteFileWithMultipleEntries, 120);
 
   return (UnityEnd());
 }

@@ -52,13 +52,13 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "utilities.c";
   UnityBegin("utilities.c");
-  RUN_TEST(test_IPv4Address, 66);
-  RUN_TEST(test_IPv6Address, 76);
-  RUN_TEST(test_SetLiVnMode1, 96);
-  RUN_TEST(test_SetLiVnMode2, 109);
-  RUN_TEST(test_PktOutput, 124);
-  RUN_TEST(test_LfpOutputBinaryFormat, 144);
-  RUN_TEST(test_LfpOutputDecimalFormat, 160);
+  RUN_TEST(test_IPv4Address, 74);
+  RUN_TEST(test_IPv6Address, 86);
+  RUN_TEST(test_SetLiVnMode1, 108);
+  RUN_TEST(test_SetLiVnMode2, 123);
+  RUN_TEST(test_PktOutput, 139);
+  RUN_TEST(test_LfpOutputBinaryFormat, 161);
+  RUN_TEST(test_LfpOutputDecimalFormat, 179);
 
   return (UnityEnd());
 }

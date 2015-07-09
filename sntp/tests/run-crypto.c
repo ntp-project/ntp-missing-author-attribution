@@ -51,12 +51,12 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "crypto.c";
   UnityBegin("crypto.c");
-  RUN_TEST(test_MakeMd5Mac, 12);
-  RUN_TEST(test_MakeSHA1Mac, 34);
-  RUN_TEST(test_VerifyCorrectMD5, 60);
-  RUN_TEST(test_VerifySHA1, 79);
-  RUN_TEST(test_VerifyFailure, 101);
-  RUN_TEST(test_PacketSizeNotMultipleOfFourBytes, 121);
+  RUN_TEST(test_MakeMd5Mac, 13);
+  RUN_TEST(test_MakeSHA1Mac, 36);
+  RUN_TEST(test_VerifyCorrectMD5, 63);
+  RUN_TEST(test_VerifySHA1, 83);
+  RUN_TEST(test_VerifyFailure, 106);
+  RUN_TEST(test_PacketSizeNotMultipleOfFourBytes, 128);
 
   return (UnityEnd());
 }

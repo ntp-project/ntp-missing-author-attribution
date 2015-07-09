@@ -4,7 +4,9 @@
 #include "ntp.h"
 #include "ntp_stdlib.h"
 
-sockaddr_u CreateSockaddr4(const char* address, unsigned int port) {
+
+sockaddr_u
+CreateSockaddr4(const char* address, unsigned int port) {
 	sockaddr_u s;
 	s.sa4.sin_family = AF_INET;
 	s.sa4.sin_addr.s_addr = inet_addr(address);
@@ -13,7 +15,9 @@ sockaddr_u CreateSockaddr4(const char* address, unsigned int port) {
 	return s;
 }
 
-int IsEqual(const sockaddr_u expected, const sockaddr_u actual) {
+
+int
+IsEqual(const sockaddr_u expected, const sockaddr_u actual) {
 	struct in_addr in;
 	struct in6_addr in6;
 
@@ -48,6 +52,3 @@ int IsEqual(const sockaddr_u expected, const sockaddr_u actual) {
 
 
 #endif // TESTS_SOCKADDRTEST_H
-
-
-

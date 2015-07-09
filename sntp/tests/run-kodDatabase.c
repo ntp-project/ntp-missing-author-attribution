@@ -50,11 +50,11 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "kodDatabase.c";
   UnityBegin("kodDatabase.c");
-  RUN_TEST(test_SingleEntryHandling, 22);
-  RUN_TEST(test_MultipleEntryHandling, 35);
-  RUN_TEST(test_NoMatchInSearch, 66);
-  RUN_TEST(test_AddDuplicate, 79);
-  RUN_TEST(test_DeleteEntry, 104);
+  RUN_TEST(test_SingleEntryHandling, 21);
+  RUN_TEST(test_MultipleEntryHandling, 36);
+  RUN_TEST(test_NoMatchInSearch, 69);
+  RUN_TEST(test_AddDuplicate, 84);
+  RUN_TEST(test_DeleteEntry, 111);
 
   return (UnityEnd());
 }

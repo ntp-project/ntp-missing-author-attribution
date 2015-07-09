@@ -50,11 +50,11 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "keyFile.c";
   UnityBegin("keyFile.c");
-  RUN_TEST(test_ReadEmptyKeyFile, 53);
-  RUN_TEST(test_ReadASCIIKeys, 61);
-  RUN_TEST(test_ReadHexKeys, 79);
-  RUN_TEST(test_ReadKeyFileWithComments, 105);
-  RUN_TEST(test_ReadKeyFileWithInvalidHex, 124);
+  RUN_TEST(test_ReadEmptyKeyFile, 55);
+  RUN_TEST(test_ReadASCIIKeys, 64);
+  RUN_TEST(test_ReadHexKeys, 84);
+  RUN_TEST(test_ReadKeyFileWithComments, 112);
+  RUN_TEST(test_ReadKeyFileWithInvalidHex, 133);
 
   return (UnityEnd());
 }

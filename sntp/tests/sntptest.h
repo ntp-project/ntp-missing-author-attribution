@@ -8,15 +8,21 @@ void sntptest(void);
 void sntptest_destroy(void);
 void ActivateOption(const char* option, const char* argument);
 
-void sntptest(void) {
+
+void
+sntptest(void) {
 	optionSaveState(&sntpOptions);
 }
 
-void sntptest_destroy(void) {
+
+void
+sntptest_destroy(void) {
 	optionRestore(&sntpOptions);
 }
 
-void ActivateOption(const char* option, const char* argument) {
+
+void
+ActivateOption(const char* option, const char* argument) {
 
 	const int ARGV_SIZE = 4;
 
