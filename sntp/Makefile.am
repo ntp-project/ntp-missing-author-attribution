@@ -286,7 +286,7 @@ libtool: $(LIBTOOL_DEPS)
 	./config.status --recheck
 
 libevent-dist-hook:
-	if test -n "$(NTP_FORCE_LIBEVENT_DIST)" ; then rm -rf $(distdir)/libevent/autom4te.cache $(distdir)/libevent/config.h.in~ ; find $(distdir)/libevent -type d -name SCCS -print | xargs rm -rf ; fi
+	if test -n "$(NTP_FORCE_LIBEVENT_DIST)" ; then rm -rf $(distdir)/libevent/autom4te.cache $(distdir)/libevent/config.h.in~ ; find $(distdir)/libevent -type d \( -name SCCS -or -name .deps \)  -print | xargs rm -rf ; fi
 
 dist-hook: libevent-dist-hook
 	@: do-nothing action to avoid default SCCS get
