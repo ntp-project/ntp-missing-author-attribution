@@ -6,6 +6,7 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
 check_PROGRAMS =		\
 	test-leapsec		\
+	test-rc_cmdlength   \
 	$(NULL)
 
 if GTEST_AVAILABLE
@@ -47,11 +48,13 @@ AM_LDFLAGS = $(LDFLAGS_NTP)
 tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		g_ntpdtest.cpp		\
 		$(top_srcdir)/ntpd/ntp_leapsec.c	\
+		$(top_srcdir)/ntpd/rc_cmdlength.c	\
 		g_leapsec.cpp	\
 		$(NULL)
 
 BUILT_SOURCES +=			\
 	$(srcdir)/run-leapsec.c		\
+	$(srcdir)/run-rc_cmdlength.c		\
 	$(NULL)
 
 noinst_HEADERS =	g_ntpdtest.h		\
@@ -78,6 +81,23 @@ $(srcdir)/run-leapsec.c: $(srcdir)/leapsec.c $(std_unity_list)
 	$(run_unity) leapsec.c run-leapsec.c
 
 ###
+test_rc_cmdlength_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
+	$(NULL)
+
+test_rc_cmdlength_LDADD =			\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
+test_rc_cmdlength_SOURCES =			\
+	rc_cmdlength.c			\
+	run-rc_cmdlength.c			\
+	$(srcdir)/../libntp/test-libntp.c		\
+	$(NULL)
+
+$(srcdir)/run-rc_cmdlength.c: $(srcdir)/rc_cmdlength.c $(std_unity_list)
+	$(run_unity) rc_cmdlength.c run-rc_cmdlength.c
+
 
 TESTS =
 
