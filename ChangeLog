@@ -357,6 +357,8 @@ ntp-4.3 begins.
 * [Bug 2867] ntpd with autokey active crashed by 'ntpq -crv'. J.Perlinger
 * [Bug 2873] libevent should not include .deps/ in the tarball.  H.Stenn
 * [Bug 2874] Don't distribute generated sntp/tests/fileHandlingTest.h. H.Stenn
+* [Bug 2875] sntp/Makefile.am: Get rid of DIST_SUBDIRS.  libevent must
+  be configured for the distribution targets.  Harlan Stenn.
 * libntp/emalloc.c: Remove explicit include of stdint.h.  Harlan Stenn.
 * Put Unity CPPFLAGS items in unity_config.h.  Harlan Stenn.
 * tests/ntpd/g_leapsec.cpp typo fix.  Harlan Stenn.
