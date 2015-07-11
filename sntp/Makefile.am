@@ -38,27 +38,13 @@ bin_PROGRAMS =		@SNTP_DB@
 libexec_PROGRAMS =	@SNTP_DL@
 sbin_PROGRAMS =		@SNTP_DS@
 
-##
-## DIST_SUBDIRS is typically automatically derived by automake including
-## all possible SUBDIRS values, as even items which are not built are
-## typically distributed.
-##
-## To allow us to avoid configuring the libevent tearoff entirely when
-## it is not needed, we define DIST_SUBDIRS manually excluding libevent
-## when not building it, and in that case arrange for its distribution
-## with EXTRA_DIST copying the entire directory and libevent-dist-hook
-## cleaning unwanted VCS remnants.
-##
-## When we are building libevent, it is distributed conventionally, by
-## recursive make dist in sntp including libevent.
-##
-
 SUBDIRS = include scripts unity
-DIST_SUBDIRS = include scripts unity
+DIST_FAIL =
 
 if BUILD_LIBEVENT
 SUBDIRS += libevent
-DIST_SUBDIRS += libevent
+else
+DIST_FAIL += "--enable-local-libevent"
 endif
 
 if NEED_LIBOPTS
@@ -69,8 +55,6 @@ if BUILD_SNTP
 noinst_LIBRARIES = libsntp.a
 SUBDIRS += tests
 endif
-
-DIST_SUBDIRS += libopts tests
 
 libsntp_a_SOURCES =		\
 	crypto.c		\
@@ -285,11 +269,16 @@ $(srcdir)/sntp.html: $(srcdir)/invoke-sntp.menu $(srcdir)/invoke-sntp.texi $(src
 libtool: $(LIBTOOL_DEPS)
 	./config.status --recheck
 
-libevent-dist-hook:
-	if test -n "$(NTP_FORCE_LIBEVENT_DIST)" ; then rm -rf $(distdir)/libevent/autom4te.cache $(distdir)/libevent/config.h.in~ ; find $(distdir)/libevent -type d \( -name SCCS -or -name .deps \)  -print | xargs rm -rf ; fi
+# HMS: replaces the stock distdir target, which is a lose.
+#distdir: distdir-pre-check
 
-dist-hook: libevent-dist-hook
-	@: do-nothing action to avoid default SCCS get
+# HMS: not great - doesn't stop the build.
+distdir-pre-check:
+	case "$(DIST_FAIL)" in	\
+	 '')  ;;		\
+	 *) echo "re-run configure adding $(DIST_FAIL) if you want to make a distribution.";	\
+	    exit 1 ;;		\
+	esac
 
 include $(top_srcdir)/bincheck.mf
 include $(top_srcdir)/check-libntp.mf
