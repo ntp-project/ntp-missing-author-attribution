@@ -1,3 +1,6 @@
+Below are from 4.2.8p4:
+* [Bug 2875] sntp/Makefile.am: Get rid of DIST_SUBDIRS.  libevent must
+  be configured for the distribution targets.  Harlan Stenn.
 (4.3.57) 2015/07/09 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * Phase 1 deprecation of google test in tests/libntp/.  Harlan Stenn.
