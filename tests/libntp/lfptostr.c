@@ -6,6 +6,7 @@
 
 #include "config.h"
 #include "ntp_stdlib.h"
+//#include "ntp_calendar.h"
 #include "ntp_fp.h"
 
 #include "unity.h"
@@ -19,7 +20,7 @@ static const int THREE_FOURTH = -1073741824;
 static const int HALF_PROMILLE_UP = 2147484; // slightly more than 0.0005
 static const int HALF_PROMILLE_DOWN = 2147483; // slightly less than 0.0005
 
-void
+void 
 test_PositiveInteger(void) {
 	l_fp test = {200, 0}; // exact 200.0000000000
 
@@ -27,7 +28,7 @@ test_PositiveInteger(void) {
 	TEST_ASSERT_EQUAL_STRING("200000.0000000", mfptoms(test.l_ui, test.l_uf, LFP_MAX_PRECISION_MS));
 }
 
-void
+void 
 test_NegativeInteger(void) {
 	l_fp test = {-100, 0}; // -100
 
@@ -35,7 +36,7 @@ test_NegativeInteger(void) {
 	TEST_ASSERT_EQUAL_STRING("-100000.0000000", lfptoms(&test, LFP_MAX_PRECISION_MS));
 }
 
-void
+void 
 test_PositiveIntegerWithFraction(void) {
 	l_fp test = {200, ONE_FOURTH}; // 200.25
 
@@ -43,7 +44,7 @@ test_PositiveIntegerWithFraction(void) {
 	TEST_ASSERT_EQUAL_STRING("200250.0000000", lfptoms(&test, LFP_MAX_PRECISION_MS));
 }
 
-void
+void 
 test_NegativeIntegerWithFraction(void) {
 	l_fp test = {-100, ONE_FOURTH}; // -99.75
 
@@ -51,7 +52,7 @@ test_NegativeIntegerWithFraction(void) {
 	TEST_ASSERT_EQUAL_STRING("-99750.0000000", lfptoms(&test, LFP_MAX_PRECISION_MS));
 }
 
-void
+void 
 test_RoundingDownToInteger(void) {
 	l_fp test = {10, ONE_FOURTH}; // 10.25
 
@@ -59,7 +60,7 @@ test_RoundingDownToInteger(void) {
 	TEST_ASSERT_EQUAL_STRING("10250", lfptoms(&test, 0));
 }
 
-void
+void 
 test_RoundingMiddleToInteger(void) {
 	l_fp test = {10, HALF}; // 10.5
 
@@ -67,7 +68,7 @@ test_RoundingMiddleToInteger(void) {
 	TEST_ASSERT_EQUAL_STRING("10500", lfptoms(&test, 0));
 }
 
-void
+void 
 test_RoundingUpToInteger(void) {
 	l_fp test = {5, THREE_FOURTH}; // 5.75
 
@@ -75,7 +76,7 @@ test_RoundingUpToInteger(void) {
 	TEST_ASSERT_EQUAL_STRING("5750", lfptoms(&test, 0));
 }
 
-void
+void 
 test_SingleDecimal(void) {
 	l_fp test = {8, ONE_FOURTH}; // 8.25
 
@@ -83,7 +84,7 @@ test_SingleDecimal(void) {
 	TEST_ASSERT_EQUAL_STRING("8250.0", lfptoms(&test, 1));
 }
 
-void
+void 
 test_MillisecondsRoundingUp(void) {
 	l_fp test = {1, HALF_PROMILLE_UP}; //slightly more than 1.0005
 
@@ -93,7 +94,7 @@ test_MillisecondsRoundingUp(void) {
 	TEST_ASSERT_EQUAL_STRING("1001", lfptoms(&test, 0));
 }
 
-void
+void 
 test_MillisecondsRoundingDown(void) {
 	l_fp test = {1, HALF_PROMILLE_DOWN}; // slightly less than 1.0005
 
@@ -103,8 +104,11 @@ test_MillisecondsRoundingDown(void) {
 	TEST_ASSERT_EQUAL_STRING("1000", lfptoms(&test, 0));
 }
 
-void test_UnsignedInteger(void) {
+void 
+test_UnsignedInteger(void) {
 	l_fp test = {3000000000UL, 0};
 
 	TEST_ASSERT_EQUAL_STRING("3000000000.0", ulfptoa(&test, 1));
 }
+
+
