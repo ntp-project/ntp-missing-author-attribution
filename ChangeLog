@@ -1,3 +1,4 @@
+(4.3.58) 2015/07/12 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * [Bug 2875] sntp/Makefile.am: Get rid of DIST_SUBDIRS.  libevent must
   be configured for the distribution targets.  Harlan Stenn.
