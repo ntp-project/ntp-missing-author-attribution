@@ -18,4 +18,4 @@ case "$LIST" in
 esac
 
 export LIST
-flock-build $FB_FIRSTONLY --disable-parse-clocks --with-loc=legacy "$@"
+flock-build $FB_FIRSTONLY --disable-parse-clocks --with-loc=legacy --enable-local-libopts --enable-local-libevent "$@"
