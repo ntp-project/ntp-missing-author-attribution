@@ -77,6 +77,7 @@ fixed formatting. Tomasz Flendrich
 * Don't build sntp/libevent/sample/.  Harlan Stenn.
 * tests/libntp/test_caltontp needs -lpthread.  Harlan Stenn.
 * br-flock: --enable-local-libevent.  Harlan Stenn.
+* Wrote tests for ntpd/ntp_prio_q.c. Tomasz Flendrich
 ---
 (4.2.8p3) 2015/06/29 Released by Harlan Stenn <stenn@ntp.org>
 
