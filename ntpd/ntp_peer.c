@@ -764,7 +764,7 @@ newpeer(
 	/*
 	 * For now only pool associations have a hostname.
 	 */
-	NTP_INSIST(NULL == hostname || (MDF_POOL & cast_flags));
+	INSIST(NULL == hostname || (MDF_POOL & cast_flags));
 
 	/*
 	 * First search from the beginning for an association with given
