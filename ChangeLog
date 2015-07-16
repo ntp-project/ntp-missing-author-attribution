@@ -1,3 +1,5 @@
+Below are from 4.2.8p4:
+* Get rid of the NTP_ prefix on our assertion macros.  Harlan Stenn.
 (4.3.59) 2015/07/13 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * [Bug 2823] ntpsweep with recursive peers option doesn't work.  H.Stenn.
