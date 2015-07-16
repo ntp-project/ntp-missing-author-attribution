@@ -133,7 +133,7 @@ remove_from_hash(
 	hash = MON_HASH(&mon->rmtadr);
 	UNLINK_SLIST(punlinked, mon_hash[hash], mon, hash_next,
 		     mon_entry);
-	NTP_ENSURE(punlinked == mon);
+	ENSURE(punlinked == mon);
 }
 
 
