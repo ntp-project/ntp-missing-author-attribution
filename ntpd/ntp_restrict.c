@@ -173,7 +173,7 @@ alloc_res4(void)
 		LINK_SLIST(resfree4, res, link);
 		res = (void *)((char *)res - cb);
 	}
-	NTP_INSIST(rl == res);
+	INSIST(rl == res);
 	/* allocate the first */
 	return res;
 }
@@ -199,7 +199,7 @@ alloc_res6(void)
 		LINK_SLIST(resfree6, res, link);
 		res = (void *)((char *)res - cb);
 	}
-	NTP_INSIST(rl == res);
+	INSIST(rl == res);
 	/* allocate the first */
 	return res;
 }
@@ -223,7 +223,7 @@ free_res(
 	else
 		plisthead = &restrictlist4;
 	UNLINK_SLIST(unlinked, *plisthead, res, link, restrict_u);
-	NTP_INSIST(unlinked == res);
+	INSIST(unlinked == res);
 
 	if (v6) {
 		zero_mem(res, V6_SIZEOF_RESTRICT_U);
@@ -291,7 +291,7 @@ match_restrict6_addr(
 
 	for (res = restrictlist6; res != NULL; res = next) {
 		next = res->link;
-		NTP_INSIST(next != res);
+		INSIST(next != res);
 		if (res->expire &&
 		    res->expire <= current_time)
 			free_res(res, v6);
@@ -494,8 +494,8 @@ hack_restrict(
 		    op, stoa(resaddr), stoa(resmask), mflags, flags));
 
 	if (NULL == resaddr) {
-		NTP_REQUIRE(NULL == resmask);
-		NTP_REQUIRE(RESTRICT_FLAGS == op);
+		REQUIRE(NULL == resmask);
+		REQUIRE(RESTRICT_FLAGS == op);
 		restrict_source_flags = flags;
 		restrict_source_mflags = mflags;
 		restrict_source_enabled = 1;
@@ -528,7 +528,7 @@ hack_restrict(
 			       &match.u.v6.mask);
 
 	} else	/* not IPv4 nor IPv6 */
-		NTP_REQUIRE(0);
+		REQUIRE(0);
 
 	match.flags = flags;
 	match.mflags = mflags;
@@ -600,7 +600,7 @@ hack_restrict(
 		break;
 
 	default:	/* unknown op */
-		NTP_INSIST(0);
+		INSIST(0);
 		break;
 	}
 
@@ -626,7 +626,7 @@ restrict_source(
 	    IS_MCAST(addr) || ISREFCLOCKADR(addr))
 		return;
 
-	NTP_REQUIRE(AF_INET == AF(addr) || AF_INET6 == AF(addr));
+	REQUIRE(AF_INET == AF(addr) || AF_INET6 == AF(addr));
 
 	SET_HOSTMASK(&onesmask, AF(addr));
 	if (farewell) {

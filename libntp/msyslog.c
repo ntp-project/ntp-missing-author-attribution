@@ -454,7 +454,7 @@ change_logfile(
 	size_t		octets;
 #endif	/* POSIX */
 
-	NTP_REQUIRE(fname != NULL);
+	REQUIRE(fname != NULL);
 	log_fname = fname;
 
 	/*
