@@ -503,9 +503,13 @@ hack_restrict(
 	}
 
 	ZERO(match);
+
+#if 0
 	/* silence VC9 potentially uninit warnings */
+	// HMS: let's use a compiler-specific "enable" for this.
 	res = NULL;
 	v6 = 0;
+#endif
 
 	if (IS_IPV4(resaddr)) {
 		v6 = 0;

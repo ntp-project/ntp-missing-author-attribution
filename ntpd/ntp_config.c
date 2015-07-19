@@ -1825,7 +1825,9 @@ config_auth(
 
 	/* Crypto Command */
 #ifdef AUTOKEY
+# ifdef GCC
 	item = -1;	/* quiet warning */
+# endif
 	my_val = HEAD_PFIFO(ptree->auth.crypto_cmd_list);
 	for (; my_val != NULL; my_val = my_val->link) {
 		switch (my_val->attr) {
@@ -1978,7 +1980,9 @@ config_tos(
 	int		item;
 	double		val;
 
+#ifdef GCC
 	item = -1;	/* quiet warning */
+#endif
 	tos = HEAD_PFIFO(ptree->orphan_cmds);
 	for (; tos != NULL; tos = tos->link) {
 		val = tos->value.d;
@@ -2661,7 +2665,9 @@ config_tinker(
 	attr_val *	tinker;
 	int		item;
 
+#ifdef GCC
 	item = -1;	/* quiet warning */
+#endif
 	tinker = HEAD_PFIFO(ptree->tinker);
 	for (; tinker != NULL; tinker = tinker->link) {
 		switch (tinker->attr) {
@@ -2775,12 +2781,14 @@ config_nic_rules(
 		switch (curr_node->match_class) {
 
 		default:
+#ifdef GCC
 			/*
 			 * this assignment quiets a gcc "may be used
 			 * uninitialized" warning and is here for no
 			 * other reason.
 			 */
 			match_type = MATCH_ALL;
+#endif
 			INSIST(FALSE);
 			break;
 
@@ -2833,12 +2841,14 @@ config_nic_rules(
 		switch (curr_node->action) {
 
 		default:
+#ifdef GCC
 			/*
 			 * this assignment quiets a gcc "may be used
 			 * uninitialized" warning and is here for no
 			 * other reason.
 			 */
 			action = ACTION_LISTEN;
+#endif
 			INSIST(FALSE);
 			break;
 

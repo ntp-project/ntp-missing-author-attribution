@@ -28,11 +28,11 @@
 #include "ntp_leapsec.h"
 #include "ntp_md5.h"	/* provides OpenSSL digest API */
 #include "lib_strbuf.h"
+#include <rc_cmdlength.h>
 #ifdef KERNEL_PLL
 # include "ntp_syscall.h"
 #endif
 
-extern size_t remoteconfig_cmdlength( const char *src_buf, const char *src_end );
 
 /*
  * Structure to hold request procedure information
@@ -2928,7 +2928,6 @@ ctl_getitem(
 	 * Look for a first character match on the tag.  If we find
 	 * one, see if it is a full match.
 	 */
-	v = var_list;
 	cp = reqpt;
 	for (v = var_list; !(EOV & v->flags); v++) {
 		if (!(PADDING & v->flags) && *cp == *(v->text)) {

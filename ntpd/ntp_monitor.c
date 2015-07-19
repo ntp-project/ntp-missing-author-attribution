@@ -325,6 +325,8 @@ ntp_monitor(
 	int		leak;		/* new headway */
 	int		limit;		/* average threshold */
 
+	REQUIRE(rbufp != NULL);
+
 	if (mon_enabled == MON_OFF)
 		return ~(RES_LIMITED | RES_KOD) & flags;
 
@@ -465,6 +467,8 @@ ntp_monitor(
 			mon = oldest;
 		}
 	}
+
+	INSIST(mon != NULL);
 
 	/*
 	 * Got one, initialize it

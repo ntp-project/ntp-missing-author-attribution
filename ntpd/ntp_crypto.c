@@ -1770,7 +1770,7 @@ crypto_send(
 		if (j * 4 < siglen)
 			ep->pkt[i + j++] = 0;
 		memcpy(&ep->pkt[i], vp->sig, siglen);
-		i += j;
+		/* i += j; */	/* We don't use i after this */
 	}
 	opcode = ntohl(ep->opcode);
 	ep->opcode = htonl((opcode & 0xffff0000) | len); 
