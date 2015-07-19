@@ -817,6 +817,7 @@ newpeer(
 	if (peer_free_count == 0)
 		getmorepeermem();
 	UNLINK_HEAD_SLIST(peer, peer_free, p_link);
+	INSIST(peer != NULL);
 	peer_free_count--;
 	peer_associations++;
 	if (FLAG_PREEMPT & flags)
