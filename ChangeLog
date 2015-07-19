@@ -1,3 +1,5 @@
+Below are from 4.2.8p4:
+* Code cleanup.  Harlan Stenn.
 (4.3.60) 2015/07/16 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * Get rid of the NTP_ prefix on our assertion macros.  Harlan Stenn.
