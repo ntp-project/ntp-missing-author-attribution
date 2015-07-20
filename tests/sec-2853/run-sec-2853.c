@@ -47,8 +47,8 @@ int main(int argc, char *argv[])
   progname = argv[0];
   Unity.TestFile = "sec-2853.c";
   UnityBegin("sec-2853.c");
-  RUN_TEST(test_main, 8);
-  RUN_TEST(test_main, 8);
+  RUN_TEST(test_main, 10);
+  RUN_TEST(test_main, 10);
 
   return (UnityEnd());
 }

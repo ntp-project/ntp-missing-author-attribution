@@ -3206,7 +3206,6 @@ tstflags(
 	register const char *sep;
 
 	sep = "";
-	i = 0;
 	s = cp = circ_buf[nextcb];
 	if (++nextcb >= NUMCB)
 		nextcb = 0;

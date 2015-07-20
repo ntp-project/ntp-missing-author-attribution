@@ -371,7 +371,7 @@ maintain_activefds(
 					maxactivefd = i;
 					break;
 				}
-			NTP_INSIST(fd != maxactivefd);
+			INSIST(fd != maxactivefd);
 		}
 	}
 }
@@ -687,8 +687,8 @@ addr_samesubnet(
 	const u_int32 *	pm;
 	size_t		loops;
 
-	NTP_REQUIRE(AF(a) == AF(a_mask));
-	NTP_REQUIRE(AF(b) == AF(b_mask));
+	REQUIRE(AF(a) == AF(a_mask));
+	REQUIRE(AF(b) == AF(b_mask));
 	/*
 	 * With address and mask families verified to match, comparing
 	 * the masks also validates the address's families match.
@@ -735,8 +735,8 @@ is_ip_address(
 	char tmpbuf[128];
 	char *pch;
 
-	NTP_REQUIRE(host != NULL);
-	NTP_REQUIRE(addr != NULL);
+	REQUIRE(host != NULL);
+	REQUIRE(addr != NULL);
 
 	ZERO_SOCK(addr);
 
@@ -1250,15 +1250,15 @@ add_nic_rule(
 	rule->action = action;
 
 	if (MATCH_IFNAME == match_type) {
-		NTP_REQUIRE(NULL != if_name);
+		REQUIRE(NULL != if_name);
 		rule->if_name = estrdup(if_name);
 	} else if (MATCH_IFADDR == match_type) {
-		NTP_REQUIRE(NULL != if_name);
+		REQUIRE(NULL != if_name);
 		/* set rule->addr */
 		is_ip = is_ip_address(if_name, AF_UNSPEC, &rule->addr);
-		NTP_REQUIRE(is_ip);
+		REQUIRE(is_ip);
 	} else
-		NTP_REQUIRE(NULL == if_name);
+		REQUIRE(NULL == if_name);
 
 	LINK_SLIST(nic_rule_list, rule, next);
 }
@@ -1278,7 +1278,7 @@ action_text(
 		t = "ERROR";	/* quiet uninit warning */
 		DPRINTF(1, ("fatal: unknown nic_rule_action %d\n",
 			    action));
-		NTP_ENSURE(0);
+		ENSURE(0);
 		break;
 
 	case ACTION_LISTEN:
@@ -2397,7 +2397,7 @@ enable_multicast_if(
 	u_int off6 = 0;
 #endif
 
-	NTP_REQUIRE(AF(maddr) == AF(&iface->sin));
+	REQUIRE(AF(maddr) == AF(&iface->sin));
 
 	switch (AF(&iface->sin)) {
 
@@ -2629,7 +2629,7 @@ io_setbclient(void)
 			continue;
 
 		/* Only IPv4 addresses are valid for broadcast */
-		NTP_REQUIRE(IS_IPV4(&interf->sin));
+		REQUIRE(IS_IPV4(&interf->sin));
 
 		/* Do we already have the broadcast address open? */
 		if (interf->flags & INT_BCASTOPEN) {
@@ -4079,7 +4079,7 @@ calc_addr_distance(
 	int	a1_greater;
 	int	i;
 
-	NTP_REQUIRE(AF(a1) == AF(a2));
+	REQUIRE(AF(a1) == AF(a2));
 
 	ZERO_SOCK(dist);
 	AF(dist) = AF(a1);
@@ -4130,7 +4130,7 @@ cmp_addr_distance(
 {
 	int	i;
 
-	NTP_REQUIRE(AF(d1) == AF(d2));
+	REQUIRE(AF(d1) == AF(d2));
 
 	if (IS_IPV4(d1)) {
 		if (SRCADR(d1) < SRCADR(d2))

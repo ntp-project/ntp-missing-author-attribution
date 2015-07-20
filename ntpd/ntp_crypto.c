@@ -380,7 +380,7 @@ make_keylist(
 		EVP_SignUpdate(&ctx, (u_char *)vp, 12);
 		EVP_SignUpdate(&ctx, vp->ptr, sizeof(struct autokey));
 		if (EVP_SignFinal(&ctx, vp->sig, &len, sign_pkey)) {
-			NTP_INSIST(len <= sign_siglen);
+			INSIST(len <= sign_siglen);
 			vp->siglen = htonl(len);
 			peer->flags |= FLAG_ASSOC;
 		}
@@ -1591,7 +1591,7 @@ crypto_encrypt(
 	EVP_SignUpdate(&ctx, (u_char *)&vp->tstamp, 12);
 	EVP_SignUpdate(&ctx, vp->ptr, vallen);
 	if (EVP_SignFinal(&ctx, vp->sig, &vallen, sign_pkey)) {
-		NTP_INSIST(vallen <= sign_siglen);
+		INSIST(vallen <= sign_siglen);
 		vp->siglen = htonl(vallen);
 	}
 	return (XEVNT_OK);
@@ -1770,7 +1770,7 @@ crypto_send(
 		if (j * 4 < siglen)
 			ep->pkt[i + j++] = 0;
 		memcpy(&ep->pkt[i], vp->sig, siglen);
-		i += j;
+		/* i += j; */	/* We don't use i after this */
 	}
 	opcode = ntohl(ep->opcode);
 	ep->opcode = htonl((opcode & 0xffff0000) | len); 
@@ -1825,7 +1825,7 @@ crypto_update(void)
 		EVP_SignUpdate(&ctx, (u_char *)&pubkey, 12);
 		EVP_SignUpdate(&ctx, pubkey.ptr, ntohl(pubkey.vallen));
 		if (EVP_SignFinal(&ctx, pubkey.sig, &len, sign_pkey)) {
-			NTP_INSIST(len <= sign_siglen);
+			INSIST(len <= sign_siglen);
 			pubkey.siglen = htonl(len);
 		}
 	}
@@ -1846,7 +1846,7 @@ crypto_update(void)
 		EVP_SignUpdate(&ctx, cp->cert.ptr,
 		    ntohl(cp->cert.vallen));
 		if (EVP_SignFinal(&ctx, cp->cert.sig, &len, sign_pkey)) {
-			NTP_INSIST(len <= sign_siglen);
+			INSIST(len <= sign_siglen);
 			cp->cert.siglen = htonl(len);
 		}
 	}
@@ -1896,7 +1896,7 @@ crypto_update(void)
 	EVP_SignUpdate(&ctx, (u_char *)&tai_leap, 12);
 	EVP_SignUpdate(&ctx, tai_leap.ptr, len);
 	if (EVP_SignFinal(&ctx, tai_leap.sig, &len, sign_pkey)) {
-		NTP_INSIST(len <= sign_siglen);
+		INSIST(len <= sign_siglen);
 		tai_leap.siglen = htonl(len);
 	}
 	crypto_flags |= CRYPTO_FLAG_TAI;
@@ -1997,9 +1997,9 @@ asn_to_calendar	(
 	 * 100. Dontcha love ASN.1? Better than MIL-188.
 	 */
 	len = asn1time->length;
-	NTP_REQUIRE(len < sizeof(v));
+	REQUIRE(len < sizeof(v));
 	(void)strncpy(v, (char *)(asn1time->data), len);
-	NTP_REQUIRE(len >= 13);
+	REQUIRE(len >= 13);
 	temp = strtoul(v+len-3, NULL, 10);
 	pjd->second = temp;
 	v[len-3] = '\0';
@@ -2169,7 +2169,7 @@ crypto_alice(
 	EVP_SignUpdate(&ctx, (u_char *)&vp->tstamp, 12);
 	EVP_SignUpdate(&ctx, vp->ptr, len);
 	if (EVP_SignFinal(&ctx, vp->sig, &len, sign_pkey)) {
-		NTP_INSIST(len <= sign_siglen);
+		INSIST(len <= sign_siglen);
 		vp->siglen = htonl(len);
 	}
 	return (XEVNT_OK);
@@ -2279,7 +2279,7 @@ crypto_bob(
 	EVP_SignUpdate(&ctx, (u_char *)&vp->tstamp, 12);
 	EVP_SignUpdate(&ctx, vp->ptr, vallen);
 	if (EVP_SignFinal(&ctx, vp->sig, &vallen, sign_pkey)) {
-		NTP_INSIST(vallen <= sign_siglen);
+		INSIST(vallen <= sign_siglen);
 		vp->siglen = htonl(vallen);
 	}
 	return (XEVNT_OK);
@@ -2486,7 +2486,7 @@ crypto_alice2(
 	EVP_SignUpdate(&ctx, (u_char *)&vp->tstamp, 12);
 	EVP_SignUpdate(&ctx, vp->ptr, len);
 	if (EVP_SignFinal(&ctx, vp->sig, &len, sign_pkey)) {
-		NTP_INSIST(len <= sign_siglen);
+		INSIST(len <= sign_siglen);
 		vp->siglen = htonl(len);
 	}
 	return (XEVNT_OK);
@@ -2586,7 +2586,7 @@ crypto_bob2(
 	EVP_SignUpdate(&ctx, (u_char *)&vp->tstamp, 12);
 	EVP_SignUpdate(&ctx, vp->ptr, len);
 	if (EVP_SignFinal(&ctx, vp->sig, &len, sign_pkey)) {
-		NTP_INSIST(len <= sign_siglen);
+		INSIST(len <= sign_siglen);
 		vp->siglen = htonl(len);
 	}
 	return (XEVNT_OK);
@@ -2817,7 +2817,7 @@ crypto_alice3(
 	EVP_SignUpdate(&ctx, (u_char *)&vp->tstamp, 12);
 	EVP_SignUpdate(&ctx, vp->ptr, len);
 	if (EVP_SignFinal(&ctx, vp->sig, &len, sign_pkey)) {
-		NTP_INSIST(len <= sign_siglen);
+		INSIST(len <= sign_siglen);
 		vp->siglen = htonl(len);
 	}
 	return (XEVNT_OK);
@@ -2919,7 +2919,7 @@ crypto_bob3(
 	EVP_SignUpdate(&ctx, (u_char *)&vp->tstamp, 12);
 	EVP_SignUpdate(&ctx, vp->ptr, len);
 	if (EVP_SignFinal(&ctx, vp->sig, &len, sign_pkey)) {
-		NTP_INSIST(len <= sign_siglen);
+		INSIST(len <= sign_siglen);
 		vp->siglen = htonl(len);
 	}
 	return (XEVNT_OK);
@@ -3158,7 +3158,7 @@ cert_sign(
 		EVP_SignUpdate(&ctx, (u_char *)vp, 12);
 		EVP_SignUpdate(&ctx, vp->ptr, len);
 		if (EVP_SignFinal(&ctx, vp->sig, &len, sign_pkey)) {
-			NTP_INSIST(len <= sign_siglen);
+			INSIST(len <= sign_siglen);
 			vp->siglen = htonl(len);
 		}
 	}
