@@ -87,7 +87,7 @@ icom_freq(
 		temp = 5;
 	doublefreq(freq * 1e6, &cmd[6], temp);
 	rc = write(fd, cmd, temp + 7);
-	if (rc != -1) {
+	if (rc == -1) {
 		msyslog(LOG_ERR, "icom_freq: write() failed: %m");
 		return -1;
 	} else if (rc != temp + 7) {
