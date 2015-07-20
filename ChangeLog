@@ -1,6 +1,9 @@
 ---
 
 * [Bug 2823] ntpsweep with recursive peers option doesn't work.  H.Stenn.
+* [Bug 2849] Systems with more than one default route may never
+  synchronize.  Brian Utterback.  Note that this patch might need to
+  be reverted once Bug 2043 has been fixed.
 * [Bug 2864] 4.2.8p3 fails to compile on Windows. Juergen Perlinger
 * [Bug 2866] segmentation fault at initgroups().  Harlan Stenn.
 * [Bug 2867] ntpd with autokey active crashed by 'ntpq -crv'. J.Perlinger
