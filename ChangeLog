@@ -1,3 +1,4 @@
+(4.3.62) 2015/07/20 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * [Bug 2849] Systems with more than one default route may never
   synchronize.  Brian Utterback.  Note that this patch might need to
