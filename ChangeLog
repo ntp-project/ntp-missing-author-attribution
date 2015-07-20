@@ -1,4 +1,7 @@
 Below are from 4.2.8p4:
+* [Bug 2849] Systems with more than one default route may never
+  synchronize.  Brian Utterback.  Note that this patch might need to
+  be reverted once Bug 2043 has been fixed.
 * libntp/icom.c: Typo fix.  Harlan Stenn.
 * util/ntptime.c: initialization nit.  Harlan Stenn.
 (4.3.61) 2015/07/19 Released by Harlan Stenn <stenn@ntp.org>
