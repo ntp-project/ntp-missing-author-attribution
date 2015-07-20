@@ -750,6 +750,8 @@ newpeer(
 	struct peer *	peer;
 	u_int		hash;
 
+	DEBUG_REQUIRE(srcadr);
+
 #ifdef AUTOKEY
 	/*
 	 * If Autokey is requested but not configured, complain loudly.
