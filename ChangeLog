@@ -4,6 +4,7 @@ Below are from 4.2.8p4:
   be reverted once Bug 2043 has been fixed.
 * libntp/icom.c: Typo fix.  Harlan Stenn.
 * util/ntptime.c: initialization nit.  Harlan Stenn.
+* ntpd/ntp_peer.c:newpeer(): added a DEBUG_REQUIRE(srcadr).  Harlan Stenn.
 (4.3.61) 2015/07/19 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * Code cleanup.  Harlan Stenn.
