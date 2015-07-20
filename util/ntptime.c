@@ -91,7 +91,7 @@ main(
 #endif
 	struct timeval tv;
 	struct timex ntx, _ntx;
-	int	times[20];
+	int	times[20] = { 0 };
 	double ftemp, gtemp, htemp;
 	long time_frac;				/* ntv.time.tv_frac_sec (us/ns) */
 	l_fp ts;
