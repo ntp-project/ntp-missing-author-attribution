@@ -22,11 +22,15 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp_types.h"
+#include "ntp_fp.h"
+#include "timevalops.h"
+#include <math.h>
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_Helpers1(void);
 extern void test_Normalise(void);
 extern void test_SignNoFrac(void);
@@ -58,7 +62,8 @@ extern void test_ToString(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -71,7 +76,6 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "timevalops.c";
   UnityBegin("timevalops.c");
   RUN_TEST(test_Helpers1, 157);
   RUN_TEST(test_Normalise, 178);

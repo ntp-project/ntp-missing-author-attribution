@@ -5,6 +5,7 @@
 
 #include "unity.h"
 
+void test_ConstantDateTime(void);
 
 void
 test_ConstantDateTime(void) {

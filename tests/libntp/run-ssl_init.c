@@ -22,11 +22,12 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_MD5KeyTypeWithoutDigestLength(void);
 extern void test_MD5KeyTypeWithDigestLength(void);
 extern void test_SHA1KeyTypeWithDigestLength(void);
@@ -35,7 +36,8 @@ extern void test_SHA1KeyName(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -48,7 +50,6 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "ssl_init.c";
   UnityBegin("ssl_init.c");
   RUN_TEST(test_MD5KeyTypeWithoutDigestLength, 20);
   RUN_TEST(test_MD5KeyTypeWithDigestLength, 25);

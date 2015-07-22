@@ -7,6 +7,10 @@
 
 #include "unity.h"
 
+bool CompareKeys(struct key expected, struct key actual);
+bool CompareKeysAlternative(int key_id,int key_len,const char* type,const char* key_seq,struct key actual);
+void test_ReadEmptyKeyFile(void);
+
 
 bool
 CompareKeys(struct key expected, struct key actual) {

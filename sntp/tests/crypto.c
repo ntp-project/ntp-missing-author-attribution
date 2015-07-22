@@ -9,6 +9,8 @@
 #define SHA1_LENGTH 20
 
 
+void test_MakeMd5Mac(void);
+
 void
 test_MakeMd5Mac(void) {
 

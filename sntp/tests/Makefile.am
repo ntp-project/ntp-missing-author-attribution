@@ -140,6 +140,7 @@ test_kodDatabase_SOURCES =		\
 test_keyFile_SOURCES =			\
 	keyFile.c			\
 	run-keyFile.c			\
+	fileHandlingTest.c		\
 	$(top_builddir)/version.c	\
 	$(NULL)
 
@@ -147,16 +148,19 @@ test_kodFile_SOURCES =			\
 	kodFile.c			\
 	run-kodFile.c			\
 	$(top_builddir)/version.c	\
+	fileHandlingTest.c		\
 	$(NULL)
 
 test_packetProcessing_SOURCES =		\
 	packetProcessing.c		\
 	run-packetProcessing.c		\
+	sntptest.c			\
 	$(NULL)
 
 test_utilities_SOURCES =		\
 	utilities.c			\
 	run-utilities.c			\
+	fileHandlingTest.c		\
 	$(NULL)
 
 test_crypto_SOURCES =			\

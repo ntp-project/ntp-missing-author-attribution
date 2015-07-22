@@ -22,11 +22,15 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp_stdlib.h"
+#include "ntp_fp.h"
+#include <float.h>
+#include <math.h>
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_AdditionLR(void);
 extern void test_AdditionRL(void);
 extern void test_SubtractionLR(void);
@@ -39,7 +43,8 @@ extern void test_UnsignedRelOps(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -52,7 +57,6 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "lfpfunc.c";
   UnityBegin("lfpfunc.c");
   RUN_TEST(test_AdditionLR, 251);
   RUN_TEST(test_AdditionRL, 265);

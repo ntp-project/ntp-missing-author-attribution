@@ -22,18 +22,22 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "lfptest.h"
+#include "timevalops.h"
+#include <math.h>
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_Seconds(void);
 extern void test_MicrosecondsRounded(void);
 extern void test_MicrosecondsExact(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -46,7 +50,6 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "tvtots.c";
   UnityBegin("tvtots.c");
   RUN_TEST(test_Seconds, 12);
   RUN_TEST(test_MicrosecondsRounded, 25);

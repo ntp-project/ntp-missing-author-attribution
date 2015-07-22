@@ -22,11 +22,14 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp_stdlib.h"
+#include "ntp_calendar.h"
+#include "sockaddrtest.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_ClassBAddress(void);
 extern void test_ClassCAddress(void);
 extern void test_ClassAAddress(void);
@@ -34,7 +37,8 @@ extern void test_IPv6Address(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -47,7 +51,6 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "netof.c";
   UnityBegin("netof.c");
   RUN_TEST(test_ClassBAddress, 10);
   RUN_TEST(test_ClassCAddress, 20);

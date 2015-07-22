@@ -22,11 +22,16 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "sntptest.h"
+#include "fileHandlingTest.h"
+#include "main.h"
+#include "utilities.h"
+#include <math.h>
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_IPv4Address(void);
 extern void test_IPv6Address(void);
 extern void test_SetLiVnMode1(void);
@@ -37,7 +42,8 @@ extern void test_LfpOutputDecimalFormat(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -50,7 +56,6 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "utilities.c";
   UnityBegin("utilities.c");
   RUN_TEST(test_IPv4Address, 74);
   RUN_TEST(test_IPv6Address, 86);

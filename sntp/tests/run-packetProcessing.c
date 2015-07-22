@@ -22,11 +22,14 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "sntptest.h"
+#include "networking.h"
+#include "ntp_stdlib.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_TooShortLength(void);
 extern void test_LengthNotMultipleOfFour(void);
 extern void test_TooShortExtensionFieldLength(void);
@@ -48,7 +51,8 @@ extern void test_CorrectAuthenticatedPacketSHA1(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -61,7 +65,6 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "packetProcessing.c";
   UnityBegin("packetProcessing.c");
   RUN_TEST(test_TooShortLength, 91);
   RUN_TEST(test_LengthNotMultipleOfFour, 102);
