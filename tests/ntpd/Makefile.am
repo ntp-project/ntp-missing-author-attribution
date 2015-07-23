@@ -7,6 +7,7 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 check_PROGRAMS =		\
 	test-leapsec		\
 	test-ntp_prio_q		\
+	test-ntp_restrict	\
 	test-rc_cmdlength   \
 	$(NULL)
 
@@ -50,6 +51,7 @@ tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		g_ntpdtest.cpp		\
 		$(top_srcdir)/ntpd/ntp_leapsec.c	\
 		$(top_srcdir)/ntpd/ntp_prio_q.c		\
+		$(top_srcdir)/ntpd/ntp_restrict.c	\
 		$(top_srcdir)/ntpd/rc_cmdlength.c	\
 		g_leapsec.cpp	\
 		$(NULL)
@@ -57,6 +59,7 @@ tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 BUILT_SOURCES +=			\
 	$(srcdir)/run-leapsec.c		\
 	$(srcdir)/run-ntp_prio_q.c	\
+	$(srcdir)/run-ntp_restrict.c	\
 	$(srcdir)/run-rc_cmdlength.c		\
 	$(NULL)
 
@@ -102,6 +105,25 @@ test_ntp_prio_q_SOURCES =			\
 
 $(srcdir)/run-ntp_prio_q.c: $(srcdir)/ntp_prio_q.c $(std_unity_list)
 	$(run_unity) ntp_prio_q.c run-ntp_prio_q.c
+
+
+###
+test_ntp_restrict_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
+	$(NULL)
+
+test_ntp_restrict_LDADD =			\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
+test_ntp_restrict_SOURCES =			\
+	ntp_restrict.c			\
+	run-ntp_restrict.c			\
+	$(srcdir)/../libntp/test-libntp.c		\
+	$(NULL)
+
+$(srcdir)/run-ntp_restrict.c: $(srcdir)/ntp_restrict.c $(std_unity_list)
+	$(run_unity) ntp_restrict.c run-ntp_restrict.c
 
 
 ###
@@ -158,6 +180,9 @@ check-libunity: ../../sntp/unity/libunity.a
 
 $(top_builddir)/ntpd/ntpdsim-ntp_prio_q.o:
 	cd ../../ntpd/ && $(MAKE) $(AM_MAKEFLAGS) ntpdsim-ntp_prio_q.o
+
+#$(top_builddir)/ntpd/ntpdsim-ntp_restrict.o:
+#	cd ../../ntpd/ && $(MAKE) $(AM_MAKEFLAGS) ntpdsim-ntp_restrict.o
 
 include $(top_srcdir)/depsver.mf
 include $(top_srcdir)/includes.mf
