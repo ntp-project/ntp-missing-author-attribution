@@ -12,6 +12,30 @@ extern struct key* key_ptr;
 extern int key_cnt;
 
 
+void PrepareAuthenticationTest(int key_id,int key_len,const char* type,const void* key_seq);
+void PrepareAuthenticationTestMD5(int key_id,int key_len,const void* key_seq);
+void setUp(void);
+void tearDown(void);
+void test_TooShortLength(void);
+void test_LengthNotMultipleOfFour(void);
+void test_TooShortExtensionFieldLength(void);
+void test_UnauthenticatedPacketReject(void);
+void test_CryptoNAKPacketReject(void);
+void test_AuthenticatedPacketInvalid(void);
+void test_AuthenticatedPacketUnknownKey(void);
+void test_ServerVersionTooOld(void);
+void test_ServerVersionTooNew(void);
+void test_NonWantedMode(void);
+void test_KoDRate(void);
+void test_KoDDeny(void);
+void test_RejectUnsyncedServer(void);
+void test_RejectWrongResponseServerMode(void);
+void test_AcceptNoSentPacketBroadcastMode(void);
+void test_CorrectUnauthenticatedPacket(void);
+void test_CorrectAuthenticatedPacketMD5(void);
+void test_CorrectAuthenticatedPacketSHA1(void);
+
+
 static struct pkt testpkt;
 static struct pkt testspkt;
 static sockaddr_u testsock;

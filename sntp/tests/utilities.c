@@ -9,6 +9,18 @@
 
 #include <math.h>
 
+sockaddr_u CreateSockaddr4(const char* address);
+struct addrinfo CreateAddrinfo(sockaddr_u* sock);
+void InitDebugTest(const char * filename);
+void FinishDebugTest(const char * expected,const char * actual);
+void test_IPv4Address(void);
+void test_IPv6Address(void);
+void test_SetLiVnMode1(void);
+void test_SetLiVnMode2(void);
+void test_PktOutput(void);
+void test_LfpOutputBinaryFormat(void);
+void test_LfpOutputDecimalFormat(void);
+
 
 const char * Version = "stub unit test Version string";
 

@@ -55,11 +55,11 @@ int main(int argc, char *argv[])
   progname = argv[0];
   UnityBegin("crypto.c");
   RUN_TEST(test_MakeMd5Mac, 12);
-  RUN_TEST(test_MakeSHA1Mac, 38);
-  RUN_TEST(test_VerifyCorrectMD5, 65);
-  RUN_TEST(test_VerifySHA1, 85);
-  RUN_TEST(test_VerifyFailure, 108);
-  RUN_TEST(test_PacketSizeNotMultipleOfFourBytes, 130);
+  RUN_TEST(test_MakeSHA1Mac, 13);
+  RUN_TEST(test_VerifyCorrectMD5, 14);
+  RUN_TEST(test_VerifySHA1, 15);
+  RUN_TEST(test_VerifyFailure, 16);
+  RUN_TEST(test_PacketSizeNotMultipleOfFourBytes, 17);
 
   return (UnityEnd());
 }

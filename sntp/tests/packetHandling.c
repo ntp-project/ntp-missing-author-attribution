@@ -12,6 +12,19 @@
 
 #include "unity.h"
 
+void setUp(void);
+int LfpEquality(const l_fp expected, const l_fp actual);
+void test_GenerateUnauthenticatedPacket(void);
+void test_GenerateAuthenticatedPacket(void);
+void test_OffsetCalculationPositiveOffset(void);
+void test_OffsetCalculationNegativeOffset(void);
+void test_HandleUnusableServer(void);
+void test_HandleUnusablePacket(void);
+void test_HandleServerAuthenticationFailure(void);
+void test_HandleKodDemobilize(void);
+void test_HandleKodRate(void);
+void test_HandleCorrectPacket(void);
+
 
 void
 setUp(void) { 

@@ -57,13 +57,13 @@ int main(int argc, char *argv[])
 {
   progname = argv[0];
   UnityBegin("utilities.c");
-  RUN_TEST(test_IPv4Address, 74);
-  RUN_TEST(test_IPv6Address, 86);
-  RUN_TEST(test_SetLiVnMode1, 108);
-  RUN_TEST(test_SetLiVnMode2, 123);
-  RUN_TEST(test_PktOutput, 139);
-  RUN_TEST(test_LfpOutputBinaryFormat, 161);
-  RUN_TEST(test_LfpOutputDecimalFormat, 179);
+  RUN_TEST(test_IPv4Address, 16);
+  RUN_TEST(test_IPv6Address, 17);
+  RUN_TEST(test_SetLiVnMode1, 18);
+  RUN_TEST(test_SetLiVnMode2, 19);
+  RUN_TEST(test_PktOutput, 20);
+  RUN_TEST(test_LfpOutputBinaryFormat, 21);
+  RUN_TEST(test_LfpOutputDecimalFormat, 22);
 
   return (UnityEnd());
 }
