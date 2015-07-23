@@ -25,6 +25,14 @@ const char *packet = "ijklmnopqrstuvwx";
 const int totalLength = packetLength + keyIdLength + digestLength;
 const char *expectedPacket = "ijklmnopqrstuvwx\0\0\0\0\x0c\x0e\x84\xcf\x0b\xb7\xa8\x68\x8e\x52\x38\xdb\xbc\x1c\x39\x53";
 
+
+void test_Encrypt(void);
+void test_DecryptValid(void);
+void test_DecryptInvalid(void);
+void test_IPv4AddressToRefId(void);
+void test_IPv6AddressToRefId(void);
+
+
 void
 test_Encrypt(void) {
 	char *packetPtr;

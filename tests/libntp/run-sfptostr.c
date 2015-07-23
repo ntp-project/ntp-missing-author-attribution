@@ -22,11 +22,12 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp_fp.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_PositiveInteger(void);
 extern void test_NegativeInteger(void);
 extern void test_PositiveIntegerPositiveFraction(void);
@@ -38,7 +39,8 @@ extern void test_SingleDecimalRounding(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -51,7 +53,6 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "sfptostr.c";
   UnityBegin("sfptostr.c");
   RUN_TEST(test_PositiveInteger, 11);
   RUN_TEST(test_NegativeInteger, 19);

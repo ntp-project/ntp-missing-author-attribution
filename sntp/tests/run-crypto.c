@@ -22,11 +22,14 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp_types.h"
+#include "sntptest.h"
+#include "crypto.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_MakeMd5Mac(void);
 extern void test_MakeSHA1Mac(void);
 extern void test_VerifyCorrectMD5(void);
@@ -36,7 +39,8 @@ extern void test_PacketSizeNotMultipleOfFourBytes(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -49,14 +53,13 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "crypto.c";
   UnityBegin("crypto.c");
-  RUN_TEST(test_MakeMd5Mac, 13);
-  RUN_TEST(test_MakeSHA1Mac, 36);
-  RUN_TEST(test_VerifyCorrectMD5, 63);
-  RUN_TEST(test_VerifySHA1, 83);
-  RUN_TEST(test_VerifyFailure, 106);
-  RUN_TEST(test_PacketSizeNotMultipleOfFourBytes, 128);
+  RUN_TEST(test_MakeMd5Mac, 12);
+  RUN_TEST(test_MakeSHA1Mac, 13);
+  RUN_TEST(test_VerifyCorrectMD5, 14);
+  RUN_TEST(test_VerifySHA1, 15);
+  RUN_TEST(test_VerifyFailure, 16);
+  RUN_TEST(test_PacketSizeNotMultipleOfFourBytes, 17);
 
   return (UnityEnd());
 }

@@ -22,6 +22,10 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp_stdlib.h"
+#include "ntp_calendar.h"
+#include "ntp_fp.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
@@ -34,7 +38,8 @@ extern void test_IllegalChar(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -47,7 +52,6 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "hextoint.c";
   UnityBegin("hextoint.c");
   RUN_TEST(test_SingleDigit, 10);
   RUN_TEST(test_MultipleDigits, 18);

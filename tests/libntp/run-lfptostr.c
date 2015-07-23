@@ -22,11 +22,13 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp_stdlib.h"
+#include "ntp_fp.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_PositiveInteger(void);
 extern void test_NegativeInteger(void);
 extern void test_PositiveIntegerWithFraction(void);
@@ -41,7 +43,8 @@ extern void test_UnsignedInteger(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -54,7 +57,6 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "lfptostr.c";
   UnityBegin("lfptostr.c");
   RUN_TEST(test_PositiveInteger, 23);
   RUN_TEST(test_NegativeInteger, 31);

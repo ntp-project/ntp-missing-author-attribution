@@ -9,6 +9,12 @@
 
 #include "unity.h"
 
+void setUp(void);
+void test_SingleEntryHandling(void);
+void test_MultipleEntryHandling(void);
+void test_NoMatchInSearch(void);
+void test_AddDuplicate(void);
+void test_DeleteEntry(void);
 
 
 void

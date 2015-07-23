@@ -22,17 +22,20 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp_net.h"
+#include "ntp_refclock.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_LocalClock(void);
 extern void test_UnknownId(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -45,7 +48,6 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "refnumtoa.c";
   UnityBegin("refnumtoa.c");
   RUN_TEST(test_LocalClock, 13);
   RUN_TEST(test_UnknownId, 40);

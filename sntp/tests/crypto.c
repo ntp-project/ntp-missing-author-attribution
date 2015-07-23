@@ -9,6 +9,14 @@
 #define SHA1_LENGTH 20
 
 
+void test_MakeMd5Mac(void);
+void test_MakeSHA1Mac(void);
+void test_VerifyCorrectMD5(void);
+void test_VerifySHA1(void);
+void test_VerifyFailure(void);
+void test_PacketSizeNotMultipleOfFourBytes(void);
+
+
 void
 test_MakeMd5Mac(void) {
 

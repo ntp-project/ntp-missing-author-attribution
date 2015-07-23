@@ -6,6 +6,14 @@
 
 #include "unity.h"
 
+void test_RegularPositive(void);
+void test_PositiveOverflowBoundary(void);
+void test_PositiveOverflowBig(void);
+void test_Negative(void);
+void test_IllegalChar(void);
+
+
+
 void test_RegularPositive(void) {
 	const char *str = "305";
 	u_long actual;

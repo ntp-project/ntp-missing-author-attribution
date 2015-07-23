@@ -22,11 +22,13 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp.h"
+#include "ntp_stdlib.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_Encrypt(void);
 extern void test_DecryptValid(void);
 extern void test_DecryptInvalid(void);
@@ -35,7 +37,8 @@ extern void test_IPv6AddressToRefId(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -48,13 +51,12 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "a_md5encrypt.c";
   UnityBegin("a_md5encrypt.c");
   RUN_TEST(test_Encrypt, 29);
-  RUN_TEST(test_DecryptValid, 51);
-  RUN_TEST(test_DecryptInvalid, 58);
-  RUN_TEST(test_IPv4AddressToRefId, 67);
-  RUN_TEST(test_IPv6AddressToRefId, 81);
+  RUN_TEST(test_DecryptValid, 30);
+  RUN_TEST(test_DecryptInvalid, 31);
+  RUN_TEST(test_IPv4AddressToRefId, 32);
+  RUN_TEST(test_IPv6AddressToRefId, 33);
 
   return (UnityEnd());
 }

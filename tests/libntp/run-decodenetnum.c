@@ -22,11 +22,13 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp_stdlib.h"
+#include "sockaddrtest.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_IPv4AddressOnly(void);
 extern void test_IPv4AddressWithPort(void);
 extern void test_IPv6AddressOnly(void);
@@ -36,7 +38,8 @@ extern void test_IllegalCharInPort(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -49,7 +52,6 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "decodenetnum.c";
   UnityBegin("decodenetnum.c");
   RUN_TEST(test_IPv4AddressOnly, 9);
   RUN_TEST(test_IPv4AddressWithPort, 23);

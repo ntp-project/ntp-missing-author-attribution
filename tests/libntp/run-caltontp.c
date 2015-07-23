@@ -22,11 +22,12 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp_calendar.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_DateGivenMonthDay(void);
 extern void test_DateGivenYearDay(void);
 extern void test_DateLeapYear(void);
@@ -34,7 +35,8 @@ extern void test_WraparoundDateIn2036(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -47,7 +49,6 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "caltontp.c";
   UnityBegin("caltontp.c");
   RUN_TEST(test_DateGivenMonthDay, 6);
   RUN_TEST(test_DateGivenYearDay, 16);

@@ -22,11 +22,16 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+//#include "config.h"
+//#include "ntp_types.h"
+//#include "ntp_stdlib.h"
+//#include "lfptest.h"
+//#include "ntp_unixtime.h"
+//#include <math.h>
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_ZeroBuffer(void);
 extern void test_IntegerAndFractionalBuffer(void);
 extern void test_IllegalMicroseconds(void);
@@ -34,7 +39,8 @@ extern void test_AlwaysFalseOnWindows(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -47,7 +53,6 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "buftvtots.c";
   UnityBegin("buftvtots.c");
   RUN_TEST(test_ZeroBuffer, 17);
   RUN_TEST(test_IntegerAndFractionalBuffer, 32);

@@ -15,6 +15,14 @@ extern int kod_db_cnt;
 extern struct kod_entry** kod_db;
 extern char* kod_db_file;
 
+void setUp(void);
+void test_ReadEmptyFile(void);
+void test_ReadCorrectFile(void);
+void test_ReadFileWithBlankLines(void);
+void test_WriteEmptyFile(void);
+void test_WriteFileWithSingleEntry(void);
+void test_WriteFileWithMultipleEntries(void);
+
 
 void
 setUp(void) {
