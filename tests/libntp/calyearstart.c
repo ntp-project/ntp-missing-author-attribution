@@ -6,6 +6,11 @@
 
 #include "test-libntp.h"
 
+void setUp(void);
+void tearDown(void);
+void test_NoWrapInDateRange(void);
+void test_NoWrapInDateRangeLeapYear(void);
+void test_WrapInDateRange(void);
 
 void setUp(void)
 {

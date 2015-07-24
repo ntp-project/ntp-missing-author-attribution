@@ -5,6 +5,10 @@
 
 #include "unity.h"
 
+void test_RegularTime(void);
+void test_CurrentTime(void);
+
+
 void
 test_RegularTime(void)
 {

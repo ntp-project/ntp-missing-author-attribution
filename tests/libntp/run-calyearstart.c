@@ -51,9 +51,9 @@ int main(int argc, char *argv[])
 {
   progname = argv[0];
   UnityBegin("calyearstart.c");
-  RUN_TEST(test_NoWrapInDateRange, 22);
-  RUN_TEST(test_NoWrapInDateRangeLeapYear, 30);
-  RUN_TEST(test_WrapInDateRange, 38);
+  RUN_TEST(test_NoWrapInDateRange, 11);
+  RUN_TEST(test_NoWrapInDateRangeLeapYear, 12);
+  RUN_TEST(test_WrapInDateRange, 13);
 
   return (UnityEnd());
 }

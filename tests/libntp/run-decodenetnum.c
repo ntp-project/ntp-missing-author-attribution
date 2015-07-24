@@ -53,12 +53,12 @@ int main(int argc, char *argv[])
 {
   progname = argv[0];
   UnityBegin("decodenetnum.c");
-  RUN_TEST(test_IPv4AddressOnly, 9);
-  RUN_TEST(test_IPv4AddressWithPort, 23);
-  RUN_TEST(test_IPv6AddressOnly, 37);
-  RUN_TEST(test_IPv6AddressWithPort, 58);
-  RUN_TEST(test_IllegalAddress, 79);
-  RUN_TEST(test_IllegalCharInPort, 87);
+  RUN_TEST(test_IPv4AddressOnly, 7);
+  RUN_TEST(test_IPv4AddressWithPort, 8);
+  RUN_TEST(test_IPv6AddressOnly, 9);
+  RUN_TEST(test_IPv6AddressWithPort, 10);
+  RUN_TEST(test_IllegalAddress, 11);
+  RUN_TEST(test_IllegalCharInPort, 12);
 
   return (UnityEnd());
 }

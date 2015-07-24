@@ -18,6 +18,19 @@
     TEST_ASSERT_EQUAL_UINT_MESSAGE(a.l_uf, b.l_uf, "Field l_uf");	\
 }
 
+
+void test_AdditionLR(void);
+void test_AdditionRL(void);
+void test_SubtractionLR(void);
+void test_SubtractionRL(void);
+void test_Negation(void);
+void test_Absolute(void);
+void test_FDF_RoundTrip(void);
+void test_SignedRelOps(void);
+void test_UnsignedRelOps(void);
+
+
+
 typedef struct  {
 	uint32_t h, l;
 } lfp_hl;
