@@ -38,7 +38,7 @@ char *	syslog_abs_fname;
 #define INIT_NTP_SYSLOGMASK	~(u_int32)0
 u_int32 ntp_syslogmask = INIT_NTP_SYSLOGMASK;
 
-extern	char *	progname;
+extern char const * progname;
 
 /* Declare the local functions */
 void	addto_syslog	(int, const char *);
@@ -145,8 +145,8 @@ addto_syslog(
 	const char *	msg
 	)
 {
-	static char *	prevcall_progname;
-	static char *	prog;
+	static char const *	prevcall_progname;
+	static char const *	prog;
 	const char	nl[] = "\n";
 	const char	empty[] = "";
 	FILE *		term_file;

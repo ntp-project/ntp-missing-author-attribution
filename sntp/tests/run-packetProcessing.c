@@ -58,7 +58,7 @@ void resetTest(void)
   setUp();
 }
 
-char *progname;
+char const *progname;
 
 
 //=======MAIN=====

@@ -240,7 +240,7 @@ static	FILE *current_output;
  */
 extern struct xcmd opcmds[];
 
-char *progname;
+char const *progname;
 
 #ifdef NO_MAIN_ALLOWED
 CALL(ntpdc,"ntpdc",ntpdcmain);
