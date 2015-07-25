@@ -7,6 +7,12 @@
 
 #include "sockaddrtest.h"
 
+void test_IPv4AddressWithPort(void);
+void test_IPv6AddressWithPort(void);
+void test_ScopedIPv6AddressWithPort(void);
+void test_HashEqual(void);
+void test_HashNotEqual(void);
+void test_IgnoreIPv6Fields(void);
 
 void test_IPv4AddressWithPort(void) {
 	sockaddr_u input = CreateSockaddr4("192.0.2.10", 123);

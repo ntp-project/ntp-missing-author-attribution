@@ -27,10 +27,46 @@ typedef struct {
 	u_int32	frac;
 } lfpfracdata ;
 
+typedef int bool;
+
+struct timeval timeval_init( time_t hi, long lo);
+const bool timeval_isValid(struct timeval V);
+l_fp l_fp_init(int32 i, u_int32 f);
+bool AssertTimevalClose(const struct timeval m, const struct timeval n, const struct timeval limit);
+bool AssertFpClose(const l_fp m, const l_fp n, const l_fp limit);
+
+void test_Helpers1(void);
+void test_Normalise(void);
+void test_SignNoFrac(void);
+void test_SignWithFrac(void);
+void test_CmpFracEQ(void);
+void test_CmpFracGT(void);
+void test_CmpFracLT(void);
+void test_AddFullNorm(void);
+void test_AddFullOflow1(void);
+void test_AddUsecNorm(void);
+void test_AddUsecOflow1(void);
+void test_SubFullNorm(void);
+void test_SubFullOflow(void);
+void test_SubUsecNorm(void);
+void test_SubUsecOflow(void);
+void test_Neg(void);
+void test_AbsNoFrac(void);
+void test_AbsWithFrac(void);
+void test_Helpers2(void);
+void test_ToLFPbittest(void);
+void test_ToLFPrelPos(void);
+void test_ToLFPrelNeg(void);
+void test_ToLFPabs(void);
+void test_FromLFPbittest(void);
+void test_FromLFPrelPos(void);
+void test_FromLFPrelNeg(void);
+void test_LFProundtrip(void);
+void test_ToString(void);
+
 
 //******************************************MY CUSTOM FUNCTIONS*******************************
 
-typedef int bool;
 
 
 struct timeval

@@ -2,6 +2,7 @@
 #include "config.h"
 #include "ntp.h"
 #include "ntp_stdlib.h"
+#include "sockaddrtest.h"
 
 sockaddr_u
 CreateSockaddr4(const char* address, unsigned int port) {

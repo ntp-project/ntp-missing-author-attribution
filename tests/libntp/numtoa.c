@@ -5,6 +5,8 @@
 
 #include "unity.h"
 
+void test_Address(void);
+void test_Netmask(void);
 
 void
 test_Address(void) {

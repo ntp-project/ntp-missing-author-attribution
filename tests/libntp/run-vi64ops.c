@@ -50,9 +50,9 @@ int main(int argc, char *argv[])
 {
   progname = argv[0];
   UnityBegin("vi64ops.c");
-  RUN_TEST(test_ParseVUI64_pos, 33);
-  RUN_TEST(test_ParseVUI64_neg, 49);
-  RUN_TEST(test_ParseVUI64_case, 63);
+  RUN_TEST(test_ParseVUI64_pos, 10);
+  RUN_TEST(test_ParseVUI64_neg, 11);
+  RUN_TEST(test_ParseVUI64_case, 12);
 
   return (UnityEnd());
 }

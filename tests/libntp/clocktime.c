@@ -15,6 +15,7 @@ void test_WrongYearStart(void);
 void test_PreviousYear(void);
 void test_NextYear(void);
 void test_NoReasonableConversion(void);
+int isLE(u_int32 diff,u_int32 actual);
 void test_AlwaysInLimit(void);
 
 

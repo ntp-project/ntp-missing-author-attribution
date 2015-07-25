@@ -52,10 +52,10 @@ int main(int argc, char *argv[])
 {
   progname = argv[0];
   UnityBegin("netof.c");
-  RUN_TEST(test_ClassBAddress, 10);
-  RUN_TEST(test_ClassCAddress, 20);
-  RUN_TEST(test_ClassAAddress, 30);
-  RUN_TEST(test_IPv6Address, 43);
+  RUN_TEST(test_ClassBAddress, 11);
+  RUN_TEST(test_ClassCAddress, 12);
+  RUN_TEST(test_ClassAAddress, 13);
+  RUN_TEST(test_IPv6Address, 14);
 
   return (UnityEnd());
 }

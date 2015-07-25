@@ -4,6 +4,11 @@
 
 #include "unity.h"
 
+void test_NonLeapYearFebruary(void);
+void test_NonLeapYearJune(void);
+void test_LeapYearFebruary(void);
+void test_LeapYearDecember(void);
+
 
 void
 test_NonLeapYearFebruary(void) {

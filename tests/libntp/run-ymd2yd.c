@@ -50,10 +50,10 @@ int main(int argc, char *argv[])
 {
   progname = argv[0];
   UnityBegin("ymd2yd.c");
-  RUN_TEST(test_NonLeapYearFebruary, 9);
-  RUN_TEST(test_NonLeapYearJune, 15);
-  RUN_TEST(test_LeapYearFebruary, 22);
-  RUN_TEST(test_LeapYearDecember, 28);
+  RUN_TEST(test_NonLeapYearFebruary, 7);
+  RUN_TEST(test_NonLeapYearJune, 8);
+  RUN_TEST(test_LeapYearFebruary, 9);
+  RUN_TEST(test_LeapYearDecember, 10);
 
   return (UnityEnd());
 }

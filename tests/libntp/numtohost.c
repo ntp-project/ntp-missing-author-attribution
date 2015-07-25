@@ -5,6 +5,8 @@
 
 #include "unity.h"
 
+void test_LoopbackNetNonResolve(void);
+
 void
 test_LoopbackNetNonResolve(void) {
 	/* A loopback address in 127.0.0.0/8 is chosen, and

@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
   RUN_TEST(test_PreviousYear, 15);
   RUN_TEST(test_NextYear, 16);
   RUN_TEST(test_NoReasonableConversion, 17);
-  RUN_TEST(test_AlwaysInLimit, 18);
+  RUN_TEST(test_AlwaysInLimit, 19);
 
   return (UnityEnd());
 }
