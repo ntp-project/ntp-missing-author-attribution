@@ -22,11 +22,16 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp.h"
+#include "ntp_calendar.h"
+#include "ntp_stdlib.h"
+#include "ntp_prio_q.h"
+#include <string.h>
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_AllocateDeallocateNode(void);
 extern void test_EmptyQueue(void);
 extern void test_OneElementQueue(void);
@@ -37,20 +42,20 @@ extern void test_AppendQueues(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
 }
 
-char *progname;
+char const *progname;
 
 
 //=======MAIN=====
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "ntp_prio_q.c";
   UnityBegin("ntp_prio_q.c");
   RUN_TEST(test_AllocateDeallocateNode, 39);
   RUN_TEST(test_EmptyQueue, 46);

@@ -181,8 +181,5 @@ check-libunity: ../../sntp/unity/libunity.a
 $(top_builddir)/ntpd/ntpdsim-ntp_prio_q.o:
 	cd ../../ntpd/ && $(MAKE) $(AM_MAKEFLAGS) ntpdsim-ntp_prio_q.o
 
-#$(top_builddir)/ntpd/ntpdsim-ntp_restrict.o:
-#	cd ../../ntpd/ && $(MAKE) $(AM_MAKEFLAGS) ntpdsim-ntp_restrict.o
-
 include $(top_srcdir)/depsver.mf
 include $(top_srcdir)/includes.mf

@@ -141,7 +141,7 @@ test_AddingNewRestriction(void) {
 
 void
 test_TheMostFittingRestrictionIsMatched(void) {
-	sockaddr_u resaddr = create_sockaddr_u(AF_INET, 54321, "11.22.33.44");
+	sockaddr_u resaddr_target = create_sockaddr_u(AF_INET, 54321, "11.22.33.44");
 
 	sockaddr_u resaddr_not_matching = create_sockaddr_u(AF_INET, 54321, "11.99.33.44");
 	sockaddr_u resmask_not_matching = create_sockaddr_u(AF_INET, 54321, "255.255.0.0");
@@ -157,13 +157,13 @@ test_TheMostFittingRestrictionIsMatched(void) {
 	hack_restrict(RESTRICT_FLAGS, &resaddr_best_match, &resmask_best_match, 0, 22, 0);
 	hack_restrict(RESTRICT_FLAGS, &resaddr_second_match, &resmask_second_match, 0, 128, 0);
 
-	TEST_ASSERT_EQUAL(22, restrictions(&resaddr));
+	TEST_ASSERT_EQUAL(22, restrictions(&resaddr_target));
 }
 
 
 void
 test_DeletedRestrictionIsNotMatched(void) {
-	sockaddr_u resaddr = create_sockaddr_u(AF_INET, 54321, "11.22.33.44");
+	sockaddr_u resaddr_target = create_sockaddr_u(AF_INET, 54321, "11.22.33.44");
 
 	sockaddr_u resaddr_not_matching = create_sockaddr_u(AF_INET, 54321, "11.99.33.44");
 	sockaddr_u resmask_not_matching = create_sockaddr_u(AF_INET, 54321, "255.255.0.0");
@@ -181,5 +181,18 @@ test_DeletedRestrictionIsNotMatched(void) {
 	/* deleting the best match*/
 	hack_restrict(RESTRICT_REMOVE, &resaddr_best_match, &resmask_best_match, 0, 22, 0);
 
-	TEST_ASSERT_EQUAL(128, restrictions(&resaddr));
+	TEST_ASSERT_EQUAL(128, restrictions(&resaddr_target));
+}
+
+
+void
+test_RestrictUnflagWorks(void) {
+	sockaddr_u resaddr = create_sockaddr_u(AF_INET, 54321, "11.22.30.20");
+	sockaddr_u resmask = create_sockaddr_u(AF_INET, 54321, "255.255.0.0");
+
+	hack_restrict(RESTRICT_FLAGS, &resaddr, &resmask, 0, 11, 0);
+
+	hack_restrict(RESTRICT_UNFLAG, &resaddr, &resmask, 0, 10, 0);
+
+	TEST_ASSERT_EQUAL(1, restrictions(&resaddr));
 }

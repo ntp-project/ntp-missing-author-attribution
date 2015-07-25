@@ -22,11 +22,13 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntpd.h"
+#include "ntp_lists.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_RestrictionsAreEmptyAfterInit(void);
 extern void test_ReturnsCorrectDefaultRestrictions(void);
 extern void test_HackingDefaultRestriction(void);
@@ -34,23 +36,24 @@ extern void test_CantRemoveDefaultEntry(void);
 extern void test_AddingNewRestriction(void);
 extern void test_TheMostFittingRestrictionIsMatched(void);
 extern void test_DeletedRestrictionIsNotMatched(void);
+extern void test_RestrictUnflagWorks(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
 }
 
-char *progname;
+char const * progname;
 
 
 //=======MAIN=====
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "ntp_restrict.c";
   UnityBegin("ntp_restrict.c");
   RUN_TEST(test_RestrictionsAreEmptyAfterInit, 59);
   RUN_TEST(test_ReturnsCorrectDefaultRestrictions, 85);
@@ -59,6 +62,7 @@ int main(int argc, char *argv[])
   RUN_TEST(test_AddingNewRestriction, 130);
   RUN_TEST(test_TheMostFittingRestrictionIsMatched, 143);
   RUN_TEST(test_DeletedRestrictionIsNotMatched, 165);
+  RUN_TEST(test_RestrictUnflagWorks, 189);
 
   return (UnityEnd());
 }
