@@ -11,7 +11,7 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 check_PROGRAMS =		\
 	test-leapsec		\
 	test-rc_cmdlength   \
-	test-ntp_signd      \
+	test-ntp_scanner	\
 	$(NULL)
 
 if GTEST_AVAILABLE
@@ -111,6 +111,7 @@ test_ntp_signd_CFLAGS =			\
 	$(NULL)
 
 test_ntp_signd_LDADD =			\
+	$(top_builddir)/ntpd/libntpd.a	\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
@@ -122,6 +123,24 @@ test_ntp_signd_SOURCES =			\
 
 $(srcdir)/run-ntp_signd.c: $(srcdir)/ntp_signd.c $(std_unity_list)
 	$(run_unity) ntp_signd.c run-ntp_signd.c
+
+###
+test_ntp_scanner_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
+	$(NULL)
+
+test_ntp_scanner_LDADD =			\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
+test_ntp_scanner_SOURCES =			\
+	ntp_scanner.c			\
+	run-ntp_scanner.c			\
+	$(srcdir)/../libntp/test-libntp.c		\
+	$(NULL)
+
+$(srcdir)/run-ntp_scanner.c: $(srcdir)/ntp_scanner.c $(std_unity_list)
+	$(run_unity) ntp_scanner.c run-ntp_scanner.c
 
 
 TESTS =

@@ -21,4 +21,6 @@ test_ux_socket_connect(void){
 }
 
 void
-test_write_all(void)
+test_write_all(void){
+
+}

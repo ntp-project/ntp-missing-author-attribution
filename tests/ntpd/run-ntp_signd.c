@@ -22,16 +22,22 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp.h"
+#include "ntp_calendar.h"
+#include "ntp_stdlib.h"
+#include "test-libntp.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_ux_socket_connect(void);
+extern void test_write_all(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -44,9 +50,9 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "ntp_signd.c";
   UnityBegin("ntp_signd.c");
   RUN_TEST(test_ux_socket_connect, 13);
+  RUN_TEST(test_write_all, 24);
 
   return (UnityEnd());
 }
