@@ -2,6 +2,10 @@ NULL =
 BUILT_SOURCES =
 CLEANFILES =
 
+std_unity_list = 						\
+	$(top_srcdir)/sntp/unity/auto/generate_test_runner.rb	\
+	$(NULL)
+
 run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
 check_PROGRAMS =		\
