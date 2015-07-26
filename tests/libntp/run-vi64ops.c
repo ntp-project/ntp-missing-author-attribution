@@ -22,18 +22,21 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp_stdlib.h"
+#include "vint64ops.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_ParseVUI64_pos(void);
 extern void test_ParseVUI64_neg(void);
 extern void test_ParseVUI64_case(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -46,11 +49,10 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "vi64ops.c";
   UnityBegin("vi64ops.c");
-  RUN_TEST(test_ParseVUI64_pos, 32);
-  RUN_TEST(test_ParseVUI64_neg, 46);
-  RUN_TEST(test_ParseVUI64_case, 59);
+  RUN_TEST(test_ParseVUI64_pos, 10);
+  RUN_TEST(test_ParseVUI64_neg, 11);
+  RUN_TEST(test_ParseVUI64_case, 12);
 
   return (UnityEnd());
 }

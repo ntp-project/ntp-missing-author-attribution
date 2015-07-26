@@ -400,7 +400,7 @@ ntp-4.3 begins.
 * tests/ntpd/ function parameter list cleanup.  Damir Tomić.
 * sntp/unity/unity_config.h: handle stdint.h.  Harlan Stenn.
 * sntp/unity/unity_internals.h: handle *INTPTR_MAX on old Solaris.  H.Stenn.
-* tests/libntp/timevalops.c and timespecops.c fixd error printing.  D.Tomić.
+* tests/libntp/timevalops.c and timespecops.c fixed error printing.  D.Tomić.
 * tests/libntp/ improvements in code and fixed error printing.  Damir Tomić.
 * tests/libntp: a_md5encrypt.c, authkeys.c, buftvtots.c, calendar.c, caljulian.c,
   caltontp.c, clocktime.c, humandate.c, hextolfp.c, decodenetnum.c - fixed
@@ -410,12 +410,46 @@ ntp-4.3 begins.
   fix formatting, cleanup. Tomasz Flendrich
 * tests/libntp/lfptostr.c remove unnecessary include, add consts, fix formatting.
   Tomasz Flendrich
+* tests/libntp/statestr.c remove empty functions, remove unnecessary include,
+  fix formatting. Tomasz Flendrich
 * tests/libntp/modetoa.c fixed formatting. Tomasz Flendrich
 * tests/libntp/msyslog.c fixed formatting. Tomasz Flendrich
 * tests/libntp/numtoa.c deleted unnecessary empty functions, fixed formatting.
   Tomasz Flendrich
 * tests/libntp/numtohost.c added const, fixed formatting. Tomasz Flendrich
 * tests/libntp/refnumtoa.c fixed formatting. Tomasz Flendrich
+* tests/libntp/ssl_init.c fixed formatting. Tomasz Flendrich
+* tests/libntp/tvtots.c fixed a bug, fixed formatting. Tomasz Flendrich
+* tests/libntp/uglydate.c removed an unnecessary include. Tomasz Flendrich
+* tests/libntp/vi64ops.c removed an unnecessary comment, fixed formatting.
+* tests/libntp/ymd3yd.c removed an empty function and an unnecessary include,
+fixed formatting. Tomasz Flendrich
+* tests/libntp/timespecops.c fixed formatting, fixed the order of includes,
+  removed unnecessary comments, cleanup. Tomasz Flendrich
+* tests/libntp/timevalops.c fixed the order of includes, deleted unnecessary
+  comments, cleanup. Tomasz Flendrich
+* tests/libntp/sockaddrtest.h making it agree to NTP's conventions of formatting.
+  Tomasz Flendrich
+* tests/libntp/lfptest.h cleanup. Tomasz Flendrich
+* tests/libntp/test-libntp.c fix formatting. Tomasz Flendrich
+* sntp/tests/crypto.c is now using proper Unity's assertions, fixed formatting.
+  Tomasz Flendrich
+* sntp/tests/kodDatabase.c added consts, deleted empty function,
+  fixed formatting. Tomasz Flendrich
+* sntp/tests/kodFile.c cleanup, fixed formatting. Tomasz Flendrich
+* sntp/tests/packetHandling.c is now using proper Unity's assertions,
+  fixed formatting, deleted unused variable. Tomasz Flendrich
+* sntp/tests/keyFile.c is now using proper Unity's assertions, fixed formatting.
+  Tomasz Flendrich
+* sntp/tests/packetProcessing.c changed from sprintf to snprintf,
+  fixed formatting. Tomasz Flendrich
+* sntp/tests/utilities.c is now using proper Unity's assertions, changed
+  the order of includes, fixed formatting, removed unnecessary comments.
+  Tomasz Flendrich
+* sntp/tests/sntptest.h fixed formatting. Tomasz Flendrich
+* sntp/tests/fileHandlingTest.h.in fixed a possible buffer overflow problem,
+  made one function do its job, deleted unnecessary prints, fixed formatting.
+  Tomasz Flendrich
 * sntp/unity/Makefile.am added a missing header. Tomasz Flendrich
 * sntp/unity/unity_config.h: Distribute it.  Harlan Stenn.
 * sntp/libevent/evconfig-private.h: remove generated filefrom SCM.  H.Stenn.

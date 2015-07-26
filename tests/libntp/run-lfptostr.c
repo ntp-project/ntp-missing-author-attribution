@@ -22,11 +22,13 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp_stdlib.h"
+#include "ntp_fp.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_PositiveInteger(void);
 extern void test_NegativeInteger(void);
 extern void test_PositiveIntegerWithFraction(void);
@@ -41,7 +43,8 @@ extern void test_UnsignedInteger(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -54,19 +57,18 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "lfptostr.c";
   UnityBegin("lfptostr.c");
   RUN_TEST(test_PositiveInteger, 23);
-  RUN_TEST(test_NegativeInteger, 31);
-  RUN_TEST(test_PositiveIntegerWithFraction, 39);
-  RUN_TEST(test_NegativeIntegerWithFraction, 47);
-  RUN_TEST(test_RoundingDownToInteger, 55);
-  RUN_TEST(test_RoundingMiddleToInteger, 63);
-  RUN_TEST(test_RoundingUpToInteger, 71);
-  RUN_TEST(test_SingleDecimal, 79);
-  RUN_TEST(test_MillisecondsRoundingUp, 87);
-  RUN_TEST(test_MillisecondsRoundingDown, 97);
-  RUN_TEST(test_UnsignedInteger, 106);
+  RUN_TEST(test_NegativeInteger, 24);
+  RUN_TEST(test_PositiveIntegerWithFraction, 25);
+  RUN_TEST(test_NegativeIntegerWithFraction, 26);
+  RUN_TEST(test_RoundingDownToInteger, 27);
+  RUN_TEST(test_RoundingMiddleToInteger, 28);
+  RUN_TEST(test_RoundingUpToInteger, 29);
+  RUN_TEST(test_SingleDecimal, 30);
+  RUN_TEST(test_MillisecondsRoundingUp, 31);
+  RUN_TEST(test_MillisecondsRoundingDown, 32);
+  RUN_TEST(test_UnsignedInteger, 33);
 
   return (UnityEnd());
 }

@@ -22,6 +22,10 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp_stdlib.h"
+#include "ntp_calendar.h"
+#include "sockaddrtest.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
@@ -35,7 +39,8 @@ extern void test_IgnoreIPv6Fields(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -48,14 +53,13 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "socktoa.c";
   UnityBegin("socktoa.c");
-  RUN_TEST(test_IPv4AddressWithPort, 11);
-  RUN_TEST(test_IPv6AddressWithPort, 18);
-  RUN_TEST(test_ScopedIPv6AddressWithPort, 42);
-  RUN_TEST(test_HashEqual, 67);
-  RUN_TEST(test_HashNotEqual, 75);
-  RUN_TEST(test_IgnoreIPv6Fields, 88);
+  RUN_TEST(test_IPv4AddressWithPort, 10);
+  RUN_TEST(test_IPv6AddressWithPort, 11);
+  RUN_TEST(test_ScopedIPv6AddressWithPort, 12);
+  RUN_TEST(test_HashEqual, 13);
+  RUN_TEST(test_HashNotEqual, 14);
+  RUN_TEST(test_IgnoreIPv6Fields, 15);
 
   return (UnityEnd());
 }

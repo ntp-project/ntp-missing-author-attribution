@@ -4,6 +4,9 @@
 
 #include "unity.h"
 
+void test_KnownMode(void);
+void test_UnknownMode(void);
+
 
 void
 test_KnownMode(void) {

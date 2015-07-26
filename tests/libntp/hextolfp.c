@@ -6,6 +6,13 @@
 #include "unity.h"
 #include "lfptest.h"
 
+void test_PositiveInteger(void);
+void test_NegativeInteger(void);
+void test_PositiveFraction(void);
+void test_NegativeFraction(void);
+void test_IllegalNumberOfInteger(void);
+void test_IllegalChar(void);
+
 
 void
 test_PositiveInteger(void) {

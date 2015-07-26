@@ -22,11 +22,15 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp_types.h"
+#include "ntp_fp.h"
+#include "timevalops.h"
+#include <math.h>
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_Helpers1(void);
 extern void test_Normalise(void);
 extern void test_SignNoFrac(void);
@@ -58,7 +62,8 @@ extern void test_ToString(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -71,36 +76,35 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "timevalops.c";
   UnityBegin("timevalops.c");
-  RUN_TEST(test_Helpers1, 149);
-  RUN_TEST(test_Normalise, 169);
-  RUN_TEST(test_SignNoFrac, 183);
-  RUN_TEST(test_SignWithFrac, 195);
-  RUN_TEST(test_CmpFracEQ, 210);
-  RUN_TEST(test_CmpFracGT, 224);
-  RUN_TEST(test_CmpFracLT, 238);
-  RUN_TEST(test_AddFullNorm, 256);
-  RUN_TEST(test_AddFullOflow1, 270);
-  RUN_TEST(test_AddUsecNorm, 284);
-  RUN_TEST(test_AddUsecOflow1, 296);
-  RUN_TEST(test_SubFullNorm, 312);
-  RUN_TEST(test_SubFullOflow, 326);
-  RUN_TEST(test_SubUsecNorm, 340);
-  RUN_TEST(test_SubUsecOflow, 352);
-  RUN_TEST(test_Neg, 368);
-  RUN_TEST(test_AbsNoFrac, 385);
-  RUN_TEST(test_AbsWithFrac, 396);
-  RUN_TEST(test_Helpers2, 412);
-  RUN_TEST(test_ToLFPbittest, 445);
-  RUN_TEST(test_ToLFPrelPos, 460);
-  RUN_TEST(test_ToLFPrelNeg, 474);
-  RUN_TEST(test_ToLFPabs, 487);
-  RUN_TEST(test_FromLFPbittest, 505);
-  RUN_TEST(test_FromLFPrelPos, 523);
-  RUN_TEST(test_FromLFPrelNeg, 536);
-  RUN_TEST(test_LFProundtrip, 550);
-  RUN_TEST(test_ToString, 569);
+  RUN_TEST(test_Helpers1, 38);
+  RUN_TEST(test_Normalise, 39);
+  RUN_TEST(test_SignNoFrac, 40);
+  RUN_TEST(test_SignWithFrac, 41);
+  RUN_TEST(test_CmpFracEQ, 42);
+  RUN_TEST(test_CmpFracGT, 43);
+  RUN_TEST(test_CmpFracLT, 44);
+  RUN_TEST(test_AddFullNorm, 45);
+  RUN_TEST(test_AddFullOflow1, 46);
+  RUN_TEST(test_AddUsecNorm, 47);
+  RUN_TEST(test_AddUsecOflow1, 48);
+  RUN_TEST(test_SubFullNorm, 49);
+  RUN_TEST(test_SubFullOflow, 50);
+  RUN_TEST(test_SubUsecNorm, 51);
+  RUN_TEST(test_SubUsecOflow, 52);
+  RUN_TEST(test_Neg, 53);
+  RUN_TEST(test_AbsNoFrac, 54);
+  RUN_TEST(test_AbsWithFrac, 55);
+  RUN_TEST(test_Helpers2, 56);
+  RUN_TEST(test_ToLFPbittest, 57);
+  RUN_TEST(test_ToLFPrelPos, 58);
+  RUN_TEST(test_ToLFPrelNeg, 59);
+  RUN_TEST(test_ToLFPabs, 60);
+  RUN_TEST(test_FromLFPbittest, 61);
+  RUN_TEST(test_FromLFPrelPos, 62);
+  RUN_TEST(test_FromLFPrelNeg, 63);
+  RUN_TEST(test_LFProundtrip, 64);
+  RUN_TEST(test_ToString, 65);
 
   return (UnityEnd());
 }

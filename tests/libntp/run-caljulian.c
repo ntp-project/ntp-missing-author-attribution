@@ -22,11 +22,15 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp_calendar.h"
+#include "ntp_stdlib.h"
+#include "test-libntp.h"
+#include <string.h>
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_RegularTime(void);
 extern void test_LeapYear(void);
 extern void test_uLongBoundary(void);
@@ -34,7 +38,8 @@ extern void test_uLongWrapped(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -47,12 +52,11 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "caljulian.c";
   UnityBegin("caljulian.c");
-  RUN_TEST(test_RegularTime, 73);
-  RUN_TEST(test_LeapYear, 85);
-  RUN_TEST(test_uLongBoundary, 97);
-  RUN_TEST(test_uLongWrapped, 109);
+  RUN_TEST(test_RegularTime, 16);
+  RUN_TEST(test_LeapYear, 17);
+  RUN_TEST(test_uLongBoundary, 18);
+  RUN_TEST(test_uLongWrapped, 19);
 
   return (UnityEnd());
 }

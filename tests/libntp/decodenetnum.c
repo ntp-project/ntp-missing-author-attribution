@@ -4,6 +4,13 @@
 
 #include "unity.h"
 
+extern void test_IPv4AddressOnly(void);
+extern void test_IPv4AddressWithPort(void);
+extern void test_IPv6AddressOnly(void);
+extern void test_IPv6AddressWithPort(void);
+extern void test_IllegalAddress(void);
+extern void test_IllegalCharInPort(void);
+
 
 void
 test_IPv4AddressOnly(void) {

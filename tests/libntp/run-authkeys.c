@@ -22,11 +22,14 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp.h"
+#include "ntp_stdlib.h"
+#include "ntp_calendar.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_AddTrustedKeys(void);
 extern void test_AddUntrustedKey(void);
 extern void test_HaveKeyCorrect(void);
@@ -36,7 +39,8 @@ extern void test_EmptyKey(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -49,14 +53,13 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "authkeys.c";
   UnityBegin("authkeys.c");
-  RUN_TEST(test_AddTrustedKeys, 70);
-  RUN_TEST(test_AddUntrustedKey, 82);
-  RUN_TEST(test_HaveKeyCorrect, 91);
-  RUN_TEST(test_HaveKeyIncorrect, 101);
-  RUN_TEST(test_AddWithAuthUseKey, 109);
-  RUN_TEST(test_EmptyKey, 117);
+  RUN_TEST(test_AddTrustedKeys, 24);
+  RUN_TEST(test_AddUntrustedKey, 25);
+  RUN_TEST(test_HaveKeyCorrect, 26);
+  RUN_TEST(test_HaveKeyIncorrect, 27);
+  RUN_TEST(test_AddWithAuthUseKey, 28);
+  RUN_TEST(test_EmptyKey, 29);
 
   return (UnityEnd());
 }
