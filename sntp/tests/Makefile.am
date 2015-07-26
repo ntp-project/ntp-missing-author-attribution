@@ -4,6 +4,10 @@ CLEANFILES = kod-output-blank kod-output-single kod-output-multiple debug-output
 DISTCLEANFILES = kod-output-blank kod-output-single kod-output-multiple
 EXTRA_PROGRAMS =
 
+std_unity_list =					\
+	$(srcdir)/../unity/auto/generate_test_runner.rb	\
+	$(NULL)
+
 run_unity =	cd $(srcdir) && ruby ../unity/auto/generate_test_runner.rb
 
 # Use EXTRA_PROGRAMS for test files that are under development but
