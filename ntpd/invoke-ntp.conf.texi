@@ -6,7 +6,7 @@
 #
 # EDIT THIS FILE WITH CAUTION  (invoke-ntp.conf.texi)
 #
-# It has been AutoGen-ed  July 21, 2015 at 11:57:08 AM by AutoGen 5.18.5
+# It has been AutoGen-ed  July 26, 2015 at 11:57:33 AM by AutoGen 5.18.5
 # From the definitions    ntp.conf.def
 # and the template file   agtexi-file.tpl
 @end ignore
@@ -1921,7 +1921,7 @@ peers remaining.
 This value defaults to 1, but can be changed
 to any number from 1 to 15.
 @item @code{minclock} @kbd{minclock}
-The clustering algorithm repeatedly casts out outlyer
+The clustering algorithm repeatedly casts out outlier
 associations until no more than
 @code{minclock}
 associations remain.

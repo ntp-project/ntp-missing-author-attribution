@@ -1,3 +1,4 @@
+(4.3.64) 2015/07/26 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * [Bug 2886] Mis-spelling: "outlyer" should be "outlier".  dave@horsfall.org
 * tests/libntp/timevalops.c and timespecops.c fixed error printing.  D.Tomić.
