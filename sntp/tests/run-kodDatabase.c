@@ -22,11 +22,17 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp_types.h"
+#include "sntptest.h"
+#include "ntp_stdlib.h"
+#include "sntp-opts.h"
+#include "kod_management.h"
+#include "ntp_io.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_SingleEntryHandling(void);
 extern void test_MultipleEntryHandling(void);
 extern void test_NoMatchInSearch(void);
@@ -35,7 +41,8 @@ extern void test_DeleteEntry(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -48,13 +55,12 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "kodDatabase.c";
   UnityBegin("kodDatabase.c");
-  RUN_TEST(test_SingleEntryHandling, 22);
-  RUN_TEST(test_MultipleEntryHandling, 35);
-  RUN_TEST(test_NoMatchInSearch, 66);
-  RUN_TEST(test_AddDuplicate, 79);
-  RUN_TEST(test_DeleteEntry, 104);
+  RUN_TEST(test_SingleEntryHandling, 13);
+  RUN_TEST(test_MultipleEntryHandling, 14);
+  RUN_TEST(test_NoMatchInSearch, 15);
+  RUN_TEST(test_AddDuplicate, 16);
+  RUN_TEST(test_DeleteEntry, 17);
 
   return (UnityEnd());
 }

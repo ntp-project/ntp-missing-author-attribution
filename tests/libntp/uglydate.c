@@ -1,11 +1,11 @@
 #include "config.h"
 
 #include "ntp_stdlib.h"
-#include "ntp_calendar.h"
 #include "ntp_fp.h"
 
 #include "unity.h"
 
+void test_ConstantDateTime(void);
 
 void
 test_ConstantDateTime(void) {

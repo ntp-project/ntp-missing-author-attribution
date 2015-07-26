@@ -22,17 +22,20 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp_stdlib.h"
+#include "ntp_fp.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_Address(void);
 extern void test_Netmask(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -45,10 +48,9 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "numtoa.c";
   UnityBegin("numtoa.c");
-  RUN_TEST(test_Address, 10);
-  RUN_TEST(test_Netmask, 17);
+  RUN_TEST(test_Address, 8);
+  RUN_TEST(test_Netmask, 9);
 
   return (UnityEnd());
 }

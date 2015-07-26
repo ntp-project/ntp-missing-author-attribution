@@ -5,6 +5,9 @@
 #include "sntptest.h"
 #include "networking.h"
 
+void test_ResolveSingleAddress(void);
+
+
 int CompareAddrinfo(const char* host, int family, int flags, const struct addrinfo actual) {
 		if (family != actual.ai_family)
 			return FALSE ;

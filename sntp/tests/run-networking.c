@@ -22,6 +22,9 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "sntptest.h"
+#include "networking.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
@@ -29,7 +32,8 @@ extern void tearDown(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -42,7 +46,6 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "networking.c";
   UnityBegin("networking.c");
 
   return (UnityEnd());

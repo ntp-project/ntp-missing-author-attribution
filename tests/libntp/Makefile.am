@@ -219,6 +219,7 @@ $(srcdir)/run-authkeys.c: $(srcdir)/authkeys.c $(std_unity_list)
 test_buftvtots_SOURCES =		\
 	buftvtots.c			\
 	run-buftvtots.c			\
+	lfptest.c			\
 	$(NULL)
 
 $(srcdir)/run-buftvtots.c: $(srcdir)/buftvtots.c $(std_unity_list)
@@ -298,6 +299,7 @@ test_decodenetnum_LDADD =	\
 test_decodenetnum_SOURCES =	\
 	decodenetnum.c		\
 	run-decodenetnum.c	\
+	sockaddrtest.c		\
 	$(NULL)
 
 $(srcdir)/run-decodenetnum.c: $(srcdir)/decodenetnum.c $(std_unity_list)
@@ -318,6 +320,7 @@ $(srcdir)/run-hextoint.c: $(srcdir)/hextoint.c $(std_unity_list)
 test_hextolfp_SOURCES =		\
 	hextolfp.c		\
 	run-hextolfp.c		\
+	lfptest.c		\
 	$(NULL)
 
 $(srcdir)/run-hextolfp.c: $(srcdir)/hextolfp.c $(std_unity_list)
@@ -378,6 +381,7 @@ $(srcdir)/run-msyslog.c: $(srcdir)/msyslog.c $(std_unity_list)
 test_netof_SOURCES =		\
 	netof.c			\
 	run-netof.c		\
+	sockaddrtest.c		\
 	$(NULL)
 
 $(srcdir)/run-netof.c: $(srcdir)/netof.c $(std_unity_list)
@@ -468,6 +472,7 @@ $(srcdir)/run-sfptostr.c: $(srcdir)/sfptostr.c $(std_unity_list)
 test_socktoa_SOURCES =		\
 	socktoa.c		\
 	run-socktoa.c		\
+	sockaddrtest.c		\
 	$(NULL)
 
 $(srcdir)/run-socktoa.c: $(srcdir)/socktoa.c $(std_unity_list)
@@ -503,6 +508,7 @@ test_strtolfp_LDADD =		\
 test_strtolfp_SOURCES =		\
 	strtolfp.c		\
 	run-strtolfp.c		\
+	lfptest.c		\
 	$(NULL)
 
 $(srcdir)/run-strtolfp.c: $(srcdir)/strtolfp.c $(std_unity_list)
@@ -543,6 +549,7 @@ $(srcdir)/run-tstotv.c: $(srcdir)/tstotv.c $(std_unity_list)
 test_tvtots_SOURCES =		\
 	tvtots.c		\
 	run-tvtots.c		\
+	lfptest.c		\
 	$(NULL)
 
 $(srcdir)/run-tvtots.c: $(srcdir)/tvtots.c $(std_unity_list)

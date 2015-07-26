@@ -6,6 +6,9 @@
 
 #include "unity.h"
 
+void test_ConstantDate(void);
+
+
 void
 test_ConstantDate(void) {
 	const u_int32 HALF = 2147483648UL;

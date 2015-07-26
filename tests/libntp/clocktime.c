@@ -6,6 +6,18 @@
 #include "unity.h"
 #include "test-libntp.h"
 
+void setUp(void);
+void tearDown(void);
+void test_CurrentYear(void);
+void test_CurrentYearFuzz(void);
+void test_TimeZoneOffset(void);
+void test_WrongYearStart(void);
+void test_PreviousYear(void);
+void test_NextYear(void);
+void test_NoReasonableConversion(void);
+int isLE(u_int32 diff,u_int32 actual);
+void test_AlwaysInLimit(void);
+
 
 // ---------------------------------------------------------------------
 // test fixture

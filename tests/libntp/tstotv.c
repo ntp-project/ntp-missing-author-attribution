@@ -5,6 +5,11 @@
 
 #include "unity.h"
 
+void test_Seconds(void);
+void test_MicrosecondsExact(void);
+void test_MicrosecondsRounding(void);
+
+
 void
 test_Seconds(void) {
 	const l_fp input = {50, 0}; // 50.0 s

@@ -10,6 +10,16 @@ void format_errmsg(char *, size_t, const char *, int);
 #endif
 
 
+void test_msnprintf(void);
+void test_msnprintfLiteralPercentm(void);
+void test_msnprintfBackslashLiteralPercentm(void);
+void test_msnprintfBackslashPercent(void);
+void test_msnprintfHangingPercent(void);
+void test_format_errmsgHangingPercent(void);
+void test_msnprintfNullTarget(void);
+void test_msnprintfTruncate(void);
+
+
 void
 test_msnprintf(void) {
 #define FMT_PREFIX "msyslog.cpp ENOENT: "

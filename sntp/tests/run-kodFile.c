@@ -22,11 +22,15 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp_types.h"
+#include "ntp_stdlib.h"
+#include "fileHandlingTest.h"
+#include "kod_management.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_ReadEmptyFile(void);
 extern void test_ReadCorrectFile(void);
 extern void test_ReadFileWithBlankLines(void);
@@ -36,7 +40,8 @@ extern void test_WriteFileWithMultipleEntries(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -49,14 +54,13 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "kodFile.c";
   UnityBegin("kodFile.c");
-  RUN_TEST(test_ReadEmptyFile, 29);
-  RUN_TEST(test_ReadCorrectFile, 35);
-  RUN_TEST(test_ReadFileWithBlankLines, 53);
-  RUN_TEST(test_WriteEmptyFile, 76);
-  RUN_TEST(test_WriteFileWithSingleEntry, 92);
-  RUN_TEST(test_WriteFileWithMultipleEntries, 116);
+  RUN_TEST(test_ReadEmptyFile, 19);
+  RUN_TEST(test_ReadCorrectFile, 20);
+  RUN_TEST(test_ReadFileWithBlankLines, 21);
+  RUN_TEST(test_WriteEmptyFile, 22);
+  RUN_TEST(test_WriteFileWithSingleEntry, 23);
+  RUN_TEST(test_WriteFileWithMultipleEntries, 24);
 
   return (UnityEnd());
 }

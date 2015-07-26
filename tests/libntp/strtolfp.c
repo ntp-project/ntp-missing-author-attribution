@@ -8,6 +8,15 @@
 
 /* This file tests both atolfp and mstolfp */
 
+void test_PositiveInteger(void);
+void test_NegativeInteger(void);
+void test_PositiveFraction(void);
+void test_NegativeFraction(void);
+void test_PositiveMsFraction(void);
+void test_NegativeMsFraction(void);
+void test_InvalidChars(void);
+
+
 void test_PositiveInteger(void) {
 	const char *str = "500";
 	const char *str_ms = "500000";

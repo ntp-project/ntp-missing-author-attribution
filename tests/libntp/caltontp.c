@@ -2,6 +2,11 @@
 #include "ntp_calendar.h"
 #include "unity.h"
 
+void test_DateGivenMonthDay(void);
+void test_DateGivenYearDay(void);
+void test_DateLeapYear(void);
+void test_WraparoundDateIn2036(void);
+
 void
 test_DateGivenMonthDay(void) {
 	// 2010-06-24 12:50:00
