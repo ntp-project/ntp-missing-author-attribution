@@ -1997,7 +1997,7 @@ peers remaining.
 This value defaults to 1, but can be changed
 to any number from 1 to 15.
 .It Cm minclock Ar minclock
-The clustering algorithm repeatedly casts out outlyer
+The clustering algorithm repeatedly casts out outlier
 associations until no more than
 .Cm minclock
 associations remain.

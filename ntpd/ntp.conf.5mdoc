@@ -1,9 +1,9 @@
-.Dd June 29 2015
+.Dd July 26 2015
 .Dt NTP_CONF 5mdoc File Formats
 .Os
 .\"  EDIT THIS FILE WITH CAUTION  (ntp.mdoc)
 .\"
-.\"  It has been AutoGen-ed  June 29, 2015 at 04:30:36 PM by AutoGen 5.18.5
+.\"  It has been AutoGen-ed  July 26, 2015 at 06:23:35 AM by AutoGen 5.18.5
 .\"  From the definitions    ntp.conf.def
 .\"  and the template file   agmdoc-cmd.tpl
 .Sh NAME
@@ -1995,7 +1995,7 @@ peers remaining.
 This value defaults to 1, but can be changed
 to any number from 1 to 15.
 .It Cm minclock Ar minclock
-The clustering algorithm repeatedly casts out outlyer
+The clustering algorithm repeatedly casts out outlier
 associations until no more than
 .Cm minclock
 associations remain.

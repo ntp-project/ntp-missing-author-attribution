@@ -1202,7 +1202,7 @@ printassoc(
 				break;
 
 			case CTL_PST_SEL_SELCAND:
-				condition = "outlyer";
+				condition = "outlier";
 				break;
 
 			case CTL_PST_SEL_SYNCCAND:
