@@ -426,6 +426,7 @@ ntp-4.3 begins.
 * [Bug 2875] sntp/Makefile.am: Get rid of DIST_SUBDIRS.  libevent must
   be configured for the distribution targets.  Harlan Stenn.
 * [Bug 2883] ntpd crashes on exit with empty driftfile.  Miroslav Lichvar.
+* [Bug 2886] Mis-spelling: "outlyer" should be "outlier".  dave@horsfall.org
 * libntp/emalloc.c: Remove explicit include of stdint.h.  Harlan Stenn.
 * Put Unity CPPFLAGS items in unity_config.h.  Harlan Stenn.
 * tests/ntpd/g_leapsec.cpp typo fix.  Harlan Stenn.
