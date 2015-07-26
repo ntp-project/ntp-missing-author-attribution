@@ -6,6 +6,12 @@
 #include "unity.h"
 #include "sockaddrtest.h"
 
+void test_IPv4AddressWithPort(void);
+void test_IPv6AddressWithPort(void);
+void test_ScopedIPv6AddressWithPort(void);
+void test_HashEqual(void);
+void test_HashNotEqual(void);
+void test_IgnoreIPv6Fields(void);
 
 void 
 test_IPv4AddressWithPort(void) {

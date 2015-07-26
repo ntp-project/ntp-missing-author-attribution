@@ -1,14 +1,21 @@
 #include "config.h"
 
 #include "ntp_stdlib.h"
-//#include "ntp_calendar.h"
+#include "ntp_calendar.h"
 
 #include "unity.h"
 
 #include "sockaddrtest.h"
 
-void 
-test_ClassBAddress(void) {
+
+void test_ClassBAddress(void);
+void test_ClassCAddress(void);
+void test_ClassAAddress(void);
+void test_IPv6Address(void);
+
+
+
+void test_ClassBAddress(void) {
 	sockaddr_u input = CreateSockaddr4("172.16.2.1", NTP_PORT);
 	sockaddr_u expected = CreateSockaddr4("172.16.0.0", NTP_PORT);
 
@@ -18,8 +25,7 @@ test_ClassBAddress(void) {
 	TEST_ASSERT_TRUE(IsEqual(expected, *actual));
 }
 
-void 
-test_ClassCAddress(void) {
+void test_ClassCAddress(void) {
 	sockaddr_u input = CreateSockaddr4("192.0.2.255", NTP_PORT);
 	sockaddr_u expected = CreateSockaddr4("192.0.2.0", NTP_PORT);
 
@@ -29,8 +35,7 @@ test_ClassCAddress(void) {
 	TEST_ASSERT_TRUE(IsEqual(expected, *actual));
 }
 
-void 
-test_ClassAAddress(void) {
+void  test_ClassAAddress(void) {
 	/* Class A addresses are assumed to be classless,
 	 * thus the same address should be returned.
 	 */
@@ -43,8 +48,7 @@ test_ClassAAddress(void) {
 	TEST_ASSERT_TRUE(IsEqual(expected, *actual));
 }
 
-void 
-test_IPv6Address(void) {
+void  test_IPv6Address(void) {
 	/* IPv6 addresses are assumed to have 64-bit host- and 64-bit network parts. */
 	const struct in6_addr input_address = {
 		0x20, 0x01, 0x0d, 0xb8,
@@ -75,3 +79,4 @@ test_IPv6Address(void) {
 	TEST_ASSERT_TRUE(actual != NULL);
 	TEST_ASSERT_TRUE(IsEqual(expected, *actual));
 }
+

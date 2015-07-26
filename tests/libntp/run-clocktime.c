@@ -56,14 +56,14 @@ int main(int argc, char *argv[])
 {
   progname = argv[0];
   UnityBegin("clocktime.c");
-  RUN_TEST(test_CurrentYear, 35);
-  RUN_TEST(test_CurrentYearFuzz, 51);
-  RUN_TEST(test_TimeZoneOffset, 74);
-  RUN_TEST(test_WrongYearStart, 95);
-  RUN_TEST(test_PreviousYear, 115);
-  RUN_TEST(test_NextYear, 135);
-  RUN_TEST(test_NoReasonableConversion, 154);
-  RUN_TEST(test_AlwaysInLimit, 177);
+  RUN_TEST(test_CurrentYear, 11);
+  RUN_TEST(test_CurrentYearFuzz, 12);
+  RUN_TEST(test_TimeZoneOffset, 13);
+  RUN_TEST(test_WrongYearStart, 14);
+  RUN_TEST(test_PreviousYear, 15);
+  RUN_TEST(test_NextYear, 16);
+  RUN_TEST(test_NoReasonableConversion, 17);
+  RUN_TEST(test_AlwaysInLimit, 19);
 
   return (UnityEnd());
 }

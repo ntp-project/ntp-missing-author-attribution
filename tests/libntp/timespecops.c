@@ -32,9 +32,48 @@ struct lfpfracdata {
 	u_int32 frac;
 };
 
-//******************************************MY CUSTOM FUNCTIONS*******************************
+
+void test_Helpers1(void);
+void test_Normalise(void);
+void test_SignNoFrac(void);
+void test_SignWithFrac(void);
+void test_CmpFracEQ(void);
+void test_CmpFracGT(void);
+void test_CmpFracLT(void);
+void test_AddFullNorm(void);
+void test_AddFullOflow1(void);
+void test_AddNsecNorm(void);
+void test_AddNsecOflow1(void);
+void test_SubFullNorm(void);
+void test_SubFullOflow(void);
+void test_SubNsecNorm(void);
+void test_SubNsecOflow(void);
+void test_Neg(void);
+void test_AbsNoFrac(void);
+void test_AbsWithFrac(void);
+void test_Helpers2(void);
+void test_ToLFPbittest(void);
+void test_ToLFPrelPos(void);
+void test_ToLFPrelNeg(void);
+void test_ToLFPabs(void);
+void test_FromLFPbittest(void);
+void test_FromLFPrelPos(void);
+void test_FromLFPrelNeg(void);
+void test_LFProundtrip(void);
+void test_ToString(void);
 
 typedef int bool;
+
+const bool timespec_isValid(struct timespec V);
+struct timespec timespec_init(time_t hi, long lo);
+l_fp l_fp_init(int32 i, u_int32 f);
+bool AssertFpClose(const l_fp m, const l_fp n, const l_fp limit);
+bool AssertTimespecClose(const struct timespec m, const struct timespec n, const struct timespec limit);
+
+
+//******************************************MY CUSTOM FUNCTIONS*******************************
+
+
 
 const bool
 timespec_isValid(struct timespec V) {

@@ -9,6 +9,16 @@
 #include <string.h>
 
 
+char * CalendarToString(const struct calendar cal);
+int IsEqual(const struct calendar expected, const struct calendar actual);
+void setUp(void);
+void tearDown(void);
+void test_RegularTime(void);
+void test_LeapYear(void);
+void test_uLongBoundary(void);
+void test_uLongWrapped(void);
+
+
 char *
 CalendarToString(const struct calendar cal) {
 	char * str = malloc (sizeof (char) * 100);

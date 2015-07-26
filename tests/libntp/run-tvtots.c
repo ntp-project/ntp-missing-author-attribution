@@ -51,9 +51,9 @@ int main(int argc, char *argv[])
 {
   progname = argv[0];
   UnityBegin("tvtots.c");
-  RUN_TEST(test_Seconds, 12);
-  RUN_TEST(test_MicrosecondsRounded, 25);
-  RUN_TEST(test_MicrosecondsExact, 43);
+  RUN_TEST(test_Seconds, 10);
+  RUN_TEST(test_MicrosecondsRounded, 11);
+  RUN_TEST(test_MicrosecondsExact, 12);
 
   return (UnityEnd());
 }

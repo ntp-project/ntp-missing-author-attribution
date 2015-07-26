@@ -7,6 +7,9 @@
 
 #include <math.h> // Required on Solaris for ldexp.
 
+void test_Seconds(void);
+void test_MicrosecondsRounded(void);
+void test_MicrosecondsExact(void);
 
 void
 test_Seconds(void)

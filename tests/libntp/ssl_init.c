@@ -14,6 +14,12 @@
 static const size_t TEST_MD5_DIGEST_LENGTH = 16;
 static const size_t TEST_SHA1_DIGEST_LENGTH = 20;
 
+void test_MD5KeyTypeWithoutDigestLength(void);
+void test_MD5KeyTypeWithDigestLength(void);
+void test_SHA1KeyTypeWithDigestLength(void);
+void test_MD5KeyName(void);
+void test_SHA1KeyName(void);
+
 
 // keytype_from_text()
 void

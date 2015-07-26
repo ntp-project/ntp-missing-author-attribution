@@ -6,6 +6,12 @@
 #include "unity.h"
 
 
+int IsEqual(const vint64 expected, const vint64 actual);
+void test_ParseVUI64_pos(void);
+void test_ParseVUI64_neg(void);
+void test_ParseVUI64_case(void);
+
+
 // technically bool
 int
 IsEqual(const vint64 expected, const vint64 actual) {

@@ -18,9 +18,45 @@
     TEST_ASSERT_EQUAL_UINT_MESSAGE(a.l_uf, b.l_uf, "Field l_uf");	\
 }
 
+
+
+typedef int bool; // typedef enum { FALSE, TRUE } boolean; -> can't use this because TRUE and FALSE are already defined
+
+
 typedef struct  {
 	uint32_t h, l;
 } lfp_hl;
+
+
+int l_fp_scmp(const l_fp first, const l_fp second);
+int l_fp_ucmp(const l_fp first, l_fp second );
+l_fp l_fp_init(int32 i, u_int32 f);
+l_fp l_fp_add(const l_fp first, const l_fp second);
+l_fp l_fp_subtract(const l_fp first, const l_fp second);
+l_fp l_fp_negate(const l_fp first);
+l_fp l_fp_abs(const l_fp first);
+int l_fp_signum(const l_fp first);
+double l_fp_convert_to_double(const l_fp first);
+l_fp l_fp_init_from_double( double rhs);
+void l_fp_swap(l_fp * first, l_fp *second);
+bool l_isgt(const l_fp first, const l_fp second);
+bool l_isgtu(const l_fp first, const l_fp second);
+bool l_ishis(const l_fp first, const l_fp second);
+bool l_isgeq(const l_fp first, const l_fp second);
+bool l_isequ(const l_fp first, const l_fp second);
+double eps(double d);
+
+
+void test_AdditionLR(void);
+void test_AdditionRL(void);
+void test_SubtractionLR(void);
+void test_SubtractionRL(void);
+void test_Negation(void);
+void test_Absolute(void);
+void test_FDF_RoundTrip(void);
+void test_SignedRelOps(void);
+void test_UnsignedRelOps(void);
+
 
 
 static int cmp_work(u_int32 a[3], u_int32 b[3]);
@@ -165,8 +201,6 @@ l_fp_swap(l_fp * first, l_fp *second){
 // formatting functions; it slows down the tests a bit, but makes for
 // readable failure messages.
 //----------------------------------------------------------------------
-
-typedef int bool; // typedef enum { FALSE, TRUE } boolean; -> can't use this because TRUE and FALSE are already defined
 
 
 bool

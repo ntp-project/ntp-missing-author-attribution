@@ -50,9 +50,9 @@ int main(int argc, char *argv[])
 {
   progname = argv[0];
   UnityBegin("tstotv.c");
-  RUN_TEST(test_Seconds, 9);
-  RUN_TEST(test_MicrosecondsExact, 21);
-  RUN_TEST(test_MicrosecondsRounding, 35);
+  RUN_TEST(test_Seconds, 8);
+  RUN_TEST(test_MicrosecondsExact, 9);
+  RUN_TEST(test_MicrosecondsRounding, 10);
 
   return (UnityEnd());
 }

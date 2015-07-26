@@ -8,19 +8,42 @@
 
 static int leapdays(int year);
 
-char * CalendarFromCalToString(const struct calendar cal); //&
-char * CalendarFromIsoToString(const struct isodate iso); //&
+char * CalendarFromCalToString(const struct calendar cal); 
+char * CalendarFromIsoToString(const struct isodate iso);
 
 // technically, booleans
-int IsEqualCal(const struct calendar expected, const struct calendar actual);  //&&
-int IsEqualIso(const struct isodate expected, const struct isodate actual); //&&
+int IsEqualCal(const struct calendar expected, const struct calendar actual);
+int IsEqualIso(const struct isodate expected, const struct isodate actual);
 
-char * DateFromCalToStringCal(const struct calendar cal); //&
-char * DateFromIsoToStringIso(const struct isodate iso); //&
+char * DateFromCalToStringCal(const struct calendar cal);
+char * DateFromIsoToStringIso(const struct isodate iso);
 
 // technically, booleans
-int sEqualDateCal(const struct calendar expected, const struct calendar actual); //&&
-int IsEqualDateIso(const struct isodate expected, const struct isodate actual); //&&
+int sEqualDateCal(const struct calendar expected, const struct calendar actual);
+int IsEqualDateIso(const struct isodate expected, const struct isodate actual);
+
+
+int isGT(int first, int second);
+int leapdays(int year);
+char * CalendarFromCalToString(const struct calendar cal);
+char * CalendarFromIsoToString(const struct isodate iso); 
+int IsEqualCal(const struct calendar expected, const struct calendar actual);
+int IsEqualIso(const struct isodate expected, const struct isodate actual);
+char * DateFromCalToString(const struct calendar cal);
+char * DateFromIsoToString(const struct isodate iso);
+int IsEqualDateCal(const struct calendar expected, const struct calendar actual);
+int IsEqualDateIso(const struct isodate expected, const struct isodate actual);
+void test_DaySplitMerge(void);
+void test_SplitYearDays1(void);
+void test_SplitYearDays2(void);
+void test_RataDie1(void);
+void test_LeapYears1(void);
+void test_LeapYears2(void);
+void test_RoundTripDate(void);
+void test_RoundTripYearStart(void);
+void test_RoundTripMonthStart(void);
+void test_RoundTripWeekStart(void);
+void test_RoundTripDayStart(void);
 
 
 
@@ -29,7 +52,8 @@ int IsEqualDateIso(const struct isodate expected, const struct isodate actual); 
 // ---------------------------------------------------------------------
 
 int
-isGT(int first, int second){
+isGT(int first, int second)
+{
 	if(first > second) {	
 		return TRUE;
 	} else {
@@ -50,7 +74,7 @@ leapdays(int year)
 }
 
 char *
-CalendarFromCalToString(const struct calendar cal) { //&
+CalendarFromCalToString(const struct calendar cal) {
 	char * str = malloc (sizeof (char) * 100);
 	
 	char buffer[100] ="";
@@ -79,7 +103,7 @@ CalendarFromCalToString(const struct calendar cal) { //&
 }
 
 char *
-CalendarFromIsoToString(const struct isodate iso) { //&
+CalendarFromIsoToString(const struct isodate iso) {
 
 	char * str = malloc (sizeof (char) * 100);
 	
@@ -105,7 +129,7 @@ CalendarFromIsoToString(const struct isodate iso) { //&
 }
 
 int
-IsEqualCal(const struct calendar expected, const struct calendar actual) { //&&
+IsEqualCal(const struct calendar expected, const struct calendar actual) {
 	if (expected.year == actual.year &&
 	    (!expected.yearday || expected.yearday == actual.yearday) &&
 	    expected.month == actual.month &&
@@ -121,7 +145,7 @@ IsEqualCal(const struct calendar expected, const struct calendar actual) { //&&
 }
 
 int
-IsEqualIso(const struct isodate expected, const struct isodate actual) { //&&
+IsEqualIso(const struct isodate expected, const struct isodate actual) {
 	if (expected.year == actual.year &&
 	    expected.week == actual.week &&
 	    expected.weekday == actual.weekday &&
@@ -136,7 +160,7 @@ IsEqualIso(const struct isodate expected, const struct isodate actual) { //&&
 }
 
 char *
-DateFromCalToString(const struct calendar cal) { //&
+DateFromCalToString(const struct calendar cal) {
 
 	char * str = malloc (sizeof (char) * 100);
 	
@@ -158,7 +182,7 @@ DateFromCalToString(const struct calendar cal) { //&
 }
 
 char *
-DateFromIsoToString(const struct isodate iso) { //&
+DateFromIsoToString(const struct isodate iso) {
 
 	char * str = malloc (sizeof (char) * 100);
 	
@@ -177,7 +201,7 @@ DateFromIsoToString(const struct isodate iso) { //&
 
 // boolean 
 int
-IsEqualDateCal(const struct calendar expected, const struct calendar actual) { //&&
+IsEqualDateCal(const struct calendar expected, const struct calendar actual) {
 	if (expected.year == actual.year &&
 	    (!expected.yearday || expected.yearday == actual.yearday) &&
 	    expected.month == actual.month &&
@@ -191,7 +215,7 @@ IsEqualDateCal(const struct calendar expected, const struct calendar actual) { /
 
 // boolean
 int
-IsEqualDateIso(const struct isodate expected, const struct isodate actual) { //&&
+IsEqualDateIso(const struct isodate expected, const struct isodate actual) {
 	if (expected.year == actual.year &&
 	    expected.week == actual.week &&
 	    expected.weekday == actual.weekday) {

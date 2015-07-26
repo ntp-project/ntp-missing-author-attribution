@@ -11,6 +11,10 @@
 // Required for Solaris.
 #include <math.h>
 
+void test_ZeroBuffer(void);
+void test_IntegerAndFractionalBuffer(void);
+void test_IllegalMicroseconds(void);
+void test_AlwaysFalseOnWindows(void);
 
 
 void
