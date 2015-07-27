@@ -1,4 +1,5 @@
 Below are from 4.2.8p4:
+* [Bug 2625] Deprecate flag1 in local refclock.  Hal Murray, Harlan Stenn.
 * [Bug 2817] Stop locking ntpd into memory by default under Linux.  H.Stenn.
 * Wrote tests for ntpd/ntp_prio_q.c. Tomasz Flendrich
 * ntpd/ntp_restrict.c: added a few assertions, created tests for this file.
