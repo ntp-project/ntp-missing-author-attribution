@@ -1,9 +1,9 @@
-.Dd July 26 2015
+.Dd July 27 2015
 .Dt NTP_CONF 5mdoc File Formats
 .Os
 .\"  EDIT THIS FILE WITH CAUTION  (ntp.mdoc)
 .\"
-.\"  It has been AutoGen-ed  July 26, 2015 at 11:57:41 AM by AutoGen 5.18.5
+.\"  It has been AutoGen-ed  July 27, 2015 at 11:58:18 AM by AutoGen 5.18.5
 .\"  From the definitions    ntp.conf.def
 .\"  and the template file   agmdoc-cmd.tpl
 .Sh NAME
@@ -1903,7 +1903,7 @@ re\-associate accordingly.
 Some administrators prefer to avoid running
 .Xr ntpd 1ntpdmdoc
 continuously and run either
-.Xr ntpdate 8
+.Xr sntp 1sntpmdoc
 or
 .Xr ntpd 1ntpdmdoc
 .Fl q

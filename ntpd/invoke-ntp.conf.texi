@@ -6,7 +6,7 @@
 #
 # EDIT THIS FILE WITH CAUTION  (invoke-ntp.conf.texi)
 #
-# It has been AutoGen-ed  July 26, 2015 at 11:57:33 AM by AutoGen 5.18.5
+# It has been AutoGen-ed  July 27, 2015 at 11:58:11 AM by AutoGen 5.18.5
 # From the definitions    ntp.conf.def
 # and the template file   agtexi-file.tpl
 @end ignore
@@ -1837,7 +1837,7 @@ re-associate accordingly.
 Some administrators prefer to avoid running
 @code{ntpd(1ntpdmdoc)}
 continuously and run either
-@code{ntpdate(8)}
+@code{sntp(1sntpmdoc)}
 or
 @code{ntpd(1ntpdmdoc)}
 @code{-q}
