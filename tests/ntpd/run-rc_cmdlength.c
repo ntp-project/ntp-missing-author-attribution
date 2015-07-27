@@ -22,16 +22,22 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp.h"
+#include "ntp_calendar.h"
+#include "ntp_stdlib.h"
+#include "test-libntp.h"
+#include <string.h>
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_EvaluateCommandLength(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -44,7 +50,6 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "rc_cmdlength.c";
   UnityBegin("rc_cmdlength.c");
   RUN_TEST(test_EvaluateCommandLength, 15);
 

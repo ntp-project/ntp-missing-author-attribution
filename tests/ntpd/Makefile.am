@@ -10,9 +10,11 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
 check_PROGRAMS =		\
 	test-leapsec		\
-	test-rc_cmdlength   \
+	test-rc_cmdlength   	\
 	test-ntp_scanner	\
 	$(NULL)
+
+#	test-ntp_signd		\ #doesn't work, can't link it because you can't link static function
 
 if GTEST_AVAILABLE
 check_PROGRAMS += tests
@@ -111,7 +113,9 @@ test_ntp_signd_CFLAGS =			\
 	$(NULL)
 
 test_ntp_signd_LDADD =			\
+	$(unity_tests_LDADD)		\
 	$(top_builddir)/ntpd/libntpd.a	\
+	$(top_builddir)/ntpd/ntp_signd.o	\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
@@ -131,12 +135,13 @@ test_ntp_scanner_CFLAGS =			\
 
 test_ntp_scanner_LDADD =			\
 	$(unity_tests_LDADD)		\
+	$(top_builddir)/ntpd/ntp_scanner.o		\
 	$(NULL)
 
 test_ntp_scanner_SOURCES =			\
-	ntp_scanner.c			\
+	ntp_scanner.c				\
 	run-ntp_scanner.c			\
-	$(srcdir)/../libntp/test-libntp.c		\
+	$(srcdir)/../libntp/test-libntp.c	\
 	$(NULL)
 
 $(srcdir)/run-ntp_scanner.c: $(srcdir)/ntp_scanner.c $(std_unity_list)

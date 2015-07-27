@@ -13,20 +13,4 @@ static const int32 QUARTER_PROMILLE_APPRX = 1073742L;
 
 int IsEqual(const l_fp expected, const l_fp actual);
 
-int IsEqual(const l_fp expected, const l_fp actual) {
-	if (L_ISEQU(&expected, &actual)) {
-		return TRUE;
-	} else {
-		//printf(" expected: ...");
-		/*
-		<< " expected: " << lfptoa(&expected, FRACTION_PREC)
-				<< " (" << expected.l_ui << "." << expected.l_uf << ")"
-				<< " but was: " << lfptoa(&actual, FRACTION_PREC)
-				<< " (" << actual.l_ui << "." << actual.l_uf << ")";
-		*/
-		return FALSE;
-	}
-
-}
-
 #endif

@@ -30,6 +30,9 @@ extern void setUp(void);
 extern void tearDown(void);
 extern void test_keywordIncorrectToken(void);
 extern void test_keywordServerToken(void);
+extern void test_DropUninitializedStack(void);
+extern void test_IncorrectlyInitializeLexStack(void);
+extern void test_InitializeLexStack(void);
 
 
 //=======Test Reset Option=====
@@ -49,7 +52,10 @@ int main(int argc, char *argv[])
   progname = argv[0];
   UnityBegin("ntp_scanner.c");
   RUN_TEST(test_keywordIncorrectToken, 20);
-  RUN_TEST(test_keywordServerToken, 25);
+  RUN_TEST(test_keywordServerToken, 21);
+  RUN_TEST(test_DropUninitializedStack, 22);
+  RUN_TEST(test_IncorrectlyInitializeLexStack, 23);
+  RUN_TEST(test_InitializeLexStack, 24);
 
   return (UnityEnd());
 }
