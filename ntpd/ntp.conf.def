@@ -1905,7 +1905,7 @@ re-associate accordingly.
 Some administrators prefer to avoid running
 .Xr ntpd 1ntpdmdoc
 continuously and run either
-.Xr ntpdate 8
+.Xr sntp 1sntpmdoc
 or
 .Xr ntpd 1ntpdmdoc
 .Fl q
