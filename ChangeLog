@@ -1,5 +1,10 @@
 Below are from 4.2.8p4:
 * [Bug 2817] Stop locking ntpd into memory by default under Linux.  H.Stenn.
+* Wrote tests for ntpd/ntp_prio_q.c. Tomasz Flendrich
+* ntpd/ntp_restrict.c: added a few assertions, created tests for this file.
+  Tomasz Flendrich
+* Changed progname to be const in many files - now it's consistent. Tomasz
+  Flendrich
 (4.3.64) 2015/07/26 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * [Bug 2886] Mis-spelling: "outlyer" should be "outlier".  dave@horsfall.org
