@@ -2,7 +2,7 @@
 
 #include "log.h"
 
-char *progname;		/* for msyslog use too */
+char const *progname;		/* for msyslog use too */
 
 static void cleanup_log(void);
 

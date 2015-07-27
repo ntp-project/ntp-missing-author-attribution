@@ -502,6 +502,7 @@ fixed formatting. Tomasz Flendrich
 * Don't build sntp/libevent/sample/.  Harlan Stenn.
 * tests/libntp/test_caltontp needs -lpthread.  Harlan Stenn.
 * br-flock: --enable-local-libevent.  Harlan Stenn.
+* Wrote tests for ntpd/ntp_prio_q.c. Tomasz Flendrich
 * scripts/lib/NTP/Util.pm: stratum output is version-dependent.  Harlan Stenn.
 * Get rid of the NTP_ prefix on our assertion macros.  Harlan Stenn.
 * Code cleanup.  Harlan Stenn.
@@ -509,6 +510,10 @@ fixed formatting. Tomasz Flendrich
 * util/ntptime.c: initialization nit.  Harlan Stenn.
 * ntpd/ntp_peer.c:newpeer(): added a DEBUG_REQUIRE(srcadr).  Harlan Stenn.
 * Add std_unity_tests to various Makefile.am files.  Harlan Stenn.
+* ntpd/ntp_restrict.c: added a few assertions, created tests for this file.
+  Tomasz Flendrich
+* Changed progname to be const in many files - now it's consistent. Tomasz
+  Flendrich
 ---
 (4.2.8p3) 2015/06/29 Released by Harlan Stenn <stenn@ntp.org>
 
