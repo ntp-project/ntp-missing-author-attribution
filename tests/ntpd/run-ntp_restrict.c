@@ -23,20 +23,20 @@
 #include <setjmp.h>
 #include <stdio.h>
 #include "config.h"
-#include "ntp_types.h"
-#include "ntp_stdlib.h"
-#include "fileHandlingTest.h"
-#include "kod_management.h"
+#include "ntpd.h"
+#include "ntp_lists.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_ReadEmptyFile(void);
-extern void test_ReadCorrectFile(void);
-extern void test_ReadFileWithBlankLines(void);
-extern void test_WriteEmptyFile(void);
-extern void test_WriteFileWithSingleEntry(void);
-extern void test_WriteFileWithMultipleEntries(void);
+extern void test_RestrictionsAreEmptyAfterInit(void);
+extern void test_ReturnsCorrectDefaultRestrictions(void);
+extern void test_HackingDefaultRestriction(void);
+extern void test_CantRemoveDefaultEntry(void);
+extern void test_AddingNewRestriction(void);
+extern void test_TheMostFittingRestrictionIsMatched(void);
+extern void test_DeletedRestrictionIsNotMatched(void);
+extern void test_RestrictUnflagWorks(void);
 
 
 //=======Test Reset Option=====
@@ -54,13 +54,15 @@ char const *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  UnityBegin("kodFile.c");
-  RUN_TEST(test_ReadEmptyFile, 19);
-  RUN_TEST(test_ReadCorrectFile, 20);
-  RUN_TEST(test_ReadFileWithBlankLines, 21);
-  RUN_TEST(test_WriteEmptyFile, 22);
-  RUN_TEST(test_WriteFileWithSingleEntry, 23);
-  RUN_TEST(test_WriteFileWithMultipleEntries, 24);
+  UnityBegin("ntp_restrict.c");
+  RUN_TEST(test_RestrictionsAreEmptyAfterInit, 59);
+  RUN_TEST(test_ReturnsCorrectDefaultRestrictions, 85);
+  RUN_TEST(test_HackingDefaultRestriction, 96);
+  RUN_TEST(test_CantRemoveDefaultEntry, 119);
+  RUN_TEST(test_AddingNewRestriction, 130);
+  RUN_TEST(test_TheMostFittingRestrictionIsMatched, 143);
+  RUN_TEST(test_DeletedRestrictionIsNotMatched, 165);
+  RUN_TEST(test_RestrictUnflagWorks, 189);
 
   return (UnityEnd());
 }

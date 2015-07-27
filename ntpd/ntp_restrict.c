@@ -435,6 +435,9 @@ restrictions(
 
 		match = match_restrict4_addr(SRCADR(srcadr),
 					     SRCPORT(srcadr));
+
+		INSIST(match != NULL);
+
 		match->count++;
 		/*
 		 * res_not_found counts only use of the final default
@@ -461,6 +464,7 @@ restrictions(
 			return (int)RES_IGNORE;
 
 		match = match_restrict6_addr(pin6, SRCPORT(srcadr));
+		INSIST(match != NULL);
 		match->count++;
 		if (&restrict_def6 == match)
 			res_not_found++;
@@ -651,10 +655,12 @@ restrict_source(
 	 */
 	if (IS_IPV4(addr)) {
 		res = match_restrict4_addr(SRCADR(addr), SRCPORT(addr));
+		INSIST(res != NULL);
 		found_specific = (SRCADR(&onesmask) == res->u.v4.mask);
 	} else {
 		res = match_restrict6_addr(&SOCK_ADDR6(addr),
 					   SRCPORT(addr));
+		INSIST(res != NULL);
 		found_specific = ADDR6_EQ(&res->u.v6.mask,
 					  &SOCK_ADDR6(&onesmask));
 	}

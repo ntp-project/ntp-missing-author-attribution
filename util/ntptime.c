@@ -73,7 +73,7 @@ static sigjmp_buf env;		/* environment var. for pll_trap() */
 static volatile int pll_control; /* (0) daemon, (1) kernel loop */
 static volatile int status;	/* most recent status bits */
 static volatile int flash;	/* most recent ntp_adjtime() bits */
-char* progname;
+char const * progname;
 static char optargs[] = "MNT:cde:f:hm:o:rs:t:";
 
 int

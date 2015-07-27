@@ -154,7 +154,7 @@ u_long	asn2ntp		(ASN1_TIME *);
  * Program variables
  */
 extern char *optarg;		/* command line argument */
-char	*progname;
+char	const *progname;
 u_int	lifetime = DAYSPERYEAR;	/* certificate lifetime (days) */
 int	nkeys;			/* MV keys */
 time_t	epoch;			/* Unix epoch (seconds) since 1970 */
