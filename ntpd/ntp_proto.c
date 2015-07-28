@@ -1540,7 +1540,7 @@ process_packet(
 	sys_processed++;
 	peer->processed++;
 	p_del = FPTOD(NTOHS_FP(pkt->rootdelay));
-#ifdef GCC
+#ifdef __GNUC__
 	p_offset = 0;		/* quiet bogus uninitialized value warning */
 #endif
 	p_disp = FPTOD(NTOHS_FP(pkt->rootdisp));

@@ -1825,7 +1825,7 @@ config_auth(
 
 	/* Crypto Command */
 #ifdef AUTOKEY
-# ifdef GCC
+# ifdef __GNUC__
 	item = -1;	/* quiet warning */
 # endif
 	my_val = HEAD_PFIFO(ptree->auth.crypto_cmd_list);
@@ -1980,7 +1980,7 @@ config_tos(
 	int		item;
 	double		val;
 
-#ifdef GCC
+#ifdef __GNUC__
 	item = -1;	/* quiet warning */
 #endif
 	tos = HEAD_PFIFO(ptree->orphan_cmds);
@@ -2665,7 +2665,7 @@ config_tinker(
 	attr_val *	tinker;
 	int		item;
 
-#ifdef GCC
+#ifdef __GNUC__
 	item = -1;	/* quiet warning */
 #endif
 	tinker = HEAD_PFIFO(ptree->tinker);
@@ -2781,7 +2781,7 @@ config_nic_rules(
 		switch (curr_node->match_class) {
 
 		default:
-#ifdef GCC
+#ifdef __GNUC__
 			/*
 			 * this assignment quiets a gcc "may be used
 			 * uninitialized" warning and is here for no
@@ -2841,7 +2841,7 @@ config_nic_rules(
 		switch (curr_node->action) {
 
 		default:
-#ifdef GCC
+#ifdef __GNUC__
 			/*
 			 * this assignment quiets a gcc "may be used
 			 * uninitialized" warning and is here for no
