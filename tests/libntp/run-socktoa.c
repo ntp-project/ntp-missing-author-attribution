@@ -54,12 +54,12 @@ int main(int argc, char *argv[])
 {
   progname = argv[0];
   UnityBegin("socktoa.c");
-  RUN_TEST(test_IPv4AddressWithPort, 10);
-  RUN_TEST(test_IPv6AddressWithPort, 11);
-  RUN_TEST(test_ScopedIPv6AddressWithPort, 12);
-  RUN_TEST(test_HashEqual, 13);
-  RUN_TEST(test_HashNotEqual, 14);
-  RUN_TEST(test_IgnoreIPv6Fields, 15);
+  RUN_TEST(test_IPv4AddressWithPort, 9);
+  RUN_TEST(test_IPv6AddressWithPort, 10);
+  RUN_TEST(test_ScopedIPv6AddressWithPort, 11);
+  RUN_TEST(test_HashEqual, 12);
+  RUN_TEST(test_HashNotEqual, 13);
+  RUN_TEST(test_IgnoreIPv6Fields, 14);
 
   return (UnityEnd());
 }
