@@ -27,12 +27,12 @@
 #include "ntp_calendar.h"
 #include "ntp_stdlib.h"
 #include "test-libntp.h"
-#include <string.h>
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_EvaluateCommandLength(void);
+extern void test_ux_socket_connect(void);
+extern void test_write_all(void);
 
 
 //=======Test Reset Option=====
@@ -50,8 +50,9 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  UnityBegin("rc_cmdlength.c");
-  RUN_TEST(test_EvaluateCommandLength, 15);
+  UnityBegin("ntp_signd.c");
+  RUN_TEST(test_ux_socket_connect, 12);
+  RUN_TEST(test_write_all, 23);
 
   return (UnityEnd());
 }

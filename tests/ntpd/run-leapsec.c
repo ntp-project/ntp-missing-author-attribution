@@ -22,11 +22,17 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp.h"
+#include "ntp_calendar.h"
+#include "ntp_stdlib.h"
+#include "ntp_leapsec.h"
+#include "test-libntp.h"
+#include <string.h>
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-void resetTest(void);
 extern void test_ValidateGood(void);
 extern void test_ValidateNoHash(void);
 extern void test_ValidateBad(void);
@@ -63,7 +69,8 @@ extern void test_lsEmptyTableElectric(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
@@ -76,7 +83,6 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "leapsec.c";
   UnityBegin("leapsec.c");
   RUN_TEST(test_ValidateGood, 331);
   RUN_TEST(test_ValidateNoHash, 338);
