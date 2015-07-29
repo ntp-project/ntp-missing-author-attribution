@@ -12,8 +12,11 @@ check_PROGRAMS =		\
 	test-leapsec		\
 	test-ntp_prio_q		\
 	test-ntp_restrict	\
-	test-rc_cmdlength   \
+	test-rc_cmdlength   	\
+	test-ntp_scanner	\
 	$(NULL)
+
+#	test-ntp_signd		\ #doesn't work, can't link it because you can't link static function
 
 if GTEST_AVAILABLE
 check_PROGRAMS += tests
@@ -57,6 +60,7 @@ tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		$(top_srcdir)/ntpd/ntp_prio_q.c		\
 		$(top_srcdir)/ntpd/ntp_restrict.c	\
 		$(top_srcdir)/ntpd/rc_cmdlength.c	\
+		$(top_srcdir)/ntpd/ntp_signd.c	\
 		g_leapsec.cpp	\
 		$(NULL)
 
@@ -65,6 +69,7 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-ntp_prio_q.c	\
 	$(srcdir)/run-ntp_restrict.c	\
 	$(srcdir)/run-rc_cmdlength.c		\
+	$(srcdir)/run-ntp_signd.c		\
 	$(NULL)
 
 noinst_HEADERS =	g_ntpdtest.h		\
@@ -147,6 +152,46 @@ test_rc_cmdlength_SOURCES =			\
 
 $(srcdir)/run-rc_cmdlength.c: $(srcdir)/rc_cmdlength.c $(std_unity_list)
 	$(run_unity) rc_cmdlength.c run-rc_cmdlength.c
+
+###
+test_ntp_signd_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
+	$(NULL)
+
+test_ntp_signd_LDADD =			\
+	$(unity_tests_LDADD)		\
+	$(top_builddir)/ntpd/libntpd.a	\
+	$(top_builddir)/ntpd/ntp_signd.o	\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
+test_ntp_signd_SOURCES =			\
+	ntp_signd.c			\
+	run-ntp_signd.c			\
+	$(srcdir)/../libntp/test-libntp.c		\
+	$(NULL)
+
+$(srcdir)/run-ntp_signd.c: $(srcdir)/ntp_signd.c $(std_unity_list)
+	$(run_unity) ntp_signd.c run-ntp_signd.c
+
+###
+test_ntp_scanner_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
+	$(NULL)
+
+test_ntp_scanner_LDADD =			\
+	$(unity_tests_LDADD)		\
+	$(top_builddir)/ntpd/ntp_scanner.o		\
+	$(NULL)
+
+test_ntp_scanner_SOURCES =			\
+	ntp_scanner.c				\
+	run-ntp_scanner.c			\
+	$(srcdir)/../libntp/test-libntp.c	\
+	$(NULL)
+
+$(srcdir)/run-ntp_scanner.c: $(srcdir)/ntp_scanner.c $(std_unity_list)
+	$(run_unity) ntp_scanner.c run-ntp_scanner.c
 
 
 
