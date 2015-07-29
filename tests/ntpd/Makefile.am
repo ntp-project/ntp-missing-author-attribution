@@ -11,7 +11,8 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 check_PROGRAMS =		\
 	test-leapsec		\
 	test-rc_cmdlength   \
-	test-ntp_scanner	\
+	#test-ntp_scanner	\
+	test-ntp_util       \
 	$(NULL)
 
 if GTEST_AVAILABLE
@@ -54,18 +55,19 @@ tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		g_ntpdtest.cpp		\
 		$(top_srcdir)/ntpd/ntp_leapsec.c	\
 		$(top_srcdir)/ntpd/rc_cmdlength.c	\
-		$(top_srcdir)/ntpd/ntp_signd.c	\
+		$(top_srcdir)/ntpd/ntp_util.c	\
 		g_leapsec.cpp	\
 		$(NULL)
 
 BUILT_SOURCES +=			\
 	$(srcdir)/run-leapsec.c		\
 	$(srcdir)/run-rc_cmdlength.c		\
-	$(srcdir)/run-ntp_signd.c		\
+	$(srcdir)/run-ntp_util.c		\
 	$(NULL)
 
 noinst_HEADERS =	g_ntpdtest.h		\
 			$(srcdir)/../libntp/test-libntp.h	\
+			sockaddrtest.h	\
 			$(NULL)
 
 ###
@@ -106,23 +108,24 @@ $(srcdir)/run-rc_cmdlength.c: $(srcdir)/rc_cmdlength.c $(std_unity_list)
 	$(run_unity) rc_cmdlength.c run-rc_cmdlength.c
 
 ###
-test_ntp_signd_CFLAGS =			\
+test_ntp_util_CFLAGS =			\
 	-I$(top_srcdir)/sntp/unity	\
 	$(NULL)
 
-test_ntp_signd_LDADD =			\
+test_ntp_util_LDADD =			\
 	$(top_builddir)/ntpd/libntpd.a	\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
-test_ntp_signd_SOURCES =			\
-	ntp_signd.c			\
-	run-ntp_signd.c			\
+test_ntp_util_SOURCES =			\
+	ntp_util.c			\
+	run-ntp_util.c			\
+	sockaddrtest.c			\
 	$(srcdir)/../libntp/test-libntp.c		\
 	$(NULL)
 
-$(srcdir)/run-ntp_signd.c: $(srcdir)/ntp_signd.c $(std_unity_list)
-	$(run_unity) ntp_signd.c run-ntp_signd.c
+$(srcdir)/run-ntp_util.c: $(srcdir)/ntp_util.c $(std_unity_list)
+	$(run_unity) ntp_util.c run-ntp_util.c
 
 ###
 test_ntp_scanner_CFLAGS =			\
