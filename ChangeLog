@@ -1,5 +1,7 @@
 ---
-
+* Added tests/ntpd/ntp_scanner.c test. Damir Tomić.
+* Added declarations to all Unity tests, and did minor fixes to them. Reduced the number of warnings by half. Damir Tomić.
+* Updated generate_test_runner.rb and updated the sntp/unity/auto directory with the latest Unity updates from Mark. Damir Tomić.
 * [Bug 2595] ntpdate man page quirks.  Hal Murray, Harlan Stenn.
 * [Bug 2625] Deprecate flag1 in local refclock.  Hal Murray, Harlan Stenn.
 * [Bug 2817] Stop locking ntpd into memory by default under Linux.  H.Stenn.
