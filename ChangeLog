@@ -1,3 +1,9 @@
+Below are from 4.2.8p4:
+* Added tests/ntpd/ntp_scanner.c test. Damir Tomić.
+* Added declarations to all Unity tests, and did minor fixes to them.
+  Reduced the number of warnings by half. Damir Tomić.
+* Updated generate_test_runner.rb and updated the sntp/unity/auto directory
+  with the latest Unity updates from Mark. Damir Tomić.
 (4.3.66) 2015/07/28 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * Typo fix for GCC warning suppression.  Harlan Stenn.
