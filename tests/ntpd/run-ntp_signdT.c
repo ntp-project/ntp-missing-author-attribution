@@ -51,8 +51,8 @@ int main(int argc, char *argv[])
 {
   progname = argv[0];
   UnityBegin("ntp_signdT.c");
-  RUN_TEST(test_ux_socket_connect, 14);
-  RUN_TEST(test_write_all, 26);
+  RUN_TEST(test_ux_socket_connect, 19);
+  RUN_TEST(test_write_all, 41);
 
   return (UnityEnd());
 }

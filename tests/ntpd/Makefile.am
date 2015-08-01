@@ -61,7 +61,7 @@ tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		$(top_srcdir)/ntpd/ntp_prio_q.c		\
 		$(top_srcdir)/ntpd/ntp_restrict.c	\
 		$(top_srcdir)/ntpd/rc_cmdlength.c	\
-		$(top_srcdir)/ntpd/ntp_signd.c	\
+		$(top_srcdir)/ntpd/ntp_signd.c		\
 		g_leapsec.cpp	\
 		$(NULL)
 
@@ -157,14 +157,19 @@ $(srcdir)/run-rc_cmdlength.c: $(srcdir)/rc_cmdlength.c $(std_unity_list)
 ###
 test_ntp_signdT_CFLAGS =			\
 	-I$(top_srcdir)/sntp/unity	\
+	-Iwhy.h		\
 	$(NULL)
 
 test_ntp_signdT_LDADD =			\
 	$(unity_tests_LDADD)		\
 	$(top_builddir)/ntpd/libntpd.a	\
-	$(top_builddir)/ntpd/ntp_signd.o	\
 	$(unity_tests_LDADD)		\
+	$(top_builddir)/ntpd/ntp_signd.o	\
+	$(top_builddir)/ntpd/ntp_config.o	\
+	$(top_builddir)/ntpd/ntp_io.o	\
 	$(NULL)
+
+#	$(top_builddir)/ntpd/ntp_signd.o
 
 test_ntp_signdT_SOURCES =			\
 	ntp_signdT.c			\
