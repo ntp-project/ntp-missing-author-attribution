@@ -441,6 +441,7 @@ ntp-4.3 begins.
 * [Bug 2595] ntpdate man page quirks.  Hal Murray, Harlan Stenn.
 * [Bug 2625] Deprecate flag1 in local refclock.  Hal Murray, Harlan Stenn.
 * [Bug 2817] Stop locking ntpd into memory by default under Linux.  H.Stenn.
+* [Bug 2821] minor build issues: fixed refclock_gpsdjson.c.  perlinger@ntp.org
 * [Bug 2823] ntpsweep with recursive peers option doesn't work.  H.Stenn.
 * [Bug 2849] Systems with more than one default route may never
   synchronize.  Brian Utterback.  Note that this patch might need to
