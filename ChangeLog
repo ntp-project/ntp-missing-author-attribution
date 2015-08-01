@@ -1,3 +1,4 @@
+(4.3.69) 2015/08/01 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * [Bug 2821] minor build issues: fixed refclock_gpsdjson.c.  perlinger@ntp.org
 (4.3.68) 2015/07/31 Released by Harlan Stenn <stenn@ntp.org>
