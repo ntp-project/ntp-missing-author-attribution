@@ -14,6 +14,7 @@ check_PROGRAMS =		\
 	test-ntp_restrict	\
 	test-rc_cmdlength   	\
 	test-ntp_scanner	\
+	test-ntp_signdT		\
 	$(NULL)
 
 #	test-ntp_signd		\ #doesn't work, can't link it because you can't link static function
@@ -69,7 +70,7 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-ntp_prio_q.c	\
 	$(srcdir)/run-ntp_restrict.c	\
 	$(srcdir)/run-rc_cmdlength.c		\
-	$(srcdir)/run-ntp_signd.c		\
+	$(srcdir)/run-ntp_signdT.c		\
 	$(NULL)
 
 noinst_HEADERS =	g_ntpdtest.h		\
@@ -154,25 +155,26 @@ $(srcdir)/run-rc_cmdlength.c: $(srcdir)/rc_cmdlength.c $(std_unity_list)
 	$(run_unity) rc_cmdlength.c run-rc_cmdlength.c
 
 ###
-test_ntp_signd_CFLAGS =			\
+test_ntp_signdT_CFLAGS =			\
 	-I$(top_srcdir)/sntp/unity	\
 	$(NULL)
 
-test_ntp_signd_LDADD =			\
+test_ntp_signdT_LDADD =			\
 	$(unity_tests_LDADD)		\
 	$(top_builddir)/ntpd/libntpd.a	\
 	$(top_builddir)/ntpd/ntp_signd.o	\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
-test_ntp_signd_SOURCES =			\
-	ntp_signd.c			\
-	run-ntp_signd.c			\
+test_ntp_signdT_SOURCES =			\
+	ntp_signdT.c			\
+	run-ntp_signdT.c			\
 	$(srcdir)/../libntp/test-libntp.c		\
+	$(srcdir)/../../ntpd/ntp_signd.c		\
 	$(NULL)
 
-$(srcdir)/run-ntp_signd.c: $(srcdir)/ntp_signd.c $(std_unity_list)
-	$(run_unity) ntp_signd.c run-ntp_signd.c
+$(srcdir)/run-ntp_signdT.c: $(srcdir)/ntp_signdT.c $(std_unity_list)
+	$(run_unity) ntp_signdT.c run-ntp_signdT.c
 
 ###
 test_ntp_scanner_CFLAGS =			\
