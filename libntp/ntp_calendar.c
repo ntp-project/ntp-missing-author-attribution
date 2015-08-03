@@ -79,6 +79,8 @@
 #  else
 #   define TARGET_HAS_2CPL 0
 #  endif
+# else
+#  define TARGET_HAS_2CPL 0
 # endif
 #endif
 
@@ -875,7 +877,7 @@ ntpcal_rd_to_date(
 {
 	ntpcal_split split;
 	int	     leapy;
-	uint	     ymask;
+	u_int	     ymask;
 
 	/* Get day-of-week first. Since rd is signed, the remainder can
 	 * be in the range [-6..+6], but the assignment to an unsigned
