@@ -181,13 +181,12 @@ $(srcdir)/run-rc_cmdlength.c: $(srcdir)/rc_cmdlength.c $(std_unity_list)
 ###
 test_ntp_signdT_CFLAGS =			\
 	-I$(top_srcdir)/sntp/unity	\
-	-Iwhy.h		\
+	-I$(top_srcdir)/ntpd		\
 	$(NULL)
 
 test_ntp_signdT_LDADD =			\
 	$(unity_tests_LDADD)		\
 	$(top_builddir)/ntpd/libntpd.a	\
-	$(unity_tests_LDADD)		\
 	$(top_builddir)/ntpd/ntp_signd.o	\
 	$(top_builddir)/ntpd/ntp_config.o	\
 	$(top_builddir)/ntpd/ntp_io.o	\
@@ -198,8 +197,8 @@ test_ntp_signdT_LDADD =			\
 test_ntp_signdT_SOURCES =			\
 	ntp_signdT.c			\
 	run-ntp_signdT.c			\
-	$(srcdir)/../libntp/test-libntp.c		\
-	$(srcdir)/../../ntpd/ntp_signd.c		\
+	$(top_builddir)/tests/libntp/test-libntp.c		\
+	$(top_builddir)/ntpd/ntp_signd.c		\
 	$(NULL)
 
 $(srcdir)/run-ntp_signdT.c: $(srcdir)/ntp_signdT.c $(std_unity_list)
