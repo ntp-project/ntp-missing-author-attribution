@@ -371,7 +371,7 @@ init_logging(
 	)
 {
 	static int	was_daemon;
-	const char *	cp;
+	char *		cp;
 	const char *	pname;
 
 	/*
@@ -402,7 +402,7 @@ init_logging(
 #ifdef SYS_WINNT			/* strip ".exe" */
 	cp = strrchr(progname, '.');
 	if (NULL != cp && !strcasecmp(cp, ".exe"))
-		progname[cp - progname] = '\0';
+		*cp = '\0';
 #endif
 
 #if !defined(VMS)
