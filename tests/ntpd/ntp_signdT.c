@@ -12,7 +12,7 @@
 
 #include "ntp_signd.c"
 
-//extern int ux_socket_connect(const char *name);
+extern int ux_socket_connect(const char *name);
 
 
 void 
