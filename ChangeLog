@@ -1,5 +1,4 @@
 ---
-
 * [Bug 2823] ntpsweep with recursive peers option doesn't work.  H.Stenn.
 * [Bug 2849] Systems with more than one default route may never
   synchronize.  Brian Utterback.  Note that this patch might need to
@@ -12,6 +11,7 @@
 * [Bug 2875] sntp/Makefile.am: Get rid of DIST_SUBDIRS.  libevent must
   be configured for the distribution targets.  Harlan Stenn.
 * [Bug 2883] ntpd crashes on exit with empty driftfile.  Miroslav Lichvar.
+* [Bug 2888] streamline calendar functions.  perlinger@ntp.org
 * libntp/emalloc.c: Remove explicit include of stdint.h.  Harlan Stenn.
 * Put Unity CPPFLAGS items in unity_config.h.  Harlan Stenn.
 * tests/ntpd/g_leapsec.cpp typo fix.  Harlan Stenn.
