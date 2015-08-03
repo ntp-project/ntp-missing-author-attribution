@@ -78,7 +78,7 @@ BUILT_SOURCES +=			\
 
 noinst_HEADERS =	g_ntpdtest.h		\
 			$(srcdir)/../libntp/test-libntp.h	\
-			sockaddrtest.h	\
+			$(srcdir)/../libntp/sockaddrtest.h	\
 			$(NULL)
 
 ###
