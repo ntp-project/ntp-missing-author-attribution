@@ -166,6 +166,7 @@ test_rc_cmdlength_CFLAGS =			\
 
 test_rc_cmdlength_LDADD =			\
 	$(unity_tests_LDADD)		\
+	$(top_builddir)/ntpd/rc_cmdlength.o		\
 	$(NULL)
 
 test_rc_cmdlength_SOURCES =			\
