@@ -6,8 +6,10 @@
 
 extern void test_IPv4AddressOnly(void);
 extern void test_IPv4AddressWithPort(void);
+#ifdef ISC_PLATFORM_HAVEIPV6
 extern void test_IPv6AddressOnly(void);
 extern void test_IPv6AddressWithPort(void);
+#endif /* ISC_PLATFORM_HAVEIPV6 */
 extern void test_IllegalAddress(void);
 extern void test_IllegalCharInPort(void);
 
@@ -40,6 +42,7 @@ test_IPv4AddressWithPort(void) {
 	TEST_ASSERT_TRUE(IsEqual(expected, actual));
 }
 
+#ifdef ISC_PLATFORM_HAVEIPV6
 void
 test_IPv6AddressOnly(void) {
 	const struct in6_addr address = {
@@ -60,7 +63,9 @@ test_IPv6AddressOnly(void) {
 	TEST_ASSERT_TRUE(decodenetnum(str, &actual));
 	TEST_ASSERT_TRUE(IsEqual(expected, actual));
 }
+#endif /* ISC_PLATFORM_HAVEIPV6 */
 
+#ifdef ISC_PLATFORM_HAVEIPV6
 void
 test_IPv6AddressWithPort(void) {
 	const struct in6_addr address = {
@@ -82,6 +87,7 @@ test_IPv6AddressWithPort(void) {
 	TEST_ASSERT_TRUE(IsEqual(expected, actual));
 }
 
+#endif /* ISC_PLATFORM_HAVEIPV6 */
 void
 test_IllegalAddress(void) {
 	const char *str = "192.0.2.270:2000";

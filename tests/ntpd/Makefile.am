@@ -12,6 +12,7 @@ check_PROGRAMS =		\
 	test-leapsec		\
 	test-ntp_prio_q		\
 	test-ntp_restrict	\
+	test-ntp_util       \
 	test-rc_cmdlength   	\
 	test-ntp_scanner	\
 	test-ntp_signdT		\
@@ -60,6 +61,7 @@ tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
 		$(top_srcdir)/ntpd/ntp_leapsec.c	\
 		$(top_srcdir)/ntpd/ntp_prio_q.c		\
 		$(top_srcdir)/ntpd/ntp_restrict.c	\
+		$(top_srcdir)/ntpd/ntp_util.c	\
 		$(top_srcdir)/ntpd/rc_cmdlength.c	\
 		$(top_srcdir)/ntpd/ntp_signd.c		\
 		g_leapsec.cpp	\
@@ -69,12 +71,14 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-leapsec.c		\
 	$(srcdir)/run-ntp_prio_q.c	\
 	$(srcdir)/run-ntp_restrict.c	\
+	$(srcdir)/run-ntp_util.c	\
 	$(srcdir)/run-rc_cmdlength.c		\
 	$(srcdir)/run-ntp_signdT.c		\
 	$(NULL)
 
 noinst_HEADERS =	g_ntpdtest.h		\
 			$(srcdir)/../libntp/test-libntp.h	\
+			sockaddrtest.h	\
 			$(NULL)
 
 ###
@@ -134,6 +138,25 @@ test_ntp_restrict_SOURCES =			\
 
 $(srcdir)/run-ntp_restrict.c: $(srcdir)/ntp_restrict.c $(std_unity_list)
 	$(run_unity) ntp_restrict.c run-ntp_restrict.c
+
+
+###
+test_ntp_util_CFLAGS =			\
+	-I$(top_srcdir)/sntp/unity	\
+	$(NULL)
+
+test_ntp_util_LDADD =			\
+	$(unity_tests_LDADD)		\
+	$(NULL)
+
+test_ntp_util_SOURCES =			\
+	ntp_util.c			\
+	run-ntp_util.c			\
+	$(srcdir)/../libntp/test-libntp.c		\
+	$(NULL)
+
+$(srcdir)/run-ntp_util.c: $(srcdir)/ntp_util.c $(std_unity_list)
+	$(run_unity) ntp_util.c run-ntp_util.c
 
 
 ###

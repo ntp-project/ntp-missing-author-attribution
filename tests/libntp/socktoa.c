@@ -6,12 +6,15 @@
 #include "unity.h"
 #include "sockaddrtest.h"
 
+
 void test_IPv4AddressWithPort(void);
+#ifdef ISC_PLATFORM_HAVEIPV6
 void test_IPv6AddressWithPort(void);
+void test_IgnoreIPv6Fields(void);
+#endif /* ISC_PLATFORM_HAVEIPV6 */
 void test_ScopedIPv6AddressWithPort(void);
 void test_HashEqual(void);
 void test_HashNotEqual(void);
-void test_IgnoreIPv6Fields(void);
 
 void 
 test_IPv4AddressWithPort(void) {
@@ -21,6 +24,7 @@ test_IPv4AddressWithPort(void) {
 	TEST_ASSERT_EQUAL_STRING("192.0.2.10:123", sockporttoa(&input));
 }
 
+#ifdef ISC_PLATFORM_HAVEIPV6
 void 
 test_IPv6AddressWithPort(void) {
 	const struct in6_addr address = {
@@ -44,6 +48,7 @@ test_IPv6AddressWithPort(void) {
 	TEST_ASSERT_EQUAL_STRING(expected, socktoa(&input));
 	TEST_ASSERT_EQUAL_STRING(expected_port, sockporttoa(&input));
 }
+#endif /* ISC_PLATFORM_HAVEIPV6 */
 
 void 
 test_ScopedIPv6AddressWithPort(void) {
@@ -93,6 +98,7 @@ test_HashNotEqual(void) {
 	TEST_ASSERT_FALSE(sock_hash(&input1) == sock_hash(&input2)); 
 }
 
+#ifdef ISC_PLATFORM_HAVEIPV6
 void 
 test_IgnoreIPv6Fields(void) {
 	const struct in6_addr address = {
@@ -116,3 +122,4 @@ test_IgnoreIPv6Fields(void) {
 
 	TEST_ASSERT_EQUAL(sock_hash(&input1), sock_hash(&input2));
 }
+#endif /* ISC_PLATFORM_HAVEIPV6 */
