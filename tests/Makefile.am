@@ -12,6 +12,7 @@ SUBDIRS +=		\
 	bug-2803	\
 	libntp		\
 	sec-2853	\
+	ntpq		\
 	$(NULL)
 
 DIST_SUBDIRS +=		\
@@ -20,5 +21,6 @@ DIST_SUBDIRS +=		\
 	ntpd		\
 	sandbox		\
 	sec-2853	\
+	ntpq		\
 	$(NULL)
 
