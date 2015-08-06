@@ -2,12 +2,12 @@
 #include "unity.h"
 #include "ntp_types.h"
 
-//#include "sntptest.h"
-//#include "crypto.h"
-#include "log.h"
+
+//#include "log.h"
+#include "log.c"
 
 void testChangePrognameInMysyslog(void);
-//void testOpenLogfileTest(void);
+void testOpenLogfileTest(void);
 
 
 //in var/log/syslog (may differ depending on your OS), logged name of the program will be "TEST_PROGNAME".
@@ -18,18 +18,19 @@ void testChangePrognameInMysyslog(void){
 }
 
 //writes log files in your own file instead of syslog! (MAY BE USEFUL TO SUPPRESS ERROR MESSAGES!)
-/*
+
 void testOpenLogfileTest(void){
 	sntp_init_logging("TEST_PROGNAME2"); //this name is consistent through the entire program unless changed
 	open_logfile("testLogfile.log"); 
 	//open_logfile("/var/log/syslog"); //this gives me "Permission Denied" when i do %m
 	
 	msyslog(LOG_ERR, "Cannot open log file %s","abcXX");
-	//msyslog(LOG_INFO, "%s", "eee");
+	//cleanup_log(); //unnecessary  after log.c fix!
+	
 }
-*/
 
-//multiple cleanup_log() causes segfault. Probably the reason it's static. Opening multiple open_logfile(name) will cause segfault x.x I'm guessing it's not intended to be changed. Cleanup after unity test doesn't fix it, looks like. Tried using counter's to only call atexit once, didn't help???
+
+//multiple cleanup_log() causes segfault. Probably the reason it's static. Opening multiple open_logfile(name) will cause segfault x.x I'm guessing it's not intended to be changed. Cleanup after unity test doesn't fix it, looks like. Calling in tearDown() also causes issues.
 
 void testWriteInCustomLogfile(void){
 	char testString[256] = "12345 ABC";
@@ -58,8 +59,9 @@ void testWriteInCustomLogfile(void){
 
 	x = strstr(line,testString);
 	TEST_ASSERT_TRUE( x != NULL);
-
-	//fclose(f); //using this will also cause segfault, because at the end, log.c will  call (using atexit(func) function) cleanup_log(void)-> fclose(syslog_file); After the 1st fclose, syslog_file = NULL, and is never reset
+	//cleanup_log();
+	fclose(f); //using this will also cause segfault, because at the end, log.c will  call (using atexit(func) function) cleanup_log(void)-> fclose(syslog_file); 
+	//After the 1st fclose, syslog_file = NULL, and is never reset -> hopefully fixed by editing log.c
 	//TEST_ASSERT_EQUAL_STRING(testString,line); //doesn't work, line is dynamic because the process name is random.
 }
 
