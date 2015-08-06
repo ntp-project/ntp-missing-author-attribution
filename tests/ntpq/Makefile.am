@@ -8,19 +8,18 @@ std_unity_list = 						\
 
 run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
-check_PROGRAMS =		\
-	test-ntpq		\
+check_PROGRAMS = 	\
+	test-ntpq	\
 	$(NULL)
 
 
 LDADD =					\
+	$(top_builddir)/ntpq/libntpq.a	\
 	$(top_builddir)/ntpd/libntpd.a	\
 	$(top_builddir)/libntp/libntp.a	\
 	$(LDADD_LIBNTP)			\
 	$(PTHREAD_LIBS)			\
 	$(LDADD_NTP)			\
-	$(GTEST_LDFLAGS)		\
-	$(GTEST_LIBS)			\
 	$(NULL)
 
 unity_tests_LDADD =				\
@@ -32,9 +31,10 @@ unity_tests_LDADD =				\
 AM_CFLAGS   = $(CFLAGS_NTP)
 AM_CXXFLAGS = $(GTEST_CXXFLAGS)
 
-AM_CPPFLAGS += -I$(top_srcdir)/ntpq
+
 
 AM_CPPFLAGS  = $(NTP_INCS)
+AM_CPPFLAGS += -I$(top_srcdir)/ntpq
 #AM_CPPFLAGS += -I$(top_srcdir)/sntp
 #AM_CPPFLAGS += -I$(top_srcdir)/ntpd
 #AM_CPPFLAGS += -I$(top_srcdir)/tests/libntp
@@ -45,19 +45,15 @@ AM_CPPFLAGS += -I$(top_srcdir)/sntp/unity
 
 AM_LDFLAGS = $(LDFLAGS_NTP)
 
-tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
-		t-ntp_signd.c		\
+tests_SOURCES = t-ntpq.c		\
 		$(NULL)
 
 BUILT_SOURCES +=			\
-	$(srcdir)/run-rc_cmdlength.c		\
-	$(srcdir)/run-t-ntp_signd.c		\
+	$(srcdir)/run-t-ntpq.c		\
 	$(NULL)
 
-noinst_HEADERS =	g_ntpdtest.h		\
-			$(srcdir)/../libntp/test-libntp.h	\
-			$(srcdir)/../libntp/sockaddrtest.h	\
-			$(NULL)
+noinst_HEADERS =	\
+		$(NULL)
 
 ###
 test_ntpq_CFLAGS =			\
@@ -75,7 +71,6 @@ test_ntpq_SOURCES =			\
 
 $(srcdir)/run-t-ntpq.c: $(srcdir)/t-ntpq.c $(std_unity_list)
 	$(run_unity) t-ntpq.c run-t-ntpq.c
-
 
 
 TESTS =
@@ -110,8 +105,6 @@ check-libunity: ../../sntp/unity/libunity.a
 ../../sntp/unity/libunity.a:
 	cd ../../sntp/unity && $(MAKE) $(AM_MAKEFLAGS) libunity.a
 
-$(top_builddir)/ntpd/ntpdsim-ntp_prio_q.o:
-	cd ../../ntpd/ && $(MAKE) $(AM_MAKEFLAGS) ntpdsim-ntp_prio_q.o
 
 include $(top_srcdir)/depsver.mf
 include $(top_srcdir)/includes.mf

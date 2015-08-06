@@ -12,6 +12,7 @@ SUBDIRS +=		\
 	bug-2803	\
 	libntp		\
 	sec-2853	\
+	ntpd		\
 	ntpq		\
 	$(NULL)
 
