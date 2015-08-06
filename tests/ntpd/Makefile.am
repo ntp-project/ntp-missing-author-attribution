@@ -181,7 +181,6 @@ $(srcdir)/run-rc_cmdlength.c: $(srcdir)/rc_cmdlength.c $(std_unity_list)
 ###
 test_ntp_signd_CFLAGS =			\
 	-I$(top_srcdir)/sntp/unity	\
-	-Iwhy.h		\
 	$(NULL)
 
 test_ntp_signd_LDADD =			\
