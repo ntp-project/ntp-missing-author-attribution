@@ -46,8 +46,8 @@ test_IPv4AddressWithPort(void) {
 void
 test_IPv6AddressOnly(void) {
 
-#ifdef ISC_PLATFORM_HAVEIPV6
-
+//#ifdef ISC_PLATFORM_HAVEIPV6 //looks like HAVEIPV6 checks if system has IPV6 capabilies. WANTIPV6 can be changed with build --disable-ipv6
+#ifdef ISC_PLATFORM_WANTIPV6
 	const struct in6_addr address = {
 		0x20, 0x01, 0x0d, 0xb8,
         0x85, 0xa3, 0x08, 0xd3,
@@ -78,7 +78,7 @@ test_IPv6AddressOnly(void) {
 void
 test_IPv6AddressWithPort(void) {
 
-#ifdef ISC_PLATFORM_HAVEIPV6
+#ifdef ISC_PLATFORM_WANTIPV6
 
 	const struct in6_addr address = {
 		0x20, 0x01, 0x0d, 0xb8,

@@ -28,7 +28,7 @@ test_IPv4AddressWithPort(void) {
 void 
 test_IPv6AddressWithPort(void) {
 
-#ifdef ISC_PLATFORM_HAVEIPV6
+#ifdef ISC_PLATFORM_WANTIPV6
 
 	const struct in6_addr address = {
 		0x20, 0x01, 0x0d, 0xb8,
@@ -111,7 +111,7 @@ test_HashNotEqual(void) {
 void 
 test_IgnoreIPv6Fields(void) {
 
-#ifdef ISC_PLATFORM_HAVEIPV6
+#ifdef ISC_PLATFORM_WANTIPV6
 
 	const struct in6_addr address = {
 		0x20, 0x01, 0x0d, 0xb8,

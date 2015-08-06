@@ -24,12 +24,12 @@
 #include <stdio.h>
 #include "config.h"
 #include "ntp_types.h"
-#include "log.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
 extern void testChangePrognameInMysyslog(void);
+extern void testOpenLogfileTest(void);
 extern void testWriteInCustomLogfile(void);
 
 
@@ -41,7 +41,7 @@ void resetTest(void)
   setUp();
 }
 
-const char *progname;
+char *progname;
 
 
 //=======MAIN=====
@@ -50,7 +50,8 @@ int main(int argc, char *argv[])
   progname = argv[0];
   UnityBegin("t-log.c");
   RUN_TEST(testChangePrognameInMysyslog, 9);
-  RUN_TEST(testWriteInCustomLogfile, 32);
+  RUN_TEST(testOpenLogfileTest, 10);
+  RUN_TEST(testWriteInCustomLogfile, 35);
 
   return (UnityEnd());
 }

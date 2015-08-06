@@ -9,8 +9,7 @@ std_unity_list = 						\
 run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
 check_PROGRAMS =		\
-	test-ntp_scanner	\
-	test-ntp_signd		\
+	test-ntpq		\
 	$(NULL)
 
 
@@ -61,49 +60,21 @@ noinst_HEADERS =	g_ntpdtest.h		\
 			$(NULL)
 
 ###
-test_ntp_signd_CFLAGS =			\
-	-I$(top_srcdir)/sntp/unity	\
-	-Iwhy.h		\
-	$(NULL)
-
-test_ntp_signd_LDADD =			\
-	$(unity_tests_LDADD)		\
-	$(top_builddir)/ntpd/libntpd.a	\
-	$(unity_tests_LDADD)		\
-	$(top_builddir)/ntpd/ntp_config.o	\
-	$(top_builddir)/ntpd/ntp_io.o	\
-	$(NULL)
-
-#	$(top_builddir)/ntpd/ntp_signd.o #not needed if you #include the file.c
-
-test_ntp_signd_SOURCES =			\
-	t-ntp_signd.c			\
-	run-t-ntp_signd.c			\
-	$(srcdir)/../libntp/test-libntp.c		\
-	$(srcdir)/../../ntpd/ntp_signd.c		\
-	$(NULL)
-
-$(srcdir)/run-t-ntp_signd.c: $(srcdir)/t-ntp_signd.c $(std_unity_list)
-	$(run_unity) t-ntp_signd.c run-t-ntp_signd.c
-
-###
-test_ntp_scanner_CFLAGS =			\
+test_ntpq_CFLAGS =			\
 	-I$(top_srcdir)/sntp/unity	\
 	$(NULL)
 
-test_ntp_scanner_LDADD =			\
+test_ntpq_LDADD =			\
 	$(unity_tests_LDADD)		\
-	$(top_builddir)/ntpd/ntp_scanner.o		\
 	$(NULL)
 
-test_ntp_scanner_SOURCES =			\
-	ntp_scanner.c				\
-	run-ntp_scanner.c			\
-	$(srcdir)/../libntp/test-libntp.c	\
+test_ntpq_SOURCES =			\
+	t-ntpq.c				\
+	run-t-ntpq.c			\
 	$(NULL)
 
-$(srcdir)/run-ntp_scanner.c: $(srcdir)/ntp_scanner.c $(std_unity_list)
-	$(run_unity) ntp_scanner.c run-ntp_scanner.c
+$(srcdir)/run-t-ntpq.c: $(srcdir)/t-ntpq.c $(std_unity_list)
+	$(run_unity) t-ntpq.c run-t-ntpq.c
 
 
 
