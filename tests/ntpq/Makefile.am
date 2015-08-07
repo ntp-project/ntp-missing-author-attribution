@@ -32,7 +32,6 @@ AM_CFLAGS   = $(CFLAGS_NTP)
 AM_CXXFLAGS = $(GTEST_CXXFLAGS)
 
 
-
 AM_CPPFLAGS  = $(NTP_INCS)
 AM_CPPFLAGS += -I$(top_srcdir)/ntpq
 #AM_CPPFLAGS += -I$(top_srcdir)/sntp
