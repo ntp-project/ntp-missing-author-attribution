@@ -15,6 +15,7 @@ run_unity =	cd $(srcdir) && ruby ../unity/auto/generate_test_runner.rb
 #EXTRA_PROGRAMS +=		test-packetHandling test-packetProcessing
 
 check_PROGRAMS =			\
+	test-log			\
 	test-crypto			\
 	test-keyFile			\
 	test-kodDatabase		\
@@ -173,6 +174,12 @@ test_crypto_SOURCES =			\
 	$(top_builddir)/version.c	\
 	$(NULL)
 
+test_log_SOURCES =			\
+	t-log.c			\
+	run-t-log.c			\
+	$(top_builddir)/version.c	\
+	$(NULL)
+
 
 $(srcdir)/run-kodFile.c: $(srcdir)/kodFile.c $(std_unity_list)
 	$(run_unity) kodFile.c run-kodFile.c
@@ -197,6 +204,10 @@ $(srcdir)/run-utilities.c: $(srcdir)/utilities.c $(std_unity_list)
 
 $(srcdir)/run-crypto.c: $(srcdir)/crypto.c $(std_unity_list)
 	$(run_unity) crypto.c run-crypto.c
+
+$(srcdir)/run-t-log.c: $(srcdir)/t-log.c $(std_unity_list)
+	$(run_unity) t-log.c run-t-log.c
+
 
 #$(srcdir)/../version.c: $(srcdir)/../version.c
 #	gcc -o version.o ../version.c

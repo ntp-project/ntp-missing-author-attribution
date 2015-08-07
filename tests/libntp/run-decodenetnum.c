@@ -24,7 +24,6 @@
 #include <stdio.h>
 #include "config.h"
 #include "ntp_stdlib.h"
-#include "ntp_calendar.h"
 #include "sockaddrtest.h"
 
 //=======External Functions This Runner Calls=====
@@ -56,10 +55,10 @@ int main(int argc, char *argv[])
   UnityBegin("decodenetnum.c");
   RUN_TEST(test_IPv4AddressOnly, 7);
   RUN_TEST(test_IPv4AddressWithPort, 8);
-  RUN_TEST(test_IPv6AddressOnly, 9);
-  RUN_TEST(test_IPv6AddressWithPort, 10);
-  RUN_TEST(test_IllegalAddress, 11);
-  RUN_TEST(test_IllegalCharInPort, 12);
+  RUN_TEST(test_IPv6AddressOnly, 10);
+  RUN_TEST(test_IPv6AddressWithPort, 11);
+  RUN_TEST(test_IllegalAddress, 13);
+  RUN_TEST(test_IllegalCharInPort, 14);
 
   return (UnityEnd());
 }

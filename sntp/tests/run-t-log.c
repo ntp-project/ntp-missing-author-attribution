@@ -23,19 +23,14 @@
 #include <setjmp.h>
 #include <stdio.h>
 #include "config.h"
-#include "ntp_stdlib.h"
-#include "ntp_calendar.h"
-#include "sockaddrtest.h"
+#include "ntp_types.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_IPv4AddressWithPort(void);
-extern void test_IPv6AddressWithPort(void);
-extern void test_IgnoreIPv6Fields(void);
-extern void test_ScopedIPv6AddressWithPort(void);
-extern void test_HashEqual(void);
-extern void test_HashNotEqual(void);
+extern void testChangePrognameInMysyslog(void);
+extern void testOpenLogfileTest(void);
+extern void testWriteInCustomLogfile(void);
 
 
 //=======Test Reset Option=====
@@ -53,13 +48,10 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  UnityBegin("socktoa.c");
-  RUN_TEST(test_IPv4AddressWithPort, 10);
-  RUN_TEST(test_IPv6AddressWithPort, 12);
-  RUN_TEST(test_IgnoreIPv6Fields, 13);
-  RUN_TEST(test_ScopedIPv6AddressWithPort, 15);
-  RUN_TEST(test_HashEqual, 16);
-  RUN_TEST(test_HashNotEqual, 17);
+  UnityBegin("t-log.c");
+  RUN_TEST(testChangePrognameInMysyslog, 9);
+  RUN_TEST(testOpenLogfileTest, 10);
+  RUN_TEST(testWriteInCustomLogfile, 35);
 
   return (UnityEnd());
 }
