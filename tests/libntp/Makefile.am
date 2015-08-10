@@ -49,12 +49,6 @@ check_PROGRAMS =		\
 	test-ymd2yd		\
 	$(NULL)
 
-if GTEST_AVAILABLE
-check_PROGRAMS += tests
-else
-EXTRA_PROGRAMS = tests
-endif
-
 LDADD =					\
 	$(top_builddir)/libntp/libntp.a	\
 	$(LDADD_LIBNTP)			\
@@ -64,14 +58,7 @@ LDADD =					\
 	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
 
-tests_LDADD =				\
-	$(LDADD)			\
-	$(GTEST_LDFLAGS)		\
-	$(GTEST_LIBS)			\
-	$(NULL)
-
 AM_CFLAGS = $(CFLAGS_NTP)
-AM_CXXFLAGS = $(GTEST_CXXFLAGS)
 
 AM_CPPFLAGS  = $(NTP_INCS)
 AM_CPPFLAGS += -I$(top_srcdir)/sntp
@@ -79,57 +66,7 @@ AM_CPPFLAGS += $(CPPFLAGS_NTP)
 AM_CPPFLAGS += -DUNITY_INCLUDE_CONFIG_H
 AM_CPPFLAGS += -I$(top_srcdir)/sntp/unity
 
-tests_CPPFLAGS  = $(AM_CPPFLAGS)
-tests_CPPFLAGS += $(GTEST_CPPFLAGS)
-
 AM_LDFLAGS = $(LDFLAGS_NTP)
-
-tests_SOURCES =					\
-	$(top_srcdir)/sntp/tests_main.cpp	\
-	g_libntptest.cpp	\
-	g_a_md5encrypt.cpp	\
-	g_atoint.cpp		\
-	g_atouint.cpp		\
-	g_authkeys.cpp		\
-	g_buftvtots.cpp		\
-	g_calendar.cpp		\
-	g_caljulian.cpp		\
-	g_caltontp.cpp		\
-	g_calyearstart.cpp	\
-	g_clocktime.cpp		\
-	g_decodenetnum.cpp	\
-	g_hextoint.cpp		\
-	g_hextolfp.cpp		\
-	g_humandate.cpp		\
-	g_lfpfunc.cpp		\
-	g_lfptest.h		\
-	g_lfptostr.cpp		\
-	g_libntptest.h		\
-	g_modetoa.cpp		\
-	g_msyslog.cpp		\
-	g_netof.cpp		\
-	g_numtoa.cpp		\
-	g_numtohost.cpp		\
-	g_octtoint.cpp		\
-	g_prettydate.cpp	\
-	g_recvbuff.cpp		\
-	g_refnumtoa.cpp		\
-	g_sfptostr.cpp		\
-	g_sockaddrtest.h	\
-	g_socktoa.cpp		\
-	g_ssl_init.cpp		\
-	g_statestr.cpp		\
-	g_strtolfp.cpp		\
-	g_timespecops.cpp	\
-	g_timestructs.cpp	\
-	g_timestructs.h		\
-	g_timevalops.cpp	\
-	g_tstotv.cpp		\
-	g_tvtots.cpp		\
-	g_uglydate.cpp		\
-	g_vi64ops.cpp		\
-	g_ymd2yd.cpp		\
-	$(NULL)
 
 BUILT_SOURCES +=			\
 	$(srcdir)/run-a_md5encrypt.c	\
