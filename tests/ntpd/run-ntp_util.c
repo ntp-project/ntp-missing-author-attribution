@@ -26,19 +26,15 @@
 #include "ntp.h"
 #include "ntp_calendar.h"
 #include "ntp_stdlib.h"
-#include "ntp_prio_q.h"
+#include "test-libntp.h"
+#include <time.h>
 #include <string.h>
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_AllocateDeallocateNode(void);
-extern void test_EmptyQueue(void);
-extern void test_OneElementQueue(void);
-extern void test_MultipleElementQueue(void);
-extern void test_CustomOrderQueue(void);
-extern void test_DestroyNonEmptyQueue(void);
-extern void test_AppendQueues(void);
+extern void test_mprintf_clock_stats(void);
+extern void test_fstostr(void);
 
 
 //=======Test Reset Option=====
@@ -56,14 +52,9 @@ char *progname;
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  UnityBegin("ntp_prio_q.c");
-  RUN_TEST(test_AllocateDeallocateNode, 39);
-  RUN_TEST(test_EmptyQueue, 46);
-  RUN_TEST(test_OneElementQueue, 60);
-  RUN_TEST(test_MultipleElementQueue, 88);
-  RUN_TEST(test_CustomOrderQueue, 126);
-  RUN_TEST(test_DestroyNonEmptyQueue, 183);
-  RUN_TEST(test_AppendQueues, 205);
+  UnityBegin("ntp_util.c");
+  RUN_TEST(test_mprintf_clock_stats, 13);
+  RUN_TEST(test_fstostr, 27);
 
   return (UnityEnd());
 }

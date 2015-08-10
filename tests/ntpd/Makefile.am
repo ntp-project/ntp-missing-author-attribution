@@ -9,15 +9,15 @@ std_unity_list = 						\
 run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
 check_PROGRAMS =		\
+	test-ntp_signd		\
 	test-leapsec		\
 	test-rc_cmdlength   	\
+	test-ntp_restrict	\
+	test-ntp_scanner	\
+	test-ntp_prio_q		\
 	$(NULL)
 
 EXTRA_PROGRAMS =		\
-	test-ntp_restrict	\
-	test-ntp_scanner	\
-	test-ntp_signd		\
-	test-ntp_prio_q		\
 	$(NULL)
 
 LDADD =					\
@@ -51,7 +51,7 @@ BUILT_SOURCES +=			\
 	$(srcdir)/run-ntp_prio_q.c	\
 	$(srcdir)/run-ntp_restrict.c	\
 	$(srcdir)/run-rc_cmdlength.c	\
-	$(srcdir)/run-ntp_signd.c	\
+	$(srcdir)/run-t-ntp_signd.c	\
 	$(NULL)
 
 #noinst_HEADERS =				\
@@ -143,19 +143,19 @@ test_ntp_signd_CFLAGS =			\
 
 test_ntp_signd_LDADD =			\
 	$(unity_tests_LDADD)		\
-	$(top_builddir)/ntpd/libntpd.a	\
-	$(top_builddir)/ntpd/ntp_signd.o	\
-	$(unity_tests_LDADD)		\
+	$(top_builddir)/ntpd/ntp_config.o	\
+	$(top_builddir)/ntpd/ntp_io.o	\
 	$(NULL)
 
 test_ntp_signd_SOURCES =		\
-	ntp_signd.c			\
-	run-ntp_signd.c			\
+	t-ntp_signd.c			\
+	run-t-ntp_signd.c			\
 	$(srcdir)/../libntp/test-libntp.c	\
+	$(srcdir)/../../ntpd/ntp_signd.c	\
 	$(NULL)
 
-$(srcdir)/run-ntp_signd.c: $(srcdir)/ntp_signd.c $(std_unity_list)
-	$(run_unity) ntp_signd.c run-ntp_signd.c
+$(srcdir)/run-ntp_signd.c: $(srcdir)/t-ntp_signd.c $(std_unity_list)
+	$(run_unity) t-ntp_signd.c run-t-ntp_signd.c
 
 ###
 test_ntp_scanner_CFLAGS =		\
