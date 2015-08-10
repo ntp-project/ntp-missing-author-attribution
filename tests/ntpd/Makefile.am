@@ -10,21 +10,15 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 
 check_PROGRAMS =		\
 	test-leapsec		\
-	test-ntp_prio_q		\
-	test-ntp_restrict	\
-	test-ntp_util       \
 	test-rc_cmdlength   	\
-	test-ntp_scanner	\
-	test-ntp_signd		\
 	$(NULL)
 
-#	test-ntp_signd		\ #doesn't work, can't link it because you can't link static function
-
-if GTEST_AVAILABLE
-check_PROGRAMS += tests
-else
-EXTRA_PROGRAMS = tests
-endif
+EXTRA_PROGRAMS =		\
+	test-ntp_restrict	\
+	test-ntp_scanner	\
+	test-ntp_signd		\
+	test-ntp_prio_q		\
+	$(NULL)
 
 LDADD =					\
 	$(top_builddir)/ntpd/libntpd.a	\
@@ -32,8 +26,6 @@ LDADD =					\
 	$(LDADD_LIBNTP)			\
 	$(PTHREAD_LIBS)			\
 	$(LDADD_NTP)			\
-	$(GTEST_LDFLAGS)		\
-	$(GTEST_LIBS)			\
 	$(NULL)
 
 unity_tests_LDADD =				\
@@ -43,43 +35,29 @@ unity_tests_LDADD =				\
 	$(NULL)
 
 AM_CFLAGS   = $(CFLAGS_NTP)
-AM_CXXFLAGS = $(GTEST_CXXFLAGS)
 
 AM_CPPFLAGS  = $(NTP_INCS)
 AM_CPPFLAGS += -I$(top_srcdir)/sntp
 AM_CPPFLAGS += -I$(top_srcdir)/ntpd
 AM_CPPFLAGS += -I$(top_srcdir)/tests/libntp
-AM_CPPFLAGS += $(GTEST_CPPFLAGS)
 AM_CPPFLAGS += $(CPPFLAGS_NTP)
 AM_CPPFLAGS += -DUNITY_INCLUDE_CONFIG_H
 AM_CPPFLAGS += -I$(top_srcdir)/sntp/unity
 
 AM_LDFLAGS = $(LDFLAGS_NTP)
 
-tests_SOURCES = $(top_srcdir)/sntp/tests_main.cpp	\
-		g_ntpdtest.cpp		\
-		$(top_srcdir)/ntpd/ntp_leapsec.c	\
-		$(top_srcdir)/ntpd/ntp_prio_q.c		\
-		$(top_srcdir)/ntpd/ntp_restrict.c	\
-		$(top_srcdir)/ntpd/ntp_util.c	\
-		$(top_srcdir)/ntpd/rc_cmdlength.c	\
-		t-ntp_signd.c		\
-		g_leapsec.cpp	\
-		$(NULL)
-
 BUILT_SOURCES +=			\
 	$(srcdir)/run-leapsec.c		\
 	$(srcdir)/run-ntp_prio_q.c	\
 	$(srcdir)/run-ntp_restrict.c	\
-	$(srcdir)/run-ntp_util.c	\
-	$(srcdir)/run-rc_cmdlength.c		\
-	$(srcdir)/run-t-ntp_signd.c		\
+	$(srcdir)/run-rc_cmdlength.c	\
+	$(srcdir)/run-ntp_signd.c	\
 	$(NULL)
 
-noinst_HEADERS =	g_ntpdtest.h		\
-			$(srcdir)/../libntp/test-libntp.h	\
-			$(srcdir)/../libntp/sockaddrtest.h	\
-			$(NULL)
+#noinst_HEADERS =				\
+#	g_ntpdtest.h				\
+#	$(srcdir)/../libntp/test-libntp.h	\
+#	$(NULL)
 
 ###
 
@@ -102,19 +80,19 @@ $(srcdir)/run-leapsec.c: $(srcdir)/leapsec.c $(std_unity_list)
 
 
 ###
-test_ntp_prio_q_CFLAGS =			\
+test_ntp_prio_q_CFLAGS =		\
 	-I$(top_srcdir)/sntp/unity	\
 	$(NULL)
 
 test_ntp_prio_q_LDADD =			\
 	$(unity_tests_LDADD)		\
-	../../ntpd/ntpdsim-ntp_prio_q.o		\
+	../../ntpd/ntpdsim-ntp_prio_q.o	\
 	$(NULL)
 
 test_ntp_prio_q_SOURCES =			\
-	ntp_prio_q.c			\
+	ntp_prio_q.c				\
 	run-ntp_prio_q.c			\
-	$(srcdir)/../libntp/test-libntp.c		\
+	$(srcdir)/../libntp/test-libntp.c	\
 	$(NULL)
 
 $(srcdir)/run-ntp_prio_q.c: $(srcdir)/ntp_prio_q.c $(std_unity_list)
@@ -122,18 +100,18 @@ $(srcdir)/run-ntp_prio_q.c: $(srcdir)/ntp_prio_q.c $(std_unity_list)
 
 
 ###
-test_ntp_restrict_CFLAGS =			\
+test_ntp_restrict_CFLAGS =		\
 	-I$(top_srcdir)/sntp/unity	\
 	$(NULL)
 
-test_ntp_restrict_LDADD =			\
+test_ntp_restrict_LDADD =		\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
-test_ntp_restrict_SOURCES =			\
+test_ntp_restrict_SOURCES =		\
 	ntp_restrict.c			\
-	run-ntp_restrict.c			\
-	$(srcdir)/../libntp/test-libntp.c		\
+	run-ntp_restrict.c		\
+	$(srcdir)/../libntp/test-libntp.c	\
 	$(NULL)
 
 $(srcdir)/run-ntp_restrict.c: $(srcdir)/ntp_restrict.c $(std_unity_list)
@@ -141,38 +119,18 @@ $(srcdir)/run-ntp_restrict.c: $(srcdir)/ntp_restrict.c $(std_unity_list)
 
 
 ###
-test_ntp_util_CFLAGS =			\
+test_rc_cmdlength_CFLAGS =		\
 	-I$(top_srcdir)/sntp/unity	\
 	$(NULL)
 
-test_ntp_util_LDADD =			\
+test_rc_cmdlength_LDADD =		\
 	$(unity_tests_LDADD)		\
 	$(NULL)
 
-test_ntp_util_SOURCES =			\
-	ntp_util.c			\
-	run-ntp_util.c			\
-	$(srcdir)/../libntp/test-libntp.c		\
-	$(NULL)
-
-$(srcdir)/run-ntp_util.c: $(srcdir)/ntp_util.c $(std_unity_list)
-	$(run_unity) ntp_util.c run-ntp_util.c
-
-
-###
-test_rc_cmdlength_CFLAGS =			\
-	-I$(top_srcdir)/sntp/unity	\
-	$(NULL)
-
-test_rc_cmdlength_LDADD =			\
-	$(unity_tests_LDADD)		\
-	$(top_builddir)/ntpd/rc_cmdlength.o		\
-	$(NULL)
-
-test_rc_cmdlength_SOURCES =			\
+test_rc_cmdlength_SOURCES =		\
 	rc_cmdlength.c			\
-	run-rc_cmdlength.c			\
-	$(srcdir)/../libntp/test-libntp.c		\
+	run-rc_cmdlength.c		\
+	$(srcdir)/../libntp/test-libntp.c	\
 	$(NULL)
 
 $(srcdir)/run-rc_cmdlength.c: $(srcdir)/rc_cmdlength.c $(std_unity_list)
@@ -186,31 +144,27 @@ test_ntp_signd_CFLAGS =			\
 test_ntp_signd_LDADD =			\
 	$(unity_tests_LDADD)		\
 	$(top_builddir)/ntpd/libntpd.a	\
+	$(top_builddir)/ntpd/ntp_signd.o	\
 	$(unity_tests_LDADD)		\
-	$(top_builddir)/ntpd/ntp_config.o	\
-	$(top_builddir)/ntpd/ntp_io.o	\
 	$(NULL)
 
-#	$(top_builddir)/ntpd/ntp_signd.o #not needed if you #include the file.c
-
-test_ntp_signd_SOURCES =			\
-	t-ntp_signd.c			\
-	run-t-ntp_signd.c			\
-	$(srcdir)/../libntp/test-libntp.c		\
-	$(srcdir)/../../ntpd/ntp_signd.c		\
+test_ntp_signd_SOURCES =		\
+	ntp_signd.c			\
+	run-ntp_signd.c			\
+	$(srcdir)/../libntp/test-libntp.c	\
 	$(NULL)
 
-$(srcdir)/run-t-ntp_signd.c: $(srcdir)/t-ntp_signd.c $(std_unity_list)
-	$(run_unity) t-ntp_signd.c run-t-ntp_signd.c
+$(srcdir)/run-ntp_signd.c: $(srcdir)/ntp_signd.c $(std_unity_list)
+	$(run_unity) ntp_signd.c run-ntp_signd.c
 
 ###
-test_ntp_scanner_CFLAGS =			\
+test_ntp_scanner_CFLAGS =		\
 	-I$(top_srcdir)/sntp/unity	\
 	$(NULL)
 
-test_ntp_scanner_LDADD =			\
+test_ntp_scanner_LDADD =		\
 	$(unity_tests_LDADD)		\
-	$(top_builddir)/ntpd/ntp_scanner.o		\
+	$(top_builddir)/ntpd/ntp_scanner.o	\
 	$(NULL)
 
 test_ntp_scanner_SOURCES =			\
@@ -221,7 +175,6 @@ test_ntp_scanner_SOURCES =			\
 
 $(srcdir)/run-ntp_scanner.c: $(srcdir)/ntp_scanner.c $(std_unity_list)
 	$(run_unity) ntp_scanner.c run-ntp_scanner.c
-
 
 
 TESTS =

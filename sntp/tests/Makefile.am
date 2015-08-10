@@ -1,8 +1,21 @@
 NULL =
 BUILT_SOURCES =
-CLEANFILES = kod-output-blank kod-output-single kod-output-multiple debug-output-lfp-dec debug-output-lfp-bin debug-output-pkt
-DISTCLEANFILES = kod-output-blank kod-output-single kod-output-multiple
 EXTRA_PROGRAMS =
+
+CLEANFILES =			\
+	debug-output-lfp-bin	\
+	debug-output-lfp-dec	\
+	debug-output-pkt	\
+	kod-output-blank	\
+	kod-output-multiple	\
+	kod-output-single	\
+	$(NULL)
+
+DISTCLEANFILES =		\
+	kod-output-blank	\
+	kod-output-single 	\
+	kod-output-multiple	\
+	$(NULL)
 
 std_unity_list =					\
 	$(srcdir)/../unity/auto/generate_test_runner.rb	\
@@ -25,32 +38,6 @@ check_PROGRAMS =			\
 	test-packetProcessing		\
 	test-utilities			\
 	$(NULL)
-
-EXTRA_PROGRAMS += tests
-
-tests_SOURCES =			\
-	../tests_main.cpp	\
-	g_crypto.cpp		\
-	g_fileHandlingTest.h	\
-	g_networking.cpp	\
-	g_packetHandling.cpp	\
-	g_packetProcessing.cpp	\
-	g_sntptest.h		\
-	$(NULL)
-
-tests_LDADD =			\
-	$(base_LDADD)		\
-	$(GTEST_LDFLAGS)	\
-	$(GTEST_LIBS)		\
-	$(NULL)
-
-tests_CPPFLAGS =		\
-	$(AM_CPPFLAGS)		\
-	$(CPPFLAGS)		\
-	$(GTEST_CPPFLAGS)	\
-	$(NULL)
-
-AM_CXXFLAGS = $(GTEST_CXXFLAGS)
 
 noinst_HEADERS =		\
 	sntptest.h		\
