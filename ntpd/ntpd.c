@@ -180,12 +180,6 @@ int	waitsync_fd_to_close = -1;	/* -w/--wait-sync */
 #endif
 
 /*
- * Initializing flag.  All async routines watch this and only do their
- * thing when it is clear.
- */
-int initializing;
-
-/*
  * Version declaration
  */
 extern const char *Version;
