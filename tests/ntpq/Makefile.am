@@ -29,7 +29,6 @@ unity_tests_LDADD =				\
 	$(NULL)
 
 AM_CFLAGS   = $(CFLAGS_NTP)
-AM_CXXFLAGS = $(GTEST_CXXFLAGS)
 
 
 AM_CPPFLAGS  = $(NTP_INCS)
@@ -37,7 +36,6 @@ AM_CPPFLAGS += -I$(top_srcdir)/ntpq
 #AM_CPPFLAGS += -I$(top_srcdir)/sntp
 #AM_CPPFLAGS += -I$(top_srcdir)/ntpd
 #AM_CPPFLAGS += -I$(top_srcdir)/tests/libntp
-AM_CPPFLAGS += $(GTEST_CPPFLAGS)
 AM_CPPFLAGS += $(CPPFLAGS_NTP)
 AM_CPPFLAGS += -DUNITY_INCLUDE_CONFIG_H
 AM_CPPFLAGS += -I$(top_srcdir)/sntp/unity
@@ -55,9 +53,6 @@ noinst_HEADERS =	\
 		$(NULL)
 
 ###
-test_ntpq_CFLAGS =			\
-	-I$(top_srcdir)/sntp/unity	\
-	$(NULL)
 
 test_ntpq_LDADD =			\
 	$(unity_tests_LDADD)		\
