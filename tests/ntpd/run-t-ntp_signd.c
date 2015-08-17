@@ -34,7 +34,7 @@ extern void tearDown(void);
 extern void test_connect_incorrect_socket(void);
 extern void test_connect_correct_socket(void);
 extern void test_write_all(void);
-
+extern void test_send_packet(void);
 
 //=======Test Reset Option=====
 void resetTest(void);
@@ -55,6 +55,7 @@ int main(int argc, char *argv[])
   RUN_TEST(test_connect_incorrect_socket, 12);
   RUN_TEST(test_connect_correct_socket, 12);
   RUN_TEST(test_write_all, 23);
+  RUN_TEST(test_send_packet,25);
 
   return (UnityEnd());
 }

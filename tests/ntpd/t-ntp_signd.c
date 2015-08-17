@@ -78,7 +78,6 @@ test_connect_correct_socket(void){
 }
 
 
-
 void
 test_write_all(void){
 	int fd = ux_socket_connect("/socket");
