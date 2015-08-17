@@ -31,7 +31,8 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_ux_socket_connect(void);
+extern void test_connect_incorrect_socket(void);
+extern void test_connect_correct_socket(void);
 extern void test_write_all(void);
 
 
@@ -51,7 +52,8 @@ int main(int argc, char *argv[])
 {
   progname = argv[0];
   UnityBegin("ntp_signd.c");
-  RUN_TEST(test_ux_socket_connect, 12);
+  RUN_TEST(test_connect_incorrect_socket, 12);
+  RUN_TEST(test_connect_correct_socket, 12);
   RUN_TEST(test_write_all, 23);
 
   return (UnityEnd());
