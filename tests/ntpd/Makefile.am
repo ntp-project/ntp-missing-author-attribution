@@ -118,6 +118,7 @@ $(srcdir)/run-ntp_restrict.c: $(srcdir)/ntp_restrict.c $(std_unity_list)
 	$(run_unity) ntp_restrict.c run-ntp_restrict.c
 
 
+
 ###
 test_rc_cmdlength_CFLAGS =		\
 	-I$(top_srcdir)/sntp/unity	\
@@ -137,9 +138,6 @@ $(srcdir)/run-rc_cmdlength.c: $(srcdir)/rc_cmdlength.c $(std_unity_list)
 	$(run_unity) rc_cmdlength.c run-rc_cmdlength.c
 
 ###
-test_ntp_signd_CFLAGS =			\
-	-I$(top_srcdir)/sntp/unity	\
-	$(NULL)
 
 test_ntp_signd_LDADD =			\
 	$(unity_tests_LDADD)		\
@@ -154,7 +152,7 @@ test_ntp_signd_SOURCES =		\
 	$(srcdir)/../../ntpd/ntp_signd.c	\
 	$(NULL)
 
-$(srcdir)/run-ntp_signd.c: $(srcdir)/t-ntp_signd.c $(std_unity_list)
+$(srcdir)/run-t-ntp_signd.c: $(srcdir)/t-ntp_signd.c $(std_unity_list)
 	$(run_unity) t-ntp_signd.c run-t-ntp_signd.c
 
 ###

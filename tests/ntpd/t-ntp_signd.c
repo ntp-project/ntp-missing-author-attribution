@@ -53,16 +53,8 @@ test_connect_incorrect_socket(void){
 void 
 test_connect_correct_socket(void){
 
-//send_via_ntp_signd(NULL,NULL,NULL,NULL,NULL);	
-	/*
-	send_via_ntp_signd(
-	struct recvbuf *rbufp,	
-	int	xmode,
-	keyid_t	xkeyid, 
-	int flags,
-	struct pkt  *xpkt)
-*/
-	
+
+
 	int temp = ux_socket_connect("/socket");
 
 	//risky, what if something is listening on :123, or localhost isnt 127.0.0.1?
@@ -85,9 +77,6 @@ test_write_all(void){
 	char * str = "TEST123";
 	int temp = write_all(fd, str,strlen(str));
 	TEST_ASSERT_EQUAL(strlen(str),temp);
-
-	
-
 }
 
 
@@ -97,4 +86,31 @@ test_send_packet(void){
 	char * str2 = "PACKET12345";
 	int temp = send_packet(fd, str2, strlen(str2));
 	TEST_ASSERT_EQUAL(0,temp);
+}
+
+
+void
+test_recv_packet(void){
+	int fd = ux_socket_connect("/socket");
+	int size = 256;	
+	char str[size];
+
+	int temp = recv_packet(fd, &str, &size);
+	send_packet(fd, str, strlen(str));
+	TEST_ASSERT_EQUAL(0,temp); //0 because nobody sent us anything (yet!)
+}
+
+void 
+test_send_via_ntp_signd(){
+
+	struct recvbuf *rbufp = (struct recvbuf *) malloc(sizeof(struct recvbuf));
+	int	xmode = 1;
+	keyid_t	xkeyid = 12345; 
+	int flags =0;
+	struct pkt  *xpkt = (struct pkt *) malloc(sizeof(struct pkt)); //defined in ntp.h
+
+	//send_via_ntp_signd(NULL,NULL,NULL,NULL,NULL);	//doesn't work
+	send_via_ntp_signd(rbufp,xmode,xkeyid,flags,xpkt);
+
+
 }
