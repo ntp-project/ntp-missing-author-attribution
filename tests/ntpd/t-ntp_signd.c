@@ -8,6 +8,8 @@
 
 #include "test-libntp.h"
 
+
+
 #define HAVE_NTP_SIGND
 
 #include "ntp_signd.c"
@@ -15,11 +17,27 @@
 extern int ux_socket_connect(const char *name);
 
 
+//MOCKED FUNCTIONS
+
 //this connect function overrides/mocks connect() from  <sys/socket.h>
 int connect(int socket, const struct sockaddr *address,
 socklen_t address_len){
 	return 1;
 }
+
+//mocked write will only send 4 bytes at a time. This is so write_all can be properly tested
+ssize_t write(int fd, void const * buf, size_t len){
+	if(len >= 4){return 4;}
+	else return len;
+}
+
+ssize_t read(int fd, void * buf, size_t len){
+	if(len >= 4){return 4;}
+	else return len;
+}
+
+
+//END OF MOCKED FUNCTIONS
 
 int isGE(int a,int b){ 
 	if(a >= b) {return 1;}
@@ -63,5 +81,21 @@ test_connect_correct_socket(void){
 
 void
 test_write_all(void){
+	int fd = ux_socket_connect("/socket");
+	TEST_ASSERT_TRUE(isGE(fd,0));
+	char * str = "TEST123";
+	int temp = write_all(fd, str,strlen(str));
+	TEST_ASSERT_EQUAL(strlen(str),temp);
 
+	
+
+}
+
+
+void
+test_send_packet(void){
+	int fd = ux_socket_connect("/socket");
+	char * str2 = "PACKET12345";
+	int temp = send_packet(fd, str2, strlen(str2));
+	TEST_ASSERT_EQUAL(0,temp);
 }
