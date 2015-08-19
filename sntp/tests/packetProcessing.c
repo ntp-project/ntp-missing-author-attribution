@@ -52,7 +52,7 @@ PrepareAuthenticationTest(int key_id,
 	ActivateOption("-a", str);
 
 	key_cnt = 1;
-	key_ptr = malloc(sizeof(struct key));
+	key_ptr = emalloc(sizeof(struct key));
 	key_ptr->next = NULL;
 	key_ptr->key_id = key_id;
 	key_ptr->key_len = key_len;

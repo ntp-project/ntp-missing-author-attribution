@@ -98,7 +98,7 @@ main(int argc, char **argv)
 	event_init();
 
 	for (i = 0; i < NEVENT; i++) {
-		ev[i] = malloc(sizeof(struct event));
+		ev[i] = emalloc(sizeof(struct event));
 
 		/* Initalize one event */
 		evtimer_set(ev[i], time_cb, ev[i]);

@@ -365,7 +365,7 @@ static void
 http_chunked_cb(struct evhttp_request *req, void *arg)
 {
 	struct timeval when = { 0, 0 };
-	struct chunk_req_state *state = malloc(sizeof(struct chunk_req_state));
+	struct chunk_req_state *state = emalloc(sizeof(struct chunk_req_state));
 	event_debug(("%s: called\n", __func__));
 
 	memset(state, 0, sizeof(struct chunk_req_state));
@@ -844,7 +844,7 @@ http_allowed_methods_eventcb(struct bufferevent *bev, short what, void *arg)
 			buf[n]='\0';
 			if (*output)
 				free(*output);
-			*output = strdup(buf);
+			*output = estrdup(buf);
 		}
 		event_base_loopexit(exit_base, NULL);
 	}
@@ -2643,7 +2643,7 @@ http_uriencode_test(void *ptr)
 	s = NULL;
 
 	/* Now try decoding just part of string. */
-	s = malloc(6 + 1 /* NUL byte */);
+	s = emalloc(6 + 1 /* NUL byte */);
 	bytes_decoded = evhttp_decode_uri_internal("hello%20%20", 6, s, 0);
 	tt_assert(s);
 	tt_int_op(bytes_decoded,==,6);

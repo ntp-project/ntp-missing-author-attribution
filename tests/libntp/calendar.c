@@ -75,7 +75,7 @@ leapdays(int year)
 
 char *
 CalendarFromCalToString(const struct calendar cal) {
-	char * str = malloc (sizeof (char) * 100);
+	char * str = emalloc (sizeof (char) * 100);
 	
 	char buffer[100] ="";
 	snprintf(buffer, 100, "%u", cal.year);
@@ -105,7 +105,7 @@ CalendarFromCalToString(const struct calendar cal) {
 char *
 CalendarFromIsoToString(const struct isodate iso) {
 
-	char * str = malloc (sizeof (char) * 100);
+	char * str = emalloc (sizeof (char) * 100);
 	
 	char buffer[100] ="";
 	snprintf(buffer, 100, "%u", iso.year);
@@ -162,7 +162,7 @@ IsEqualIso(const struct isodate expected, const struct isodate actual) {
 char *
 DateFromCalToString(const struct calendar cal) {
 
-	char * str = malloc (sizeof (char) * 100);
+	char * str = emalloc (sizeof (char) * 100);
 	
 	char buffer[100] ="";
 	snprintf(buffer, 100, "%u", cal.year);
@@ -184,7 +184,7 @@ DateFromCalToString(const struct calendar cal) {
 char *
 DateFromIsoToString(const struct isodate iso) {
 
-	char * str = malloc (sizeof (char) * 100);
+	char * str = emalloc (sizeof (char) * 100);
 	
 	char buffer[100] ="";
 	snprintf(buffer, 100, "%u", iso.year);

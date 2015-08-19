@@ -158,7 +158,7 @@ launch_request(void)
 		}
 	}
 
-	ri = malloc(sizeof(*ri));
+	ri = emalloc(sizeof(*ri));
 	ri->n_read = 0;
 	evutil_gettimeofday(&ri->started, NULL);
 

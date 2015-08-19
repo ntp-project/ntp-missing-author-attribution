@@ -2822,7 +2822,7 @@ check_dummy_mem_ok(void *mem_)
 static void *
 dummy_malloc(size_t len)
 {
-	char *mem = malloc(len+16);
+	char *mem = emalloc(len+16);
 	memcpy(mem, "{[<guardedram>]}", 16);
 	return mem+16;
 }
@@ -2835,7 +2835,7 @@ dummy_realloc(void *mem_, size_t len)
 		return dummy_malloc(len);
 	tt_want(check_dummy_mem_ok(mem_));
 	mem -= 16;
-	mem = realloc(mem, len+16);
+	mem = erealloc(mem, len+16);
 	return mem+16;
 }
 

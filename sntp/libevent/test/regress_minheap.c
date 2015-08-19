@@ -62,7 +62,7 @@ test_heap_randomized(void *ptr)
 	min_heap_ctor_(&heap);
 
 	for (i = 0; i < 1024; ++i) {
-		inserted[i] = malloc(sizeof(struct event));
+		inserted[i] = emalloc(sizeof(struct event));
 		set_random_timeout(inserted[i]);
 		min_heap_push_(&heap, inserted[i]);
 	}

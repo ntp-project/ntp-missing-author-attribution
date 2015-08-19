@@ -19,7 +19,7 @@ pathfind( char const * path,
           char const * fname,
           char const * mode )
 {
-    return strdup(fname);
+    return estrdup(fname);
 }
 #else
 
@@ -114,10 +114,10 @@ make_absolute( char const * string, char const * dot_path )
     int result_len;
 
     if (!dot_path || *string == '/') {
-        result = strdup( string );
+        result = estrdup( string );
     } else {
         if (dot_path && dot_path[0]) {
-            result = malloc( 2 + strlen( dot_path ) + strlen( string ) );
+            result = emalloc( 2 + strlen( dot_path ) + strlen( string ) );
             strcpy( result, dot_path );
             result_len = (int)strlen(result);
             if (result[result_len - 1] != '/') {
@@ -125,7 +125,7 @@ make_absolute( char const * string, char const * dot_path )
                 result[result_len] = '\0';
             }
         } else {
-            result = malloc( 3 + strlen( string ) );
+            result = emalloc( 3 + strlen( string ) );
             result[0] = '.'; result[1] = '/'; result[2] = '\0';
             result_len = 2;
         }
@@ -154,7 +154,7 @@ canonicalize_pathname( char *path )
     char stub_char, *result;
 
     /* The result cannot be larger than the input PATH. */
-    result = strdup( path );
+    result = estrdup( path );
 
     stub_char = (*path == '/') ? '/' : '.';
 

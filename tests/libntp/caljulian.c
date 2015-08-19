@@ -21,7 +21,7 @@ void test_uLongWrapped(void);
 
 char *
 CalendarToString(const struct calendar cal) {
-	char * str = malloc (sizeof (char) * 100);
+	char * str = emalloc (sizeof (char) * 100);
 	
 	char buffer[100] ="";
 	snprintf(buffer, 100, "%u", cal.year);

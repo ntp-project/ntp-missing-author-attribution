@@ -1746,7 +1746,7 @@ end:
 static void
 gaic_launch(struct event_base *base, struct evdns_base *dns_base)
 {
-	struct gaic_request_status *status = calloc(1,sizeof(*status));
+	struct gaic_request_status *status = emalloc_zero(1 * sizeof(*status)); //calloc
 	struct timeval tv = { 0, 10000 };
 	status->magic = GAIC_MAGIC;
 	status->base = base;
@@ -1771,7 +1771,7 @@ static void *
 cnt_malloc(size_t sz)
 {
 	allocated_chunks += 1;
-	return malloc(sz);
+	return emalloc(sz);
 }
 
 static void *
@@ -1781,7 +1781,7 @@ cnt_realloc(void *old, size_t sz)
 		allocated_chunks += 1;
 	if (!sz)
 		allocated_chunks -= 1;
-	return realloc(old, sz);
+	return erealloc(old, sz);
 }
 
 static void
@@ -1815,7 +1815,7 @@ testleak_setup(const struct testcase_t *testcase)
 	event_enable_debug_mode();
 
 	/* not mm_calloc: we don't want to mess with the count. */
-	env = calloc(1, sizeof(struct testleak_env_t));
+	env = emalloc_zero(1 * sizeof(struct testleak_env_t)); //calloc
 	env->base = event_base_new();
 	env->dns_base = evdns_base_new(env->base, 0);
 	env->req = evdns_base_resolve_ipv4(
