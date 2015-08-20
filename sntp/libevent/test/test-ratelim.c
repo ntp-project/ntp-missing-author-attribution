@@ -338,8 +338,12 @@ test_ratelimiting(void)
 	if (expected_total_persec > 0)
 		expected_total_persec /= seconds_per_tick;
 
-	bevs = emalloc_zero(cfg_n_connections * sizeof(struct bufferevent *)); //calloc
-	states = emalloc_zero(cfg_n_connections * sizeof(struct client_state)); //calloc
+	bevs = calloc(cfg_n_connections, sizeof(struct bufferevent *));
+	states = calloc(cfg_n_connections, sizeof(struct client_state));
+	if (bevs == NULL || states == NULL) {
+		printf("Unable to allocate memory...\n");
+		return 1;
+	}
 
 	for (i = 0; i < cfg_n_connections; ++i) {
 		bevs[i] = bufferevent_socket_new(base, -1,

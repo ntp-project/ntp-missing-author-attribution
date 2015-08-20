@@ -158,7 +158,11 @@ launch_request(void)
 		}
 	}
 
-	ri = emalloc(sizeof(*ri));
+	ri = malloc(sizeof(*ri));
+	if (ri == NULL) {
+		printf("Unable to allocate memory in launch_request()\n");
+		return -1;
+	}
 	ri->n_read = 0;
 	evutil_gettimeofday(&ri->started, NULL);
 

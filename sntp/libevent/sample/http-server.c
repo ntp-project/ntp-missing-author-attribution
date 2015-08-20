@@ -200,7 +200,7 @@ send_document_cb(struct evhttp_request *req, void *arg)
 		goto err;
 
 	len = strlen(decoded_path)+strlen(docroot)+2;
-	if (!(whole_path = emalloc(len))) {
+	if (!(whole_path = malloc(len))) {
 		perror("malloc");
 		goto err;
 	}
@@ -232,7 +232,11 @@ send_document_cb(struct evhttp_request *req, void *arg)
 
 #ifdef _WIN32
 		dirlen = strlen(whole_path);
-		pattern = emalloc(dirlen+3);
+		pattern = malloc(dirlen+3);
+		if (!pattern) {
+			perror("malloc");
+			goto err;
+		}
 		memcpy(pattern, whole_path, dirlen);
 		pattern[dirlen] = '\\';
 		pattern[dirlen+1] = '*';
