@@ -33,9 +33,8 @@ AM_CFLAGS   = $(CFLAGS_NTP)
 
 AM_CPPFLAGS  = $(NTP_INCS)
 AM_CPPFLAGS += -I$(top_srcdir)/ntpq
-#AM_CPPFLAGS += -I$(top_srcdir)/sntp
-#AM_CPPFLAGS += -I$(top_srcdir)/ntpd
-#AM_CPPFLAGS += -I$(top_srcdir)/tests/libntp
+AM_CPPFLAGS += -I$(top_srcdir)/sntp
+AM_CPPFLAGS += -I$(top_srcdir)/sntp/libopts
 AM_CPPFLAGS += $(CPPFLAGS_NTP)
 AM_CPPFLAGS += -DUNITY_INCLUDE_CONFIG_H
 AM_CPPFLAGS += -I$(top_srcdir)/sntp/unity

@@ -14,6 +14,7 @@
 #include "ntp_scanner.h"
 //#include "ntp_parser.h"
 
+
 /* ntp_keyword.h declares finite state machine and token text */
 //#include "ntp_keyword.h"
 
@@ -49,9 +50,16 @@ void test_IncorrectlyInitializeLexStack(void){
 void test_InitializeLexStack(void){
 	
 	//Some sort of server is required for this to work.
-	//sockaddr_u *	remote_addr
-	//char origin[128];
+	sockaddr_u *	remote_addr;
+	char origin[128] ={ "" } ;
+	strcat(origin,"127.0.0.1");
 	//snprintf(origin, sizeof(origin), "remote config from %s", stoa(remote_addr));
-	//TEST_ASSERT_TRUE(lex_init_stack(origin,NULL)); //path, mode -> NULL is ok!
+	TEST_ASSERT_TRUE(lex_init_stack(origin,NULL)); //path, mode -> NULL is ok!
 	lex_drop_stack();
+}
+
+void test_PopEmptyStack(void){
+	int temp = lex_pop_file();
+
+	TEST_ASSERT_FALSE(temp);
 }

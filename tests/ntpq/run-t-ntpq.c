@@ -24,7 +24,6 @@
 #include <stdio.h>
 #include "config.h"
 #include "ntp.h"
-#include "ntp_stdlib.h"
 #include "ntpq.h"
 
 //=======External Functions This Runner Calls=====
@@ -49,7 +48,7 @@ int main(int argc, char *argv[])
 {
   progname = argv[0];
   UnityBegin("t-ntpq.c");
-  RUN_TEST(testPrimary, 9);
+  RUN_TEST(testPrimary, 20);
 
   return (UnityEnd());
 }
