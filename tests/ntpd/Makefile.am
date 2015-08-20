@@ -162,17 +162,18 @@ test_ntp_scanner_CFLAGS =		\
 
 test_ntp_scanner_LDADD =		\
 	$(unity_tests_LDADD)		\
-	$(top_builddir)/ntpd/ntp_scanner.o	\
+	$(top_builddir)/ntpd/ntp_config.o	\
+	$(top_builddir)/ntpd/ntp_parser.o	\	
 	$(NULL)
 
 test_ntp_scanner_SOURCES =			\
-	ntp_scanner.c				\
-	run-ntp_scanner.c			\
+	t-ntp_scanner.c				\
+	run-t-ntp_scanner.c			\
 	$(srcdir)/../libntp/test-libntp.c	\
 	$(NULL)
 
-$(srcdir)/run-ntp_scanner.c: $(srcdir)/ntp_scanner.c $(std_unity_list)
-	$(run_unity) ntp_scanner.c run-ntp_scanner.c
+$(srcdir)/run-t-ntp_scanner.c: $(srcdir)/t-ntp_scanner.c $(std_unity_list)
+	$(run_unity) t-ntp_scanner.c run-t-ntp_scanner.c
 
 
 TESTS =
