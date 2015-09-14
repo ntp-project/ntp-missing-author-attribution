@@ -64,6 +64,7 @@ AC_REQUIRE([NTP_ENABLE_LOCAL_LIBEVENT])dnl
 ntp_libevent_min_version=m4_default([$1], [2.0.9])
 ntp_libevent_tearoff=m4_default([$2], [libevent])
 
+AC_SUBST([CFLAGS_LIBEVENT])
 AC_SUBST([CPPFLAGS_LIBEVENT])
 AC_SUBST([LDADD_LIBEVENT])
 
@@ -78,6 +79,7 @@ case "$ntp_use_local_libevent" in
 	then
 	    ntp_use_local_libevent=no
 	    AC_MSG_NOTICE([Using the installed libevent])
+	    CFLAGS_LIBEVENT=`$PKG_CONFIG --cflags libevent_pthreads`
 	    CPPFLAGS_LIBEVENT=`$PKG_CONFIG --cflags-only-I libevent`
 	    # HMS: I hope the following is accurate.
 	    # We don't need -levent, we only need  -levent_core.

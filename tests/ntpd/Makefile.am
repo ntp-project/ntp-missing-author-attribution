@@ -16,12 +16,14 @@ check_PROGRAMS =		\
 	test-ntp_scanner	\
 	$(NULL)
 
-#	test-ntp_signd		\ #doesn't work, can't link it because you can't link static function
+EXTRA_PROGRAMS = 		\
+	test-ntp_signd		\ #doesn't work, can't link it because you can't link static function
+	$(NULL)
 
 if GTEST_AVAILABLE
 check_PROGRAMS += tests
 else
-EXTRA_PROGRAMS = tests
+EXTRA_PROGRAMS += tests
 endif
 
 LDADD =					\
