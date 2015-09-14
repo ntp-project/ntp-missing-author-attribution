@@ -167,6 +167,11 @@ test_utilities_SOURCES =		\
 	fileHandlingTest.c		\
 	$(NULL)
 
+test_crypto_CFLAGS =			\
+	$(CFLAGS_LIBEVENT)		\
+	$(AM_CFLAGS)			\
+	$(NULL)
+
 test_crypto_SOURCES =			\
 	crypto.c			\
 	run-crypto.c			\
