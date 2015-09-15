@@ -179,9 +179,9 @@ $(srcdir)/run-calendar.c: $(srcdir)/calendar.c $(std_unity_list)
 
 ###
 
-test_caltontp_LDADD =		\
-	$(LDADD)		\
-	-lpthread		\
+test_caltontp_CFLAGS =		\
+	$(CFLAGS_LIBEVENT)	\
+	$(AM_CFLAGS)		\
 	$(NULL)
 
 test_caltontp_SOURCES =			\
@@ -194,9 +194,9 @@ $(srcdir)/run-caltontp.c: $(srcdir)/caltontp.c $(std_unity_list)
 
 ###
 
-test_caljulian_LDADD =		\
-	$(LDADD)		\
-	-lpthread		\
+test_caljulian_CFLAGS =		\
+	$(CFLAGS_LIBEVENT)	\
+	$(AM_CFLAGS)		\
 	$(NULL)
 
 test_caljulian_SOURCES =	\
@@ -232,9 +232,9 @@ $(srcdir)/run-clocktime.c: $(srcdir)/clocktime.c $(std_unity_list)
 
 ###
 
-test_decodenetnum_LDADD =	\
-	$(LDADD)		\
-	-lpthread		\
+test_decodenetnum_CFLAGS =	\
+	$(CFLAGS_LIBEVENT)	\
+	$(AM_CFLAGS)		\
 	$(NULL)
 
 test_decodenetnum_SOURCES =	\
@@ -441,9 +441,9 @@ $(srcdir)/run-statestr.c: $(srcdir)/statestr.c $(std_unity_list)
 
 ###
 
-test_strtolfp_LDADD =		\
-	$(LDADD)		\
-	-lpthread		\
+test_strtolfp_CFLAGS =		\
+	$(CFLAGS_LIBEVENT)	\
+	$(AM_CFLAGS)		\
 	$(NULL)
 
 test_strtolfp_SOURCES =		\

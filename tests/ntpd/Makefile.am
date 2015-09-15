@@ -20,6 +20,16 @@ check_PROGRAMS =		\
 EXTRA_PROGRAMS =		\
 	$(NULL)
 
+EXTRA_PROGRAMS = 		\
+	test-ntp_signd		\ #doesn't work, can't link it because you can't link static function
+	$(NULL)
+
+if GTEST_AVAILABLE
+check_PROGRAMS += tests
+else
+EXTRA_PROGRAMS += tests
+endif
+
 LDADD =					\
 	$(top_builddir)/ntpd/libntpd.a	\
 	$(top_builddir)/libntp/libntp.a	\

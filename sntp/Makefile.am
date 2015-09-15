@@ -268,14 +268,17 @@ $(srcdir)/sntp.html: $(srcdir)/invoke-sntp.menu $(srcdir)/invoke-sntp.texi $(src
 libtool: $(LIBTOOL_DEPS)
 	./config.status --recheck
 
-# HMS: replaces the stock distdir target, which is a lose.
-#distdir: distdir-pre-check
+# HMS: libevent/ is a target if it's in EXTRA_DIST via NTP_FORCE_LIBEVENT_DIST.
+# Note that libevent/ is already in DIST_SUBDIRS (implicit in Makefile.am
+# but explicit in Makefile.in).  This check doesn't help with distclean.
+libevent: distdir-pre-check
 
-# HMS: not great - doesn't stop the build.
+# HMS: Stops the build for gmake or pmake
 distdir-pre-check:
 	case "$(DIST_FAIL)" in	\
 	 '')  ;;		\
-	 *) echo "re-run configure adding $(DIST_FAIL) if you want to make a distribution.";	\
+	 *) $(error re-run configure adding $(DIST_FAIL) if you want to make a distribution.);	\
+	    echo "re-run configure adding $(DIST_FAIL) if you want to make a distribution.";	\
 	    exit 1 ;;		\
 	esac
 
