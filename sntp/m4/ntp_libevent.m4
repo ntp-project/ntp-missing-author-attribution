@@ -108,6 +108,13 @@ case "$ntp_use_local_libevent" in
 	    AC_MSG_RESULT([yes])
 	else
 	    ntp_use_local_libevent=yes
+	    # HMS: do we only need to do this if LIBISC_PTHREADS_NOTHREADS
+	    # is "pthreads"?
+	    CFLAGS_LIBEVENT=`$PKG_CONFIG --cflags libevent_pthreads`
+	    case "$CFLAGS_LIBEVENT" in
+	     '') CFLAGS_LIBEVENT="-pthreads"
+	     ;;
+	     esac
 	    AC_MSG_RESULT([no])
 	fi
 	;;
@@ -130,6 +137,22 @@ case "$ntp_use_local_libevent" in
 	LDADD_LIBEVENT="\$(top_builddir)/$ntp_libevent_tearoff/libevent_core.la"
     esac
 esac
+
+AC_ARG_ENABLE(
+    [cflags-libevent],
+    [AC_HELP_STRING(
+	[--enable-cflags-libevent=-pthread],
+	[CFLAGS value to build with pthreads]
+    )],
+    [CFLAGS_LIBEVENT=$enableval],
+    [# See above about LIBISC_PTHREADS_NOTHREADS
+    case "$CFLAGS_LIBEVENT" in
+     '') CFLAGS_LIBEVENT="-pthread" ;;
+     *) ;;
+    esac]
+)
+AC_MSG_NOTICE([LIBISC_PTHREADS_NOTHREADS is <$LIBISC_PTHREADS_NOTHREADS>])
+AC_MSG_NOTICE([CFLAGS_LIBEVENT is <$CFLAGS_LIBEVENT>])
 
 AM_CONDITIONAL([BUILD_LIBEVENT], [test "x$ntp_use_local_libevent" = "xyes"])
 
