@@ -1,3 +1,4 @@
+(4.3.71) 2015/09/15 Released by Harlan Stenn <stenn@ntp.org>
 (4.3.70) 2015/08/03 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * [Bug 2889] ntp-dev-4.3.67 does not build on Windows.  perlinger@ntp.org
