@@ -15,6 +15,8 @@ DISTCLEANFILES =		\
 	kod-output-blank	\
 	kod-output-single 	\
 	kod-output-multiple	\
+	testLogfile.log		\
+	testLogfile2.log	\
 	$(NULL)
 
 std_unity_list =					\
