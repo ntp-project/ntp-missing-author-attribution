@@ -15,6 +15,9 @@ dnl <http://www.OpenLDAP.org/license.html>.
 dnl
 dnl --------------------------------------------------------------------
 
+dnl This file is a fragment of OpenLDAP's build/openldap.m4 and some
+dnl fragments of OpenLDAP's configure.ac .
+
 #   OL_THREAD_CHECK([ACTION-IF-FOUND[, ACTION-IF-NOT-FOUND]])
 
 AC_DEFUN([OL_THREAD_CHECK], [
