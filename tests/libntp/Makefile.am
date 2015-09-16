@@ -117,9 +117,9 @@ noinst_HEADERS =	\
 
 ###
 
-test_a_md5encrypt_SOURCES =		\
-	a_md5encrypt.c			\
-	run-a_md5encrypt.c		\
+test_a_md5encrypt_SOURCES =	\
+	a_md5encrypt.c		\
+	run-a_md5encrypt.c	\
 	$(NULL)
 
 $(srcdir)/run-a_md5encrypt.c: $(srcdir)/a_md5encrypt.c $(std_unity_list)
@@ -127,9 +127,9 @@ $(srcdir)/run-a_md5encrypt.c: $(srcdir)/a_md5encrypt.c $(std_unity_list)
 
 ###
 
-test_atoint_SOURCES =			\
-	atoint.c			\
-	run-atoint.c			\
+test_atoint_SOURCES =		\
+	atoint.c		\
+	run-atoint.c		\
 	$(NULL)
 
 $(srcdir)/run-atoint.c: $(srcdir)/atoint.c $(std_unity_list)
@@ -137,9 +137,9 @@ $(srcdir)/run-atoint.c: $(srcdir)/atoint.c $(std_unity_list)
 
 ###
 
-test_atouint_SOURCES =			\
-	atouint.c			\
-	run-atouint.c			\
+test_atouint_SOURCES =		\
+	atouint.c		\
+	run-atouint.c		\
 	$(NULL)
 
 $(srcdir)/run-atouint.c: $(srcdir)/atouint.c $(std_unity_list)
@@ -147,9 +147,9 @@ $(srcdir)/run-atouint.c: $(srcdir)/atouint.c $(std_unity_list)
 
 ###
 
-test_authkeys_SOURCES =			\
-	authkeys.c			\
-	run-authkeys.c			\
+test_authkeys_SOURCES =		\
+	authkeys.c		\
+	run-authkeys.c		\
 	$(NULL)
 
 $(srcdir)/run-authkeys.c: $(srcdir)/authkeys.c $(std_unity_list)
@@ -157,10 +157,10 @@ $(srcdir)/run-authkeys.c: $(srcdir)/authkeys.c $(std_unity_list)
 
 ###
 
-test_buftvtots_SOURCES =		\
-	buftvtots.c			\
-	run-buftvtots.c			\
-	lfptest.c			\
+test_buftvtots_SOURCES =	\
+	buftvtots.c		\
+	run-buftvtots.c		\
+	lfptest.c		\
 	$(NULL)
 
 $(srcdir)/run-buftvtots.c: $(srcdir)/buftvtots.c $(std_unity_list)
@@ -168,10 +168,10 @@ $(srcdir)/run-buftvtots.c: $(srcdir)/buftvtots.c $(std_unity_list)
 
 ###
 
-test_calendar_SOURCES =			\
-	calendar.c			\
-	run-calendar.c			\
-	test-libntp.c			\
+test_calendar_SOURCES =		\
+	calendar.c		\
+	run-calendar.c		\
+	test-libntp.c		\
 	$(NULL)
 
 $(srcdir)/run-calendar.c: $(srcdir)/calendar.c $(std_unity_list)
@@ -184,9 +184,9 @@ test_caltontp_CFLAGS =		\
 	$(AM_CFLAGS)		\
 	$(NULL)
 
-test_caltontp_SOURCES =			\
-	caltontp.c			\
-	run-caltontp.c			\
+test_caltontp_SOURCES =		\
+	caltontp.c		\
+	run-caltontp.c		\
 	$(NULL)
 
 $(srcdir)/run-caltontp.c: $(srcdir)/caltontp.c $(std_unity_list)

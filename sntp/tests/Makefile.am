@@ -30,11 +30,11 @@ run_unity =	cd $(srcdir) && ruby ../unity/auto/generate_test_runner.rb
 #EXTRA_PROGRAMS +=		test-packetHandling test-packetProcessing
 
 check_PROGRAMS =			\
-	test-log			\
 	test-crypto			\
 	test-keyFile			\
 	test-kodDatabase		\
 	test-kodFile			\
+	test-log			\
 	test-networking			\
 	test-packetHandling		\
 	test-packetProcessing		\
@@ -108,9 +108,9 @@ BUILT_SOURCES +=				\
 	$(srcdir)/run-kodDatabase.c		\
 	$(srcdir)/run-kodFile.c			\
 	$(srcdir)/run-networking.c		\
+	$(srcdir)/run-packetHandling.c		\
 	$(srcdir)/run-packetProcessing.c	\
 	$(srcdir)/run-utilities.c		\
-	$(srcdir)/run-packetHandling.c		\
 	$(NULL)
 
 test_networking_SOURCES =		\
@@ -132,17 +132,17 @@ test_kodDatabase_SOURCES =		\
 	$(NULL)
 
 test_keyFile_SOURCES =			\
+	fileHandlingTest.c		\
 	keyFile.c			\
 	run-keyFile.c			\
-	fileHandlingTest.c		\
 	$(top_builddir)/version.c	\
 	$(NULL)
 
 test_kodFile_SOURCES =			\
+	fileHandlingTest.c		\
 	kodFile.c			\
 	run-kodFile.c			\
 	$(top_builddir)/version.c	\
-	fileHandlingTest.c		\
 	$(NULL)
 
 test_packetProcessing_SOURCES =		\
@@ -152,9 +152,9 @@ test_packetProcessing_SOURCES =		\
 	$(NULL)
 
 test_utilities_SOURCES =		\
+	fileHandlingTest.c		\
 	utilities.c			\
 	run-utilities.c			\
-	fileHandlingTest.c		\
 	$(NULL)
 
 test_crypto_CFLAGS =			\
