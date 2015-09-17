@@ -1,12 +1,26 @@
 ---
 NTP 4.2.8p4
 
+Focus: XXX
+
+Severity: MEDIUM
+
 Backward-Incompatible changes:
+
+* [Bug 2817] Default on Linux is now "rlimit memlock 0".
+  While the general default of 32M is still the case, under Linux
+  the default value has been changed to 0 (do not lock ntpd into
+  memory).  If your ntp.conf file has an explicit "rlimit memlock"
+  value in it, that value will continue to be used.
 
 * [Bug 2886] Misspelling: "outlyer" should be "outlier".
   If you've written a script that looks for this case in, say, the
   output of ntpq, you probably want to change your regex matches
   from 'outlyer' to 'outl[iy]er'.
+
+New features in this release:
+
+Bug Fixes and Improvements:
 
 ---
 NTP 4.2.8p3 (Harlan Stenn <stenn@ntp.org>, 2015/06/29) 

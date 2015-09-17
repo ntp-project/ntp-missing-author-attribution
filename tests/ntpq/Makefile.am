@@ -12,7 +12,6 @@ check_PROGRAMS = 	\
 	test-ntpq	\
 	$(NULL)
 
-
 LDADD =					\
 	$(top_builddir)/ntpq/libntpq.a	\
 	$(top_builddir)/ntpd/libntpd.a	\
@@ -30,26 +29,20 @@ unity_tests_LDADD =				\
 
 AM_CFLAGS   = $(CFLAGS_NTP)
 
-
 AM_CPPFLAGS  = $(NTP_INCS)
 AM_CPPFLAGS += -I$(top_srcdir)/ntpq
-AM_CPPFLAGS += -I$(top_srcdir)/sntp
-AM_CPPFLAGS += -I$(top_srcdir)/sntp/libopts
 AM_CPPFLAGS += $(CPPFLAGS_NTP)
 AM_CPPFLAGS += -DUNITY_INCLUDE_CONFIG_H
 AM_CPPFLAGS += -I$(top_srcdir)/sntp/unity
 
 AM_LDFLAGS = $(LDFLAGS_NTP)
 
-tests_SOURCES = t-ntpq.c		\
-		$(NULL)
-
 BUILT_SOURCES +=			\
 	$(srcdir)/run-t-ntpq.c		\
 	$(NULL)
 
-noinst_HEADERS =	\
-		$(NULL)
+noinst_HEADERS =			\
+	$(NULL)
 
 ###
 
@@ -58,7 +51,7 @@ test_ntpq_LDADD =			\
 	$(NULL)
 
 test_ntpq_SOURCES =			\
-	t-ntpq.c				\
+	t-ntpq.c			\
 	run-t-ntpq.c			\
 	$(NULL)
 
