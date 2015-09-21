@@ -315,7 +315,7 @@ class UnityTestRunnerGenerator
 
 
   def create_main(output, filename, tests, used_mocks)
-    output.puts("\nchar *progname;\n")
+    output.puts("\nchar const *progname;\n")
     output.puts("\n\n//=======MAIN=====")
 
     output.puts("int main(int argc, char *argv[])")

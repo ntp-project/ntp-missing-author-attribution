@@ -6,8 +6,10 @@
 
 extern void test_IPv4AddressOnly(void);
 extern void test_IPv4AddressWithPort(void);
+//#ifdef ISC_PLATFORM_HAVEIPV6
 extern void test_IPv6AddressOnly(void);
 extern void test_IPv6AddressWithPort(void);
+//#endif /* ISC_PLATFORM_HAVEIPV6 */
 extern void test_IllegalAddress(void);
 extern void test_IllegalCharInPort(void);
 
@@ -40,8 +42,12 @@ test_IPv4AddressWithPort(void) {
 	TEST_ASSERT_TRUE(IsEqual(expected, actual));
 }
 
+
 void
 test_IPv6AddressOnly(void) {
+
+//#ifdef ISC_PLATFORM_HAVEIPV6 //looks like HAVEIPV6 checks if system has IPV6 capabilies. WANTIPV6 can be changed with build --disable-ipv6
+#ifdef ISC_PLATFORM_WANTIPV6
 	const struct in6_addr address = {
 		0x20, 0x01, 0x0d, 0xb8,
         0x85, 0xa3, 0x08, 0xd3,
@@ -59,10 +65,21 @@ test_IPv6AddressOnly(void) {
 
 	TEST_ASSERT_TRUE(decodenetnum(str, &actual));
 	TEST_ASSERT_TRUE(IsEqual(expected, actual));
+
+#else
+	TEST_IGNORE_MESSAGE("IPV6 disabled in build, skipping.");
+#endif /* ISC_PLATFORM_HAVEIPV6 */
+
+
 }
+
+
 
 void
 test_IPv6AddressWithPort(void) {
+
+#ifdef ISC_PLATFORM_WANTIPV6
+
 	const struct in6_addr address = {
 		0x20, 0x01, 0x0d, 0xb8,
         0x85, 0xa3, 0x08, 0xd3,
@@ -80,7 +97,12 @@ test_IPv6AddressWithPort(void) {
 
 	TEST_ASSERT_TRUE(decodenetnum(str, &actual));
 	TEST_ASSERT_TRUE(IsEqual(expected, actual));
+
+#else
+	TEST_IGNORE_MESSAGE("IPV6 disabled in build, skipping.");
+#endif /* ISC_PLATFORM_HAVEIPV6 */
 }
+
 
 void
 test_IllegalAddress(void) {

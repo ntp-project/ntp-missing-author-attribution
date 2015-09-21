@@ -78,7 +78,6 @@ noinst_HEADERS =		\
 	main.h			\
 	networking.h		\
 	sntp-opts.h		\
-	tests_main.h		\
 	utilities.h		\
 	$(NULL)
 

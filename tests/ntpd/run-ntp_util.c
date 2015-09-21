@@ -23,18 +23,18 @@
 #include <setjmp.h>
 #include <stdio.h>
 #include "config.h"
+#include "ntp.h"
+#include "ntp_calendar.h"
 #include "ntp_stdlib.h"
-#include "sockaddrtest.h"
+#include "test-libntp.h"
+#include <time.h>
+#include <string.h>
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_IPv4AddressOnly(void);
-extern void test_IPv4AddressWithPort(void);
-extern void test_IPv6AddressOnly(void);
-extern void test_IPv6AddressWithPort(void);
-extern void test_IllegalAddress(void);
-extern void test_IllegalCharInPort(void);
+extern void test_mprintf_clock_stats(void);
+extern void test_fstostr(void);
 
 
 //=======Test Reset Option=====
@@ -45,20 +45,16 @@ void resetTest(void)
   setUp();
 }
 
-char const *progname;
+char *progname;
 
 
 //=======MAIN=====
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  UnityBegin("decodenetnum.c");
-  RUN_TEST(test_IPv4AddressOnly, 7);
-  RUN_TEST(test_IPv4AddressWithPort, 8);
-  RUN_TEST(test_IPv6AddressOnly, 10);
-  RUN_TEST(test_IPv6AddressWithPort, 11);
-  RUN_TEST(test_IllegalAddress, 13);
-  RUN_TEST(test_IllegalCharInPort, 14);
+  UnityBegin("ntp_util.c");
+  RUN_TEST(test_mprintf_clock_stats, 13);
+  RUN_TEST(test_fstostr, 27);
 
   return (UnityEnd());
 }

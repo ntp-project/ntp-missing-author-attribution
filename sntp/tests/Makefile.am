@@ -1,8 +1,25 @@
 NULL =
 BUILT_SOURCES =
-CLEANFILES = kod-output-blank kod-output-single kod-output-multiple debug-output-lfp-dec debug-output-lfp-bin debug-output-pkt
-DISTCLEANFILES = kod-output-blank kod-output-single kod-output-multiple
 EXTRA_PROGRAMS =
+
+CLEANFILES =			\
+	debug-output-lfp-bin	\
+	debug-output-lfp-dec	\
+	debug-output-pkt	\
+	kod-output-blank	\
+	kod-output-multiple	\
+	kod-output-single	\
+	testLogfile.log		\
+	testLogfile2.log	\
+	$(NULL)
+
+DISTCLEANFILES =		\
+	kod-output-blank	\
+	kod-output-single 	\
+	kod-output-multiple	\
+	testLogfile.log		\
+	testLogfile2.log	\
+	$(NULL)
 
 std_unity_list =					\
 	$(srcdir)/../unity/auto/generate_test_runner.rb	\
@@ -19,37 +36,12 @@ check_PROGRAMS =			\
 	test-keyFile			\
 	test-kodDatabase		\
 	test-kodFile			\
+	test-log			\
 	test-networking			\
 	test-packetHandling		\
 	test-packetProcessing		\
 	test-utilities			\
 	$(NULL)
-
-EXTRA_PROGRAMS += tests
-
-tests_SOURCES =			\
-	../tests_main.cpp	\
-	g_crypto.cpp		\
-	g_fileHandlingTest.h	\
-	g_networking.cpp	\
-	g_packetHandling.cpp	\
-	g_packetProcessing.cpp	\
-	g_sntptest.h		\
-	$(NULL)
-
-tests_LDADD =			\
-	$(base_LDADD)		\
-	$(GTEST_LDFLAGS)	\
-	$(GTEST_LIBS)		\
-	$(NULL)
-
-tests_CPPFLAGS =		\
-	$(AM_CPPFLAGS)		\
-	$(CPPFLAGS)		\
-	$(GTEST_CPPFLAGS)	\
-	$(NULL)
-
-AM_CXXFLAGS = $(GTEST_CXXFLAGS)
 
 noinst_HEADERS =		\
 	sntptest.h		\
@@ -118,9 +110,9 @@ BUILT_SOURCES +=				\
 	$(srcdir)/run-kodDatabase.c		\
 	$(srcdir)/run-kodFile.c			\
 	$(srcdir)/run-networking.c		\
+	$(srcdir)/run-packetHandling.c		\
 	$(srcdir)/run-packetProcessing.c	\
 	$(srcdir)/run-utilities.c		\
-	$(srcdir)/run-packetHandling.c		\
 	$(NULL)
 
 test_networking_SOURCES =		\
@@ -142,17 +134,17 @@ test_kodDatabase_SOURCES =		\
 	$(NULL)
 
 test_keyFile_SOURCES =			\
+	fileHandlingTest.c		\
 	keyFile.c			\
 	run-keyFile.c			\
-	fileHandlingTest.c		\
 	$(top_builddir)/version.c	\
 	$(NULL)
 
 test_kodFile_SOURCES =			\
+	fileHandlingTest.c		\
 	kodFile.c			\
 	run-kodFile.c			\
 	$(top_builddir)/version.c	\
-	fileHandlingTest.c		\
 	$(NULL)
 
 test_packetProcessing_SOURCES =		\
@@ -162,9 +154,9 @@ test_packetProcessing_SOURCES =		\
 	$(NULL)
 
 test_utilities_SOURCES =		\
+	fileHandlingTest.c		\
 	utilities.c			\
 	run-utilities.c			\
-	fileHandlingTest.c		\
 	$(NULL)
 
 test_crypto_CFLAGS =			\
@@ -175,6 +167,12 @@ test_crypto_CFLAGS =			\
 test_crypto_SOURCES =			\
 	crypto.c			\
 	run-crypto.c			\
+	$(top_builddir)/version.c	\
+	$(NULL)
+
+test_log_SOURCES =			\
+	t-log.c			\
+	run-t-log.c			\
 	$(top_builddir)/version.c	\
 	$(NULL)
 
@@ -202,6 +200,10 @@ $(srcdir)/run-utilities.c: $(srcdir)/utilities.c $(std_unity_list)
 
 $(srcdir)/run-crypto.c: $(srcdir)/crypto.c $(std_unity_list)
 	$(run_unity) crypto.c run-crypto.c
+
+$(srcdir)/run-t-log.c: $(srcdir)/t-log.c $(std_unity_list)
+	$(run_unity) t-log.c run-t-log.c
+
 
 #$(srcdir)/../version.c: $(srcdir)/../version.c
 #	gcc -o version.o ../version.c
