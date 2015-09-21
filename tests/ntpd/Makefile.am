@@ -2,7 +2,7 @@ NULL =
 BUILT_SOURCES =
 CLEANFILES =
 
-std_unity_list = 						\
+std_unity_list =						\
 	$(top_srcdir)/sntp/unity/auto/generate_test_runner.rb	\
 	$(NULL)
 
@@ -14,7 +14,7 @@ check_PROGRAMS =		\
 	test-ntp_restrict	\
 	test-ntp_scanner	\
 	test-ntp_signd		\
-	test-rc_cmdlength   	\
+	test-rc_cmdlength	\
 	$(NULL)
 
 EXTRA_PROGRAMS =		\
@@ -159,7 +159,7 @@ test_ntp_scanner_CFLAGS =		\
 test_ntp_scanner_LDADD =		\
 	$(unity_tests_LDADD)		\
 	$(top_builddir)/ntpd/ntp_config.o	\
-	$(top_builddir)/ntpd/ntp_parser.o	\	
+	$(top_builddir)/ntpd/ntp_parser.o	\
 	$(NULL)
 
 test_ntp_scanner_SOURCES =			\
@@ -181,8 +181,8 @@ endif
 ## check-libntp.mf - automake fragment
 ## slightly adapted for deeper directory
 
-BUILT_SOURCES	+= check-libntpd check-libntp check-libunity 
-CLEANFILES	+= check-libntpd check-libntp check-libunity 
+BUILT_SOURCES	+= check-libntpd check-libntp check-libunity
+CLEANFILES	+= check-libntpd check-libntp check-libunity
 
 check-libntpd: ../../ntpd/libntpd.a
 	@echo stamp > $@
