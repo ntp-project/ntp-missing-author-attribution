@@ -1,4 +1,14 @@
+Below are from 4.2.8p4:
+* Unit test dist cleanup. Harlan Stenn.
+* Cleanup various test Makefile.am files.  Harlan Stenn.
+* Pthread autoconf macro cleanup.  Harlan Stenn.
+* Fix progname definition in unity runner scripts.  Harlan Stenn.
+* Clean trailing whitespace in tests/ntpd/Makefile.am.  Harlan Stenn.
+* Update the patch for bug 2817.  Harlan Stenn.
 (4.3.71) 2015/09/15 Released by Harlan Stenn <stenn@ntp.org>
+Below are from 4.2.8p4:
+* Retire google test - phase I.  Harlan Stenn.
+* Unity test cleanup: move declaration of 'initializing'.  Harlan Stenn.
 (4.3.70) 2015/08/03 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * [Bug 2889] ntp-dev-4.3.67 does not build on Windows.  perlinger@ntp.org
