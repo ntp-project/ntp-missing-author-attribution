@@ -1,3 +1,4 @@
+(4.3.72) 2015/09/21 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * Unit test dist cleanup. Harlan Stenn.
 * Cleanup various test Makefile.am files.  Harlan Stenn.
