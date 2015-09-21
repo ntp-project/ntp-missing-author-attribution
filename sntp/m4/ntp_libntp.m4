@@ -328,7 +328,8 @@ AC_ARG_ENABLE(
     )
 have_pthreads=no
 case "$enable_thread_support" in
- yes)
+ no) ;;
+ *)
     ol_found_pthreads=no
     OL_THREAD_CHECK([ol_found_pthreads=yes])
     case "$ol_found_pthreads" in
@@ -352,8 +353,10 @@ case "$enable_thread_support" in
 	    # thread cancellation fails to load libgcc_s with dlopen().
 	    # We have to pass this all as linker options to avoid argument
 	    # reordering by libtool.
+	    # HMS: The fix below seems to break a number of test programs,
+	    # as it means pthread_once() can't be found.
 	    case "$GCC$with_gnu_ld" in
-	    yesyes)
+	    Xyesyes)
 		AC_CHECK_LIB([gcc_s], [exit],
 			[PTHREAD_LIBS="$LTHREAD_LIBS -Wl,--no-as-needed,-lgcc_s,--as-needed"])
 		;;

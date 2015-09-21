@@ -111,10 +111,6 @@ case "$ntp_use_local_libevent" in
 	    # HMS: do we only need to do this if LIBISC_PTHREADS_NOTHREADS
 	    # is "pthreads"?
 	    CFLAGS_LIBEVENT=`$PKG_CONFIG --cflags libevent_pthreads`
-	    case "$CFLAGS_LIBEVENT" in
-	     '') CFLAGS_LIBEVENT="-pthreads"
-	     ;;
-	     esac
 	    AC_MSG_RESULT([no])
 	fi
 	;;
@@ -138,21 +134,21 @@ case "$ntp_use_local_libevent" in
     esac
 esac
 
-AC_ARG_ENABLE(
-    [cflags-libevent],
-    [AC_HELP_STRING(
-	[--enable-cflags-libevent=-pthread],
-	[CFLAGS value to build with pthreads]
-    )],
-    [CFLAGS_LIBEVENT=$enableval],
-    [# See above about LIBISC_PTHREADS_NOTHREADS
-    case "$CFLAGS_LIBEVENT" in
-     '') CFLAGS_LIBEVENT="-pthread" ;;
-     *) ;;
-    esac]
-)
-AC_MSG_NOTICE([LIBISC_PTHREADS_NOTHREADS is <$LIBISC_PTHREADS_NOTHREADS>])
-AC_MSG_NOTICE([CFLAGS_LIBEVENT is <$CFLAGS_LIBEVENT>])
+dnl AC_ARG_ENABLE(
+dnl     [cflags-libevent],
+dnl     [AC_HELP_STRING(
+dnl 	[--enable-cflags-libevent=-pthread],
+dnl 	[CFLAGS value to build with pthreads]
+dnl     )],
+dnl     [CFLAGS_LIBEVENT=$enableval],
+dnl     [# See above about LIBISC_PTHREADS_NOTHREADS
+dnl     case "$CFLAGS_LIBEVENT" in
+dnl      '') CFLAGS_LIBEVENT="-pthread" ;;	
+dnl      *) ;;
+dnl     esac]
+dnl )
+dnl AC_MSG_NOTICE([LIBISC_PTHREADS_NOTHREADS is <$LIBISC_PTHREADS_NOTHREADS>])
+dnl AC_MSG_NOTICE([CFLAGS_LIBEVENT is <$CFLAGS_LIBEVENT>])
 
 AM_CONDITIONAL([BUILD_LIBEVENT], [test "x$ntp_use_local_libevent" = "xyes"])
 

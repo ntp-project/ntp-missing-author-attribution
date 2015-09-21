@@ -205,6 +205,8 @@ dnl			[ol_cv_pthread_lpthread_lexc])
 
 		OL_PTHREAD_TRY([-lpthreads],[ol_cv_pthread_lib_lpthreads])
 
+AC_MSG_NOTICE([ol_link_threads: <$ol_link_threads> ol_link_pthreads <$ol_link_pthreads>])
+
 		if test $ol_link_threads != no ; then
 			LTHREAD_LIBS="$LTHREAD_LIBS $ol_link_pthreads"
 
@@ -683,4 +685,8 @@ case "$ol_with_threads" in
 esac
 
 AC_LANG_RESTORE
+
+AC_SUBST(BUILD_THREAD)
+AC_SUBST(LTHREAD_LIBS)
+
 ])
