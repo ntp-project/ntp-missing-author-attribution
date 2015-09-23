@@ -53,13 +53,21 @@
 #include "ntp_parser.h"
 #include "ntpd-opts.h"
 
+/* Bug 2817 */
+#if defined(HAVE_SYS_MMAN_H)
+# include <sys/mman.h>
+#endif
 
 /* list of servers from command line for config_peers() */
 int	cmdline_server_count;
 char **	cmdline_servers;
 
-/* set to zero if admin doesn't want memory locked */
-int	do_memlock = 1;
+/* Current state of memory locking:
+ * -1: default
+ *  0: memory locking disabled
+ *  1: Memory locking enabled
+ */
+int	cur_memlock = -1;
 
 /*
  * "logconfig" building blocks
@@ -2613,18 +2621,32 @@ config_rlimit(
 			break;
 
 		case T_Memlock:
-			if (rlimit_av->value.i != 0) {
+			/* What if we HAVE_OPT(SAVECONFIGQUIT) ? */
+			if (rlimit_av->value.i == -1) {
+				if (cur_memlock != 0) {
+					if (-1 == munlockall()) {
+						msyslog(LOG_ERR, "munlockall() failed: %m");
+					}
+				}
+				cur_memlock = 0;
+			} else if (rlimit_av->value.i >= 0) {
 #if defined(RLIMIT_MEMLOCK)
+				if (cur_memlock != 1) {
+					if (-1 == mlockall(MCL_CURRENT|MCL_FUTURE)) {
+						msyslog(LOG_ERR, "mlockall() failed: %m");
+					}
+				}
 				ntp_rlimit(RLIMIT_MEMLOCK,
 					   (rlim_t)(rlimit_av->value.i * 1024 * 1024),
 					   1024 * 1024,
 					   "MB");
+				cur_memlock = 1;
 #else
 				/* STDERR as well would be fine... */
 				msyslog(LOG_WARNING, "'rlimit memlock' specified but is not available on this system.");
 #endif /* RLIMIT_MEMLOCK */
 			} else {
-				do_memlock = 0;
+				msyslog(LOG_WARNING, "'rlimit memlock' value of %d is unexpected!", rlimit_av->value.i);
 			}
 			break;
 

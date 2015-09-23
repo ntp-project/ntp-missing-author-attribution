@@ -31,7 +31,7 @@ case "$ntp_cv_rlimit_memlock" in
     AC_SUBST([HAVE_RLIMIT_MEMLOCK])
     case "$host" in
      *-*-*linux*)
-	ntp_dflt_rlimit_memlock="0"  ;;
+	ntp_dflt_rlimit_memlock="-1"  ;;
      *) ntp_dflt_rlimit_memlock="32" ;;
     esac
     HAVE_RLIMIT_MEMLOCK=" memlock $ntp_dflt_rlimit_memlock"  ;;
@@ -103,7 +103,7 @@ AC_ARG_WITH(
     [memlock],
     [AS_HELP_STRING(
 	[--with-memlock],
-	[? =32 (0 on linux) megabytes]
+	[? =32 (-1 on linux) megabytes]
     )],
     [ans=$withval],
     [ans=yes]
