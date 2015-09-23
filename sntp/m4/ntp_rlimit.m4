@@ -26,14 +26,14 @@ AC_CACHE_CHECK(
 	[ntp_cv_rlimit_memlock=no]
     )]
 )
+case "$host" in
+ *-*-*linux*)
+    ntp_dflt_rlimit_memlock="-1" ;;
+ *) ntp_dflt_rlimit_memlock="32" ;;
+esac
 case "$ntp_cv_rlimit_memlock" in
  yes)
     AC_SUBST([HAVE_RLIMIT_MEMLOCK])
-    case "$host" in
-     *-*-*linux*)
-	ntp_dflt_rlimit_memlock="-1"  ;;
-     *) ntp_dflt_rlimit_memlock="32" ;;
-    esac
     HAVE_RLIMIT_MEMLOCK=" memlock $ntp_dflt_rlimit_memlock"  ;;
 esac
 
