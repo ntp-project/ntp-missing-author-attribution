@@ -785,7 +785,7 @@ ntpdmain(
 	 */
 	getconfig(argc, argv);
 
-	if (do_memlock) {
+	if (-1 == cur_memlock && -1 != DFLT_RLIMIT_MEMLOCK) {
 # if defined(HAVE_MLOCKALL)
 		/*
 		 * lock the process into memory
