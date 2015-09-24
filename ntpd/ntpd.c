@@ -785,13 +785,16 @@ ntpdmain(
 	 */
 	getconfig(argc, argv);
 
-	if (-1 == cur_memlock && -1 != DFLT_RLIMIT_MEMLOCK) {
+	if (-1 == cur_memlock) {
 # if defined(HAVE_MLOCKALL)
 		/*
 		 * lock the process into memory
 		 */
-		if (!HAVE_OPT(SAVECONFIGQUIT) &&
-		    0 != mlockall(MCL_CURRENT|MCL_FUTURE))
+		if (   !HAVE_OPT(SAVECONFIGQUIT)
+#  ifdef HAVE_SETRLIMIT
+		    && -1 != DFLT_RLIMIT_MEMLOCK
+#  endif
+		    && 0 != mlockall(MCL_CURRENT|MCL_FUTURE))
 			msyslog(LOG_ERR, "mlockall(): %m");
 # else	/* !HAVE_MLOCKALL follows */
 #  ifdef HAVE_PLOCK
