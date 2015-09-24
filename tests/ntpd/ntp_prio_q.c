@@ -210,7 +210,7 @@ test_AppendQueues(void) {
 	queue* q5 = create_queue();
 
 	// append empty queue to empty queue
-	append_queue(q1, q2);
+	append_queue(q1, q2);	// destroys q2
 
 	element *e1_ptr, *e2_ptr, *e3_ptr, *e4_ptr, *e5_ptr, *e6_ptr;
 	e1_ptr = (element*)debug_get_node(sizeof(element));
@@ -226,18 +226,18 @@ test_AppendQueues(void) {
 
 
 	// append empty queue to non empty queue
-	append_queue(q1, q3);
+	append_queue(q1, q3);	// destroys q3
 	TEST_ASSERT_EQUAL(3, get_no_of_elements(q1));
 
 	// append non empty queue to empty queue
-	append_queue(q4, q1);
+	append_queue(q4, q1);	// destroys q1
 	TEST_ASSERT_EQUAL(3, get_no_of_elements(q4));
 
 	enqueue(q5, e4_ptr);
 	enqueue(q5, e5_ptr);
 
 	// append non empty queue to non empty queue
-	append_queue(q4, q5);
+	append_queue(q4, q5);	// destroys q5
 	TEST_ASSERT_EQUAL(5, get_no_of_elements(q4));
 
 	dequeue(q4);
@@ -254,8 +254,9 @@ test_AppendQueues(void) {
 
 	TEST_ASSERT_EQUAL(0, get_no_of_elements(q4));
 
-	destroy_queue(q1);
-	destroy_queue(q2);
-	destroy_queue(q3);
+	// destroy_queue(q1);	// destroyed already
+	// destroy_queue(q2);	// destroyed already
+	// destroy_queue(q3);	// destroyed already
 	destroy_queue(q4);
+	// destroy_queue(q5);	// destroyed already
 }
