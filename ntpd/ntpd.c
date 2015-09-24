@@ -791,7 +791,7 @@ ntpdmain(
 		 * lock the process into memory
 		 */
 		if (   !HAVE_OPT(SAVECONFIGQUIT)
-#  ifdef HAVE_SETRLIMIT
+#  ifdef RLIMIT_MEMLOCK
 		    && -1 != DFLT_RLIMIT_MEMLOCK
 #  endif
 		    && 0 != mlockall(MCL_CURRENT|MCL_FUTURE))
