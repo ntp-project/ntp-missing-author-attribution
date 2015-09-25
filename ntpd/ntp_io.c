@@ -2022,6 +2022,7 @@ update_interfaces(
 	if (sys_bclient)
 		io_setbclient();
 
+#ifdef MCAST
 	/*
 	 * Check multicast interfaces and try to join multicast groups if
          * not joined yet.
@@ -2047,6 +2048,7 @@ update_interfaces(
 			}
 		}
 	}
+#endif /* MCAST */
 
 	return new_interface_found;
 }
