@@ -113,7 +113,7 @@ AC_DEFUN([NTP_OS_CFLAGS], [
 	 hpux*)
 	    case "$GCC" in
 	     yes)
-		ntp_os_ldflags="+allowdups"
+		ntp_os_ldflags="-Wl,+allowdups"
 		;;
 	    esac
 	    ;;
