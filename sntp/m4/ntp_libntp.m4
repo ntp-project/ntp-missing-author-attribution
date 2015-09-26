@@ -347,20 +347,6 @@ case "$enable_thread_support" in
 	 yes)
 	    PTHREAD_LIBS="$LTHREAD_LIBS"
 	    have_pthreads=yes
-	    # Bug 2332: With GCC we need to force a reference to libgcc_s
-	    # (if libgcc_s exists) or the combination of
-	    # threads + setuid + mlockall does not work on linux because
-	    # thread cancellation fails to load libgcc_s with dlopen().
-	    # We have to pass this all as linker options to avoid argument
-	    # reordering by libtool.
-	    # HMS: The fix below seems to break a number of test programs,
-	    # as it means pthread_once() can't be found.
-	    case "$GCC$with_gnu_ld" in
-	    Xyesyes)
-		AC_CHECK_LIB([gcc_s], [exit],
-			[PTHREAD_LIBS="$LTHREAD_LIBS -Wl,--no-as-needed,-lgcc_s,--as-needed"])
-		;;
-	    esac
 	esac
     esac
 esac

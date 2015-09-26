@@ -27,6 +27,14 @@
 #include "ntp_libopts.h"
 #include "ntpd-opts.h"
 
+/* there's a short treatise below what the thread stuff is for */
+#if defined(HAVE_PTHREADS) && HAVE_PTHREADS && !defined(NO_THREADS)
+# ifdef HAVE_PTHREAD_H
+#  include <pthread.h>
+# endif
+# define NEED_PTHREAD_WARMUP
+#endif
+
 #ifdef HAVE_UNISTD_H
 # include <unistd.h>
 #endif
@@ -232,6 +240,68 @@ static void	library_unexpected_error(const char *, int,
 #endif	/* !SIM */
 
 
+/* Bug2332 unearthed a problem in the interaction of reduced user
+ * privileges, the limits on memory usage and some versions of the
+ * pthread library on Linux systems. The 'pthread_cancel()' function and
+ * likely some others need to track the stack of the thread involved,
+ * and uses a function that comes from GCC (--> libgcc_s.so) to do
+ * this. Unfortunately the developers of glibc decided to load the
+ * library on demand, which speeds up program start but can cause
+ * trouble here: Due to all the things NTPD does to limit its resource
+ * usage, this deferred load of libgcc_s does not always work once the
+ * restrictions are in effect.
+ *
+ * One way out of this was attempting a forced link against libgcc_s
+ * when possible because it makes the library available immediately
+ * without deferred load. (The symbol resolution would still be dynamic
+ * and on demand, but the code would already be in the process image.)
+ *
+ * This is a tricky thing to do, since it's not necessary everywhere,
+ * not possible everywhere, has shown to break the build of other
+ * programs in the NTP suite and is now generally frowned upon.
+ *
+ * So we take a different approach here: We creat a worker thread that does
+ * actually nothing except waiting for cancellation and cancel it. If
+ * this is done before all the limitations are put in place, the
+ * machinery is pre-heated and all the runtime stuff should be in place
+ * and useable when needed.
+ *
+ * This uses only the standard pthread API and should work with all
+ * implementations of pthreads. It is not necessary everywhere, but it's
+ * cheap enough to go on nearly unnoticed.
+ */
+#ifdef NEED_PTHREAD_WARMUP
+
+/* simple thread function: sleep until cancelled, just to exercise
+ * thread cancellation.
+ */
+static void*
+my_pthread_warmup_worker(
+	void *thread_args)
+{
+	(void)thread_args;
+	for (;;)
+		sleep(10);
+	return NULL;
+}
+	
+/* pre-heat threading: create a thread and cancel it, just to exercise
+ * thread cancellation.
+ */
+static void
+my_pthread_warmup(void)
+{
+	pthread_t thread;
+	int       rc;
+	rc = pthread_create(
+		&thread, NULL, my_pthread_warmup_worker, NULL);
+	if (0 == rc) {
+		pthread_cancel(thread);
+		pthread_join(thread, NULL);
+	}
+}
+
+#endif /*defined(NEED_PTHREAD_WARMUP)*/
 
 
 void
@@ -445,6 +515,10 @@ ntpdmain(
 	int		zero;
 # endif
 
+# ifdef NEED_PTHREAD_WARMUP
+	my_pthread_warmup();
+# endif
+	
 # ifdef HAVE_UMASK
 	uv = umask(0);
 	if (uv)

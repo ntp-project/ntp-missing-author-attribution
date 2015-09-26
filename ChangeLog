@@ -1,4 +1,7 @@
 ---
+* [Bug2332](reopened) Exercise thread cancellation once before dropping
+  privileges and limiting resources in NTPD removes the need to link
+  forcefully against 'libgcc_s' which does not always work. J.Perlinger
 * [Bug 2595] ntpdate man page quirks.  Hal Murray, Harlan Stenn.
 * [Bug 2625] Deprecate flag1 in local refclock.  Hal Murray, Harlan Stenn.
 * [Bug 2817] Stop locking ntpd into memory by default under Linux.  H.Stenn.
