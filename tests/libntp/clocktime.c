@@ -19,13 +19,13 @@ int isLE(u_int32 diff,u_int32 actual);
 void test_AlwaysInLimit(void);
 
 
-// ---------------------------------------------------------------------
-// test fixture
-//
-// The clocktimeTest uses the NTP calendar feature to use a mockup
-// function for getting the current system time, so the tests are not
-// dependent on the actual system time.
-
+/* ---------------------------------------------------------------------
+ * test fixture
+ *
+ * The clocktimeTest uses the NTP calendar feature to use a mockup
+ * function for getting the current system time, so the tests are not
+ * dependent on the actual system time.
+ */
 
 void
 setUp()
@@ -40,14 +40,15 @@ tearDown()
     ntpcal_set_timefunc(NULL);
 }
 
-// ---------------------------------------------------------------------
-// test cases
+/* ---------------------------------------------------------------------
+ * test cases
+ */
 
 void
 test_CurrentYear(void) {
-	// Timestamp: 2010-06-24 12:50:00Z
+	/* Timestamp: 2010-06-24 12:50:00Z */
 	const u_int32 timestamp = 3486372600UL;
-	const u_int32 expected	= timestamp; // exactly the same.
+	const u_int32 expected	= timestamp; /* exactly the same. */
 
 	const int yday=175, hour=12, minute=50, second=0, tzoff=0;
 
@@ -69,8 +70,8 @@ test_CurrentYearFuzz(void) {
 	 * timestamp for the 12:00:00 time.
 	 */
 
-	const u_int32 timestamp = 3486372600UL; // 2010-06-24 12:50:00Z
-	const u_int32 expected	= 3486369600UL; // 2010-06-24 12:00:00Z
+	const u_int32 timestamp = 3486372600UL; /* 2010-06-24 12:50:00Z */
+	const u_int32 expected	= 3486369600UL; /* 2010-06-24 12:00:00Z */
 
 	const int yday=175, hour=12, minute=0, second=0, tzoff=0;
 
@@ -115,7 +116,7 @@ test_WrongYearStart(void) {
 
 	const int yday=2, hour=11, minute=0, second=0, tzoff=0;
 
-	u_long yearstart = 302024100UL; // Yearstart of 2009.
+	u_long yearstart = 302024100UL; /* Yearstart of 2009. */
 	u_int32 actual;
 
 	TEST_ASSERT_TRUE(clocktime(yday, hour, minute, second, tzoff, timestamp,
@@ -176,7 +177,7 @@ test_NoReasonableConversion(void) {
 }
 
 
-int // technically boolean
+int/*BOOL*/
 isLE(u_int32 diff,u_int32 actual){
 	if(diff <= actual){
 		return TRUE;
@@ -196,7 +197,6 @@ test_AlwaysInLimit(void) {
 	u_short	ydayinc;
 	int	hour;
 	int	minute;
-	int	second;
 	u_long	yearstart;
 	u_int32	actual;
 	u_int32	diff;

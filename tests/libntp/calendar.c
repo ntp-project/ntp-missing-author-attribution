@@ -1,6 +1,6 @@
 #include "config.h"
 
-#include "ntp_stdlib.h" //test fail without this include, for some reason
+#include "ntp_stdlib.h" /* test fail without this include, for some reason */
 #include "ntp_calendar.h"
 #include "unity.h"
 
@@ -34,10 +34,11 @@ void test_IsoCalWeeksToYearStart(void);
 void test_IsoCalWeeksToYearEnd(void);
 void test_DaySecToDate(void);
 
-// ---------------------------------------------------------------------
-// test support stuff
-// ---------------------------------------------------------------------
-
+/*
+ * ---------------------------------------------------------------------
+ * test support stuff
+ * ---------------------------------------------------------------------
+ */
 int
 isGT(int first, int second)
 {
@@ -151,8 +152,7 @@ DateFromIsoToString(
 	return str;
 }
 
-// boolean 
-int
+int/*BOOL*/
 IsEqualDateCal(
 	const struct calendar *expected,
 	const struct calendar *actual)
@@ -170,8 +170,7 @@ IsEqualDateCal(
 	}
 }
 
-// boolean
-int
+int/*BOOL*/
 IsEqualDateIso(
 	const struct isodate *expected,
 	const struct isodate *actual)
@@ -189,9 +188,13 @@ IsEqualDateIso(
 }
 
 
-// ---------------------------------------------------------------------
-// test cases
-// ---------------------------------------------------------------------
+/*
+ * ---------------------------------------------------------------------
+ * test cases
+ * ---------------------------------------------------------------------
+ */
+
+/* days before month, with a full-year pad at the upper end */
 static const u_short real_month_table[2][13] = {
 	/* -*- table for regular years -*- */
 	{ 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365 },
@@ -199,7 +202,7 @@ static const u_short real_month_table[2][13] = {
 	{ 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366 }
 };
 
-// days in month, with one month wrap-around at both ends
+/* days in month, with one month wrap-around at both ends */
 static const u_short real_month_days[2][14] = {
 	/* -*- table for regular years -*- */
 	{ 31, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 31 },
@@ -207,9 +210,10 @@ static const u_short real_month_days[2][14] = {
 	{ 31, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 31 }
 };
 
-// test the day/sec join & split ops, making sure that 32bit
-// intermediate results would definitely overflow and the hi DWORD of
-// the 'vint64' is definitely needed.
+/* test the day/sec join & split ops, making sure that 32bit
+ * intermediate results would definitely overflow and the hi DWORD of
+ * the 'vint64' is definitely needed.
+ */
 void
 test_DaySplitMerge(void) {
 	int32 day,sec;
@@ -261,9 +265,10 @@ test_SplitYearDays2(void) {
 	for (eyd = -1; eyd <= 366; eyd++) {
 		ntpcal_split split = ntpcal_split_yeardays(eyd, 1);
 		if (split.lo >= 0 && split.hi >= 0) {
-			//TEST_ASSERT_TRUE(12 > split.hi); //simpler version, works for basic types, doesn't work for complex structs
-			TEST_ASSERT_TRUE(isGT(12,split.hi));//EXPECT_GT(12, split.hi);
-			TEST_ASSERT_TRUE(isGT(real_month_days[1][split.hi+1], split.lo));//EXPECT_GT(real_month_days[1][split.hi+1], split.lo);
+			/* basic checks do not work on compunds :( */
+			/* would like: TEST_ASSERT_TRUE(12 > split.hi); */
+			TEST_ASSERT_TRUE(isGT(12,split.hi));
+			TEST_ASSERT_TRUE(isGT(real_month_days[1][split.hi+1], split.lo));
 			int32 tyd = real_month_table[1][split.hi] + split.lo;
 			TEST_ASSERT_EQUAL(eyd, tyd);
 		} else
@@ -273,7 +278,7 @@ test_SplitYearDays2(void) {
 		
 void
 test_RataDie1(void) {
-	int32	 testDate = 1; // 0001-01-01 (proleptic date)
+	int32	 testDate = 1; /* 0001-01-01 (proleptic date) */
 	struct calendar expected = { 1, 1, 1, 1 };
 	struct calendar actual;
 
@@ -281,7 +286,7 @@ test_RataDie1(void) {
 	TEST_ASSERT_TRUE(IsEqualDateCal(&expected, &actual));
 }
 
-// check last day of february for first 10000 years
+/* check last day of february for first 10000 years */
 void
 test_LeapYears1(void) {
 	struct calendar dateIn, dateOut;
@@ -297,7 +302,7 @@ test_LeapYears1(void) {
 	}
 }
 
-// check first day of march for first 10000 years
+/* check first day of march for first 10000 years */
 void
 test_LeapYears2(void) {
 	struct calendar dateIn, dateOut;
@@ -312,11 +317,12 @@ test_LeapYears2(void) {
 	}
 }
 
-// Full roundtrip for 1601-01-01 to 2400-12-31
-// checks sequence of rata die numbers and validates date output
-// (since the input is all nominal days of the calendar in that range
-// and the result of the inverse calculation must match the input no
-// invalid output can occur.)
+/* Full roundtrip from 1601-01-01 to 2400-12-31
+ * checks sequence of rata die numbers and validates date output
+ * (since the input is all nominal days of the calendar in that range
+ * and the result of the inverse calculation must match the input no
+ * invalid output can occur.)
+ */
 void
 test_RoundTripDate(void) {
 	struct calendar truDate, expDate = { 1600, 0, 12, 31 };;
@@ -346,7 +352,7 @@ test_RoundTripDate(void) {
 	}
 }
 
-// Roundtrip testing on calyearstart
+/* Roundtrip testing on calyearstart */
 void
 test_RoundTripYearStart(void) {
 	static const time_t pivot = 0;
@@ -363,7 +369,7 @@ test_RoundTripYearStart(void) {
 	}
 }	
 
-// Roundtrip testing on calymonthstart
+/* Roundtrip testing on calmonthstart */
 void
 test_RoundTripMonthStart(void) {
 	static const time_t pivot = 0;
@@ -380,7 +386,7 @@ test_RoundTripMonthStart(void) {
 	}
 }	
 
-// Roundtrip testing on calweekstart
+/* Roundtrip testing on calweekstart */
 void
 test_RoundTripWeekStart(void) {
 	static const time_t pivot = 0;
@@ -397,7 +403,7 @@ test_RoundTripWeekStart(void) {
 	}
 }	
 
-// Roundtrip testing on caldaystart
+/* Roundtrip testing on caldaystart */
 void
 test_RoundTripDayStart(void) {
 	static const time_t pivot = 0;
@@ -455,7 +461,8 @@ refimpl_WeeksInIsoYears(
 /* The next tests loop over 5000yrs, but should still be very fast. If
  * they are not, the calendar needs a better implementation...
  */
-void test_IsoCalYearsToWeeks(void) {
+void
+test_IsoCalYearsToWeeks(void) {
 	int32_t years;
 	int32_t wref, wcal;
 	for (years = -1000; years < 4000; ++years) {
@@ -467,7 +474,8 @@ void test_IsoCalYearsToWeeks(void) {
 	}
 }
 
-void test_IsoCalWeeksToYearStart(void) {
+void
+test_IsoCalWeeksToYearStart(void) {
 	int32_t years;
 	int32_t wref;
 	ntpcal_split ysplit;
@@ -482,7 +490,8 @@ void test_IsoCalWeeksToYearStart(void) {
 	}
 }
 
-void test_IsoCalWeeksToYearEnd(void) {
+void
+test_IsoCalWeeksToYearEnd(void) {
 	int32_t years;
 	int32_t wref;
 	ntpcal_split ysplit;
@@ -497,7 +506,8 @@ void test_IsoCalWeeksToYearEnd(void) {
 	}
 }
 
-void test_DaySecToDate(void) {
+void
+test_DaySecToDate(void) {
 	struct calendar cal;
 	int32_t days;
 
