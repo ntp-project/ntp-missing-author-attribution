@@ -1,3 +1,4 @@
+* [Bug 2901] Drop invalid packet before checking KoD. Check for all KoD's
 ---
 * [Bug 2595] ntpdate man page quirks.  Hal Murray, Harlan Stenn.
 * [Bug 2625] Deprecate flag1 in local refclock.  Hal Murray, Harlan Stenn.
