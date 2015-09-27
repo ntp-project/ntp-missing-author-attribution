@@ -23,7 +23,6 @@
 #include <setjmp.h>
 #include <stdio.h>
 #include "config.h"
-#include "ntp_scanner.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
@@ -33,6 +32,12 @@ extern void test_keywordServerToken(void);
 extern void test_DropUninitializedStack(void);
 extern void test_IncorrectlyInitializeLexStack(void);
 extern void test_InitializeLexStack(void);
+extern void test_PopEmptyStack(void);
+extern void test_IsInteger(void);
+extern void test_IsUint(void);
+extern void test_IsDouble(void);
+extern void test_SpecialSymbols(void);
+extern void test_EOC(void);
 
 
 //=======Test Reset Option=====
@@ -43,19 +48,25 @@ void resetTest(void)
   setUp();
 }
 
-char *progname;
+char const *progname;
 
 
 //=======MAIN=====
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  UnityBegin("ntp_scanner.c");
-  RUN_TEST(test_keywordIncorrectToken, 20);
-  RUN_TEST(test_keywordServerToken, 21);
-  RUN_TEST(test_DropUninitializedStack, 22);
-  RUN_TEST(test_IncorrectlyInitializeLexStack, 23);
-  RUN_TEST(test_InitializeLexStack, 24);
+  UnityBegin("t-ntp_scanner.c");
+  RUN_TEST(test_keywordIncorrectToken, 21);
+  RUN_TEST(test_keywordServerToken, 22);
+  RUN_TEST(test_DropUninitializedStack, 23);
+  RUN_TEST(test_IncorrectlyInitializeLexStack, 24);
+  RUN_TEST(test_InitializeLexStack, 25);
+  RUN_TEST(test_PopEmptyStack, 61);
+  RUN_TEST(test_IsInteger, 69);
+  RUN_TEST(test_IsUint, 87);
+  RUN_TEST(test_IsDouble, 99);
+  RUN_TEST(test_SpecialSymbols, 111);
+  RUN_TEST(test_EOC, 120);
 
   return (UnityEnd());
 }

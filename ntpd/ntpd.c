@@ -180,12 +180,6 @@ int	waitsync_fd_to_close = -1;	/* -w/--wait-sync */
 #endif
 
 /*
- * Initializing flag.  All async routines watch this and only do their
- * thing when it is clear.
- */
-int initializing;
-
-/*
  * Version declaration
  */
 extern const char *Version;
@@ -791,13 +785,16 @@ ntpdmain(
 	 */
 	getconfig(argc, argv);
 
-	if (do_memlock) {
+	if (-1 == cur_memlock) {
 # if defined(HAVE_MLOCKALL)
 		/*
 		 * lock the process into memory
 		 */
-		if (!HAVE_OPT(SAVECONFIGQUIT) &&
-		    0 != mlockall(MCL_CURRENT|MCL_FUTURE))
+		if (   !HAVE_OPT(SAVECONFIGQUIT)
+#  ifdef RLIMIT_MEMLOCK
+		    && -1 != DFLT_RLIMIT_MEMLOCK
+#  endif
+		    && 0 != mlockall(MCL_CURRENT|MCL_FUTURE))
 			msyslog(LOG_ERR, "mlockall(): %m");
 # else	/* !HAVE_MLOCKALL follows */
 #  ifdef HAVE_PLOCK

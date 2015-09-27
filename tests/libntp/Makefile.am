@@ -49,12 +49,6 @@ check_PROGRAMS =		\
 	test-ymd2yd		\
 	$(NULL)
 
-if GTEST_AVAILABLE
-check_PROGRAMS += tests
-else
-EXTRA_PROGRAMS = tests
-endif
-
 LDADD =					\
 	$(top_builddir)/libntp/libntp.a	\
 	$(LDADD_LIBNTP)			\
@@ -64,14 +58,7 @@ LDADD =					\
 	$(top_builddir)/sntp/unity/libunity.a	\
 	$(NULL)
 
-tests_LDADD =				\
-	$(LDADD)			\
-	$(GTEST_LDFLAGS)		\
-	$(GTEST_LIBS)			\
-	$(NULL)
-
 AM_CFLAGS = $(CFLAGS_NTP)
-AM_CXXFLAGS = $(GTEST_CXXFLAGS)
 
 AM_CPPFLAGS  = $(NTP_INCS)
 AM_CPPFLAGS += -I$(top_srcdir)/sntp
@@ -79,57 +66,7 @@ AM_CPPFLAGS += $(CPPFLAGS_NTP)
 AM_CPPFLAGS += -DUNITY_INCLUDE_CONFIG_H
 AM_CPPFLAGS += -I$(top_srcdir)/sntp/unity
 
-tests_CPPFLAGS  = $(AM_CPPFLAGS)
-tests_CPPFLAGS += $(GTEST_CPPFLAGS)
-
 AM_LDFLAGS = $(LDFLAGS_NTP)
-
-tests_SOURCES =					\
-	$(top_srcdir)/sntp/tests_main.cpp	\
-	g_libntptest.cpp	\
-	g_a_md5encrypt.cpp	\
-	g_atoint.cpp		\
-	g_atouint.cpp		\
-	g_authkeys.cpp		\
-	g_buftvtots.cpp		\
-	g_calendar.cpp		\
-	g_caljulian.cpp		\
-	g_caltontp.cpp		\
-	g_calyearstart.cpp	\
-	g_clocktime.cpp		\
-	g_decodenetnum.cpp	\
-	g_hextoint.cpp		\
-	g_hextolfp.cpp		\
-	g_humandate.cpp		\
-	g_lfpfunc.cpp		\
-	g_lfptest.h		\
-	g_lfptostr.cpp		\
-	g_libntptest.h		\
-	g_modetoa.cpp		\
-	g_msyslog.cpp		\
-	g_netof.cpp		\
-	g_numtoa.cpp		\
-	g_numtohost.cpp		\
-	g_octtoint.cpp		\
-	g_prettydate.cpp	\
-	g_recvbuff.cpp		\
-	g_refnumtoa.cpp		\
-	g_sfptostr.cpp		\
-	g_sockaddrtest.h	\
-	g_socktoa.cpp		\
-	g_ssl_init.cpp		\
-	g_statestr.cpp		\
-	g_strtolfp.cpp		\
-	g_timespecops.cpp	\
-	g_timestructs.cpp	\
-	g_timestructs.h		\
-	g_timevalops.cpp	\
-	g_tstotv.cpp		\
-	g_tvtots.cpp		\
-	g_uglydate.cpp		\
-	g_vi64ops.cpp		\
-	g_ymd2yd.cpp		\
-	$(NULL)
 
 BUILT_SOURCES +=			\
 	$(srcdir)/run-a_md5encrypt.c	\
@@ -180,9 +117,9 @@ noinst_HEADERS =	\
 
 ###
 
-test_a_md5encrypt_SOURCES =		\
-	a_md5encrypt.c			\
-	run-a_md5encrypt.c		\
+test_a_md5encrypt_SOURCES =	\
+	a_md5encrypt.c		\
+	run-a_md5encrypt.c	\
 	$(NULL)
 
 $(srcdir)/run-a_md5encrypt.c: $(srcdir)/a_md5encrypt.c $(std_unity_list)
@@ -190,9 +127,9 @@ $(srcdir)/run-a_md5encrypt.c: $(srcdir)/a_md5encrypt.c $(std_unity_list)
 
 ###
 
-test_atoint_SOURCES =			\
-	atoint.c			\
-	run-atoint.c			\
+test_atoint_SOURCES =		\
+	atoint.c		\
+	run-atoint.c		\
 	$(NULL)
 
 $(srcdir)/run-atoint.c: $(srcdir)/atoint.c $(std_unity_list)
@@ -200,9 +137,9 @@ $(srcdir)/run-atoint.c: $(srcdir)/atoint.c $(std_unity_list)
 
 ###
 
-test_atouint_SOURCES =			\
-	atouint.c			\
-	run-atouint.c			\
+test_atouint_SOURCES =		\
+	atouint.c		\
+	run-atouint.c		\
 	$(NULL)
 
 $(srcdir)/run-atouint.c: $(srcdir)/atouint.c $(std_unity_list)
@@ -210,9 +147,9 @@ $(srcdir)/run-atouint.c: $(srcdir)/atouint.c $(std_unity_list)
 
 ###
 
-test_authkeys_SOURCES =			\
-	authkeys.c			\
-	run-authkeys.c			\
+test_authkeys_SOURCES =		\
+	authkeys.c		\
+	run-authkeys.c		\
 	$(NULL)
 
 $(srcdir)/run-authkeys.c: $(srcdir)/authkeys.c $(std_unity_list)
@@ -220,10 +157,10 @@ $(srcdir)/run-authkeys.c: $(srcdir)/authkeys.c $(std_unity_list)
 
 ###
 
-test_buftvtots_SOURCES =		\
-	buftvtots.c			\
-	run-buftvtots.c			\
-	lfptest.c			\
+test_buftvtots_SOURCES =	\
+	buftvtots.c		\
+	run-buftvtots.c		\
+	lfptest.c		\
 	$(NULL)
 
 $(srcdir)/run-buftvtots.c: $(srcdir)/buftvtots.c $(std_unity_list)
@@ -231,10 +168,10 @@ $(srcdir)/run-buftvtots.c: $(srcdir)/buftvtots.c $(std_unity_list)
 
 ###
 
-test_calendar_SOURCES =			\
-	calendar.c			\
-	run-calendar.c			\
-	test-libntp.c			\
+test_calendar_SOURCES =		\
+	calendar.c		\
+	run-calendar.c		\
+	test-libntp.c		\
 	$(NULL)
 
 $(srcdir)/run-calendar.c: $(srcdir)/calendar.c $(std_unity_list)
@@ -242,14 +179,14 @@ $(srcdir)/run-calendar.c: $(srcdir)/calendar.c $(std_unity_list)
 
 ###
 
-test_caltontp_LDADD =		\
-	$(LDADD)		\
-	-lpthread		\
+test_caltontp_CFLAGS =		\
+	$(CFLAGS_LIBEVENT)	\
+	$(AM_CFLAGS)		\
 	$(NULL)
 
-test_caltontp_SOURCES =			\
-	caltontp.c			\
-	run-caltontp.c			\
+test_caltontp_SOURCES =		\
+	caltontp.c		\
+	run-caltontp.c		\
 	$(NULL)
 
 $(srcdir)/run-caltontp.c: $(srcdir)/caltontp.c $(std_unity_list)
@@ -257,9 +194,9 @@ $(srcdir)/run-caltontp.c: $(srcdir)/caltontp.c $(std_unity_list)
 
 ###
 
-test_caljulian_LDADD =		\
-	$(LDADD)		\
-	-lpthread		\
+test_caljulian_CFLAGS =		\
+	$(CFLAGS_LIBEVENT)	\
+	$(AM_CFLAGS)		\
 	$(NULL)
 
 test_caljulian_SOURCES =	\
@@ -295,9 +232,9 @@ $(srcdir)/run-clocktime.c: $(srcdir)/clocktime.c $(std_unity_list)
 
 ###
 
-test_decodenetnum_LDADD =	\
-	$(LDADD)		\
-	-lpthread		\
+test_decodenetnum_CFLAGS =	\
+	$(CFLAGS_LIBEVENT)	\
+	$(AM_CFLAGS)		\
 	$(NULL)
 
 test_decodenetnum_SOURCES =	\
@@ -504,9 +441,9 @@ $(srcdir)/run-statestr.c: $(srcdir)/statestr.c $(std_unity_list)
 
 ###
 
-test_strtolfp_LDADD =		\
-	$(LDADD)		\
-	-lpthread		\
+test_strtolfp_CFLAGS =		\
+	$(CFLAGS_LIBEVENT)	\
+	$(AM_CFLAGS)		\
 	$(NULL)
 
 test_strtolfp_SOURCES =		\

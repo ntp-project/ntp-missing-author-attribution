@@ -38,7 +38,7 @@ test_Encrypt(void) {
 	char *packetPtr;
 	int length;
 
-	packetPtr = malloc(totalLength * sizeof(*packetPtr));
+	packetPtr = emalloc(totalLength * sizeof(*packetPtr));
 
 	memset(packetPtr + packetLength, 0, keyIdLength);
 	memcpy(packetPtr, packet, packetLength);

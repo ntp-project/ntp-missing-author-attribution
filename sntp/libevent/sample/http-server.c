@@ -233,6 +233,10 @@ send_document_cb(struct evhttp_request *req, void *arg)
 #ifdef _WIN32
 		dirlen = strlen(whole_path);
 		pattern = malloc(dirlen+3);
+		if (!pattern) {
+			perror("malloc");
+			goto err;
+		}
 		memcpy(pattern, whole_path, dirlen);
 		pattern[dirlen] = '\\';
 		pattern[dirlen+1] = '*';

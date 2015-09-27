@@ -77,7 +77,7 @@ char *
 CalendarFromIsoToString(
 	const struct isodate *iso)
 {
-	char * str = malloc (sizeof (char) * 100);
+	char * str = emalloc (sizeof (char) * 100);
 	snprintf(str, 100, "%u-W%02u-%02u %02u:%02u:%02u",
 		 iso->year, (u_int)iso->week, (u_int)iso->weekday,
 		 (u_int)iso->hour, (u_int)iso->minute, (u_int)iso->second);
@@ -131,7 +131,7 @@ DateFromCalToString(
 	const struct calendar *cal)
 {
 
-	char * str = malloc (sizeof (char) * 100);
+	char * str = emalloc (sizeof (char) * 100);
 	snprintf(str, 100, "%u-%02u-%02u (%u)",
 		 cal->year, (u_int)cal->month, (u_int)cal->monthday,
 		 cal->yearday);
@@ -144,7 +144,7 @@ DateFromIsoToString(
 	const struct isodate *iso)
 {
 
-	char * str = malloc (sizeof (char) * 100);
+	char * str = emalloc (sizeof (char) * 100);
 	snprintf(str, 100, "%u-W%02u-%02u",
 		 iso->year, (u_int)iso->week, (u_int)iso->weekday);
 	str[99] = '\0'; /* paranoia rulez! */

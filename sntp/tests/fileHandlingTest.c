@@ -19,7 +19,7 @@ enum DirectoryType {
 const char *
 CreatePath(const char* filename, enum DirectoryType argument) {
 	const char srcdir[] = SRCDIR_DEF;//"@abs_srcdir@/data/";
-	char * path = malloc (sizeof (char) * (strlen(srcdir) + 256));
+	char * path = emalloc (sizeof (char) * (strlen(srcdir) + 256));
 
 	//char cwd[1024];
 

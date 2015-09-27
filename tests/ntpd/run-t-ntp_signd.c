@@ -31,8 +31,12 @@
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_ux_socket_connect(void);
+extern void test_connect_incorrect_socket(void);
+extern void test_connect_correct_socket(void);
 extern void test_write_all(void);
+extern void test_send_packet(void);
+extern void test_recv_packet(void);
+extern void test_send_via_ntp_signd();
 
 
 //=======Test Reset Option=====
@@ -43,16 +47,20 @@ void resetTest(void)
   setUp();
 }
 
-char *progname;
+char const *progname;
 
 
 //=======MAIN=====
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  UnityBegin("ntp_signd.c");
-  RUN_TEST(test_ux_socket_connect, 12);
-  RUN_TEST(test_write_all, 23);
+  UnityBegin("t-ntp_signd.c");
+  RUN_TEST(test_connect_incorrect_socket, 49);
+  RUN_TEST(test_connect_correct_socket, 54);
+  RUN_TEST(test_write_all, 74);
+  RUN_TEST(test_send_packet, 84);
+  RUN_TEST(test_recv_packet, 93);
+  RUN_TEST(test_send_via_ntp_signd, 104);
 
   return (UnityEnd());
 }

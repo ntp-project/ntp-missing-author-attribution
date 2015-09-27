@@ -6,12 +6,15 @@
 #include "unity.h"
 #include "sockaddrtest.h"
 
+
 void test_IPv4AddressWithPort(void);
+//#ifdef ISC_PLATFORM_HAVEIPV6
 void test_IPv6AddressWithPort(void);
+void test_IgnoreIPv6Fields(void);
+//#endif /* ISC_PLATFORM_HAVEIPV6 */
 void test_ScopedIPv6AddressWithPort(void);
 void test_HashEqual(void);
 void test_HashNotEqual(void);
-void test_IgnoreIPv6Fields(void);
 
 void 
 test_IPv4AddressWithPort(void) {
@@ -21,8 +24,12 @@ test_IPv4AddressWithPort(void) {
 	TEST_ASSERT_EQUAL_STRING("192.0.2.10:123", sockporttoa(&input));
 }
 
+
 void 
 test_IPv6AddressWithPort(void) {
+
+#ifdef ISC_PLATFORM_WANTIPV6
+
 	const struct in6_addr address = {
 		0x20, 0x01, 0x0d, 0xb8,
 		0x85, 0xa3, 0x08, 0xd3, 
@@ -43,7 +50,14 @@ test_IPv6AddressWithPort(void) {
 
 	TEST_ASSERT_EQUAL_STRING(expected, socktoa(&input));
 	TEST_ASSERT_EQUAL_STRING(expected_port, sockporttoa(&input));
+
+#else
+	TEST_IGNORE_MESSAGE("IPV6 disabled in build, skipping.");
+
+#endif /* ISC_PLATFORM_HAVEIPV6 */
+
 }
+
 
 void 
 test_ScopedIPv6AddressWithPort(void) {
@@ -93,8 +107,12 @@ test_HashNotEqual(void) {
 	TEST_ASSERT_FALSE(sock_hash(&input1) == sock_hash(&input2)); 
 }
 
+
 void 
 test_IgnoreIPv6Fields(void) {
+
+#ifdef ISC_PLATFORM_WANTIPV6
+
 	const struct in6_addr address = {
 		0x20, 0x01, 0x0d, 0xb8,
         0x85, 0xa3, 0x08, 0xd3, 
@@ -115,4 +133,9 @@ test_IgnoreIPv6Fields(void) {
 	SET_PORT(&input2, NTP_PORT);
 
 	TEST_ASSERT_EQUAL(sock_hash(&input1), sock_hash(&input2));
+
+#else
+	TEST_IGNORE_MESSAGE("IPV6 disabled in build, skipping.");
+#endif /* ISC_PLATFORM_HAVEIPV6 */
 }
+
