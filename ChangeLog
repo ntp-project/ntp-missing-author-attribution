@@ -20,6 +20,7 @@
 * [Bug 2890] Ignore ENOBUFS on routing netlink socket.  Konstantin Khlebnikov.
 * [Bug 2906] make check needs better support for pthreads.  Harlan Stenn.
 * [Bug 2907] dist* build targets require our libevent/ to be enabled.  HStenn.
+* [Bug 2909] added missing call to 'free()' in ntp_crypto.c. perlinger@ntp.org
 * libntp/emalloc.c: Remove explicit include of stdint.h.  Harlan Stenn.
 * Put Unity CPPFLAGS items in unity_config.h.  Harlan Stenn.
 * tests/ntpd/g_leapsec.cpp typo fix.  Harlan Stenn.
