@@ -534,6 +534,9 @@ MD5auth_setkey(
 	bucket = &key_hash[KEYHASH(keyno)];
 	for (sk = *bucket; sk != NULL; sk = sk->hlink) {
 		if (keyno == sk->keyid) {
+			/* TALOS-CAN-0054: make sure we have a buffer! */
+			if (NULL == sk->secret)
+				sk->secret = emalloc(len);
 			sk->type = (u_short)keytype;
 			secretsize = len;
 			sk->secretsize = (u_short)secretsize;
@@ -599,6 +602,7 @@ auth_delkeys(void)
 			if (sk->secret != NULL) {
 				memset(sk->secret, '\0', sk->secretsize);
 				free(sk->secret);
+				sk->secret = NULL; /* TALOS-CAN-0054 */
 			}
 			sk->secretsize = 0;
 			sk->lifetime = 0;
