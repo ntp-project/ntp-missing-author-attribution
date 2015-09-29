@@ -1,3 +1,4 @@
+(4.3.73) 2015/09/29 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * More updates for bug 2817.  Harlan Stenn.
 * Fix bugs in tests/ntpd/ntp_prio_q.c.  Harlan Stenn.
