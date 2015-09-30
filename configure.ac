@@ -4329,6 +4329,8 @@ dnl  require a C++ compiler only if we will use gtest, but AC_PROG_CXX
 dnl  can't be conditionalized.
 NTP_GOOGLETEST
 
+NTP_PROBLEM_TESTS
+
 ###
 
 AC_DEFINE_DIR([NTP_KEYSDIR], [sysconfdir],
