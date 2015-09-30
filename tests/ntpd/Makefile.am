@@ -11,13 +11,24 @@ run_unity =	cd $(srcdir) && ruby ../../sntp/unity/auto/generate_test_runner.rb
 check_PROGRAMS =		\
 	test-leapsec		\
 	test-ntp_prio_q		\
-	test-ntp_restrict	\
-	test-ntp_scanner	\
-	test-ntp_signd		\
+	$(NULL)
+if BUILD_TEST_NTP_RESTRICT
+check_PROGRAMS += test-ntp_restrict
+endif
+if BUILD_TEST_NTP_SCANNER
+check_PROGRAMS += test-ntp_scanner
+endif
+if BUILD_TEST_NTP_SIGND
+check_PROGRAMS += test-ntp_signd
+endif
+check_PROGRAMS += 		\
 	test-rc_cmdlength	\
 	$(NULL)
 
 EXTRA_PROGRAMS =		\
+	test-ntp_restrict	\
+	test-ntp_scanner	\
+	test-ntp_signd		\
 	$(NULL)
 
 
