@@ -487,6 +487,7 @@ ntp-4.3 begins.
   be configured for the distribution targets.  Harlan Stenn.
 * [Bug 2883] ntpd crashes on exit with empty driftfile.  Miroslav Lichvar.
 * [Bug 2886] Mis-spelling: "outlyer" should be "outlier".  dave@horsfall.org
+* [Bug 2888] streamline calendar functions.  perlinger@ntp.org
 * [Bug 2889] ntp-dev-4.3.67 does not build on Windows.  perlinger@ntp.org
 * [Bug 2890] Ignore ENOBUFS on routing netlink socket.  Konstantin Khlebnikov.
 * [Bug 2906] make check needs better support for pthreads.  Harlan Stenn.

@@ -41,6 +41,10 @@ extern void test_RoundTripYearStart(void);
 extern void test_RoundTripMonthStart(void);
 extern void test_RoundTripWeekStart(void);
 extern void test_RoundTripDayStart(void);
+extern void test_IsoCalYearsToWeeks(void);
+extern void test_IsoCalWeeksToYearStart(void);
+extern void test_IsoCalWeeksToYearEnd(void);
+extern void test_DaySecToDate(void);
 
 
 //=======Test Reset Option=====
@@ -59,17 +63,21 @@ int main(int argc, char *argv[])
 {
   progname = argv[0];
   UnityBegin("calendar.c");
-  RUN_TEST(test_DaySplitMerge, 36);
-  RUN_TEST(test_SplitYearDays1, 37);
-  RUN_TEST(test_SplitYearDays2, 38);
-  RUN_TEST(test_RataDie1, 39);
-  RUN_TEST(test_LeapYears1, 40);
-  RUN_TEST(test_LeapYears2, 41);
-  RUN_TEST(test_RoundTripDate, 42);
-  RUN_TEST(test_RoundTripYearStart, 43);
-  RUN_TEST(test_RoundTripMonthStart, 44);
-  RUN_TEST(test_RoundTripWeekStart, 45);
-  RUN_TEST(test_RoundTripDayStart, 46);
+  RUN_TEST(test_DaySplitMerge, 21);
+  RUN_TEST(test_SplitYearDays1, 22);
+  RUN_TEST(test_SplitYearDays2, 23);
+  RUN_TEST(test_RataDie1, 24);
+  RUN_TEST(test_LeapYears1, 25);
+  RUN_TEST(test_LeapYears2, 26);
+  RUN_TEST(test_RoundTripDate, 27);
+  RUN_TEST(test_RoundTripYearStart, 28);
+  RUN_TEST(test_RoundTripMonthStart, 29);
+  RUN_TEST(test_RoundTripWeekStart, 30);
+  RUN_TEST(test_RoundTripDayStart, 31);
+  RUN_TEST(test_IsoCalYearsToWeeks, 32);
+  RUN_TEST(test_IsoCalWeeksToYearStart, 33);
+  RUN_TEST(test_IsoCalWeeksToYearEnd, 34);
+  RUN_TEST(test_DaySecToDate, 35);
 
   return (UnityEnd());
 }
