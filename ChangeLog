@@ -1,6 +1,7 @@
 ---
 * [TALOS-CAN-0052] crash by loop counter underrun. perlinger@ntp.org
 * [TALOS-CAN-0054] memory corruption in password store. perlinger@ntp.org
+* [TALOS-CAN-0063] avoid buffer overrun in ntpq. perlinger@ntp.org
 * [Bug 2595] ntpdate man page quirks.  Hal Murray, Harlan Stenn.
 * [Bug 2625] Deprecate flag1 in local refclock.  Hal Murray, Harlan Stenn.
 * [Bug 2817] Stop locking ntpd into memory by default under Linux.  H.Stenn.
