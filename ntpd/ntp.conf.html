@@ -33,7 +33,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 <p>This document describes the configuration file for the NTP Project's
 <code>ntpd</code> program.
 
-  <p>This document applies to version 4.3.73 of <code>ntp.conf</code>.
+  <p>This document applies to version 4.3.74 of <code>ntp.conf</code>.
 
   <div class="shortcontents">
 <h2>Short Contents</h2>
@@ -2546,12 +2546,15 @@ pulses will not be suppressed.
 </dl>
      <br><dt><code>rlimit</code> <code>[memlock </code><kbd>Nmegabytes</kbd><code> | stacksize </code><kbd>N4kPages</kbd><code> filenum </code><kbd>Nfiledescriptors</kbd><code>]</code><dd>
           <dl>
-<dt><code>memlock</code> <kbd>Nmegabytes</kbd><dd>Specify the number of megabytes of memory that can be allocated. 
-Probably only available under Linux, this option is useful
+<dt><code>memlock</code> <kbd>Nmegabytes</kbd><dd>Specify the number of megabytes of memory that should be
+allocated and locked. 
+Probably only available under Linux, this option may be useful
 when dropping root (the
 <code>-i</code>
 option). 
-The default is 32 megabytes. Setting this to zero will prevent any attemp to lock memory. 
+The default is 32 megabytes on non-Linux machines, and -1 under Linux. 
+-1 means "do not lock the process into memory". 
+0 means "lock whatever memory the process wants into memory". 
 <br><dt><code>stacksize</code> <kbd>N4kPages</kbd><dd>Specifies the maximum size of the process stack on systems with the
 <code>mlockall()</code>
 function. 

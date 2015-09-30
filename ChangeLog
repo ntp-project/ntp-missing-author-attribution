@@ -1,3 +1,4 @@
+(4.3.74) 2015/09/30 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * [Bug 2332] (reopened) Exercise thread cancellation once before dropping
   privileges and limiting resources in NTPD removes the need to link
