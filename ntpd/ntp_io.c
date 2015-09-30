@@ -2459,9 +2459,9 @@ socket_multicast_enable(
 	)
 {
 	struct ip_mreq		mreq;
-#ifdef INCLUDE_IPV6_MULTICAST_SUPPORT
+# ifdef INCLUDE_IPV6_MULTICAST_SUPPORT
 	struct ipv6_mreq	mreq6;
-#endif
+# endif
 	switch (AF(maddr)) {
 
 	case AF_INET:
@@ -2488,7 +2488,7 @@ socket_multicast_enable(
 		break;
 
 	case AF_INET6:
-#ifdef INCLUDE_IPV6_MULTICAST_SUPPORT
+# ifdef INCLUDE_IPV6_MULTICAST_SUPPORT
 		/*
 		 * Enable reception of multicast packets.
 		 * If the address is link-local we can get the
@@ -2512,9 +2512,9 @@ socket_multicast_enable(
 		DPRINTF(4, ("Added IPv6 multicast group on socket %d, addr %s for interface %u (%s)\n",
 			    iface->fd, stoa(&iface->sin),
 			    mreq6.ipv6mr_interface, stoa(maddr)));
-#else
+# else
 		return ISC_FALSE;
-#endif	/* INCLUDE_IPV6_MULTICAST_SUPPORT */
+# endif	/* INCLUDE_IPV6_MULTICAST_SUPPORT */
 	}
 	iface->flags |= INT_MCASTOPEN;
 	iface->num_mcast++;
@@ -2536,9 +2536,9 @@ socket_multicast_disable(
 	sockaddr_u *		maddr
 	)
 {
-#ifdef INCLUDE_IPV6_MULTICAST_SUPPORT
+# ifdef INCLUDE_IPV6_MULTICAST_SUPPORT
 	struct ipv6_mreq mreq6;
-#endif
+# endif
 	struct ip_mreq mreq;
 
 	ZERO(mreq);
@@ -2567,7 +2567,7 @@ socket_multicast_disable(
 		}
 		break;
 	case AF_INET6:
-#ifdef INCLUDE_IPV6_MULTICAST_SUPPORT
+# ifdef INCLUDE_IPV6_MULTICAST_SUPPORT
 		/*
 		 * Disable reception of multicast packets
 		 * If the address is link-local we can get the
@@ -2589,9 +2589,9 @@ socket_multicast_disable(
 			return ISC_FALSE;
 		}
 		break;
-#else
+# else
 		return ISC_FALSE;
-#endif	/* INCLUDE_IPV6_MULTICAST_SUPPORT */
+# endif	/* INCLUDE_IPV6_MULTICAST_SUPPORT */
 	}
 
 	iface->num_mcast--;
@@ -2737,7 +2737,7 @@ io_multicast_add(
 		return;
 	}
 
-#ifndef MULTICAST_NONEWSOCKET
+# ifndef MULTICAST_NONEWSOCKET
 	ep = new_interface(NULL);
 
 	/*
@@ -2787,7 +2787,7 @@ io_multicast_add(
 	}
 	{	/* in place of the { following for in #else clause */
 		one_ep = ep;
-#else	/* MULTICAST_NONEWSOCKET follows */
+# else	/* MULTICAST_NONEWSOCKET follows */
 	/*
 	 * For the case where we can't use a separate socket (Windows)
 	 * join each applicable endpoint socket to the group address.
@@ -2802,7 +2802,7 @@ io_multicast_add(
 		    (INT_LOOPBACK | INT_WILDCARD) & ep->flags)
 			continue;
 		one_ep = ep;
-#endif	/* MULTICAST_NONEWSOCKET */
+# endif	/* MULTICAST_NONEWSOCKET */
 		if (socket_multicast_enable(ep, addr))
 			msyslog(LOG_INFO,
 				"Joined %s socket to multicast group %s",
