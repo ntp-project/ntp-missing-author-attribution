@@ -3,6 +3,7 @@ Below are from 4.2.8p4:
 * [Bug 2332] (reopened) Exercise thread cancellation once before dropping
   privileges and limiting resources in NTPD removes the need to link
   forcefully against 'libgcc_s' which does not always work. J.Perlinger
+* [Bug 2888] streamline calendar functions.  perlinger@ntp.org
 * Implement --disable-problem-tests (off by default).  Harlan Stenn.
 (4.3.73) 2015/09/29 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
