@@ -23,7 +23,7 @@ SUBDIRS =		\
 	tests		\
 	$(NULL)
 
-DISTCHECK_CONFIGURE_FLAGS = -C --with-sntp --enable-local-libevent
+DISTCHECK_CONFIGURE_FLAGS = -C --with-sntp --enable-local-libevent $(NTP_DCF)
 
 EXTRA_DIST =			\
 	$(srcdir)/COPYRIGHT	\

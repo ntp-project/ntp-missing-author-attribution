@@ -597,7 +597,8 @@ fixed formatting. Tomasz Flendrich
 * gcc on older HPUX may need +allowdups.  Harlan Stenn.
 * Adding missing MCAST protection.  Harlan Stenn.
 * Disable certain test programs on certain platforms.  Harlan Stenn.
-* Implement --disable-problem-tests (off by default).  Harlan Stenn.
+* Implement --enable-problem-tests (on by default).  Harlan Stenn.
+* build system tweaks.  Harlan Stenn.
 ---
 (4.2.8p3) 2015/06/29 Released by Harlan Stenn <stenn@ntp.org>
 
