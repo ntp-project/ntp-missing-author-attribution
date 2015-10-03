@@ -1,4 +1,6 @@
 ---
+* [TALOS-CAN-0055] Infinite loop if extended logging enabled and
+  the logfile and keyfile are the same. perlinger@ntp.org
 * [TALOS-CAN-0062] prevent directory traversal for VMS, too, when
   using 'saveconfig' command.  perlinger@ntp.org
 * [TALOS-CAN-0064] signed/unsiged clash could lead to buffer overun
