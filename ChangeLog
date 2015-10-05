@@ -1,5 +1,5 @@
 ---
-* CVE-2014-9297  perlinger@ntp.org
+* [Sec 2899] CVE-2014-9297  perlinger@ntp.org
 * [Bug 2332] (reopened) Exercise thread cancellation once before dropping
   privileges and limiting resources in NTPD removes the need to link
   forcefully against 'libgcc_s' which does not always work. J.Perlinger
