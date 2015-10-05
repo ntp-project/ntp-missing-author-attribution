@@ -4051,11 +4051,11 @@ crypto_config(
 }
 
 /*
- * Get payload size (internal value length) of an extension packet. If
- * the inner value length does not match the outer packet length (that
+ * Get the  payload size (internal value length) of an extension packet.
+ * If the inner value size does not match the outer packet size (that
  * is, the value would end behind the frame given by the opcode/size
- * field) the function will efectively return UINT_MAX. If the frame is
- * too short to holda variable-sized value, the return value is zero.
+ * field) the function will effectively return UINT_MAX. If the frame is
+ * too short to hold a variable-sized value, the return value is zero.
  */
 static u_int
 exten_payload_size(
