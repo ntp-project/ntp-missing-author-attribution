@@ -525,6 +525,7 @@ crypto_recv(
 					rval = XEVNT_ERR;
 					break;
 				}
+				free(peer->cmmd); /* will be set again! */
 			}
 			fp = emalloc(len);
 			memcpy(fp, ep, len);
