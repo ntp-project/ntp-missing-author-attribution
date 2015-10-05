@@ -6,7 +6,7 @@
 #
 # EDIT THIS FILE WITH CAUTION  (invoke-summary.texi)
 #
-# It has been AutoGen-ed  October  1, 2015 at 11:53:52 AM by AutoGen 5.18.5
+# It has been AutoGen-ed  October  5, 2015 at 11:54:22 AM by AutoGen 5.18.5
 # From the definitions    summary-opts.def
 # and the template file   agtexi-cmd.tpl
 @end ignore
@@ -42,7 +42,7 @@ with a status code of 0.
 
 @exampleindent 0
 @example
-summary - compute various stastics from NTP stat files - Ver. 4.3.75
+summary - compute various stastics from NTP stat files - Ver. 4.3.76
 USAGE: summary [ -<flag> [<val>] | --<name>[@{=| @}<val>] ]... 
 
         --directory=str          Directory containing stat files

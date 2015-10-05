@@ -1,3 +1,4 @@
+(4.3.76) 2015/10/05 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * [Bug 2912] no munlockall() under Windows.  David Taylor, Harlan Stenn.
 (4.3.75) 2015/10/01 Released by Harlan Stenn <stenn@ntp.org>
