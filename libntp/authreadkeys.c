@@ -248,7 +248,7 @@ authreadkeys(
 	fclose(fp);
 	if (nerr > nerr_maxlimit) {
 		msyslog(LOG_ERR,
-			"authreadkeys: emergeny break after %u errors",
+			"authreadkeys: emergency break after %u errors",
 			nerr);
 		return (0);
 	} else if (nerr > nerr_loglimit) {
