@@ -2623,19 +2623,23 @@ config_rlimit(
 		case T_Memlock:
 			/* What if we HAVE_OPT(SAVECONFIGQUIT) ? */
 			if (rlimit_av->value.i == -1) {
+# if defined(HAVE_MLOCKALL)
 				if (cur_memlock != 0) {
 					if (-1 == munlockall()) {
 						msyslog(LOG_ERR, "munlockall() failed: %m");
 					}
 				}
 				cur_memlock = 0;
+# endif /* HAVE_MLOCKALL */
 			} else if (rlimit_av->value.i >= 0) {
 #if defined(RLIMIT_MEMLOCK)
+# if defined(HAVE_MLOCKALL)
 				if (cur_memlock != 1) {
 					if (-1 == mlockall(MCL_CURRENT|MCL_FUTURE)) {
 						msyslog(LOG_ERR, "mlockall() failed: %m");
 					}
 				}
+# endif /* HAVE_MLOCKALL */
 				ntp_rlimit(RLIMIT_MEMLOCK,
 					   (rlim_t)(rlimit_av->value.i * 1024 * 1024),
 					   1024 * 1024,
