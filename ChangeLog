@@ -1,3 +1,5 @@
+Below are from 4.2.8p4:
+* [Bug 2912] no munlockall() under Windows.  David Taylor, Harlan Stenn.
 (4.3.75) 2015/10/01 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * build system tweaks.  Harlan Stenn.
@@ -24,6 +26,7 @@ Below are from 4.2.8p4:
 * Update the patch for bug 2817.  Harlan Stenn.
 (4.3.71) 2015/09/15 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
+* [Bug 2907] dist* build targets require our libevent/ to be enabled.  HStenn.
 * Retire google test - phase I.  Harlan Stenn.
 * Unity test cleanup: move declaration of 'initializing'.  Harlan Stenn.
 (4.3.70) 2015/08/03 Released by Harlan Stenn <stenn@ntp.org>
