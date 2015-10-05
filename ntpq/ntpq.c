@@ -3361,12 +3361,17 @@ cookedprint(
 		}
 
 		if (output_raw != 0) {
+			/* TALOS-CAN-0063: avoid buffer overrun */
 			atoascii(name, MAXVARLEN, bn, sizeof(bn));
-			atoascii(value, MAXVALLEN, bv, sizeof(bv));
 			if (output_raw != '*') {
+				atoascii(value, MAXVALLEN,
+					 bv, sizeof(bv) - 1);
 				len = strlen(bv);
 				bv[len] = output_raw;
 				bv[len+1] = '\0';
+			} else {
+				atoascii(value, MAXVALLEN,
+					 bv, sizeof(bv));
 			}
 			output(fp, bn, bv);
 		}

@@ -3,6 +3,9 @@
 * [Sec 2902] configuration directives "pidfile" and "driftfile"
   should be local-only. perlinger@ntp.org (patch by Miroslav Lichvar)
 * [Sec 2909] added missing call to 'free()' in ntp_crypto.c. perlinger@ntp.org
+* [Sec 2913] TALOS-CAN-0052: crash by loop counter underrun. perlinger@ntp.org
+* [Sec 2916] TALOS-CAN-0054: memory corruption in password store. JPerlinger
+* [Bug 2919] TALOS-CAN-0063: avoid buffer overrun in ntpq. perlinger@ntp.org
 * [Bug 2332] (reopened) Exercise thread cancellation once before dropping
   privileges and limiting resources in NTPD removes the need to link
   forcefully against 'libgcc_s' which does not always work. J.Perlinger
