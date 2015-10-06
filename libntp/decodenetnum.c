@@ -36,7 +36,10 @@ decodenetnum(
 	char name[80];
 
 	REQUIRE(num != NULL);
-	REQUIRE(strlen(num) < sizeof(name));
+
+	if (strlen(num) >= sizeof(name)) {
+		return 0;
+	}
 
 	port_str = NULL;
 	if ('[' != num[0]) {
