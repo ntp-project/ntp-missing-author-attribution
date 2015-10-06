@@ -12,6 +12,7 @@
 * [Bug 2919] TALOS-CAN-0063: avoid buffer overrun in ntpq. perlinger@ntp.org
 * [Sec 2020] TALOS-CAN-0064: signed/unsiged clash could lead to buffer overun
   and memory corruption. perlinger@ntp.org
+* [Sec 2921] TALOS-CAN-0065: password length memory corruption. JPerlinger.
 * [Bug 2332] (reopened) Exercise thread cancellation once before dropping
   privileges and limiting resources in NTPD removes the need to link
   forcefully against 'libgcc_s' which does not always work. J.Perlinger
