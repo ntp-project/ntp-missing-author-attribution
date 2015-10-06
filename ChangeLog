@@ -1,3 +1,4 @@
+* [Bug 2901] Drop invalid packet before checking KoD. Check for all KoD's
 ---
 * [Sec 2899] CVE-2014-9297  perlinger@ntp.org
 * [Sec 2902] configuration directives "pidfile" and "driftfile"

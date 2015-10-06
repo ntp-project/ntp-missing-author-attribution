@@ -37,6 +37,19 @@
 #define	AUTH_CRYPTO	3	/* crypto_NAK */
 
 /*
+ * Set up Kiss Code values
+ */
+
+enum kiss_codes {
+	NOKISS,				/* No Kiss Code */
+	RATEKISS,			/* Rate limit Kiss Code */
+	DENYKISS,			/* Deny Kiss */
+	RSTRKISS,			/* Restricted Kiss */
+	XKISS,				/* Experimental Kiss */
+	UNKNOWNKISS			/* Unknown Kiss Code */
+};
+
+/*
  * traffic shaping parameters
  */
 #define	NTP_IBURST	6	/* packets in iburst */
@@ -139,6 +152,7 @@ u_long	sys_declined;		/* declined */
 u_long	sys_limitrejected;	/* rate exceeded */
 u_long	sys_kodsent;		/* KoD sent */
 
+static int kiss_code_check(u_char hisleap, u_char hisstratum, u_char hismode, u_int32 refid);
 static	double	root_distance	(struct peer *);
 static	void	clock_combine	(peer_select *, int, int);
 static	void	peer_xmit	(struct peer *);
@@ -185,7 +199,33 @@ set_sys_leap(u_char new_sys_leap) {
 	}
 }
 
+/*
+ * Kiss Code check
+ */
+int kiss_code_check(u_char hisleap, u_char hisstratum, u_char hismode, u_int32 refid) {
 
+		if (hismode == MODE_SERVER && hisleap == LEAP_NOTINSYNC &&
+			hisstratum == STRATUM_UNSPEC) {
+				if(memcmp(&refid,"RATE", 4) == 0) {
+					return (RATEKISS);	
+				}
+				else if(memcmp(&refid,"DENY", 4) == 0) {
+					return (DENYKISS);	
+				}
+				else if(memcmp(&refid,"RSTR", 4) == 0) {
+					return (RSTRKISS);	
+				}
+				else if(memcmp(&refid,"X", 1) == 0) {
+					return (XKISS);	
+				}
+				else {
+					return (UNKNOWNKISS);
+				}
+		}
+		else {
+			return (NOKISS);
+		}
+}
 /*
  * transmit - transmit procedure called by poll timeout
  */
@@ -392,6 +432,7 @@ receive(
 	u_char	hismode;		/* packet mode */
 	u_char	hisstratum;		/* packet stratum */
 	u_short	restrict_mask;		/* restrict bits */
+	int kissCode = NOKISS;	/* Kiss Code */
 	int	has_mac;		/* length of MAC field */
 	int	authlen;		/* offset of MAC field */
 	int	is_authentic = 0;	/* cryptosum ok */
@@ -1266,6 +1307,7 @@ receive(
 				peer->flip = 1;
 				report_event(PEVNT_XLEAVE, peer, NULL);
 			}
+			return; /* Bogus packet, we are done */
 		} else {
 			L_CLR(&peer->aorg);
 		}
@@ -1287,6 +1329,7 @@ receive(
 		peer->bogusorg++;
 		peer->flags |= FLAG_XBOGUS;
 		peer->flash |= TEST2;		/* bogus */
+		return; /* Bogus packet, we are done */
 	}
 
 	/*
@@ -1351,11 +1394,22 @@ receive(
 	 * this maximum and advance the headway to give the sender some
 	 * headroom. Very intricate.
 	 */
+
+	/*
+	 * Check for any kiss codes. Note this is only used when a server
+	 * responds to a packet request
+	 */
+
+	kissCode = kiss_code_check(hisleap, hisstratum, hismode, pkt->refid);
+
+	/*
+	 * Check to see if this is a RATE Kiss Code
+	 * Currently this kiss code will accept whatever poll
+	 * rate that the server sends
+	 */
 	peer->ppoll = max(peer->minpoll, pkt->ppoll);
-	if (hismode == MODE_SERVER && hisleap == LEAP_NOTINSYNC &&
-	    hisstratum == STRATUM_UNSPEC && memcmp(&pkt->refid,
-	    "RATE", 4) == 0) {
-		peer->selbroken++;
+	if (kissCode == RATEKISS) {
+		peer->selbroken++;	/* Increment the KoD count */
 		report_event(PEVNT_RATE, peer, NULL);
 		if (pkt->ppoll > peer->minpoll)
 			peer->minpoll = peer->ppoll;
@@ -1364,6 +1418,11 @@ receive(
 		poll_update(peer, pkt->ppoll);
 		return;				/* kiss-o'-death */
 	}
+	if (kissCode != NOKISS) {
+		peer->selbroken++;	/* Increment the KoD count */
+		return;		/* Drop any other kiss code packets */
+	}
+
 
 	/*
 	 * That was hard and I am sweaty, but the packet is squeaky
@@ -1540,9 +1599,7 @@ process_packet(
 	sys_processed++;
 	peer->processed++;
 	p_del = FPTOD(NTOHS_FP(pkt->rootdelay));
-#ifdef __GNUC__
-	p_offset = 0;		/* quiet bogus uninitialized value warning */
-#endif
+	p_offset = 0;
 	p_disp = FPTOD(NTOHS_FP(pkt->rootdisp));
 	NTOHL_FP(&pkt->reftime, &p_reftime);
 	NTOHL_FP(&pkt->org, &p_org);
@@ -2744,7 +2801,7 @@ clock_select(void)
 	}
 
 	/*
-	 * Now, vote outliers off the island by select jitter weighted
+	 * Now, vote outlyers off the island by select jitter weighted
 	 * by root distance. Continue voting as long as there are more
 	 * than sys_minclock survivors and the select jitter of the peer
 	 * with the worst metric is greater than the minimum peer
