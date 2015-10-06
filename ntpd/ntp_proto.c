@@ -1306,11 +1306,17 @@ receive(
 	 * Check for bogus packet in basic mode. If found, switch to
 	 * interleaved mode and resynchronize, but only after confirming
 	 * the packet is not bogus in symmetric interleaved mode.
+	 *
+	 * This could also mean somebody is forging packets claiming to
+	 * be from us, attempting to cause our server to KoD us.
 	 */
 	} else if (peer->flip == 0) {
 		if (!L_ISEQU(&p_org, &peer->aorg)) {
 			peer->bogusorg++;
 			peer->flash |= TEST2;	/* bogus */
+			msyslog(LOG_INFO,
+				"receive: Unexpected origin timestamp from %s",
+				ntoa(&peer->srcadr));
 			if (  !L_ISZERO(&peer->dst)
 			    && L_ISEQU(&p_org, &peer->dst)) {
 				peer->flip = 1;
@@ -3768,7 +3774,7 @@ pool_xmit(
 				pool->hostname));
 		else
 			msyslog(LOG_ERR,
-				"unable to start pool DNS %s %m",
+				"unable to start pool DNS %s: %m",
 				pool->hostname);
 		return;
 	}

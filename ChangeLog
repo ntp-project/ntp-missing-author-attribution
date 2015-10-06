@@ -1,7 +1,7 @@
 ---
 * [Sec 2899] CVE-2014-9297  perlinger@ntp.org
 * [Sec 2901] Drop invalid packet before checking KoD. Check for all KoD's.
-  Danny Mayer.
+  Danny Mayer.  Log incoming packets that fail TEST2.  Harlan Stenn.
 * [Sec 2902] configuration directives "pidfile" and "driftfile"
   should be local-only. perlinger@ntp.org (patch by Miroslav Lichvar)
 * [Sec 2909] added missing call to 'free()' in ntp_crypto.c. perlinger@ntp.org
