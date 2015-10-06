@@ -1,4 +1,6 @@
 ---
+(4.2.8p4-RC1) 2015/10/06 Released by Harlan Stenn <stenn@ntp.org>
+
 * [Sec 2899] CVE-2014-9297  perlinger@ntp.org
 * [Sec 2901] Drop invalid packet before checking KoD. Check for all KoD's.
   Danny Mayer.  Log incoming packets that fail TEST2.  Harlan Stenn.
