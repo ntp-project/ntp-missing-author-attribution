@@ -1,4 +1,8 @@
 ---
+* [Bug 2939] reslist NULL pointer dereference
+  [Bug 2940] Stack exhaustion in recursive traversal of restriction list
+    These are actually fixed together. perlinger@ntp.org
+---
 (4.2.8p4-RC1) 2015/10/06 Released by Harlan Stenn <stenn@ntp.org>
 
 * [Bug 2332] (reopened) Exercise thread cancellation once before dropping
