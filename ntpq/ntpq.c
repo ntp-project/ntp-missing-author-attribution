@@ -2950,6 +2950,8 @@ nextvar(
 	len = srclen;
 	while (len > 0 && isspace((unsigned char)cp[len - 1]))
 		len--;
+	if (len >= sizeof(name))
+	    return 0;
 	if (len > 0)
 		memcpy(name, cp, len);
 	name[len] = '\0';
