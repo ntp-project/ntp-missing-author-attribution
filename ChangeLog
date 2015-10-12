@@ -1,4 +1,7 @@
 ---
+* [Bug 2938] ntpq saveconfig command allows dangerous characters
+  in filenames. perlinger@ntp.org
+---
 (4.2.8p4-RC1) 2015/10/06 Released by Harlan Stenn <stenn@ntp.org>
 
 * [Bug 2332] (reopened) Exercise thread cancellation once before dropping
