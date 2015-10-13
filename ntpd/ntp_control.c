@@ -944,6 +944,21 @@ save_config(
 {
 #ifdef SAVECONFIG
 	static const char savedconfig_eq[] = "savedconfig=";
+
+	/* Build a safe open mode from the available mode flags. We want
+	 * to create a new file and write it in text mode (when
+	 * applicable -- only Windows does this...)
+	 */
+	static const int openmode = O_CREAT | O_TRUNC | O_WRONLY
+#  if defined(O_EXCL)		/* posix, vms */
+	    | O_EXCL
+#  elif defined(_O_EXCL)	/* windows is alway very special... */
+	    | _O_EXCL
+#  endif
+#  if defined(_O_TEXT)		/* windows, again */
+	    | _O_TEXT
+#endif
+	    ; 
 	
 	char filespec[128];
 	char filename[128];
@@ -1063,15 +1078,14 @@ save_config(
 		return;
 	}
 
-	fd = open(fullpath, O_CREAT | O_TRUNC | O_WRONLY,
-		  S_IRUSR | S_IWUSR);
+	fd = open(fullpath, openmode, S_IRUSR | S_IWUSR);
 	if (-1 == fd)
 		fptr = NULL;
 	else
 		fptr = fdopen(fd, "w");
 
 	if (NULL == fptr || -1 == dump_all_config_trees(fptr, 1)) {
-		ctl_printf("Unable to save configuration to file '%s'",
+		ctl_printf("Unable to save configuration to file '%s': %m",
 			   filename);
 		msyslog(LOG_ERR,
 			"saveconfig %s from %s failed", filename,
