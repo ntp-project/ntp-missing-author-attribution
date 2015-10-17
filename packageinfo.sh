@@ -67,7 +67,7 @@ esac
 
 # Special.  Normally unused.  A suffix.
 #special=ag
-special=
+special=sec
 
 # prerelease can be empty, 'beta', or 'rc'.
 prerelease=rc
@@ -104,4 +104,4 @@ betapoint=0
 # - - prerelease is emptied
 # else (not in RC)
 # - rcpoint is empty and unused (for now).
-rcpoint=1
+rcpoint=2
