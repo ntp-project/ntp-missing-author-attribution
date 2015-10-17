@@ -1,4 +1,7 @@
 ---
+* [Bug 2941] NAK to the Future: Symmetric association authentication
+  bypass via crypto-NAK. Patch applied. perlinger@ntp.org
+---
 (4.2.8p4-RC1) 2015/10/06 Released by Harlan Stenn <stenn@ntp.org>
 
 * [Sec 2899] CVE-2014-9297  perlinger@ntp.org
