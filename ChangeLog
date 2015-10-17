@@ -1,5 +1,6 @@
 ---
-* [Bug 2941] NAK to the Future: Symmetric association authentication
+
+* [Sec 2941] NAK to the Future: Symmetric association authentication
   bypass via crypto-NAK. Patch applied. perlinger@ntp.org
 ---
 (4.2.8p4-RC1) 2015/10/06 Released by Harlan Stenn <stenn@ntp.org>
@@ -21,6 +22,8 @@
   and memory corruption. perlinger@ntp.org
 * [Sec 2921] TALOS-CAN-0065: password length memory corruption. JPerlinger.
 * [Sec 2922] decodenetnum() will ASSERT botch instead of returning FAIL
+* [Sec 2941] NAK to the Future: Symmetric association authentication
+  bypass via crypto-NAK. Patch applied. perlinger@ntp.org
   on some bogus values.  Harlan Stenn.
 * [Bug 2332] (reopened) Exercise thread cancellation once before dropping
   privileges and limiting resources in NTPD removes the need to link
