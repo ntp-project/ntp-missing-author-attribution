@@ -1,4 +1,6 @@
 ---
+* [Bug 2945] Zero Origin Timestamp Bypass. perlinger@ntp.org
+---
 (4.2.8p4-RC1) 2015/10/06 Released by Harlan Stenn <stenn@ntp.org>
 
 * [Bug 2332] (reopened) Exercise thread cancellation once before dropping
