@@ -11,9 +11,9 @@ following 13 low-, medium-, and high-severity vulnerabilities:
 * Incomplete vallen (value length) checks in ntp_crypto.c, leading
   to potential crashes or potential code injection/information leakage.
 
-    References: Sec 2899, Sec 2671, CVE-2015-
+    References: Sec 2899, Sec 2671, CVE-2015-7691, CVE-2015-7692, CVE-2015-7702
     Affects: All ntp-4 releases up to, but not including 4.2.8p4,
-    	and 4.3.0 up to, but not including 4.3.XX
+    	and 4.3.0 up to, but not including 4.3.77
     CVSS: (AV:N/AC:H/Au:M/C:N/I:N/A:C) Base Score: 4.6
     Summary: The fix for CVE-2014-9750 was incomplete in that there were
     	certain code paths where a packet with particular autokey operations
@@ -28,9 +28,9 @@ following 13 low-, medium-, and high-severity vulnerabilities:
 
 * Clients that receive a KoD should validate the origin timestamp field.
 
-    References: Sec 2901 / CVE-2015-
+    References: Sec 2901 / CVE-2015-7704, CVE-2015-7705
     Affects: All ntp-4 releases up to, but not including 4.2.8p4,
-	and 4.3.0 up to, but not including 4.3.XX
+	and 4.3.0 up to, but not including 4.3.77
     CVSS: (AV:N/AC:M/Au:N/C:N/I:N/A:P) Base Score: 4.3-5.0 at worst
     Summary: An ntpd client that honors Kiss-of-Death responses will honor
     	KoD messages that have been forged by an attacker, causing it to
@@ -64,7 +64,7 @@ following 13 low-, medium-, and high-severity vulnerabilities:
 
   References: Sec 2902 / CVE-2015-5196
   Affects: All ntp-4 releases up to, but not including 4.2.8p4,
-	and 4.3.0 up to, but not including 4.3.XX
+	and 4.3.0 up to, but not including 4.3.77
    CVSS: (AV:N/AC:H/Au:M/C:N/I:C/A:C) Base Score: 6.2 worst case
    Summary: If ntpd is configured to allow for remote configuration,
 	and if the (possibly spoofed) source IP address is allowed to
@@ -90,7 +90,7 @@ following 13 low-, medium-, and high-severity vulnerabilities:
 
   References: Sec 2909 / CVE-2015-7701
   Affects: All ntp-4 releases that use autokey up to, but not
-    including 4.2.8p4, and 4.3.0 up to, but not including 4.3.XX
+    including 4.2.8p4, and 4.3.0 up to, but not including 4.3.77
   CVSS: (AV:N/AC:H/Au:M/C:N/I:N/A:C) Base Score: 0.0 best/usual case,
   	4.6 otherwise
   Summary: If ntpd is configured to use autokey, then an attacker can
@@ -107,7 +107,7 @@ following 13 low-, medium-, and high-severity vulnerabilities:
 
   References:  Sec 2913 / CVE-2015-7848 / TALOS-CAN-0052
   Affects: All ntp-4 releases up to, but not including 4.2.8p4,
-  	and 4.3.0 up to, but not including 4.3.XX
+  	and 4.3.0 up to, but not including 4.3.77
   CVSS: (AV:N/AC:H/Au:M/C:N/I:N/A:C) Base Score: 4.6
   Summary: If ntpd is configured to enable mode 7 packets, and if the
 	use of mode 7 packets is not properly protected thru the use of
@@ -132,7 +132,7 @@ Credit: This weakness was discovered by Aleksandar Nikolic of Cisco Talos.
 * memory corruption in password store
 
   References: Sec 2916 / CVE-2015-7849 / TALOS-CAN-0054
-  Affects: All ntp-4 releases up to, but not including 4.2.8p4, and 4.3.0 up to, but not including 4.3.XX
+  Affects: All ntp-4 releases up to, but not including 4.2.8p4, and 4.3.0 up to, but not including 4.3.77
   CVSS: (AV:N/AC:H/Au:M/C:N/I:C/A:C) Base Score: 6.8, worst case
   Summary: If ntpd is configured to allow remote configuration, and if
 	the (possibly spoofed) source IP address is allowed to send
@@ -159,7 +159,7 @@ Credit: This weakness was discovered by Aleksandar Nikolic of Cisco Talos.
 
     References: Sec 2917 / CVE-2015-7850 / TALOS-CAN-0055
     Affects: All ntp-4 releases up to, but not including 4.2.8p4,
-	and 4.3.0 up to, but not including 4.3.XX
+	and 4.3.0 up to, but not including 4.3.77
     CVSS: (AV:N/AC:H/Au:M/C:N/I:N/A:C) Base Score: 4.6, worst case
     Summary: If ntpd is configured to allow remote configuration, and if
 	the (possibly spoofed) source IP address is allowed to send
@@ -188,7 +188,7 @@ Credit: This weakness was discovered by Aleksandar Nikolic of Cisco Talos.
 
   References: Sec 2918 / CVE-2015-7851 / TALOS-CAN-0062
   Affects: All ntp-4 releases running under VMS up to, but not
-	including 4.2.8p4, and 4.3.0 up to, but not including 4.3.XX
+	including 4.2.8p4, and 4.3.0 up to, but not including 4.3.77
   CVSS: (AV:N/AC:H/Au:M/C:N/I:P/A:C) Base Score: 5.2, worst case
   Summary: If ntpd is configured to allow remote configuration, and if
 	the (possibly spoofed) IP address is allowed to send remote
@@ -213,7 +213,7 @@ Credit: This weakness was discovered by Aleksandar Nikolic of Cisco Talos.
 
   References: Sec 2919 / CVE-2015-7852 / TALOS-CAN-0063
   Affects: All ntp-4 releases running up to, but not including 4.2.8p4,
-	and 4.3.0 up to, but not including 4.3.XX
+	and 4.3.0 up to, but not including 4.3.77
   CVSS: (AV:N/AC:H/Au:N/C:N/I:P/A:P) Base Score: 4.0, worst case
   Summary: If an attacker can figure out the precise moment that ntpq
 	is listening for data and the port number it is listening on or
@@ -239,7 +239,7 @@ Credit: This weakness was discovered by Aleksandar Nikolic of Cisco Talos.
 
   References: Sec 2920 / CVE-2015-7853 / TALOS-CAN-0064
   Affects: Potentially all ntp-4 releases running up to, but not
-	including 4.2.8p4, and 4.3.0 up to, but not including 4.3.XX
+	including 4.2.8p4, and 4.3.0 up to, but not including 4.3.77
 	that have custom refclocks
   CVSS: (AV:L/AC:H/Au:M/C:C/I:C/A:C) Base Score: 0.0 usual case,
 	5.9 unusual worst case
@@ -265,7 +265,7 @@ Credit: This weakness was discovered by Aleksandar Nikolic of Cisco Talos.
 
   References: Sec 2921 / CVE-2015-7854 / TALOS-CAN-0065
   Affects: All ntp-4 releases up to, but not including 4.2.8p4, and
-  	4.3.0 up to, but not including 4.3.XX
+  	4.3.0 up to, but not including 4.3.77
   CVSS: (AV:N/AC:H/Au:M/C:C/I:C/A:C) Base Score: 0.0 best case,
   	1.7 usual case, 6.8, worst case
   Summary: If ntpd is configured to allow remote configuration, and if
@@ -294,7 +294,7 @@ Credit: This weakness was discovered by Aleksandar Nikolic of Cisco Talos.
 
   References: Sec 2922 / CVE-2015-7855
   Affects: All ntp-4 releases up to, but not including 4.2.8p4, and
-	4.3.0 up to, but not including 4.3.XX
+	4.3.0 up to, but not including 4.3.77
   CVSS: (AV:N/AC:H/Au:M/C:N/I:N/A:C) Base Score: 4.6, worst case
   Summary: If ntpd is fed a crafted mode 6 or mode 7 packet containing
 	an unusually long data value where a network address is expected,
@@ -317,9 +317,9 @@ Credit: This weakness was discovered by Aleksandar Nikolic of Cisco Talos.
 * NAK to the Future: Symmetric association authentication bypass via
   crypto-NAK.
 
-  References: Sec 2941 / CVE-2015-XXX
+  References: Sec 2941 / CVE-2015-7871
   Affects: All ntp-4 releases between 4.2.5p186 up to but not including
-  	4.2.8p4, and 4.3.0 up to but not including 4.3.XX
+  	4.2.8p4, and 4.3.0 up to but not including 4.3.77
   CVSS: (AV:N/AC:L/Au:N/C:N/I:P/A:P) Base Score: 6.4
   Summary: Crypto-NAK packets can be used to cause ntpd to accept time
 	from unauthenticated ephemeral symmetric peers by bypassing the
