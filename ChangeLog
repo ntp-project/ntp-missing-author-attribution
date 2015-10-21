@@ -1,3 +1,25 @@
+Below are from 4.2.8p4:
+
+* [Sec 2899] CVE-2014-9297  perlinger@ntp.org
+* [Sec 2901] Drop invalid packet before checking KoD. Check for all KoD's.
+  Danny Mayer.  Log incoming packets that fail TEST2.  Harlan Stenn.
+* [Sec 2902] configuration directives "pidfile" and "driftfile"
+  should be local-only. perlinger@ntp.org (patch by Miroslav Lichvar)
+* [Sec 2909] added missing call to 'free()' in ntp_crypto.c. perlinger@ntp.org
+* [Sec 2913] TALOS-CAN-0052: crash by loop counter underrun. perlinger@ntp.org
+* [Sec 2916] TALOS-CAN-0054: memory corruption in password store. JPerlinger
+* [Sec 2917] TALOS-CAN-0055: Infinite loop if extended logging enabled and
+  the logfile and keyfile are the same. perlinger@ntp.org
+* [Sec 1918] TALOS-CAN-0062: prevent directory traversal for VMS, too, when
+  using 'saveconfig' command.  perlinger@ntp.org
+* [Bug 2919] TALOS-CAN-0063: avoid buffer overrun in ntpq. perlinger@ntp.org
+* [Sec 2020] TALOS-CAN-0064: signed/unsiged clash could lead to buffer overun
+  and memory corruption. perlinger@ntp.org
+* [Sec 2921] TALOS-CAN-0065: password length memory corruption. JPerlinger.
+* [Sec 2922] decodenetnum() will ASSERT botch instead of returning FAIL
+  on some bogus values.  Harlan Stenn.
+* [Sec 2941] NAK to the Future: Symmetric association authentication
+  bypass via crypto-NAK. Patch applied. perlinger@ntp.org
 (4.3.76) 2015/10/05 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p4:
 * [Bug 2912] no munlockall() under Windows.  David Taylor, Harlan Stenn.
