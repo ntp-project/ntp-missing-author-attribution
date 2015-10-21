@@ -884,6 +884,28 @@ save_config(
 	int restrict_mask
 	)
 {
+	/* block directory traversal by searching for characters that
+	 * indicate directory components in a file path.
+	 *
+	 * Conceptually we should be searching for DIRSEP in filename,
+	 * however Windows actually recognizes both forward and
+	 * backslashes as equivalent directory separators at the API
+	 * level.  On POSIX systems we could allow '\\' but such
+	 * filenames are tricky to manipulate from a shell, so just
+	 * reject both types of slashes on all platforms.
+	 */	
+	/* TALOS-CAN-0062: block directory traversal for VMS, too */
+	static const char * illegal_in_filename =
+#if defined(VMS)
+	    ":[]"	/* do not allow drive and path components here */
+#elif defined(SYS_WINNT)
+	    ":\\/"	/* path and drive separators */
+#else
+	    "\\/"	/* separator and critical char for POSIX */
+#endif
+	    ;
+
+
 	char reply[128];
 #ifdef SAVECONFIG
 	char filespec[128];
@@ -938,15 +960,9 @@ save_config(
 			       localtime(&now)))
 		strlcpy(filename, filespec, sizeof(filename));
 
-	/*
-	 * Conceptually we should be searching for DIRSEP in filename,
-	 * however Windows actually recognizes both forward and
-	 * backslashes as equivalent directory separators at the API
-	 * level.  On POSIX systems we could allow '\\' but such
-	 * filenames are tricky to manipulate from a shell, so just
-	 * reject both types of slashes on all platforms.
-	 */
-	if (strchr(filename, '\\') || strchr(filename, '/')) {
+	/* block directory/drive traversal */
+	/* TALOS-CAN-0062: block directory traversal for VMS, too */
+	if (NULL != strpbrk(filename, illegal_in_filename)) {
 		snprintf(reply, sizeof(reply),
 			 "saveconfig does not allow directory in filename");
 		ctl_putdata(reply, strlen(reply), 0);

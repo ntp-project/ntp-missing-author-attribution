@@ -3242,7 +3242,7 @@ read_refclock_packet(
 	l_fp			ts
 	)
 {
-	int			i;
+	u_int			read_count;
 	int			buflen;
 	int			saved_errno;
 	int			consumed;
@@ -3261,12 +3261,15 @@ read_refclock_packet(
 		return (buflen);
 	}
 
-	i = (rp->datalen == 0
-	     || rp->datalen > (int)sizeof(rb->recv_space))
-		? (int)sizeof(rb->recv_space)
-		: rp->datalen;
+	/* TALOS-CAN-0064: avoid signed/unsigned clashes that can lead
+	 * to buffer overrun and memory corruption
+	 */
+	if (rp->datalen <= 0 || rp->datalen > sizeof(rb->recv_space))
+		read_count = sizeof(rb->recv_space);
+	else
+		read_count = (u_int)rp->datalen;
 	do {
-		buflen = read(fd, (char *)&rb->recv_space, (u_int)i);
+		buflen = read(fd, (char *)&rb->recv_space, read_count);
 	} while (buflen < 0 && EINTR == errno);
 
 	if (buflen <= 0) {
