@@ -3,10 +3,10 @@ NTP 4.2.8p4
 
 Focus: Security, Bug fies, enhancements.
 
-Severity: HIGH
+Severity: MEDIUM
 
 In addition to bug fixes and enhancements, this release fixes the
-following 13 low-, medium-, and high-severity vulnerabilities:
+following 13 low- and medium-severity vulnerabilities:
 
 * Incomplete vallen (value length) checks in ntp_crypto.c, leading
   to potential crashes or potential code injection/information leakage.
