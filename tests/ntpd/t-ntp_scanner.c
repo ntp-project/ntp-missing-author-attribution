@@ -32,7 +32,7 @@ void test_keywordIncorrectToken(void){
 }
 
 void test_keywordServerToken(void){
-	char * temp = keyword(401);
+	char * temp = keyword(T_Server);
 	//printf("%s",temp); //143 or 401 ?
 	TEST_ASSERT_EQUAL_STRING("server",temp);
 }
