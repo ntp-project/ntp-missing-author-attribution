@@ -1,5 +1,6 @@
 Below are from 4.2.8p5:
 * [Sec 2956] small-step/big-step.  Close the panic gate earlier.  HStenn.
+* [Bug 2934] tests/ntpd/t-ntp_scanner.c has a magic constant wired in.  HMurray
 * [Bug 2954] Version 4.2.8p4 crashes on startup with sig fault
   - fixed data race conditions in threaded DNS worker. perlinger@ntp.org
   - limit threading warm-up to linux; FreeBSD bombs on it. perlinger@ntp.org
