@@ -43,6 +43,9 @@ stop_server(int a) {
  * wait for SNMP requests coming from the master agent 
  */
 
+int allow_panic = FALSE;	/* Glue for Bug 2956 */
+int enable_panic_check = TRUE;	/* Can we check allow_panic's state? */
+
 int
 main (int argc, char **argv) {
   int background = 0; /* start as background process */
