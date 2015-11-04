@@ -198,6 +198,9 @@ int verbose = 0;
 int always_step = 0;
 int never_step = 0;
 
+int allow_panic = FALSE;	/* glue for bug 2956 */
+int enable_panic_check = TRUE;	/* Can we check allow_panic's state? */
+
 int 	ntpdatemain (int, char **);
 
 static	void	transmit	(struct server *);
