@@ -408,6 +408,7 @@ extern int	hardpps_enable;		/* kernel PPS discipline enabled */
 extern int	ext_enable;		/* external clock enabled */
 extern int	cal_enable;		/* refclock calibrate enable */
 extern int	allow_panic;		/* allow panic correction (-g) */
+extern int	enable_panic_check;	/* Can we check allow_panic's state? */
 extern int	force_step_once;	/* always step time once at startup (-G) */
 extern int	mode_ntpdate;		/* exit on first clock set (-q) */
 extern int	peer_ntpdate;		/* count of ntpdate peers */
