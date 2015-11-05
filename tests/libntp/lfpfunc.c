@@ -283,15 +283,15 @@ eps(double d)
 //----------------------------------------------------------------------
 void
 test_AdditionLR(void) {
-	
 	size_t idx = 0;
+
 	for (idx = 0; idx < addsub_cnt; ++idx) {
 		l_fp op1 = l_fp_init(addsub_tab[idx][0].h, addsub_tab[idx][0].l);
 		l_fp op2 = l_fp_init(addsub_tab[idx][1].h, addsub_tab[idx][1].l);
-		l_fp exp = l_fp_init(addsub_tab[idx][2].h, addsub_tab[idx][2].l);
+		l_fp e_res = l_fp_init(addsub_tab[idx][2].h, addsub_tab[idx][2].l);
 		l_fp res = l_fp_add(op1, op2);		
 
-		TEST_ASSERT_EQUAL_l_fp(exp, res);
+		TEST_ASSERT_EQUAL_l_fp(e_res, res);
 	}	
 }
 
@@ -301,10 +301,10 @@ test_AdditionRL(void) {
 	for (idx = 0; idx < addsub_cnt; ++idx) {
 		l_fp op2 = l_fp_init(addsub_tab[idx][0].h, addsub_tab[idx][0].l);
 		l_fp op1 = l_fp_init(addsub_tab[idx][1].h, addsub_tab[idx][1].l);
-		l_fp exp = l_fp_init(addsub_tab[idx][2].h, addsub_tab[idx][2].l);
+		l_fp e_res = l_fp_init(addsub_tab[idx][2].h, addsub_tab[idx][2].l);
 		l_fp res = l_fp_add(op1, op2);
 
-		TEST_ASSERT_EQUAL_l_fp(exp, res);
+		TEST_ASSERT_EQUAL_l_fp(e_res, res);
 	}	
 }
 
@@ -318,11 +318,11 @@ test_SubtractionLR(void) {
 	size_t idx = 0;
 	for (idx = 0; idx < addsub_cnt; ++idx) {
 		l_fp op2 = l_fp_init(addsub_tab[idx][0].h, addsub_tab[idx][0].l);
-		l_fp exp = l_fp_init(addsub_tab[idx][1].h, addsub_tab[idx][1].l);
+		l_fp e_res = l_fp_init(addsub_tab[idx][1].h, addsub_tab[idx][1].l);
 		l_fp op1 = l_fp_init(addsub_tab[idx][2].h, addsub_tab[idx][2].l);
 		l_fp res = l_fp_subtract(op1, op2);
 		
-		TEST_ASSERT_EQUAL_l_fp(exp, res);		
+		TEST_ASSERT_EQUAL_l_fp(e_res, res);		
 	}	
 }
 
@@ -330,12 +330,12 @@ void
 test_SubtractionRL(void) {
 	size_t idx = 0;
 	for (idx = 0; idx < addsub_cnt; ++idx) {
-		l_fp exp = l_fp_init(addsub_tab[idx][0].h, addsub_tab[idx][0].l);
+		l_fp e_res = l_fp_init(addsub_tab[idx][0].h, addsub_tab[idx][0].l);
 		l_fp op2 = l_fp_init(addsub_tab[idx][1].h, addsub_tab[idx][1].l);
 		l_fp op1 = l_fp_init(addsub_tab[idx][2].h, addsub_tab[idx][2].l);
 		l_fp res = l_fp_subtract(op1, op2);
 
-		TEST_ASSERT_EQUAL_l_fp(exp, res);
+		TEST_ASSERT_EQUAL_l_fp(e_res, res);
 	}	
 }
 
