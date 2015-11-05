@@ -125,6 +125,7 @@ ltor(l_fp l)
 }
 
 
+int
 main()
 {
 	l_fp l;

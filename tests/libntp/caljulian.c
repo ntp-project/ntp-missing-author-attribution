@@ -105,24 +105,24 @@ test_LeapYear(void) {
 
 void
 test_uLongBoundary(void) {
-	u_long time = 4294967295UL; // 2036-02-07 6:28:15
+	u_long enc_time = 4294967295UL; // 2036-02-07 6:28:15
 	struct calendar expected = {2036,0,2,7,6,28,15};
 
 	struct calendar actual;
 
-	caljulian(time, &actual);
+	caljulian(enc_time, &actual);
 
 	TEST_ASSERT_TRUE(IsEqual(expected, actual));
 }
 
 void
 test_uLongWrapped(void) {
-	u_long time = 0;
+	u_long enc_time = 0;
 	struct calendar expected = {2036,0,2,7,6,28,16};
 
 	struct calendar actual;
 
-	caljulian(time, &actual);
+	caljulian(enc_time, &actual);
 
 	TEST_ASSERT_TRUE(IsEqual(expected, actual));
 }

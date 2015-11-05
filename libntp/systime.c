@@ -25,9 +25,8 @@
 # include <utmpx.h>
 #endif /* HAVE_UTMPX_H */
 
-/* The next line is from ntpd.h */
-extern int	allow_panic;		/* allow panic correction (-g) */
-extern int	enable_panic_check;	/* Can we check allow_panic's state? */
+int	allow_panic = FALSE;		/* allow panic correction (-g) */
+int	enable_panic_check = TRUE;	/* Can we check allow_panic's state? */
 
 #ifndef USE_COMPILETIME_PIVOT
 # define USE_COMPILETIME_PIVOT 1

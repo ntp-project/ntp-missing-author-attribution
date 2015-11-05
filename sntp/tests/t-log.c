@@ -8,6 +8,7 @@
 
 void testChangePrognameInMysyslog(void);
 void testOpenLogfileTest(void);
+void testWriteInCustomLogfile(void);
 
 
 //in var/log/syslog (may differ depending on your OS), logged name of the program will be "TEST_PROGNAME".

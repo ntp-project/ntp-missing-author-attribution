@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
   UnityBegin("t-log.c");
   RUN_TEST(testChangePrognameInMysyslog, 9);
   RUN_TEST(testOpenLogfileTest, 10);
-  RUN_TEST(testWriteInCustomLogfile, 35);
+  RUN_TEST(testWriteInCustomLogfile, 11);
 
   return (UnityEnd());
 }

@@ -154,8 +154,6 @@ int	hardpps_enable;		/* kernel PPS discipline enabled */
 int	ext_enable;		/* external clock enabled */
 int	pps_stratum;		/* pps stratum */
 int	kernel_status;		/* from ntp_adjtime */
-int	allow_panic = FALSE;	/* allow panic correction (-g) */
-int	enable_panic_check = TRUE;	/* Can we check allow_panic's state? */
 int	force_step_once = FALSE; /* always step time once at startup (-G) */
 int	mode_ntpdate = FALSE;	/* exit on first clock set (-q) */
 int	freq_cnt;		/* initial frequency clamp */

@@ -17,9 +17,6 @@
 #include "libntp.h"
 
 
-int allow_panic = FALSE;	/* Glue for bug 2956 */
-int enable_panic_check = TRUE;	/* Can we check allow_panic's state? */
-
 int shutting_down;
 int time_derived;
 int time_adjusted;
