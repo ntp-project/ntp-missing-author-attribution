@@ -1325,11 +1325,19 @@ receive(
 	 * interleaved mode and resynchronize, but only after confirming
 	 * the packet is not bogus in symmetric interleaved mode.
 	 *
+	 * Since a cleared 'aorg' is the indication for 'no response
+	 * pending' we have to test this explicitely. Of course, should
+	 * 'aorg' be all-zero because this was the original transmit
+	 * time stamp, we will drop the reply. There's a sub-second slot
+	 * every 136 years where this *might* happen, so we ignore this
+	 * possible drop of a valid response.
+	 *
 	 * This could also mean somebody is forging packets claiming to
 	 * be from us, attempting to cause our server to KoD us.
 	 */
 	} else if (peer->flip == 0) {
-		if (!L_ISEQU(&p_org, &peer->aorg)) {
+		if (L_ISZERO(&peer->aorg) ||
+		    !L_ISEQU(&p_org, &peer->aorg)) {
 			peer->bogusorg++;
 			peer->flash |= TEST2;	/* bogus */
 			msyslog(LOG_INFO,
