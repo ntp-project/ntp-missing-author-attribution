@@ -5,6 +5,10 @@
 * [Bug 2954] Version 4.2.8p4 crashes on startup with sig fault
   - fixed data race conditions in threaded DNS worker. perlinger@ntp.org
   - limit threading warm-up to linux; FreeBSD bombs on it. perlinger@ntp.org
+* [Bug 2957] 'unsigned int' vs 'size_t' format clash. perlinger@ntp.org
+  - accept key file only if there are no parsing errors
+  - fixed size_t/u_int format clash
+  - fixed wrong use of 'strlcpy'
 ---
 (4.2.8p4) 2015/10/21 Released by Harlan Stenn <stenn@ntp.org>
 (4.2.8p4-RC1) 2015/10/06 Released by Harlan Stenn <stenn@ntp.org>
