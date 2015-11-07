@@ -1,9 +1,9 @@
-.Dd October 22 2015
+.Dd November 7 2015
 .Dt PLOT_SUMMARY 1plot_summarymdoc User Commands
 .Os
 .\"  EDIT THIS FILE WITH CAUTION  (plot_summary-opts.mdoc)
 .\"
-.\"  It has been AutoGen-ed  October 22, 2015 at 11:54:43 AM by AutoGen 5.18.5
+.\"  It has been AutoGen-ed  November  7, 2015 at 03:55:13 AM by AutoGen 5.18.5
 .\"  From the definitions    plot_summary-opts.def
 .\"  and the template file   agmdoc-cmd.tpl
 .Sh NAME

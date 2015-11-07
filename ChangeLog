@@ -1,3 +1,4 @@
+(4.3.78) 2015/11/07 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p5:
 * [Sec 2956] small-step/big-step.  Close the panic gate earlier.  HStenn.
 * [Bug 2934] tests/ntpd/t-ntp_scanner.c has a magic constant wired in.  HMurray
