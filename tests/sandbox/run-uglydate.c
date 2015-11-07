@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 {
   progname = argv[0];
   UnityBegin("uglydate.c");
-  RUN_TEST(test_ConstantDateTime, 9);
+  RUN_TEST(test_ConstantDateTime, 8);
 
   return (UnityEnd());
 }
