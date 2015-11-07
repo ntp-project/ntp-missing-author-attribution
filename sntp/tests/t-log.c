@@ -44,7 +44,7 @@ void testWriteInCustomLogfile(void){
 	//sntp_init_logging(testName);
 
 	
-	msyslog(LOG_ERR, testString);
+	msyslog(LOG_ERR, "%s", testString);
 	FILE * f = fopen("testLogfile2.log","r");
 	char line[256];
 

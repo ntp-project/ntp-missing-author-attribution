@@ -5,6 +5,8 @@
 //#include "ntp_stdlib.h"
 //#include "libntptest.h"
 
+void test_ConstantDateTime(void);
+
 void
 test_ConstantDateTime(void) {
 	const u_int32 HALF = 2147483648UL;
