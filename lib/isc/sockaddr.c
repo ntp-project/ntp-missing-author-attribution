@@ -153,7 +153,7 @@ isc_sockaddr_totext(const isc_sockaddr_t *sockaddr, isc_buffer_t *target) {
 		return (ISC_R_FAILURE);
 	}
 
-	plen = strlen(pbuf);
+	plen = (unsigned int)strlen(pbuf);
 	INSIST(plen < sizeof(pbuf));
 
 	isc_netaddr_fromsockaddr(&netaddr, sockaddr);

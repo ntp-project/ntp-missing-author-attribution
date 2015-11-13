@@ -5,8 +5,11 @@
 //#include "ntp_stdlib.h"
 //#include "libntptest.h"
 
+extern void test_ConstantDateTime(void);
+
 void
-test_ConstantDateTime(void) {
+test_ConstantDateTime(void)
+{
 	const u_int32 HALF = 2147483648UL;
 
 	l_fp e_time = {{3485080800UL}, HALF}; // 2010-06-09 14:00:00.5

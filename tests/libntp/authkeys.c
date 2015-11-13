@@ -121,7 +121,7 @@ test_AddWithAuthUseKey(void) {
 	const keyid_t KEYNO = 5;
 	const char* KEY = "52a";
 
-	TEST_ASSERT_TRUE(authusekey(KEYNO, KEYTYPE, (u_char*)KEY));	
+	TEST_ASSERT_TRUE(authusekey(KEYNO, KEYTYPE, (const u_char*)KEY));	
 }
 
 void

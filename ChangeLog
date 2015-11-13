@@ -5,6 +5,12 @@
 * [Bug 2954] Version 4.2.8p4 crashes on startup with sig fault
   - fixed data race conditions in threaded DNS worker. perlinger@ntp.org
   - limit threading warm-up to linux; FreeBSD bombs on it. perlinger@ntp.org
+* [Bug 2962] truncation of size_t/ptrdiff_t on 64bit targets. perlinger@ntp.org
+  - fixed several other warnings (cast-alignment, missing const, missing prorotypes)
+  - promote use of 'size_t' for values that express a size
+  - use ptr-to-const for read-only arguments
+  - make sure SOCKET values are not truncated (win32-specific)
+  - format string fixes
 * Unity cleanup for FreeBSD-6.4.  Harlan Stenn.
 * Unity test cleanup.  Harlan Stenn.
 ---

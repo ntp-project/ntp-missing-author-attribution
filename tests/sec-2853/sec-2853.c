@@ -59,9 +59,9 @@ int basic_good( void )
 	failed = ( 4 != len );
 
 	if ( failed || verbose )
-		printf( "remoteconfig_cmdlength(\"%s\") returned %d, expected %d: %s\n",
+		printf( "remoteconfig_cmdlength(\"%s\") returned %llu, expected %u: %s\n",
 			string,
-			len,
+			(unsigned long long)len,
 			4,
 			failed ? "NO <<" : "yes" );
 
@@ -83,9 +83,9 @@ int embedded_nul( void )
 	failed = ( 3 != len );
 
 	if ( failed || verbose )
-		printf( "remoteconfig_cmdlength(\"%s\") returned %d, expected %d: %s\n",
+		printf( "remoteconfig_cmdlength(\"%s\") returned %llu, expected %u: %s\n",
 			string,
-			len,
+			(unsigned long long)len,
 			3,
 			failed ? "NO <<" : "yes" );
 
@@ -107,9 +107,9 @@ int trailing_space( void )
 	failed = ( 14 != len );
 
 	if ( failed || verbose )
-		printf( "remoteconfig_cmdlength(\"%s\") returned %d, expected %d: %s\n",
+		printf( "remoteconfig_cmdlength(\"%s\") returned %llu, expected %u: %s\n",
 			string,
-			len,
+			(unsigned long long)len,
 			14,
 			failed ? "NO <<" : "yes" );
 
