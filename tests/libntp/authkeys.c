@@ -130,5 +130,5 @@ test_EmptyKey(void) {
 	const char* KEY = "";
 
 
-	TEST_ASSERT_FALSE(authusekey(KEYNO, KEYTYPE, (u_char*)KEY));
+	TEST_ASSERT_FALSE(authusekey(KEYNO, KEYTYPE, (const u_char*)KEY));
 }
