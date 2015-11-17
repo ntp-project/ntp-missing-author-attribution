@@ -9,6 +9,12 @@
   - accept key file only if there are no parsing errors
   - fixed size_t/u_int format clash
   - fixed wrong use of 'strlcpy'
+* [Bug 2962] truncation of size_t/ptrdiff_t on 64bit targets. perlinger@ntp.org
+  - fixed several other warnings (cast-alignment, missing const, missing prototypes)
+  - promote use of 'size_t' for values that express a size
+  - use ptr-to-const for read-only arguments
+  - make sure SOCKET values are not truncated (win32-specific)
+  - format string fixes
 * [Bug 2965] Local clock didn't work since 4.2.8p4.  Martin Burnicki.
 * Unity cleanup for FreeBSD-6.4.  Harlan Stenn.
 * Unity test cleanup.  Harlan Stenn.

@@ -458,6 +458,7 @@ local_clock(
 	double	dtemp, etemp;	/* double temps */
 	char	tbuf[80];	/* report buffer */
 
+	(void)ntp_adj_ret; /* not always used below... */
 	/*
 	 * If the loop is opened or the NIST LOCKCLOCK is in use,
 	 * monitor and record the offsets anyway in order to determine
@@ -1066,6 +1067,7 @@ set_freq(
 	const char *	loop_desc;
 	int ntp_adj_ret;
 
+	(void)ntp_adj_ret; /* not always used below... */
 	drift_comp = freq;
 	loop_desc = "ntpd";
 #ifdef KERNEL_PLL

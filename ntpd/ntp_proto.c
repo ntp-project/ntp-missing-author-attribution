@@ -3565,7 +3565,7 @@ fast_xmit(
 	struct pkt xpkt;	/* transmit packet structure */
 	struct pkt *rpkt;	/* receive packet structure */
 	l_fp	xmt_tx, xmt_ty;
-	int	sendlen;
+	size_t	sendlen;
 #ifdef AUTOKEY
 	u_int32	temp32;
 #endif
@@ -3687,9 +3687,10 @@ fast_xmit(
 #ifdef DEBUG
 		if (debug)
 			printf(
-			    "transmit: at %ld %s->%s mode %d len %d\n",
+			    "transmit: at %ld %s->%s mode %d len %lu\n",
 			    current_time, stoa(&rbufp->dstadr->sin),
-			    stoa(&rbufp->recv_srcadr), xmode, sendlen);
+			    stoa(&rbufp->recv_srcadr), xmode,
+			    (u_long)sendlen);
 #endif
 		return;
 	}
@@ -3717,7 +3718,7 @@ fast_xmit(
 		 */
 		cookie = session_key(&rbufp->recv_srcadr,
 		    &rbufp->dstadr->sin, 0, sys_private, 0);
-		if (rbufp->recv_length > sendlen + (int)MAX_MAC_LEN) {
+		if ((size_t)rbufp->recv_length > sendlen + MAX_MAC_LEN) {
 			session_key(&rbufp->dstadr->sin,
 			    &rbufp->recv_srcadr, xkeyid, 0, 2);
 			temp32 = CRYPTO_RESP;
@@ -3744,9 +3745,10 @@ fast_xmit(
 #ifdef DEBUG
 	if (debug)
 		printf(
-		    "transmit: at %ld %s->%s mode %d keyid %08x len %d\n",
+		    "transmit: at %ld %s->%s mode %d keyid %08x len %lu\n",
 		    current_time, ntoa(&rbufp->dstadr->sin),
-		    ntoa(&rbufp->recv_srcadr), xmode, xkeyid, sendlen);
+		    ntoa(&rbufp->recv_srcadr), xmode, xkeyid,
+		    (u_long)sendlen);
 #endif
 }
 

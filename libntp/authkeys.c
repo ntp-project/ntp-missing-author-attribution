@@ -653,11 +653,11 @@ auth_agekeys(void)
  *
  * Returns length of authenticator field, zero if key not found.
  */
-int
+size_t
 authencrypt(
 	keyid_t		keyno,
 	u_int32 *	pkt,
-	int		length
+	size_t		length
 	)
 {
 	/*
@@ -687,8 +687,8 @@ int
 authdecrypt(
 	keyid_t		keyno,
 	u_int32 *	pkt,
-	int		length,
-	int		size
+	size_t		length,
+	size_t		size
 	)
 {
 	/*
