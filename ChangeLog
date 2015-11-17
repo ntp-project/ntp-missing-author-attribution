@@ -1,3 +1,4 @@
+(4.3.79) 2015/11/17 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p5:
 * [Bug 2932] Update leapsecond file info in miscopt.html.  CWoodbury, HStenn.
 * [Bug 2957] 'unsigned int' vs 'size_t' format clash. perlinger@ntp.org
