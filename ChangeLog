@@ -1,4 +1,8 @@
 Below are from 4.2.8p5:
+* [Bug 2957] 'unsigned int' vs 'size_t' format clash. perlinger@ntp.org
+  - accept key file only if there are no parsing errors
+  - fixed size_t/u_int format clash
+  - fixed wrong use of 'strlcpy'
 * [Bug 2965] Local clock didn't work since 4.2.8p4.  Martin Burnicki.
 * Unity test cleanup.  Harlan Stenn.
 (4.3.78) 2015/11/07 Released by Harlan Stenn <stenn@ntp.org>
