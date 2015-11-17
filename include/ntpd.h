@@ -156,7 +156,7 @@ extern	u_int	sys_tai;
 extern 	int	freq_cnt;
 
 /* ntp_monitor.c */
-#define MON_HASH_SIZE		(1U << mon_hash_bits)
+#define MON_HASH_SIZE		((size_t)1U << mon_hash_bits)
 #define MON_HASH_MASK		(MON_HASH_SIZE - 1)
 #define	MON_HASH(addr)		(sock_hash(addr) & MON_HASH_MASK)
 extern	void	init_mon	(void);

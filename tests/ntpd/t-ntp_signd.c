@@ -39,22 +39,29 @@ ssize_t read(int fd, void * buf, size_t len){
 
 //END OF MOCKED FUNCTIONS
 
-int isGE(int a,int b){ 
+static int
+isGE(int a,int b){ 
 	if(a >= b) {return 1;}
 	else {return 0;}
 }
 
+extern void test_connect_incorrect_socket(void);
+extern void test_connect_correct_socket(void);
+extern void test_write_all(void);
+extern void test_send_packet(void);
+extern void test_recv_packet(void);
+extern void test_send_via_ntp_signd(void);
+
 
 void 
-test_connect_incorrect_socket(void){
+test_connect_incorrect_socket(void)
+{
 	TEST_ASSERT_EQUAL(-1, ux_socket_connect(NULL));
 }
 
 void 
-test_connect_correct_socket(void){
-
-
-
+test_connect_correct_socket(void)
+{
 	int temp = ux_socket_connect("/socket");
 
 	//risky, what if something is listening on :123, or localhost isnt 127.0.0.1?
@@ -71,7 +78,8 @@ test_connect_correct_socket(void){
 
 
 void
-test_write_all(void){
+test_write_all(void)
+{
 	int fd = ux_socket_connect("/socket");
 	TEST_ASSERT_TRUE(isGE(fd,0));
 	char * str = "TEST123";
@@ -81,7 +89,8 @@ test_write_all(void){
 
 
 void
-test_send_packet(void){
+test_send_packet(void)
+{
 	int fd = ux_socket_connect("/socket");
 	char * str2 = "PACKET12345";
 	int temp = send_packet(fd, str2, strlen(str2));
@@ -90,19 +99,21 @@ test_send_packet(void){
 
 
 void
-test_recv_packet(void){
+test_recv_packet(void)
+{
 	int fd = ux_socket_connect("/socket");
-	int size = 256;	
-	char str[size];
+	uint32_t size = 256;	
+	char *str = NULL;
 
 	int temp = recv_packet(fd, &str, &size);
 	send_packet(fd, str, strlen(str));
+	free(str);
 	TEST_ASSERT_EQUAL(0,temp); //0 because nobody sent us anything (yet!)
 }
 
 void 
-test_send_via_ntp_signd(){
-
+test_send_via_ntp_signd(void)
+{
 	struct recvbuf *rbufp = (struct recvbuf *) malloc(sizeof(struct recvbuf));
 	int	xmode = 1;
 	keyid_t	xkeyid = 12345; 
