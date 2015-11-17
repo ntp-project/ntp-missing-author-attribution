@@ -1,4 +1,5 @@
 Below are from 4.2.8p5:
+* [Bug 2932] Update leapsecond file info in miscopt.html.  CWoodbury, HStenn.
 * [Bug 2957] 'unsigned int' vs 'size_t' format clash. perlinger@ntp.org
   - accept key file only if there are no parsing errors
   - fixed size_t/u_int format clash
