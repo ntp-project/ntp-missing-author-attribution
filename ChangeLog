@@ -10,6 +10,7 @@
   - accept key file only if there are no parsing errors
   - fixed size_t/u_int format clash
   - fixed wrong use of 'strlcpy'
+* [Bug 2958] ntpq: fatal error messages need a final newline. Craig Leres.
 * [Bug 2962] truncation of size_t/ptrdiff_t on 64bit targets. perlinger@ntp.org
   - fixed several other warnings (cast-alignment, missing const, missing prototypes)
   - promote use of 'size_t' for values that express a size
