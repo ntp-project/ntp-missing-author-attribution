@@ -35,7 +35,7 @@ struct l_fp_wrap {
 	l_fp V;
 	
 	
-	//bool operator == (const l_fp_wrap& rhs) const
+	//bool operator == (const l_fp_wrap &rhs) const
 	//	{ return L_ISEQU(&V, &rhs.V); }
 
 //---------------THIS HAS TO BE MANUALLY CONVERTED IN CODE!!!
@@ -45,28 +45,28 @@ struct l_fp_wrap {
 	//	{ return V; }
 //-----------------------------------------
 /*
-	l_fp_wrap & operator = (const l_fp_wrap& rhs)
+	l_fp_wrap &operator = (const l_fp_wrap &rhs)
 		{ V = rhs.V; return *this; }
-	l_fp_wrap& operator = (const l_fp& rhs)
+	l_fp_wrap &operator = (const l_fp &rhs)
 		{ V = rhs; return *this; }
 */
 };
 
-l_fp_wrap(l_fp V){
+l_fp_wrap(l_fp V) {
 	ZERO(V); }
-l_fp_wrap(l_fp V, u_int32 hi, u_int32 lo){
+l_fp_wrap(l_fp V, u_int32 hi, u_int32 lo) {
 	V.l_ui = hi; V.l_uf = lo; }
-l_fp_wrap(l_fp V, const l_fp &rhs){
+l_fp_wrap(l_fp V, const l_fp &rhs) {
 	V = rhs; }
 
-l_fp_wrap_equals(const l_fp_wrap& current, const l_fp_wrap& rhs) const // operator ==
+l_fp_wrap_equals(const l_fp_wrap &current, const l_fp_wrap &rhs) const // operator ==
 	{ return L_ISEQU(&current.V, &rhs.V); }
 
-l_fp_wrap_and(const l_fp_wrap& current, const l_fp_wrap& rhs){
+l_fp_wrap_and(const l_fp_wrap &current, const l_fp_wrap &rhs) {
 	V = rhs.V; 
 	return current//*this;
 }
-l_fp_wrap_and(const l_fp& current, const l_fp& rhs){ 
+l_fp_wrap_and(const l_fp &current, const l_fp &rhs) { 
 	V = rhs; 
 	return current//*this; 
 }
@@ -82,11 +82,11 @@ struct timeval_wrap {
 		{ ZERO(V); }
 	timeval_wrap(time_t hi, long lo)
 		{ V.tv_sec = hi; V.tv_usec = lo; }
-	timeval_wrap(const struct timeval & rhs)
+	timeval_wrap(const struct timeval &rhs)
 		{ V = rhs; }
-	timeval_wrap(const timeval_wrap & rhs)
+	timeval_wrap(const timeval_wrap &rhs)
 		{ V = rhs.V; }
-	bool operator == (const timeval_wrap& rhs) const
+	bool operator == (const timeval_wrap &rhs) const
 		{ return V.tv_sec == rhs.V.tv_sec &&
 			 V.tv_usec == rhs.V.tv_usec ; }
 	bool valid() const
@@ -95,9 +95,9 @@ struct timeval_wrap {
 		{ return &V; }
 	operator struct timeval& ()
 		{ return V; }
-	timeval_wrap& operator = (const timeval_wrap& rhs)
+	timeval_wrap &operator = (const timeval_wrap &rhs)
 		{ V = rhs.V; return *this; }
-	timeval_wrap& operator = (const struct timeval& rhs)
+	timeval_wrap &operator = (const struct timeval &rhs)
 		{ V = rhs; return *this; }
 };
 
@@ -110,11 +110,11 @@ struct timespec_wrap {
 		{ ZERO(V); }
 	timespec_wrap(time_t hi, long lo)
 		{ V.tv_sec = hi; V.tv_nsec = lo; }
-	timespec_wrap(const struct timespec & rhs)
+	timespec_wrap(const struct timespec &rhs)
 		{ V = rhs; }
-	timespec_wrap(const timespec_wrap & rhs)
+	timespec_wrap(const timespec_wrap &rhs)
 		{ V = rhs.V; }
-	bool operator == (const timespec_wrap& rhs) const
+	bool operator == (const timespec_wrap &rhs) const
 		{ return V.tv_sec == rhs.V.tv_sec &&
 			 V.tv_nsec == rhs.V.tv_nsec ; }
 	bool valid() const
@@ -123,9 +123,9 @@ struct timespec_wrap {
 		{ return &V; }
 	operator struct timespec& ()
 		{ return V;	}
-	timespec_wrap& operator = (const timespec_wrap& rhs)
+	timespec_wrap &operator = (const timespec_wrap &rhs)
 		{ V = rhs.V; return *this; }
-	timespec_wrap& operator = (const struct timespec& rhs)
+	timespec_wrap &operator = (const struct timespec &rhs)
 		{ V = rhs; return *this; }
 };
 
@@ -144,7 +144,7 @@ public:
 
 	::testing::AssertionResult
 	operator()(const char* m_expr, const char* n_expr,
-		   const l_fp & m, const l_fp & n);
+		   const l_fp &m, const l_fp &n);
 };
 
 
@@ -170,7 +170,7 @@ public:
 
 	::testing::AssertionResult
 	operator()(const char* m_expr, const char* n_expr,
-		   const struct timeval & m, const struct timeval & n);
+		   const struct timeval &m, const struct timeval &n);
 };
 
 
@@ -193,7 +193,7 @@ public:
 
 	::testing::AssertionResult
 	operator()(const char* m_expr, const char* n_expr,
-		   const struct timespec & m, const struct timespec & n);
+		   const struct timespec &m, const struct timespec &n);
 };
 
 
