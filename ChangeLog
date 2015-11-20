@@ -1,3 +1,7 @@
+Below are from 4.2.8p5:
+* [Bug 2969]  Seg fault from ntpq/mrulist when looking at server with
+              lots of clients. perlinger@ntp.org
+* Unity test cleanup.  Harlan Stenn.
 (4.3.79) 2015/11/17 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p5:
 * [Bug 2932] Update leapsecond file info in miscopt.html.  CWoodbury, HStenn.
