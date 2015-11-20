@@ -134,7 +134,7 @@ isc_sockaddr_totext(const isc_sockaddr_t *sockaddr, isc_buffer_t *target) {
 		break;
 #ifdef ISC_PLAFORM_HAVESYSUNH
 	case AF_UNIX:
-		plen = strlen(sockaddr->type.sunix.sun_path);
+		plen = (unsigned int)strlen(sockaddr->type.sunix.sun_path);
 		if (plen >= isc_buffer_availablelength(target))
 			return (ISC_R_NOSPACE);
 

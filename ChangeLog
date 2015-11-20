@@ -540,6 +540,8 @@ ntp-4.3 begins.
   - make sure SOCKET values are not truncated (win32-specific)
   - format string fixes
 * [Bug 2965] Local clock didn't work since 4.2.8p4.  Martin Burnicki.
+* [Bug 2969]  Seg fault from ntpq/mrulist when looking at server with
+              lots of clients. perlinger@ntp.org
 * Unity cleanup for FreeBSD-6.4.  Harlan Stenn.
 * Unity test cleanup.  Harlan Stenn.
 ---

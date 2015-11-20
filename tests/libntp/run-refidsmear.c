@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 {
   progname = argv[0];
   UnityBegin("refidsmear.c");
-  RUN_TEST(test_refidsmear, 36);
+  RUN_TEST(test_refidsmear, 35);
 
   return (UnityEnd());
 }
