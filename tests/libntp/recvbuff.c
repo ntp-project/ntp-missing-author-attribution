@@ -13,6 +13,9 @@ void
 setUp(void)
 {
 	init_recvbuff(RECV_INIT);
+	init_lib();
+
+	return;
 }
 
 void

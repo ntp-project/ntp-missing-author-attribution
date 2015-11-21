@@ -8,6 +8,7 @@
 
 static int leapdays(int year);
 
+void	setUp(void);
 int	isGT(int first, int second);
 int	leapdays(int year);
 char *	CalendarFromCalToString(const struct calendar *cal);
@@ -33,6 +34,16 @@ void	test_IsoCalYearsToWeeks(void);
 void	test_IsoCalWeeksToYearStart(void);
 void	test_IsoCalWeeksToYearEnd(void);
 void	test_DaySecToDate(void);
+
+
+void
+setUp(void)
+{
+	init_lib();
+
+	return;
+}
+
 
 /*
  * ---------------------------------------------------------------------

@@ -9,8 +9,18 @@
 /* Might need to be updated if a new refclock gets this id. */
 static const int UNUSED_REFCLOCK_ID = 250;
 
+void setUp(void);
 void test_LocalClock(void);
 void test_UnknownId(void);
+
+
+void
+setUp(void)
+{
+	init_lib();
+
+	return;
+}
 
 
 void

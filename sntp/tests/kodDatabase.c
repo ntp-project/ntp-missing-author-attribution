@@ -1,5 +1,6 @@
 #include "config.h"
 
+#include "ntp_workimpl.h"
 #include "ntp_types.h"
 #include "sntptest.h"
 #include "ntp_stdlib.h"
@@ -8,6 +9,10 @@
 #include "ntp_io.h"
 
 #include "unity.h"
+
+#ifndef WORK_FORK
+#include "GRONK: no WORK_FORK"
+#endif
 
 void setUp(void);
 void test_SingleEntryHandling(void);
@@ -20,6 +25,7 @@ void test_DeleteEntry(void);
 void
 setUp(void) {
 	kod_init_kod_db("/dev/null", TRUE);
+	init_lib();
 }
 
 

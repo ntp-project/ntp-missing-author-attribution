@@ -72,6 +72,7 @@ setUp()
 {
     ntpcal_set_timefunc(timefunc);
     settime(1970, 1, 1, 0, 0, 0);
+    init_lib();
 
     return;
 }
