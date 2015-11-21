@@ -54,14 +54,14 @@ int main(int argc, char *argv[])
 {
   progname = argv[0];
   UnityBegin("sfptostr.c");
-  RUN_TEST(test_PositiveInteger, 11);
-  RUN_TEST(test_NegativeInteger, 12);
-  RUN_TEST(test_PositiveIntegerPositiveFraction, 13);
-  RUN_TEST(test_NegativeIntegerNegativeFraction, 14);
-  RUN_TEST(test_PositiveIntegerNegativeFraction, 15);
-  RUN_TEST(test_NegativeIntegerPositiveFraction, 16);
-  RUN_TEST(test_SingleDecimalInteger, 17);
-  RUN_TEST(test_SingleDecimalRounding, 18);
+  RUN_TEST(test_PositiveInteger, 12);
+  RUN_TEST(test_NegativeInteger, 13);
+  RUN_TEST(test_PositiveIntegerPositiveFraction, 14);
+  RUN_TEST(test_NegativeIntegerNegativeFraction, 15);
+  RUN_TEST(test_PositiveIntegerNegativeFraction, 16);
+  RUN_TEST(test_NegativeIntegerPositiveFraction, 17);
+  RUN_TEST(test_SingleDecimalInteger, 18);
+  RUN_TEST(test_SingleDecimalRounding, 19);
 
   return (UnityEnd());
 }

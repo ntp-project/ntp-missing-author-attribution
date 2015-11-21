@@ -7,6 +7,7 @@
 #include "sockaddrtest.h"
 
 
+void setUp(void);
 void test_IPv4AddressWithPort(void);
 //#ifdef ISC_PLATFORM_HAVEIPV6
 void test_IPv6AddressWithPort(void);
@@ -15,6 +16,16 @@ void test_IgnoreIPv6Fields(void);
 void test_ScopedIPv6AddressWithPort(void);
 void test_HashEqual(void);
 void test_HashNotEqual(void);
+
+
+void
+setUp(void)
+{
+	init_lib();
+
+	return;
+}
+
 
 void 
 test_IPv4AddressWithPort(void) {

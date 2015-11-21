@@ -35,6 +35,7 @@ l_fp l_fp_init(int32 i, u_int32 f);
 bool AssertTimevalClose(const struct timeval m, const struct timeval n, const struct timeval limit);
 bool AssertFpClose(const l_fp m, const l_fp n, const l_fp limit);
 
+void setUp(void);
 void test_Helpers1(void);
 void test_Normalise(void);
 void test_SignNoFrac(void);
@@ -66,6 +67,15 @@ void test_ToString(void);
 
 
 //**********************************MY CUSTOM FUNCTIONS***********************
+
+
+void
+setUp(void)
+{
+	init_lib();
+
+	return;
+}
 
 
 struct timeval

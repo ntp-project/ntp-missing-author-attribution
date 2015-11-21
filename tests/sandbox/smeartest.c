@@ -131,6 +131,8 @@ main()
 	l_fp l;
 	int rc;
 
+	init_lib();
+
 	rtol(0xfe800000);
 	rtol(0xfe800001);
 	rtol(0xfe8ffffe);
