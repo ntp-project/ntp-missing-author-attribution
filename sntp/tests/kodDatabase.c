@@ -10,10 +10,6 @@
 
 #include "unity.h"
 
-#ifndef WORK_FORK
-#include "GRONK: no WORK_FORK"
-#endif
-
 void setUp(void);
 void test_SingleEntryHandling(void);
 void test_MultipleEntryHandling(void);
