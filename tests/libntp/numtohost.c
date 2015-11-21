@@ -5,7 +5,18 @@
 
 #include "unity.h"
 
+void setUp(void);
 void test_LoopbackNetNonResolve(void);
+
+
+void
+setUp(void)
+{
+	init_lib();
+
+	return;
+}
+
 
 void
 test_LoopbackNetNonResolve(void) {

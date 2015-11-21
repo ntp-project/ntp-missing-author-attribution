@@ -33,6 +33,7 @@ struct lfpfracdata {
 };
 
 
+void setUp(void);
 void test_Helpers1(void);
 void test_Normalise(void);
 void test_SignNoFrac(void);
@@ -74,6 +75,15 @@ bool		AssertTimespecClose(const struct timespec m,
 
 
 //***************************MY CUSTOM FUNCTIONS***************************
+
+
+void
+setUp(void)
+{
+	init_lib();
+
+	return;
+}
 
 
 const bool

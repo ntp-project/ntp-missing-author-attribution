@@ -5,7 +5,18 @@
 //#include "ntp_stdlib.h"
 //#include "libntptest.h"
 
+void setUp(void);
 void test_ConstantDateTime(void);
+
+
+void
+setUp(void)
+{
+	init_lib();
+
+	return;
+}
+
 
 void
 test_ConstantDateTime(void)

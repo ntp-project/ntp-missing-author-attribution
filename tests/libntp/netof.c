@@ -8,10 +8,20 @@
 #include "sockaddrtest.h"
 
 
+void setUp(void);
 void test_ClassBAddress(void);
 void test_ClassCAddress(void);
 void test_ClassAAddress(void);
 void test_IPv6Address(void);
+
+
+void
+setUp(void)
+{
+	init_lib();
+
+	return;
+}
 
 
 void

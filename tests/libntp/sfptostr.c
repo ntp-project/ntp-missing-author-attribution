@@ -8,6 +8,7 @@
  
 #define SFP_MAX_PRECISION 6
 
+void setUp(void);
 void test_PositiveInteger(void);
 void test_NegativeInteger(void);
 void test_PositiveIntegerPositiveFraction(void);
@@ -16,6 +17,15 @@ void test_PositiveIntegerNegativeFraction(void);
 void test_NegativeIntegerPositiveFraction(void);
 void test_SingleDecimalInteger(void);
 void test_SingleDecimalRounding(void);
+
+
+void
+setUp(void)
+{
+	init_lib();
+
+	return;
+}
 
 
 void test_PositiveInteger(void)
