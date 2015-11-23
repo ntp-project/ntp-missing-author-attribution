@@ -1,3 +1,4 @@
+(4.3.82) 2015/11/23 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p5:
 * CID 1339955: Free allocated memory in caljulian test.  HStenn.
 * CID 1339962: Explicitly initialize variable in caljulian test.  HStenn.
