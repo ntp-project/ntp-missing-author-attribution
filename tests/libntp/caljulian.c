@@ -23,8 +23,9 @@ char *
 CalendarToString(const struct calendar cal)
 {
 	char * str = emalloc (sizeof (char) * 100);
-
 	char buffer[100] ="";
+
+	*str = '\0';
 	snprintf(buffer, 100, "%u", cal.year);
 	strcat(str, buffer);
 	strcat(str, "-");
@@ -51,17 +52,22 @@ CalendarToString(const struct calendar cal)
 int // technically boolean
 IsEqual(const struct calendar expected, const struct calendar actual)
 {
-	if (expected.year == actual.year &&
-		(expected.yearday == actual.yearday ||
-		 (expected.month == actual.month &&
-		  expected.monthday == actual.monthday)) &&
-		expected.hour == actual.hour &&
-		expected.minute == actual.minute &&
-		expected.second == actual.second) {
+	if (   expected.year == actual.year
+	    && (   expected.yearday == actual.yearday
+		|| (   expected.month == actual.month
+		    && expected.monthday == actual.monthday))
+	    && expected.hour == actual.hour
+	    && expected.minute == actual.minute
+	    && expected.second == actual.second) {
 		return TRUE;
 	} else {
-		printf("expected: %s but was %s", CalendarToString(expected),
-			CalendarToString(actual));
+		char *p_exp, *p_act;
+
+		p_exp = CalendarToString(expected);
+		p_act = CalendarToString(actual);
+		printf("expected: %s but was %s", p_exp, p_act);
+		free(p_exp);
+		free(p_act);
 		return FALSE;
 	}
 }
