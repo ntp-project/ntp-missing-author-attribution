@@ -111,9 +111,14 @@ IsEqualCal(
 	    expected->second == actual->second) {
 		return TRUE;
 	} else {
-		printf("expected: %s but was %s",
-		       CalendarFromCalToString(expected),
-		       CalendarFromCalToString(actual));
+		char *p_exp = CalendarFromCalToString(expected);
+		char *p_act = CalendarFromCalToString(actual);
+
+		printf("expected: %s but was %s", p_exp, p_act);
+
+		free(p_exp);
+		free(p_act);
+
 		return FALSE;		  
 	}
 }
