@@ -25,19 +25,33 @@ connect(int socket, const struct sockaddr *address, socklen_t address_len)
 	return 1;
 }
 
-//mocked write will only send 4 bytes at a time. This is so write_all can be properly tested
+/*
+** Mocked read() and write() calls.
+**
+** These will only operate 4 bytes at a time.
+**
+** This is so write_all can be properly tested.
+*/
+
+static char rw_buf[4];
+
 ssize_t
 write(int fd, void const * buf, size_t len)
 {
-	if (len >= 4) {return 4;}
-	else return len;
+	REQUIRE(0 <= len);
+	if (len >= 4) len = 4;	/* 4 bytes, max */
+	(void)memcpy(rw_buf, buf, len);
+
+	return len;
 }
 
 ssize_t
 read(int fd, void * buf, size_t len)
 {
-	if (len >= 4) {return 4;}
-	else return len;
+	REQUIRE(0 <= len);
+	if (len >= 4) len = 4;
+	(void)memcpy(buf, rw_buf, len);
+	return len;
 }
 
 

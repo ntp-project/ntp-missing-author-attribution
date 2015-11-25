@@ -55,12 +55,12 @@ int main(int argc, char *argv[])
 {
   progname = argv[0];
   UnityBegin("t-ntp_signd.c");
-  RUN_TEST(test_connect_incorrect_socket, 53);
-  RUN_TEST(test_connect_correct_socket, 54);
-  RUN_TEST(test_write_all, 55);
-  RUN_TEST(test_send_packet, 56);
-  RUN_TEST(test_recv_packet, 57);
-  RUN_TEST(test_send_via_ntp_signd, 58);
+  RUN_TEST(test_connect_incorrect_socket, 67);
+  RUN_TEST(test_connect_correct_socket, 68);
+  RUN_TEST(test_write_all, 69);
+  RUN_TEST(test_send_packet, 70);
+  RUN_TEST(test_recv_packet, 71);
+  RUN_TEST(test_send_via_ntp_signd, 72);
 
   return (UnityEnd());
 }
