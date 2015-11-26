@@ -1,3 +1,5 @@
+Below are from 4.2.8p5:
+* Libevent autoconf pthread fixes for FreeBSD-10.  Harlan Stenn.
 (4.3.83) 2015/11/25 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p5:
 * Unity test cleanup.  Harlan Stenn.
