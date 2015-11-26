@@ -563,6 +563,7 @@ ntp-4.3 begins.
               lots of clients. perlinger@ntp.org
 * Unity cleanup for FreeBSD-6.4.  Harlan Stenn.
 * Unity test cleanup.  Harlan Stenn.
+* Libevent autoconf pthread fixes for FreeBSD-10.  Harlan Stenn.
 ---
 (4.2.8p4) 2015/10/21 Released by Harlan Stenn <stenn@ntp.org>
 (4.2.8p4-RC1) 2015/10/06 Released by Harlan Stenn <stenn@ntp.org>
