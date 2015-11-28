@@ -343,7 +343,7 @@ typedef struct var_display_collection_tag {
 /*
  * other local function prototypes
  */
-void		mrulist_ctrl_c_hook(void);
+static int	mrulist_ctrl_c_hook(void);
 static mru *	add_mru(mru *);
 static int	collect_mru_list(const char *, l_fp *);
 static int	fetch_nonce(char *, size_t);
@@ -2422,10 +2422,11 @@ add_mru(
 	} while (0)
 
 
-void
+int
 mrulist_ctrl_c_hook(void)
 {
 	mrulist_interrupted = TRUE;
+	return TRUE;
 }
 
 
@@ -2496,11 +2497,6 @@ collect_mru_list(
 	mon = emalloc_zero(cb);
 	ZERO(*pnow);
 	ZERO(last_older);
-	mrulist_interrupted = FALSE;
-	set_ctrl_c_hook(&mrulist_ctrl_c_hook);
-	fprintf(stderr,
-		"Ctrl-C will stop MRU retrieval and display partial results.\n");
-	fflush(stderr);
 	next_report = time(NULL) + MRU_REPORT_SECS;
 
 	limit = min(3 * MAXFRAGS, ntpd_row_limit);
@@ -2872,7 +2868,6 @@ collect_mru_list(
 		}
 	}
 
-	set_ctrl_c_hook(NULL);
 	c_mru_l_rc = TRUE;
 	goto retain_hash_table;
 
@@ -3082,6 +3077,12 @@ mrulist(
 	int lstint;
 	size_t i;
 
+	mrulist_interrupted = FALSE;
+	push_ctrl_c_handler(&mrulist_ctrl_c_hook);
+	fprintf(stderr,
+		"Ctrl-C will stop MRU retrieval and display partial results.\n");
+	fflush(stderr);
+
 	order = MRUSORT_DEF;
 	parms_buf[0] = '\0';
 	parms = parms_buf;
@@ -3222,6 +3223,8 @@ cleanup_return:
 	free(hash_table);
 	hash_table = NULL;
 	INIT_DLIST(mru_list, mlink);
+
+	pop_ctrl_c_handler(&mrulist_ctrl_c_hook);
 }
 
 
