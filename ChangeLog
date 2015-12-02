@@ -1,3 +1,4 @@
+(4.3.85) 2015/12/02 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p5:
 * [Bug 2829] Look at pipe_fds in ntpd.c  (did so. perlinger@ntp.org)
 * [Bug 2887] stratum -1 config results as showing value 99
