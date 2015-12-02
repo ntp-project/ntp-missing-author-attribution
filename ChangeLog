@@ -2,6 +2,8 @@ Below are from 4.2.8p5:
 * [Bug 2829] Look at pipe_fds in ntpd.c  (did so. perlinger@ntp.org)
 * [Bug 2887] stratum -1 config results as showing value 99
   - fudge stratum only accepts values [0..16]. perlinger@ntp.org
+* [Bug 2944] errno is not preserved properly in ntpdate after sendto call.
+  - applied patch by Christos Zoulas.  perlinger@ntp.org
 (4.3.84) 2015/11/26 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p5:
 * Libevent autoconf pthread fixes for FreeBSD-10.  Harlan Stenn.
