@@ -480,15 +480,16 @@ do_nodename(
 	 * set elsewhere so that we can set the appropriate wildcard
 	 */
 	if (nodename == NULL) {
-		ai->ai_addrlen = sizeof(struct sockaddr_storage);
 		if (ai->ai_family == AF_INET)
 		{
+			ai->ai_addrlen = sizeof(struct sockaddr_in);
 			sockin = (struct sockaddr_in *)ai->ai_addr;
 			sockin->sin_family = (short) ai->ai_family;
 			sockin->sin_addr.s_addr = htonl(INADDR_ANY);
 		}
 		else
 		{
+			ai->ai_addrlen = sizeof(struct sockaddr_in6);
 			sockin6 = (struct sockaddr_in6 *)ai->ai_addr;
 			sockin6->sin6_family = (short) ai->ai_family;
 			/*
