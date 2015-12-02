@@ -6,6 +6,8 @@ Below are from 4.2.8p5:
   - applied patch by Christos Zoulas.  perlinger@ntp.org
 * [Bug 2967] ntpdate command suffers an assertion failure
   - fixed ntp_rfc2553.c to return proper address length. perlinger@ntp.org
+* [Bug 2971] ntpq bails on ^C: select fails: Interrupted system call
+  - changed stacked/nested handling of CTRL-C. perlinger@ntp.org
 (4.3.84) 2015/11/26 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p5:
 * Libevent autoconf pthread fixes for FreeBSD-10.  Harlan Stenn.
