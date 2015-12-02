@@ -545,6 +545,7 @@ ntp-4.3 begins.
 * [Sec 2956] small-step/big-step.  Close the panic gate earlier.  HStenn.
 * CID 1339955: Free allocated memory in caljulian test.  HStenn.
 * CID 1339962: Explicitly initialize variable in caljulian test.  HStenn.
+* [Bug 2829] Look at pipe_fds in ntpd.c  (did so. perlinger@ntp.org)
 * [Bug 2932] Update leapsecond file info in miscopt.html.  CWoodbury, HStenn.
 * [Bug 2934] tests/ntpd/t-ntp_scanner.c has a magic constant wired in.  HMurray
 * [Bug 2954] Version 4.2.8p4 crashes on startup with sig fault

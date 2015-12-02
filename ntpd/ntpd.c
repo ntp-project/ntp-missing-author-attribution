@@ -653,6 +653,9 @@ ntpdmain(
 # endif
 
 # ifdef HAVE_WORKING_FORK
+	/* make sure the FDs are initialised */
+	pipe_fds[0] = -1;
+	pipe_fds[1] = -1;
 	do {					/* 'loop' once */
 		if (!HAVE_OPT( WAIT_SYNC ))
 			break;
