@@ -29,6 +29,8 @@
   - fixed ntp_rfc2553.c to return proper address length. perlinger@ntp.org
 * [Bug 2969]  Seg fault from ntpq/mrulist when looking at server with
               lots of clients. perlinger@ntp.org
+* [Bug 2971] ntpq bails on ^C: select fails: Interrupted system call
+  - changed stacked/nested handling of CTRL-C. perlinger@ntp.org
 * Unity cleanup for FreeBSD-6.4.  Harlan Stenn.
 * Unity test cleanup.  Harlan Stenn.
 * Libevent autoconf pthread fixes for FreeBSD-10.  Harlan Stenn.

@@ -175,7 +175,7 @@ static	char *	tstflags	(u_long);
 #ifndef BUILD_AS_LIB
 static	void	getcmds		(void);
 #ifndef SYS_WINNT
-static	RETSIGTYPE abortcmd	(int);
+static	int	abortcmd	(void);
 #endif	/* SYS_WINNT */
 static	void	docmd		(const char *);
 static	void	tokenize	(const char *, char **, int *);
@@ -216,6 +216,7 @@ static	void	output		(FILE *, const char *, const char *);
 static	void	endoutput	(FILE *);
 static	void	outputarr	(FILE *, char *, int, l_fp *);
 static	int	assoccmp	(const void *, const void *);
+static	void	on_ctrlc	(void);
 	u_short	varfmt		(const char *);
 
 void	ntpq_custom_opt_handler	(tOptions *, tOptDesc *);
@@ -559,9 +560,10 @@ ntpqmain(
 		interactive = 1;
 	}
 
+	set_ctrl_c_hook(on_ctrlc);
 #ifndef SYS_WINNT /* Under NT cannot handle SIGINT, WIN32 spawns a handler */
 	if (interactive)
-	    (void) signal_no_reset(SIGINT, abortcmd);
+		push_ctrl_c_handler(abortcmd);
 #endif /* SYS_WINNT */
 
 	if (numcmds == 0) {
@@ -1460,16 +1462,18 @@ getcmds(void)
 /*
  * abortcmd - catch interrupts and abort the current command
  */
-static RETSIGTYPE
-abortcmd(
-	int sig
-	)
+static int
+abortcmd(void)
 {
 	if (current_output == stdout)
-	    (void) fflush(stdout);
+		(void) fflush(stdout);
 	putc('\n', stderr);
 	(void) fflush(stderr);
-	if (jump) longjmp(interrupt_buf, 1);
+	if (jump) {
+		jump = 0;
+		longjmp(interrupt_buf, 1);
+	}
+	return TRUE;
 }
 #endif	/* !SYS_WINNT && !BUILD_AS_LIB */
 
@@ -3565,4 +3569,49 @@ static char *list_digest_names(void)
 #endif
 
     return list;
+}
+
+#define CTRLC_STACK_MAX 4
+static volatile size_t		ctrlc_stack_len = 0;
+static volatile Ctrl_C_Handler	ctrlc_stack[CTRLC_STACK_MAX];
+
+
+
+int/*BOOL*/
+push_ctrl_c_handler(
+	Ctrl_C_Handler func
+	)
+{
+	size_t size = ctrlc_stack_len;
+	if (func && (size < CTRLC_STACK_MAX)) {
+		ctrlc_stack[size] = func;
+		ctrlc_stack_len = size + 1;
+		return TRUE;
+	}
+	return FALSE;	
+}
+
+int/*BOOL*/
+pop_ctrl_c_handler(
+	Ctrl_C_Handler func
+	)
+{
+	size_t size = ctrlc_stack_len;
+	if (size) {
+		--size;
+		if (func == NULL || func == ctrlc_stack[size]) {
+			ctrlc_stack_len = size;
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+static void
+on_ctrlc(void)
+{
+	size_t size = ctrlc_stack_len;
+	while (size)
+		if ((*ctrlc_stack[--size])())
+			break;
 }

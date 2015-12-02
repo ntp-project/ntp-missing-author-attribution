@@ -152,3 +152,7 @@ extern	int	decodeint	(char *, long *);
 extern	void	makeascii	(size_t, const char *, FILE *);
 extern	const char * trunc_left	(const char *, size_t);
 extern	const char * trunc_right(const char *, size_t);
+
+typedef	int/*BOOL*/ (*Ctrl_C_Handler)(void);
+extern	int/*BOOL*/ 	push_ctrl_c_handler(Ctrl_C_Handler);
+extern	int/*BOOL*/ 	pop_ctrl_c_handler(Ctrl_C_Handler);
