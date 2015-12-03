@@ -1,3 +1,13 @@
+Below are from 4.2.8p5:
+* CID 1341527: Quiet a CHECKED_RETURN in sntp/tests/t-log.c.  HStenn.
+* CID 1341533: Missing assertion in sntp/tests/t-log.c.  HStenn.
+* CID 1341534: Resource leak in tests/ntpd/t-ntp_signd.c.  HStenn.
+* CID 1341535: Resource leak in tests/ntpd/t-ntp_signd.c.  HStenn.
+* CID 1341536: Resource leak in tests/ntpd/t-ntp_signd.c.  HStenn.
+* CID 1341537: Resource leak in tests/ntpd/t-ntp_signd.c.  HStenn.
+* CID 1341538: Memory leak in tests/ntpd/ntp_prio_q.c:262.  HStenn.
+* Header cleanup in tests/sandbox/uglydate.c.  Harlan Stenn.
+* Header cleanup in tests/libntp/sfptostr.c.  Harlan Stenn.
 (4.3.85) 2015/12/02 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p5:
 * [Bug 2829] Look at pipe_fds in ntpd.c  (did so. perlinger@ntp.org)
