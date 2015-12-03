@@ -53,7 +53,7 @@ testWriteInCustomLogfile(void)
 	char testString[256] = "12345 ABC";
 	char testName[256] = "TEST_PROGNAME3";
 
-	remove("testLogfile2.log");
+	(void)remove("testLogfile2.log");
 
 	sntp_init_logging(testName);
 	open_logfile("testLogfile2.log"); // ./ causing issues

@@ -3,6 +3,7 @@
 * [Sec 2956] small-step/big-step.  Close the panic gate earlier.  HStenn.
 * CID 1339955: Free allocated memory in caljulian test.  HStenn.
 * CID 1339962: Explicitly initialize variable in caljulian test.  HStenn.
+* CID 1341527: Quiet a CHECKED_RETURN in sntp/tests/t-log.c.  HStenn.
 * CID 1341533: Missing assertion in sntp/tests/t-log.c.  HStenn.
 * CID 1341534: Resource leak in tests/ntpd/t-ntp_signd.c.  HStenn.
 * CID 1341535: Resource leak in tests/ntpd/t-ntp_signd.c.  HStenn.
