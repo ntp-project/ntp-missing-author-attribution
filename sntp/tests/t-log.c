@@ -64,6 +64,8 @@ testWriteInCustomLogfile(void)
 	FILE * f = fopen("testLogfile2.log","r");
 	char line[256];
 
+	TEST_ASSERT_TRUE( f != NULL);
+
 	//should be only 1 line
 	while (fgets(line, sizeof(line), f)) {
 		printf("%s", line);
