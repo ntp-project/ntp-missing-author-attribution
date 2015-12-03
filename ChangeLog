@@ -556,6 +556,13 @@ ntp-4.3 begins.
 * [Sec 2956] small-step/big-step.  Close the panic gate earlier.  HStenn.
 * CID 1339955: Free allocated memory in caljulian test.  HStenn.
 * CID 1339962: Explicitly initialize variable in caljulian test.  HStenn.
+* CID 1341527: Quiet a CHECKED_RETURN in sntp/tests/t-log.c.  HStenn.
+* CID 1341533: Missing assertion in sntp/tests/t-log.c.  HStenn.
+* CID 1341534: Resource leak in tests/ntpd/t-ntp_signd.c.  HStenn.
+* CID 1341535: Resource leak in tests/ntpd/t-ntp_signd.c.  HStenn.
+* CID 1341536: Resource leak in tests/ntpd/t-ntp_signd.c.  HStenn.
+* CID 1341537: Resource leak in tests/ntpd/t-ntp_signd.c.  HStenn.
+* CID 1341538: Memory leak in tests/ntpd/ntp_prio_q.c:262.  HStenn.
 * [Bug 2829] Look at pipe_fds in ntpd.c  (did so. perlinger@ntp.org)
 * [Bug 2887] stratum -1 config results as showing value 99
   - fudge stratum only accepts values [0..16]. perlinger@ntp.org
@@ -587,6 +594,8 @@ ntp-4.3 begins.
 * Unity cleanup for FreeBSD-6.4.  Harlan Stenn.
 * Unity test cleanup.  Harlan Stenn.
 * Libevent autoconf pthread fixes for FreeBSD-10.  Harlan Stenn.
+* Header cleanup in tests/sandbox/uglydate.c.  Harlan Stenn.
+* Header cleanup in tests/libntp/sfptostr.c.  Harlan Stenn.
 ---
 (4.2.8p4) 2015/10/21 Released by Harlan Stenn <stenn@ntp.org>
 (4.2.8p4-RC1) 2015/10/06 Released by Harlan Stenn <stenn@ntp.org>

@@ -110,6 +110,7 @@ test_write_all(void)
 	int temp = write_all(fd, str,strlen(str));
 	TEST_ASSERT_EQUAL(strlen(str), temp);
 
+	(void)close(fd);
 	return;
 }
 
@@ -118,11 +119,15 @@ void
 test_send_packet(void)
 {
 	int fd = ux_socket_connect("/socket");
+
+	TEST_ASSERT_TRUE(isGE(fd, 0));
+
 	char * str2 = "PACKET12345";
 	int temp = send_packet(fd, str2, strlen(str2));
 
 	TEST_ASSERT_EQUAL(0,temp);
 
+	(void)close(fd);
 	return;
 }
 
@@ -135,6 +140,9 @@ void
 test_recv_packet(void)
 {
 	int fd = ux_socket_connect("/socket");
+
+	TEST_ASSERT_TRUE(isGE(fd, 0));
+
 	uint32_t size = 256;	
 	char *str = NULL;
 	int temp = recv_packet(fd, &str, &size);
@@ -143,6 +151,7 @@ test_recv_packet(void)
 	free(str);
 	TEST_ASSERT_EQUAL(0,temp); //0 because nobody sent us anything (yet!)
 
+	(void)close(fd);
 	return;
 }
 
