@@ -1,3 +1,4 @@
+(4.3.86) 2015/12/04 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p5:
 * CID 1341527: Quiet a CHECKED_RETURN in sntp/tests/t-log.c.  HStenn.
 * CID 1341533: Missing assertion in sntp/tests/t-log.c.  HStenn.
