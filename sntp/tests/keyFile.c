@@ -62,9 +62,13 @@ CompareKeysAlternative(int key_id,
 void
 test_ReadEmptyKeyFile(void) {
 	struct key* keys = NULL;
+	const char *path = CreatePath("key-test-empty", INPUT_DIR);
 
-	TEST_ASSERT_EQUAL(0, auth_init(CreatePath("key-test-empty", INPUT_DIR), &keys));
+	TEST_ASSERT_NOT_NULL(path);
+	TEST_ASSERT_EQUAL(0, auth_init(path, &keys));
 	TEST_ASSERT_NULL(keys);
+
+	free((void *)path);
 }
 
 
