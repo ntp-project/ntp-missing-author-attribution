@@ -10,6 +10,7 @@
 * CID 1341536: Resource leak in tests/ntpd/t-ntp_signd.c.  HStenn.
 * CID 1341537: Resource leak in tests/ntpd/t-ntp_signd.c.  HStenn.
 * CID 1341538: Memory leak in tests/ntpd/ntp_prio_q.c:262.  HStenn.
+* CID 1341679: Nits in sntp/tests/keyFile.c.  HStenn.
 * CID 1341680: Nits in sntp/tests/keyFile.c.  HStenn.
 * CID 1341681: Nits in sntp/tests/keyFile.c.  HStenn.
 * CID 1341682: Nit in libntp/authreadkeys.c.  HStenn.
