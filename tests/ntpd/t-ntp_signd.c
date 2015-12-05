@@ -164,6 +164,10 @@ test_send_via_ntp_signd(void)
 	int	flags = 0;
 	struct pkt  *xpkt = (struct pkt *) malloc(sizeof(struct pkt)); //defined in ntp.h
 
+	TEST_ASSERT_NOT_NULL(rbufp);
+	TEST_ASSERT_NOT_NULL(xpkt);
+	memset(xpkt, 0, sizeof(struct pkt));
+
 	//send_via_ntp_signd(NULL,NULL,NULL,NULL,NULL);	//doesn't work
 	/*
 	** Send the xpkt to Samba, read the response back in rbufp

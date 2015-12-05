@@ -574,6 +574,13 @@ ntp-4.3 begins.
 * CID 1341536: Resource leak in tests/ntpd/t-ntp_signd.c.  HStenn.
 * CID 1341537: Resource leak in tests/ntpd/t-ntp_signd.c.  HStenn.
 * CID 1341538: Memory leak in tests/ntpd/ntp_prio_q.c:262.  HStenn.
+* CID 1341677: Nits in sntp/tests/keyFile.c.  HStenn.
+* CID 1341678: Nits in sntp/tests/keyFile.c.  HStenn.
+* CID 1341679: Nits in sntp/tests/keyFile.c.  HStenn.
+* CID 1341680: Nits in sntp/tests/keyFile.c.  HStenn.
+* CID 1341681: Nits in sntp/tests/keyFile.c.  HStenn.
+* CID 1341682: Nit in libntp/authreadkeys.c.  HStenn.
+* CID 1341684: Nit in tests/ntpd/t-ntp_signd.c.  HStenn.
 * [Bug 2829] Look at pipe_fds in ntpd.c  (did so. perlinger@ntp.org)
 * [Bug 2887] stratum -1 config results as showing value 99
   - fudge stratum only accepts values [0..16]. perlinger@ntp.org
