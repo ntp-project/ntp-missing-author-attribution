@@ -262,10 +262,9 @@ authreadkeys(
 			next->seclen  = len;
 			memcpy(next->secbuf, keystr, len);
 		}
-		if (next) {
-			next->next = list;
-			list = next;
-		}
+		INSIST(NULL != next);
+		next->next = list;
+		list = next;
 	}
 	fclose(fp);
 	if (nerr > nerr_maxlimit) {
