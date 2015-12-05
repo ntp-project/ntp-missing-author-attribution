@@ -298,11 +298,28 @@ my_pthread_warmup_worker(
 static void
 my_pthread_warmup(void)
 {
-	pthread_t thread;
-	int       rc;
+	pthread_t 	thread;
+	pthread_attr_t	thr_attr;
+	int       	rc;
+	
+	pthread_attr_init(&thr_attr);
+#if defined(HAVE_PTHREAD_ATTR_GETSTACKSIZE) && \
+    defined(HAVE_PTHREAD_ATTR_SETSTACKSIZE) && \
+    defined(PTHREAD_STACK_MIN)
+	rc = pthread_attr_setstacksize(&thr_attr, PTHREAD_STACK_MIN);
+	if (0 != rc)
+		msyslog(LOG_ERR,
+			"my_pthread_warmup: pthread_attr_setstacksize() -> %s",
+			strerror(rc));
+#endif
 	rc = pthread_create(
-		&thread, NULL, my_pthread_warmup_worker, NULL);
-	if (0 == rc) {
+		&thread, &thr_attr, my_pthread_warmup_worker, NULL);
+	pthread_attr_destroy(&thr_attr);
+	if (0 != rc) {
+		msyslog(LOG_ERR,
+			"my_pthread_warmup: pthread_create() -> %s",
+			strerror(rc));
+	} else {
 		pthread_cancel(thread);
 		pthread_join(thread, NULL);
 	}
