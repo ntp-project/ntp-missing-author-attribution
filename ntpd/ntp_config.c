@@ -53,6 +53,8 @@
 #include "ntp_parser.h"
 #include "ntpd-opts.h"
 
+extern int yyparse(void);
+
 /* Bug 2817 */
 #if defined(HAVE_SYS_MMAN_H)
 # include <sys/mman.h>

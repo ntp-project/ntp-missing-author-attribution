@@ -3265,7 +3265,7 @@ read_refclock_packet(
 	/* TALOS-CAN-0064: avoid signed/unsigned clashes that can lead
 	 * to buffer overrun and memory corruption
 	 */
-	if (rp->datalen <= 0 || rp->datalen > sizeof(rb->recv_space))
+	if (rp->datalen <= 0 || (size_t)rp->datalen > sizeof(rb->recv_space))
 		read_count = sizeof(rb->recv_space);
 	else
 		read_count = (u_int)rp->datalen;

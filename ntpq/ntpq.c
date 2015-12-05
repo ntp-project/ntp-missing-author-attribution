@@ -218,7 +218,7 @@ static	void	outputarr	(FILE *, char *, int, l_fp *);
 static	int	assoccmp	(const void *, const void *);
 static	void	on_ctrlc	(void);
 	u_short	varfmt		(const char *);
-
+static	int	my_easprintf	(char**, const char *, ...) NTP_PRINTF(2, 3);
 void	ntpq_custom_opt_handler	(tOptions *, tOptDesc *);
 
 #ifdef OPENSSL
@@ -472,7 +472,7 @@ ntpqmain(
 
 	{
 	    char *list;
-	    char *msg, *fmt;
+	    char *msg;
 
 	    list = list_digest_names();
 	    for (icmd = 0; icmd < sizeof(builtins)/sizeof(builtins[0]); icmd++) {
@@ -486,13 +486,15 @@ ntpqmain(
 
 #ifdef OPENSSL
 	    builtins[icmd].desc[0] = "digest-name";
-	    fmt = "set key type to use for authenticated requests, one of:%s";
+	    my_easprintf(&msg,
+			 "set key type to use for authenticated requests, one of:%s",
+			 list);
 #else
 	    builtins[icmd].desc[0] = "md5";
-	    fmt = "set key type to use for authenticated requests (%s)";
+	    my_easprintf(&msg,
+			 "set key type to use for authenticated requests (%s)",
+			 list);
 #endif
-	    msg = emalloc(strlen(fmt) + strlen(list) - strlen("%s") +1);
-	    sprintf(msg, fmt, list);
 	    builtins[icmd].comment = msg;
 	    free(list);
 	}
@@ -3614,4 +3616,42 @@ on_ctrlc(void)
 	while (size)
 		if ((*ctrlc_stack[--size])())
 			break;
+}
+
+static int
+my_easprintf(
+	char ** 	ppinto,
+	const char *	fmt   ,
+	...
+	)
+{
+	va_list	va;
+	int	prc;
+	size_t	len = 128;
+	char *	buf = emalloc(len);
+
+  again:
+	/* Note: we expect the memory allocation to fail long before the
+	 * increment in buffer size actually overflows.
+	 */
+	buf = (buf) ? erealloc(buf, len) : emalloc(len);
+
+	va_start(va, fmt);
+	prc = vsnprintf(buf, len, fmt, va);
+	va_end(va);
+
+	if (prc < 0) {
+		/* might be very old vsnprintf. Or actually MSVC... */
+		len += len >> 1;
+		goto again;
+	}
+	if ((size_t)prc >= len) {
+		/* at least we have the proper size now... */
+		len = (size_t)prc + 1;
+		goto again;
+	}
+	if ((size_t)prc < (len - 32))
+		buf = erealloc(buf, (size_t)prc + 1);
+	*ppinto = buf;
+	return prc;
 }

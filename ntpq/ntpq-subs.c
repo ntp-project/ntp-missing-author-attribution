@@ -2861,7 +2861,7 @@ collect_mru_list(
 				 ri, sptoa(&recent->addr), ri,
 				 recent->last.l_ui, recent->last.l_uf);
 			chars = strlen(buf);
-			if (REQ_ROOM <= chars)
+			if ((size_t)REQ_ROOM <= chars)
 				break;
 			memcpy(req, buf, chars + 1);
 			req += chars;

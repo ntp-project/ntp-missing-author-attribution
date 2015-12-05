@@ -572,8 +572,7 @@ check_leapsec(
 				DPRINTF(1, ("*** leapsec_query: setting leap_smear interval %li, begin %.0f, end %.0f\n",
 					leap_smear.interval, leap_smear.intv_start, leap_smear.intv_end));
 			}
-		}
-		else {
+		} else {
 			if (leap_smear.interval)
 				DPRINTF(1, ("*** leapsec_query: clearing leap_smear interval\n"));
 			leap_smear.interval = 0;
@@ -655,10 +654,10 @@ check_leapsec(
 		sys_tai = lsdata.tai_offs;
 	  } else {
 #ifdef AUTOKEY
-		update_autokey = (sys_tai != lsdata.tai_offs);
+		  update_autokey = (sys_tai != (u_int)lsdata.tai_offs);
 #endif
-		lsprox  = lsdata.proximity;
-		sys_tai = lsdata.tai_offs;
+		  lsprox  = lsdata.proximity;
+		  sys_tai = lsdata.tai_offs;
 	  }
 	}
 
