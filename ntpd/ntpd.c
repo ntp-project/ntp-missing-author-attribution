@@ -209,6 +209,11 @@ extern int syscall	(int, ...);
 
 
 #if !defined(SIM) && defined(SIGDIE1)
+static volatile int signalled	= 0;
+static volatile int signo	= 0;
+
+/* In an ideal world, 'finish_safe()' would declared as noreturn... */
+static	void		finish_safe	(int);
 static	RETSIGTYPE	finish		(int);
 #endif
 
@@ -1204,6 +1209,10 @@ int scmp_sc[] = {
 # ifdef HAVE_IO_COMPLETION_PORT
 
 	for (;;) {
+#if !defined(SIM) && defined(SIGDIE1)
+		if (signalled)
+			finish_safe(signo);
+#endif
 		GetReceivedBuffers();
 # else /* normal I/O */
 
@@ -1211,6 +1220,10 @@ int scmp_sc[] = {
 	was_alarmed = FALSE;
 
 	for (;;) {
+#if !defined(SIM) && defined(SIGDIE1)
+		if (signalled)
+			finish_safe(signo);
+#endif		
 		if (alarm_flag) {	/* alarmed? */
 			was_alarmed = TRUE;
 			alarm_flag = FALSE;
@@ -1330,9 +1343,9 @@ int scmp_sc[] = {
 /*
  * finish - exit gracefully
  */
-static RETSIGTYPE
-finish(
-	int sig
+static void
+finish_safe(
+	int	sig
 	)
 {
 	const char *sig_desc;
@@ -1353,6 +1366,16 @@ finish(
 	peer_cleanup();
 	exit(0);
 }
+
+static RETSIGTYPE
+finish(
+	int	sig
+	)
+{
+	signalled = 1;
+	signo = sig;
+}
+
 #endif	/* !SIM && SIGDIE1 */
 
 
