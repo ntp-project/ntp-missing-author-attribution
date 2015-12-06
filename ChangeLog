@@ -1,4 +1,12 @@
 (4.3.87) 2015/12/05 Released by Harlan Stenn <stenn@ntp.org>
+Below are from 4.2.8p5:
+* CID 1341677: Nits in sntp/tests/keyFile.c.  HStenn.
+* CID 1341678: Nits in sntp/tests/keyFile.c.  HStenn.
+* CID 1341679: Nits in sntp/tests/keyFile.c.  HStenn.
+* CID 1341680: Nits in sntp/tests/keyFile.c.  HStenn.
+* CID 1341681: Nits in sntp/tests/keyFile.c.  HStenn.
+* CID 1341682: Nit in libntp/authreadkeys.c.  HStenn.
+* CID 1341684: Nit in tests/ntpd/t-ntp_signd.c.  HStenn.
 (4.3.86) 2015/12/04 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p5:
 * CID 1341527: Quiet a CHECKED_RETURN in sntp/tests/t-log.c.  HStenn.
