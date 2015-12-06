@@ -50,6 +50,7 @@
 * Libevent autoconf pthread fixes for FreeBSD-10.  Harlan Stenn.
 * Header cleanup in tests/sandbox/uglydate.c.  Harlan Stenn.
 * Header cleanup in tests/libntp/sfptostr.c.  Harlan Stenn.
+* Quiet a warning from clang.  Harlan Stenn.
 ---
 (4.2.8p4) 2015/10/21 Released by Harlan Stenn <stenn@ntp.org>
 (4.2.8p4-RC1) 2015/10/06 Released by Harlan Stenn <stenn@ntp.org>
