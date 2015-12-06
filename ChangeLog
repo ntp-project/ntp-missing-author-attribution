@@ -1,3 +1,5 @@
+Below are from 4.2.8p5:
+* Quiet a warning from clang.  Harlan Stenn.
 (4.3.87) 2015/12/05 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p5:
 * CID 1341677: Nits in sntp/tests/keyFile.c.  HStenn.
