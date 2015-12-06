@@ -203,11 +203,12 @@ copy_addrinfo_common(
 		else
 			ai_nxt = ai_src->ai_next;
 		*ai_cpy = *ai_src;
-		REQUIRE(ai_src->ai_addrlen <= sizeof(sockaddr_u));
+		DEBUG_INSIST(ai_cpy->ai_canonname == ai_src->ai_canonname);
+		INSIST(ai_src->ai_addrlen <= sizeof(sockaddr_u));
 		memcpy(psau, ai_src->ai_addr, ai_src->ai_addrlen);
 		ai_cpy->ai_addr = &psau->sa;
 		++psau;
-		if (NULL != ai_cpy->ai_canonname) {
+		if (NULL != ai_src->ai_canonname) {
 			ai_cpy->ai_canonname = pcanon;
 			str_octets = 1 + strlen(ai_src->ai_canonname);
 			memcpy(pcanon, ai_src->ai_canonname, str_octets);
