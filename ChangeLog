@@ -1,5 +1,6 @@
 ---
 
+* [Sec 2937] ntpq: nextvar() missing length check. perlinger@ntp.org
 * [Sec 2956] small-step/big-step.  Close the panic gate earlier.  HStenn.
 * CID 1339955: Free allocated memory in caljulian test.  HStenn.
 * CID 1339962: Explicitly initialize variable in caljulian test.  HStenn.
@@ -52,7 +53,6 @@
 * Header cleanup in tests/libntp/sfptostr.c.  Harlan Stenn.
 * Quiet a warning from clang.  Harlan Stenn.
 ---
-(4.2.8p4) 2015/10/21 Released by Harlan Stenn <stenn@ntp.org>
 (4.2.8p4-RC1) 2015/10/06 Released by Harlan Stenn <stenn@ntp.org>
 
 * [Sec 2899] CVE-2014-9297  perlinger@ntp.org
