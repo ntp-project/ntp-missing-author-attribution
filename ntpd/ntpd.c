@@ -1229,6 +1229,10 @@ int scmp_sc[] = {
 			alarm_flag = FALSE;
 		}
 
+		/* collect async name/addr results */
+		if (!was_alarmed)
+		    harvest_blocking_responses();
+		
 		if (!was_alarmed && !has_full_recv_buffer()) {
 			/*
 			 * Nothing to do.  Wait for something.
