@@ -20,6 +20,8 @@
 * [Bug 2829] Look at pipe_fds in ntpd.c  (did so. perlinger@ntp.org)
 * [Bug 2887] stratum -1 config results as showing value 99
   - fudge stratum only accepts values [0..16]. perlinger@ntp.org
+* [Bug 2905] DNS lookups broken. perlinger@ntp.org
+  - added limits to stack consumption, fixed some return code handling
 * [Bug 2932] Update leapsecond file info in miscopt.html.  CWoodbury, HStenn.
 * [Bug 2934] tests/ntpd/t-ntp_scanner.c has a magic constant wired in.  HMurray
 * [Bug 2944] errno is not preserved properly in ntpdate after sendto call.
