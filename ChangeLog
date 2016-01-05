@@ -1,6 +1,8 @@
 ---
 
 * [Sec 2937] ntpq: nextvar() missing length check. perlinger@ntp.org
+---
+
 * [Sec 2956] small-step/big-step.  Close the panic gate earlier.  HStenn.
 * CID 1339955: Free allocated memory in caljulian test.  HStenn.
 * CID 1339962: Explicitly initialize variable in caljulian test.  HStenn.
