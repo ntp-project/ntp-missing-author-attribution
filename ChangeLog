@@ -24,6 +24,7 @@
 * [Bug 2934] tests/ntpd/t-ntp_scanner.c has a magic constant wired in.  HMurray
 * [Bug 2944] errno is not preserved properly in ntpdate after sendto call.
   - applied patch by Christos Zoulas.  perlinger@ntp.org
+* [Bug 2952] Symmetric active/passive mode is broken.  HStenn.
 * [Bug 2954] Version 4.2.8p4 crashes on startup with sig fault
   - fixed data race conditions in threaded DNS worker. perlinger@ntp.org
   - limit threading warm-up to linux; FreeBSD bombs on it. perlinger@ntp.org
