@@ -1,4 +1,5 @@
 ---
+(4.2.8p5) 2016/01/07 Released by Harlan Stenn <stenn@ntp.org>
 
 * [Sec 2956] small-step/big-step.  Close the panic gate earlier.  HStenn.
 * CID 1339955: Free allocated memory in caljulian test.  HStenn.
