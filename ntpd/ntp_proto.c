@@ -3562,7 +3562,7 @@ peer_xmit(
 #ifdef LEAP_SMEAR
 
 static void
-leap_smear_add_offs
+leap_smear_add_offs(
 	l_fp *t,
 	l_fp *t_recv
 	)
