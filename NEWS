@@ -63,7 +63,7 @@ Other fixes:
   ongoing basis since 2006.  As part of our recent upgrade from
   Coverity 5 to Coverity 7, Coverity identified 16 nits in some of
   the newly-written Unity test programs.  These were fixed.
-* [Bug 2829] Look at pipe_fds in ntpd.c  (did so. perlinger@ntp.org)
+* [Bug 2829] Clean up pipe_fds in ntpd.c  perlinger@ntp.org
 * [Bug 2887] stratum -1 config results as showing value 99
   - fudge stratum should only accept values [0..16]. perlinger@ntp.org
 * [Bug 2932] Update leapsecond file info in miscopt.html.  CWoodbury, HStenn.
@@ -71,7 +71,7 @@ Other fixes:
 * [Bug 2944] errno is not preserved properly in ntpdate after sendto call.
   - applied patch by Christos Zoulas.  perlinger@ntp.org
 * [Bug 2952] Peer associations broken by fix for Bug 2901/CVE-2015-7704.
-* [Bug 2954] Version 4.2.8p4 crashes on startup with sig fault
+* [Bug 2954] Version 4.2.8p4 crashes on startup on some OSes.
   - fixed data race conditions in threaded DNS worker. perlinger@ntp.org
   - limit threading warm-up to linux; FreeBSD bombs on it. perlinger@ntp.org
 * [Bug 2957] 'unsigned int' vs 'size_t' format clash. perlinger@ntp.org

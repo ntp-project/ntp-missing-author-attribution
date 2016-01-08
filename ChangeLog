@@ -1,4 +1,5 @@
 ---
+(4.2.8p5) 2016/01/07 Released by Harlan Stenn <stenn@ntp.org>
 
 * [Sec 2937] ntpq: nextvar() missing length check. perlinger@ntp.org
 ---
