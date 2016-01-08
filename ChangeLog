@@ -1,4 +1,5 @@
 ntp-4.2.8p5
+* [Sec 2956] small-step/big-step.  Close the panic gate earlier.  HStenn.
 (4.3.88) 2015/12/06 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p5:
 * Quiet a warning from clang.  Harlan Stenn.
