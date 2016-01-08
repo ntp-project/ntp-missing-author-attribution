@@ -10,11 +10,11 @@
 .ds B-Font B
 .ds I-Font I
 .ds R-Font R
-.TH ntp-keygen @NTP_KEYGEN_MS@ "06 Dec 2015" "ntp (4.3.88)" "User Commands"
+.TH ntp-keygen @NTP_KEYGEN_MS@ "08 Jan 2016" "ntp (4.3.89)" "User Commands"
 .\"
-.\" EDIT THIS FILE WITH CAUTION (/tmp/.ag-j7aO6t/ag-w7aG5t)
+.\" EDIT THIS FILE WITH CAUTION (/tmp/.ag-JAaafA/ag-VAa4dA)
 .\"
-.\" It has been AutoGen-ed December 6, 2015 at 11:59:18 AM by AutoGen 5.18.5
+.\" It has been AutoGen-ed January 8, 2016 at 12:00:02 PM by AutoGen 5.18.5
 .\" From the definitions ntp-keygen-opts.def
 .\" and the template file agman-cmd.tpl
 .SH NAME
@@ -1197,7 +1197,7 @@ it to autogen-users@lists.sourceforge.net.  Thank you.
 .SH "AUTHORS"
 The University of Delaware and Network Time Foundation
 .SH "COPYRIGHT"
-Copyright (C) 1992-2015 The University of Delaware and Network Time Foundation all rights reserved.
+Copyright (C) 1992-2016 The University of Delaware and Network Time Foundation all rights reserved.
 This program is released under the terms of the NTP license, <http://ntp.org/license>.
 .SH BUGS
 It can take quite a while to generate some cryptographic values,
