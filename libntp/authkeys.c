@@ -48,13 +48,13 @@ struct symkey_alloc_tag {
 symkey_alloc *	authallocs;
 #endif	/* DEBUG */
 
-static inline u_short	auth_log2(double x);
-static void		auth_resize_hashtable(void);
-static void		allocsymkey(symkey **, keyid_t,	u_short,
-				    u_short, u_long, u_short, u_char *);
-static void		freesymkey(symkey *, symkey **);
+static u_short	auth_log2(size_t);
+static void	auth_resize_hashtable(void);
+static void	allocsymkey(symkey **, keyid_t,	u_short,
+			    u_short, u_long, u_short, u_char *);
+static void	freesymkey(symkey *, symkey **);
 #ifdef DEBUG
-static void		free_auth_mem(void);
+static void	free_auth_mem(void);
 #endif
 
 symkey	key_listhead;		/* list of all in-use keys */;
@@ -210,10 +210,33 @@ auth_prealloc_symkeys(
 }
 
 
-static inline u_short
-auth_log2(double x)
+static u_short
+auth_log2(size_t x)
 {
-	return (u_short)(log10(x) / log10(2));
+	/*
+	** bithack to calculate floor(log2(x))
+	**
+	** This assumes
+	**   - (sizeof(size_t) is a power of two
+	**   - CHAR_BITS is a power of two
+	**   - returning zero for arguments <= 0 is OK.
+	**
+	** Does only shifts, masks and sums in integer arithmetic in
+	** log2(CHAR_BIT*sizeof(size_t)) steps. (that is, 5/6 steps for
+	** 32bit/64bit size_t)
+	*/
+	int	s;
+	int	r = 0;
+	size_t  m = ~(size_t)0;
+
+	for (s = sizeof(size_t) / 2 * CHAR_BIT; s != 0; s >>= 1) {
+		m <<= s;
+		if (x & m)
+			r += s;
+		else
+			x <<= s;
+	}
+	return (u_short)r;
 }
 
 
@@ -234,7 +257,7 @@ auth_resize_hashtable(void)
 	symkey *	sk;
 
 	totalkeys = authnumkeys + authnumfreekeys;
-	hashbits = auth_log2(totalkeys / 4.0) + 1;
+	hashbits = auth_log2(totalkeys / 4) + 1;
 	hashbits = max(4, hashbits);
 	hashbits = min(15, hashbits);
 
