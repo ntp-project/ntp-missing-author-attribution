@@ -350,6 +350,7 @@ struct peer {
 	l_fp	dst;		/* destination timestamp */
 	l_fp	aorg;		/* origin timestamp */
 	l_fp	borg;		/* alternate origin timestamp */
+	l_fp	bxmt;		/* most recent broadcast transmit timestamp */
 	double	offset;		/* peer clock offset */
 	double	delay;		/* peer roundtrip delay */
 	double	jitter;		/* peer jitter (squares) */

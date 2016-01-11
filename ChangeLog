@@ -1,4 +1,8 @@
 ---
+
+* [Sec 2935] Deja Vu: Replay attack on authenticated broadcast mode. HStenn.
+* Make leapsec_query debug messages less verbose.  Harlan Stenn.
+---
 (4.2.8p5) 2016/01/07 Released by Harlan Stenn <stenn@ntp.org>
 
 * [Sec 2956] small-step/big-step.  Close the panic gate earlier.  HStenn.
