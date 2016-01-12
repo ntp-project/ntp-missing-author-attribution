@@ -1292,6 +1292,7 @@ receive(
 		if (MODE_BROADCAST == hismode) {
 			u_char poll;
 			int bail = 0;
+			l_fp tdiff;
 
 			DPRINTF(2, ("receive: PROCPKT/BROADCAST: prev pkt %ld seconds ago, ppoll: %d, %d secs\n",
 				    (current_time - peer->timelastrec),
@@ -1334,7 +1335,9 @@ receive(
 				++bail;
 			}
 
-			if (L_ISGT(&peer->bxmt, &p_xmt)) {
+			tdiff = p_xmt;
+			L_SUB(&tdiff, &peer->bxmt);
+			if (tdiff.l_i < 0) {
 				msyslog(LOG_INFO, "receive: broadcast packet from %s contains non-monotonic timestamp: %#010x.%08x -> %#010x.%08x",
 					stoa(&rbufp->recv_srcadr),
 					peer->bxmt.l_ui, peer->bxmt.l_uf,
