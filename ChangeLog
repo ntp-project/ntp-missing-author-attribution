@@ -1,4 +1,8 @@
 ---
+
+* [Sec 2945] Zero Origin Timestamp Bypass. perlinger@ntp.org
+
+---
 (4.2.8p5) 2016/01/07 Released by Harlan Stenn <stenn@ntp.org>
 
 * [Sec 2956] small-step/big-step.  Close the panic gate earlier.  HStenn.
@@ -57,7 +61,6 @@
 * Update scripts/calc_tickadj/Makefile.am.  Harlan Stenn.
 ---
 (4.2.8p4) 2015/10/21 Released by Harlan Stenn <stenn@ntp.org>
-(4.2.8p4-RC1) 2015/10/06 Released by Harlan Stenn <stenn@ntp.org>
 
 * [Sec 2899] CVE-2014-9297  perlinger@ntp.org
 * [Sec 2901] Drop invalid packet before checking KoD. Check for all KoD's.
