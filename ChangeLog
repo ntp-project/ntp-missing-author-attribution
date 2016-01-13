@@ -2,6 +2,8 @@
 
 * [Sec 2935] Deja Vu: Replay attack on authenticated broadcast mode. HStenn.
 * [Sec 2937] ntpq: nextvar() missing length check. perlinger@ntp.org
+* [Sec 2938] ntpq saveconfig command allows dangerous characters
+  in filenames. perlinger@ntp.org
 * Make leapsec_query debug messages less verbose.  Harlan Stenn.
 ---
 (4.2.8p5) 2016/01/07 Released by Harlan Stenn <stenn@ntp.org>
@@ -60,6 +62,7 @@
 * Quiet a warning from clang.  Harlan Stenn.
 * Update the NEWS file.  Harlan Stenn.
 * Update scripts/calc_tickadj/Makefile.am.  Harlan Stenn.
+>>>>>>>
 ---
 (4.2.8p4-RC1) 2015/10/06 Released by Harlan Stenn <stenn@ntp.org>
 
