@@ -1,5 +1,57 @@
 ---
 
+NTP 4.2.8p6
+
+Focus: Security, Bug fixes, enhancements.
+
+Severity: MEDIUM
+
+In addition to bug fixes and enhancements, this release fixes the
+following X low- and Y medium-severity vulnerabilities:
+
+* nextvar() missing length check in ntpq
+    Date Resolved: Stable (4.2.8p6) 19 Jan 2016
+    References: Sec 2937 / CVE-2015-7975
+    Affects: All ntp-4 releases up to, but not including 4.2.8p6,
+	and 4.3.0 up to, but not including 4.3.XX
+    CVSS: (AV:L/AC:H/Au:N/C:N/I:N/A:P) Base Score: 1.2.
+	If you score A:C, this becomes 4.0.
+    CVSSv3: (CVSS:3.0/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L) Base Score 2.9, LOW
+    Summary: ntpq may call nextvar() which executes a memcpy() into the
+	name buffer without a proper length check against its maximum
+	length of 256 bytes. Note well that we're taking about ntpq here.
+	The usual worst-case effect of this vulnerability is that the
+	specific instance of ntpq will crash and the person or process
+	that did this will have stopped themselves.
+    Mitigation:
+	Upgrade to 4.2.8p6, or later, from the NTP Project Download Page
+	    or the NTP Public Services Project Download Page.
+	If you are unable to upgrade:
+	    If you have scripts that feed input to ntpq make sure there are
+		some sanity checks on the input received from the "outside".
+	    This is potentially more dangerous if ntpq is run as root. 
+    Credit: This weakness was discovered by Jonathan Gardner at Cisco.
+
+* Deja Vu: Replay attack on authenticated broadcast mode
+   Date Resolved: Stable (4.2.8p6) 19 Jan 2016
+   References: Sec 2935 / CVE-2015-7973
+   Affects: All ntp-4 releases up to, but not including 4.2.8p5, and
+   	4.3.0 up to, but not including 4.3.XX
+   CVSS: (AV:A/AC:M/Au:N/C:N/I:P/A:P) Base Score: 4.3 MEDIUM
+   Summary: If an NTP network is configured for broadcast operations then
+   	either a man-in-the-middle attacker or a malicious participant
+	that has the same trusted keys as the victim can replay time packets.
+   Mitigation:
+	Implement BCP-38.
+	Upgrade to 4.2.8p6, or later, from the NTP Project Download Page
+	    or the NTP Public Services Project Download Page.
+	If you are unable to upgrade:
+	    Don't use broadcast mode if you cannot monitor your client servers.
+	Monitor your ntpd instances.
+   Credit: This weakness was discovered by Aanchal Malhotra at Boston University.
+
+---
+
 NTP 4.2.8p5
 
 Focus: Security, Bug fixes, enhancements.
