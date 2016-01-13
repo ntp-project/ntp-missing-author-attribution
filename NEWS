@@ -9,11 +9,38 @@ Severity: MEDIUM
 In addition to bug fixes and enhancements, this release fixes the
 following X low- and Y medium-severity vulnerabilities:
 
+* 'ntpq saveconfig' command allows dangerous characters in filenames.
+   Date Resolved: Stable (4.2.8p6) 19 Jan 2016
+   References: Sec 2938 / CVE-2015-7976
+   Affects: All ntp-4 releases up to, but not including 4.2.8p6, and
+	4.3.0 up to, but not including 4.3.XX
+   CVSS: (AV:N/AC:L/Au:S/C:N/I:P/A:N) Base Score: 4.0 MEDIUM
+   Summary: The ntpq saveconfig command does not do adequate filtering
+   	of special characters from the supplied filename.
+	Note well: The ability to use the saveconfig command is controlled
+	by the 'restrict nomodify' directive, and the recommended default
+	configuration is to disable this capability.  If the ability to
+	execute a 'saveconfig' is required, it can easily (and should) be
+	limited and restricted to a known small number of IP addresses.
+   Mitigation:
+	Implement BCP-38.
+	use 'restrict default nomodify' in your 'ntp.conf' file.
+	Upgrade to 4.2.8p6, or later, from the NTP Project Download Page.
+	If you are unable to upgrade:
+	    build NTP with 'configure --disable-saveconfig' if you will
+	    	never need this capability, or
+	    use 'restrict default nomodify' in your 'ntp.conf' file.  Be
+		careful about what IPs have the ability to send 'modify'
+		requests to 'ntpd'.
+	Monitor your ntpd instances.
+	'saveconfig' requests are logged to syslog - monitor your syslog files.
+   Credit: This weakness was discovered by Jonathan Gardner of Cisco.
+
 * nextvar() missing length check in ntpq
     Date Resolved: Stable (4.2.8p6) 19 Jan 2016
     References: Sec 2937 / CVE-2015-7975
-    Affects: All ntp-4 releases up to, but not including 4.2.8p6,
-	and 4.3.0 up to, but not including 4.3.XX
+    Affects: All ntp-4 releases up to, but not including 4.2.8p6, and
+	4.3.0 up to, but not including 4.3.XX
     CVSS: (AV:L/AC:H/Au:N/C:N/I:N/A:P) Base Score: 1.2.
 	If you score A:C, this becomes 4.0.
     CVSSv3: (CVSS:3.0/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L) Base Score 2.9, LOW
