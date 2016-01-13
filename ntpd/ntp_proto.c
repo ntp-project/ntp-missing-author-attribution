@@ -1157,6 +1157,7 @@ receive(
 
 			} else {
 				peer->delay = sys_bdelay;
+				peer->bxmt = p_xmt;
 			}
 			break;
 		}
@@ -1177,6 +1178,7 @@ receive(
 			sys_restricted++;
 			return;			/* ignore duplicate */
 		}
+		peer->bxmt = p_xmt;
 #ifdef AUTOKEY
 		if (skeyid > NTP_MAXKEY)
 			crypto_recv(peer, rbufp);
@@ -1286,6 +1288,73 @@ receive(
 			return;
 		}
 #endif /* AUTOKEY */
+
+		if (MODE_BROADCAST == hismode) {
+			u_char poll;
+			int bail = 0;
+			l_fp tdiff;
+
+			DPRINTF(2, ("receive: PROCPKT/BROADCAST: prev pkt %ld seconds ago, ppoll: %d, %d secs\n",
+				    (current_time - peer->timelastrec),
+				    peer->ppoll, (1 << peer->ppoll)
+				    ));
+			/* Things we can check:
+			 *
+			 * Did the poll interval change?
+			 * Is the poll interval in the packet in-range?
+			 * Did this packet arrive too soon?
+			 * Is the timestamp in this packet monotonic
+			 *  with respect to the previous packet?
+			 */
+
+			/* This is noteworthy, not error-worthy */
+			if (pkt->ppoll != peer->ppoll) {
+				msyslog(LOG_INFO, "receive: broadcast poll from %s changed from %ud to %ud",
+					stoa(&rbufp->recv_srcadr),
+					peer->ppoll, pkt->ppoll);
+			}
+
+			poll = min(peer->maxpoll,
+				   max(peer->minpoll, pkt->ppoll));
+
+			/* This is error-worthy */
+			if (pkt->ppoll != poll) {
+				msyslog(LOG_INFO, "receive: broadcast poll of %ud from %s is out-of-range (%d to %d)!",
+					pkt->ppoll, stoa(&rbufp->recv_srcadr),
+					peer->minpoll, peer->maxpoll);
+				++bail;
+			}
+
+			if (  (current_time - peer->timelastrec)
+			    < (1 << pkt->ppoll)) {
+				msyslog(LOG_INFO, "receive: broadcast packet from %s arrived after %ld, not %d seconds!",
+					stoa(&rbufp->recv_srcadr),
+					(current_time - peer->timelastrec),
+					(1 << pkt->ppoll)
+					);
+				++bail;
+			}
+
+			tdiff = p_xmt;
+			L_SUB(&tdiff, &peer->bxmt);
+			if (tdiff.l_i < 0) {
+				msyslog(LOG_INFO, "receive: broadcast packet from %s contains non-monotonic timestamp: %#010x.%08x -> %#010x.%08x",
+					stoa(&rbufp->recv_srcadr),
+					peer->bxmt.l_ui, peer->bxmt.l_uf,
+					p_xmt.l_ui, p_xmt.l_uf
+					);
+				++bail;
+			}
+
+			peer->bxmt = p_xmt;
+
+			if (bail) {
+				peer->timelastrec = current_time;
+				sys_declined++;
+				return;
+			}
+		}
+
 		break;
 
 	/*
@@ -1511,6 +1580,7 @@ receive(
 	 * clean. Get on with real work.
 	 */
 	peer->timereceived = current_time;
+	peer->timelastrec = current_time;
 	if (is_authentic == AUTH_OK)
 		peer->flags |= FLAG_AUTHENTIC;
 	else
