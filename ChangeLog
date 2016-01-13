@@ -7,6 +7,7 @@
 * [Sec 2939] reslist NULL pointer dereference.  perlinger@ntp.org
 * [Sec 2940] Stack exhaustion in recursive traversal of restriction
   list. perlinger@ntp.org
+* [Sec 2945] Zero Origin Timestamp Bypass. perlinger@ntp.org
 * Make leapsec_query debug messages less verbose.  Harlan Stenn.
 
 ---
@@ -68,7 +69,6 @@
 * Update scripts/calc_tickadj/Makefile.am.  Harlan Stenn.
 
 ---
-(4.2.8p4-RC1) 2015/10/06 Released by Harlan Stenn <stenn@ntp.org>
 
 * [Sec 2899] CVE-2014-9297  perlinger@ntp.org
 * [Sec 2901] Drop invalid packet before checking KoD. Check for all KoD's.

@@ -1431,7 +1431,12 @@ receive(
 	/*
 	 * Basic mode checks:
 	 *
-	 * If there is no origin timestamp, it's an initial packet.
+	 * If there is no origin timestamp, it's either an initial packet
+	 * or we've already received a response to our query.  Of course,
+	 * should 'aorg' be all-zero because this really was the original
+	 * transmit timestamp, we'll drop the reply.  There is a window of
+	 * one nanosecond once every 136 years' time where this is possible.
+	 * We currently ignore this situation.
 	 *
 	 * Otherwise, check for bogus packet in basic mode.
 	 * If it is bogus, switch to interleaved mode and resynchronize,
@@ -1444,7 +1449,8 @@ receive(
 	} else if (peer->flip == 0) {
 		if (0 < hisstratum && L_ISZERO(&p_org)) {
 			L_CLR(&peer->aorg);
-		} else if (!L_ISEQU(&p_org, &peer->aorg)) {
+		} else if (    L_ISZERO(&peer->aorg)
+			   || !L_ISEQU(&p_org, &peer->aorg)) {
 			peer->bogusorg++;
 			peer->flash |= TEST2;	/* bogus */
 			msyslog(LOG_INFO,
