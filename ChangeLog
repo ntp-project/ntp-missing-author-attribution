@@ -5,7 +5,7 @@
 * [Sec 2938] ntpq saveconfig command allows dangerous characters
   in filenames. perlinger@ntp.org
 * [Sec 2939] reslist NULL pointer dereference.  perlinger@ntp.org
-*  [Sec 2940] Stack exhaustion in recursive traversal of restriction
+* [Sec 2940] Stack exhaustion in recursive traversal of restriction
   list. perlinger@ntp.org
 * Make leapsec_query debug messages less verbose.  Harlan Stenn.
 
