@@ -9,12 +9,102 @@ Severity: MEDIUM
 In addition to bug fixes and enhancements, this release fixes the
 following X low- and Y medium-severity vulnerabilities:
 
+* Potential Infinite Loop in 'ntpq'
+   Date Resolved: Stable (4.2.8p6) 19 Jan 2016; Dev (4.3.XX) 19 Jan 2016
+   References: Sec 2548 / CVE-2015-8158
+   Affects: All ntp-4 releases up to, but not including 4.2.8p6, and
+	4.3.0 up to, but not including 4.3.XX
+   CVSS2: (AV:N/AC:M/Au:N/C:N/I:N/A:P) Base Score: 4.3 - MEDIUM
+   CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N Base Score: 5.3 - MEDIUM
+   Summary: 'ntpq' processes incoming packets in a loop in 'getresponse()'.
+	The loop's only stopping conditions are receiving a complete and
+	correct response or hitting a small number of error conditions.
+	If the packet contains incorrect values that don't trigger one of
+	the error conditions, the loop continues to receive new packets.
+	Note well, this is an attack against an instance of 'ntpq', not
+	'ntpd', and this attack requires the attacker to do one of the
+	following:
+	* Own a malicious NTP server that the client trusts
+	* Prevent a legitimate NTP server from sending packets to
+	    the 'ntpq' client
+	* MITM the 'ntpq' communications between the 'ntpq' client
+	    and the NTP server
+   Mitigation:
+	Upgrade to 4.2.8p6, or later, from the NTP Project Download Page
+	or the NTP Public Services Project Download Page
+   Credit: This weakness was discovered by Jonathan Gardner of Cisco ASIG.
+
+* 0rigin: Zero Origin Timestamp Bypass
+   Date Resolved: Stable (4.2.8p6) 19 Jan 2016; Dev (4.3.XX) 19 Jan 2016
+   References: Sec 2545 / CVE-2015-8138
+   Affects: All ntp-4 releases up to, but not including 4.2.8p6, and
+	4.3.0 up to, but not including 4.3.XX
+   CVSS2: (AV:N/AC:L/Au:N/C:N/I:P/A:N) Base Score: 5.0 - MEDIUM
+   CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N Base Score: 5.3 - MEDIUM
+	(3.7 - LOW if you score AC:L)
+   Summary: To distinguish legitimate peer responses from forgeries, a
+	client attempts to verify a response packet by ensuring that the
+	origin timestamp in the packet matches the origin timestamp it
+	transmitted in its last request.  A logic error exists that
+	allows packets with an origin timestamp of zero to bypass this
+	check whenever there is not an outstanding request to the server.
+   Mitigation:
+	Configure 'ntpd' to get time from multiple sources.
+	Upgrade to 4.2.8p6, or later, from the NTP Project Download Page
+	    or the NTP Public Services Project Download Page.
+	Monitor your 'ntpd= instances.
+   Credit: This weakness was discovered by Jonathan Gardner of Cisco ASIG.
+
+* Stack exhaustion in recursive traversal of restriction list
+   Date Resolved: Stable (4.2.8p6) 19 Jan 2016
+   References: Sec 2940 / CVE-2015-7978
+   Affects: All ntp-4 releases up to, but not including 4.2.8p6, and
+	4.3.0 up to, but not including 4.3.XX
+   CVSS: (AV:N/AC:M/Au:N/C:N/I:N/A:P) Base Score: 4.3 - MEDIUM
+   Summary: An unauthenticated 'ntpdc reslist' command can cause a
+   	segmentation fault in ntpd by exhausting the call stack.
+   Mitigation:
+	Implement BCP-38.
+	Upgrade to 4.2.8p6, or later, from the NTP Project Download Page
+	    or the NTP Public Services Project Download Page.
+	If you are unable to upgrade:
+            In ntp-4.2.8, mode 7 is disabled by default. Don't enable it.
+	    If you must enable mode 7:
+		configure the use of a 'requestkey' to control who can
+		    issue mode 7 requests.
+		configure 'restrict noquery' to further limit mode 7
+		    requests to trusted sources.
+		Monitor your ntpd instances.
+   Credit: This weakness was discovered by Stephen Gray at Cisco ASIG.
+
+* reslist NULL pointer dereference
+   Date Resolved: Stable (4.2.8p6) 19 Jan 2016
+   References: Sec 2939 / CVE-2015-7977
+   Affects: All ntp-4 releases up to, but not including 4.2.8p6, and
+	4.3.0 up to, but not including 4.3.XX
+   CVSS: (AV:N/AC:M/Au:N/C:N/I:N/A:P) Base Score: 4.3 - MEDIUM
+   Summary: An unauthenticated 'ntpdc reslist' command can cause a
+	segmentation fault in ntpd by causing a NULL pointer dereference.
+   Mitigation:
+	Implement BCP-38.
+	Upgrade to 4.2.8p6, or later, from NTP Project Download Page or
+	the NTP Public Services Project Download Page.
+	If you are unable to upgrade:
+	    mode 7 is disabled by default.  Don't enable it.
+	    If you must enable mode 7:
+		configure the use of a 'requestkey' to control who can
+		    issue mode 7 requests.
+		configure 'restrict noquery' to further limit mode 7
+		    requests to trusted sources. 
+	Monitor your ntpd instances.
+   Credit: This weakness was discovered by Stephen Gray of Cisco ASIG.
+
 * 'ntpq saveconfig' command allows dangerous characters in filenames.
    Date Resolved: Stable (4.2.8p6) 19 Jan 2016
    References: Sec 2938 / CVE-2015-7976
    Affects: All ntp-4 releases up to, but not including 4.2.8p6, and
 	4.3.0 up to, but not including 4.3.XX
-   CVSS: (AV:N/AC:L/Au:S/C:N/I:P/A:N) Base Score: 4.0 MEDIUM
+   CVSS: (AV:N/AC:L/Au:S/C:N/I:P/A:N) Base Score: 4.0 - MEDIUM
    Summary: The ntpq saveconfig command does not do adequate filtering
    	of special characters from the supplied filename.
 	Note well: The ability to use the saveconfig command is controlled
@@ -34,14 +124,14 @@ following X low- and Y medium-severity vulnerabilities:
 		requests to 'ntpd'.
 	Monitor your ntpd instances.
 	'saveconfig' requests are logged to syslog - monitor your syslog files.
-   Credit: This weakness was discovered by Jonathan Gardner of Cisco.
+   Credit: This weakness was discovered by Jonathan Gardner of Cisco ASIG.
 
 * nextvar() missing length check in ntpq
     Date Resolved: Stable (4.2.8p6) 19 Jan 2016
     References: Sec 2937 / CVE-2015-7975
     Affects: All ntp-4 releases up to, but not including 4.2.8p6, and
 	4.3.0 up to, but not including 4.3.XX
-    CVSS: (AV:L/AC:H/Au:N/C:N/I:N/A:P) Base Score: 1.2.
+    CVSS: (AV:L/AC:H/Au:N/C:N/I:N/A:P) Base Score: 1.2 - LOW
 	If you score A:C, this becomes 4.0.
     CVSSv3: (CVSS:3.0/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L) Base Score 2.9, LOW
     Summary: ntpq may call nextvar() which executes a memcpy() into the
@@ -57,14 +147,14 @@ following X low- and Y medium-severity vulnerabilities:
 	    If you have scripts that feed input to ntpq make sure there are
 		some sanity checks on the input received from the "outside".
 	    This is potentially more dangerous if ntpq is run as root. 
-    Credit: This weakness was discovered by Jonathan Gardner at Cisco.
+    Credit: This weakness was discovered by Jonathan Gardner at Cisco ASIG.
 
 * Deja Vu: Replay attack on authenticated broadcast mode
    Date Resolved: Stable (4.2.8p6) 19 Jan 2016
    References: Sec 2935 / CVE-2015-7973
-   Affects: All ntp-4 releases up to, but not including 4.2.8p5, and
+   Affects: All ntp-4 releases up to, but not including 4.2.8p6, and
    	4.3.0 up to, but not including 4.3.XX
-   CVSS: (AV:A/AC:M/Au:N/C:N/I:P/A:P) Base Score: 4.3 MEDIUM
+   CVSS: (AV:A/AC:M/Au:N/C:N/I:P/A:P) Base Score: 4.3 - MEDIUM
    Summary: If an NTP network is configured for broadcast operations then
    	either a man-in-the-middle attacker or a malicious participant
 	that has the same trusted keys as the victim can replay time packets.
@@ -75,7 +165,8 @@ following X low- and Y medium-severity vulnerabilities:
 	If you are unable to upgrade:
 	    Don't use broadcast mode if you cannot monitor your client servers.
 	Monitor your ntpd instances.
-   Credit: This weakness was discovered by Aanchal Malhotra at Boston University.
+   Credit: This weakness was discovered by Aanchal Malhotra of Boston
+	University.
 
 ---
 
