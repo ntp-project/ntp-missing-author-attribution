@@ -8,6 +8,7 @@
 * [Sec 2940] Stack exhaustion in recursive traversal of restriction
   list. perlinger@ntp.org
 * [Sec 2945] Zero Origin Timestamp Bypass. perlinger@ntp.org
+* [Sec 2948] Potential Infinite Loop in ntpq ( and ntpdc) perlinger@ntp.org
 * Make leapsec_query debug messages less verbose.  Harlan Stenn.
 
 ---
