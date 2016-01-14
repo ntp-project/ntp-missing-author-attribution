@@ -17,6 +17,8 @@
 * [Bug 2892] Several test cases assume IPv6 capabilities even when
              IPv6 is disabled in the build. perlinger@ntp.org
   - Found this already fixed, but validation led to cleanup actions.
+* [Bug 2905] DNS lookups broken. perlinger@ntp.org
+  - added limits to stack consumption, fixed some return code handling
 * Make leapsec_query debug messages less verbose.  Harlan Stenn.
 
 ---
