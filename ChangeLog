@@ -19,6 +19,9 @@
   - Found this already fixed, but validation led to cleanup actions.
 * [Bug 2905] DNS lookups broken. perlinger@ntp.org
   - added limits to stack consumption, fixed some return code handling
+* [Bug 2971] ntpq bails on ^C: select fails: Interrupted system call
+  - changed stacked/nested handling of CTRL-C. perlinger@ntp.org
+  - make CTRL-C work for retrieval and printing od MRU list. perlinger@ntp.org
 * Make leapsec_query debug messages less verbose.  Harlan Stenn.
 
 ---
