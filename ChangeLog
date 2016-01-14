@@ -31,6 +31,7 @@
 * CID 1341681: Nits in sntp/tests/keyFile.c.  HStenn.
 * CID 1341682: Nit in libntp/authreadkeys.c.  HStenn.
 * CID 1341684: Nit in tests/ntpd/t-ntp_signd.c.  HStenn.
+* [Bug 2772] adj_systime overflows tv_usec. perlinger@ntp.org
 * [Bug 2829] Look at pipe_fds in ntpd.c  (did so. perlinger@ntp.org)
 * [Bug 2887] stratum -1 config results as showing value 99
   - fudge stratum should only accept values [0..16]. perlinger@ntp.org
