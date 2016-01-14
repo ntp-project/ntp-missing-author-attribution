@@ -667,43 +667,35 @@ list_peers(
 	struct req_pkt *inpkt
 	)
 {
-	struct info_peer_list *ip;
-	struct peer *pp;
-	int skip = 0;
+	struct info_peer_list *	ip;
+	const struct peer *	pp;
 
 	ip = (struct info_peer_list *)prepare_pkt(srcadr, inter, inpkt,
 	    v6sizeof(struct info_peer_list));
 	for (pp = peer_list; pp != NULL && ip != NULL; pp = pp->p_link) {
 		if (IS_IPV6(&pp->srcadr)) {
-			if (client_v6_capable) {
-				ip->addr6 = SOCK_ADDR6(&pp->srcadr);
-				ip->v6_flag = 1;
-				skip = 0;
-			} else {
-				skip = 1;
-				break;
-			}
+			if (!client_v6_capable)
+				continue;			
+			ip->addr6 = SOCK_ADDR6(&pp->srcadr);
+			ip->v6_flag = 1;
 		} else {
 			ip->addr = NSRCADR(&pp->srcadr);
 			if (client_v6_capable)
 				ip->v6_flag = 0;
-			skip = 0;
 		}
 
-		if (!skip) {
-			ip->port = NSRCPORT(&pp->srcadr);
-			ip->hmode = pp->hmode;
-			ip->flags = 0;
-			if (pp->flags & FLAG_CONFIG)
-				ip->flags |= INFO_FLAG_CONFIG;
-			if (pp == sys_peer)
-				ip->flags |= INFO_FLAG_SYSPEER;
-			if (pp->status == CTL_PST_SEL_SYNCCAND)
-				ip->flags |= INFO_FLAG_SEL_CANDIDATE;
-			if (pp->status >= CTL_PST_SEL_SYSPEER)
-				ip->flags |= INFO_FLAG_SHORTLIST;
-			ip = (struct info_peer_list *)more_pkt();
-		}
+		ip->port = NSRCPORT(&pp->srcadr);
+		ip->hmode = pp->hmode;
+		ip->flags = 0;
+		if (pp->flags & FLAG_CONFIG)
+			ip->flags |= INFO_FLAG_CONFIG;
+		if (pp == sys_peer)
+			ip->flags |= INFO_FLAG_SYSPEER;
+		if (pp->status == CTL_PST_SEL_SYNCCAND)
+			ip->flags |= INFO_FLAG_SEL_CANDIDATE;
+		if (pp->status >= CTL_PST_SEL_SYSPEER)
+			ip->flags |= INFO_FLAG_SHORTLIST;
+		ip = (struct info_peer_list *)more_pkt();
 	}	/* for pp */
 
 	flush_pkt();
@@ -720,10 +712,9 @@ list_peers_sum(
 	struct req_pkt *inpkt
 	)
 {
-	register struct info_peer_summary *ips;
-	register struct peer *pp;
-	l_fp ltmp;
-	register int skip;
+	struct info_peer_summary *	ips;
+	const struct peer *		pp;
+	l_fp 				ltmp;
 
 	DPRINTF(3, ("wants peer list summary\n"));
 
@@ -736,18 +727,14 @@ list_peers_sum(
 		 * want only v4.
 		 */
 		if (IS_IPV6(&pp->srcadr)) {
-			if (client_v6_capable) {
-				ips->srcadr6 = SOCK_ADDR6(&pp->srcadr);
-				ips->v6_flag = 1;
-				if (pp->dstadr)
-					ips->dstadr6 = SOCK_ADDR6(&pp->dstadr->sin);
-				else
-					ZERO(ips->dstadr6);
-				skip = 0;
-			} else {
-				skip = 1;
-				break;
-			}
+			if (!client_v6_capable)
+				continue;
+			ips->srcadr6 = SOCK_ADDR6(&pp->srcadr);
+			ips->v6_flag = 1;
+			if (pp->dstadr)
+				ips->dstadr6 = SOCK_ADDR6(&pp->dstadr->sin);
+			else
+				ZERO(ips->dstadr6);
 		} else {
 			ips->srcadr = NSRCADR(&pp->srcadr);
 			if (client_v6_capable)
@@ -765,39 +752,37 @@ list_peers_sum(
 							ips->dstadr = NSRCADR(&pp->dstadr->bcast);
 					}
 				}
-			} else
+			} else {
 				ips->dstadr = 0;
-
-			skip = 0;
+			}
 		}
 		
-		if (!skip) { 
-			ips->srcport = NSRCPORT(&pp->srcadr);
-			ips->stratum = pp->stratum;
-			ips->hpoll = pp->hpoll;
-			ips->ppoll = pp->ppoll;
-			ips->reach = pp->reach;
-			ips->flags = 0;
-			if (pp == sys_peer)
-				ips->flags |= INFO_FLAG_SYSPEER;
-			if (pp->flags & FLAG_CONFIG)
-				ips->flags |= INFO_FLAG_CONFIG;
-			if (pp->flags & FLAG_REFCLOCK)
-				ips->flags |= INFO_FLAG_REFCLOCK;
-			if (pp->flags & FLAG_PREFER)
-				ips->flags |= INFO_FLAG_PREFER;
-			if (pp->flags & FLAG_BURST)
-				ips->flags |= INFO_FLAG_BURST;
-			if (pp->status == CTL_PST_SEL_SYNCCAND)
-				ips->flags |= INFO_FLAG_SEL_CANDIDATE;
-			if (pp->status >= CTL_PST_SEL_SYSPEER)
-				ips->flags |= INFO_FLAG_SHORTLIST;
-			ips->hmode = pp->hmode;
-			ips->delay = HTONS_FP(DTOFP(pp->delay));
-			DTOLFP(pp->offset, &ltmp);
-			HTONL_FP(&ltmp, &ips->offset);
-			ips->dispersion = HTONS_FP(DTOUFP(SQRT(pp->disp)));
-		}	
+		ips->srcport = NSRCPORT(&pp->srcadr);
+		ips->stratum = pp->stratum;
+		ips->hpoll = pp->hpoll;
+		ips->ppoll = pp->ppoll;
+		ips->reach = pp->reach;
+		ips->flags = 0;
+		if (pp == sys_peer)
+			ips->flags |= INFO_FLAG_SYSPEER;
+		if (pp->flags & FLAG_CONFIG)
+			ips->flags |= INFO_FLAG_CONFIG;
+		if (pp->flags & FLAG_REFCLOCK)
+			ips->flags |= INFO_FLAG_REFCLOCK;
+		if (pp->flags & FLAG_PREFER)
+			ips->flags |= INFO_FLAG_PREFER;
+		if (pp->flags & FLAG_BURST)
+			ips->flags |= INFO_FLAG_BURST;
+		if (pp->status == CTL_PST_SEL_SYNCCAND)
+			ips->flags |= INFO_FLAG_SEL_CANDIDATE;
+		if (pp->status >= CTL_PST_SEL_SYSPEER)
+			ips->flags |= INFO_FLAG_SHORTLIST;
+		ips->hmode = pp->hmode;
+		ips->delay = HTONS_FP(DTOFP(pp->delay));
+		DTOLFP(pp->offset, &ltmp);
+		HTONL_FP(&ltmp, &ips->offset);
+		ips->dispersion = HTONS_FP(DTOUFP(SQRT(pp->disp)));
+
 		ips = (struct info_peer_summary *)more_pkt();
 	}	/* for pp */
 
