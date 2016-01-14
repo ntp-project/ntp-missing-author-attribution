@@ -883,6 +883,21 @@ getresponse(
 		FD_SET(sockfd, &fds);
 		n = select(sockfd+1, &fds, NULL, NULL, &tvo);
 		if (n == -1) {
+#if !defined(SYS_WINNT) && defined(EINTR)
+			/* Windows does not know about EINTR (until very
+			 * recently) and the handling of console events
+			 * is *very* different from POSIX/UNIX signal
+			 * handling anyway.
+			 *
+			 * Under non-windows targets we map EINTR as
+			 * 'last packet was received' and try to exit
+			 * the receive sequence.
+			 */
+			if (errno == EINTR) {
+				seenlastfrag = 1;
+				goto maybe_final;
+			}
+#endif
 			warning("select fails");
 			return -1;
 		}
@@ -1169,6 +1184,7 @@ getresponse(
 		 * If we've seen the last fragment, look for holes in the sequence.
 		 * If there aren't any, we're done.
 		 */
+	  maybe_final:
 		if (seenlastfrag && offsets[0] == 0) {
 			for (f = 1; f < numfrags; f++)
 				if (offsets[f-1] + counts[f-1] !=
