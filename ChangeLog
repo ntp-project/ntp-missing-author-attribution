@@ -24,6 +24,8 @@
   - make CTRL-C work for retrieval and printing od MRU list. perlinger@ntp.org
 * [Bug 2980] reduce number of warnings. perlinger@ntp.org
   - integrated several patches from Havard Eidnes (he@uninett.no)
+* [Bug 2985] bogus calculation in authkeys.c perlinger@ntp.org
+  - implement 'auth_log2()' using integer bithack instead of float calculation
 * Make leapsec_query debug messages less verbose.  Harlan Stenn.
 
 ---
