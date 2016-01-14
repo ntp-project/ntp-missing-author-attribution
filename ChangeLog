@@ -14,6 +14,9 @@
   - applied patch by shenpeng11@huawei.com with minor adjustments
 * [Bug 2882] Look at ntp_request.c:list_peers_sum(). perlinger@ntp.org
 * [Bug 2891] Deadlock in deferred DNS lookup framework. perlinger@ntp.org
+* [Bug 2892] Several test cases assume IPv6 capabilities even when
+             IPv6 is disabled in the build. perlinger@ntp.org
+  - Found this already fixed, but validation led to cleanup actions.
 * Make leapsec_query debug messages less verbose.  Harlan Stenn.
 
 ---
