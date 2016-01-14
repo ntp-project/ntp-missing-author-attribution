@@ -168,6 +168,27 @@ following X low- and Y medium-severity vulnerabilities:
    Credit: This weakness was discovered by Aanchal Malhotra of Boston
 	University.
 
+Other fixes:
+
+* [Bug 2772] adj_systime overflows tv_usec. perlinger@ntp.org
+* [Bug 2814] msyslog deadlock when signaled. perlinger@ntp.org
+  - applied patch by shenpeng11@huawei.com with minor adjustments
+* [Bug 2882] Look at ntp_request.c:list_peers_sum(). perlinger@ntp.org
+* [Bug 2891] Deadlock in deferred DNS lookup framework. perlinger@ntp.org
+* [Bug 2892] Several test cases assume IPv6 capabilities even when
+             IPv6 is disabled in the build. perlinger@ntp.org
+  - Found this already fixed, but validation led to cleanup actions.
+* [Bug 2905] DNS lookups broken. perlinger@ntp.org
+  - added limits to stack consumption, fixed some return code handling
+* [Bug 2971] ntpq bails on ^C: select fails: Interrupted system call
+  - changed stacked/nested handling of CTRL-C. perlinger@ntp.org
+  - make CTRL-C work for retrieval and printing od MRU list. perlinger@ntp.org
+* [Bug 2980] reduce number of warnings. perlinger@ntp.org
+  - integrated several patches from Havard Eidnes (he@uninett.no)
+* [Bug 2985] bogus calculation in authkeys.c perlinger@ntp.org
+  - implement 'auth_log2()' using integer bithack instead of float calculation
+* Make leapsec_query debug messages less verbose.  Harlan Stenn.
+
 ---
 
 NTP 4.2.8p5
