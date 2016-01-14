@@ -12,6 +12,7 @@
 * [Bug 2772] adj_systime overflows tv_usec. perlinger@ntp.org
 * [Bug 2814] msyslog deadlock when signaled. perlinger@ntp.org
   - applied patch by shenpeng11@huawei.com with minor adjustments
+* [Bug 2882] Look at ntp_request.c:list_peers_sum(). perlinger@ntp.org
 * Make leapsec_query debug messages less verbose.  Harlan Stenn.
 
 ---
@@ -35,7 +36,6 @@
 * CID 1341682: Nit in libntp/authreadkeys.c.  HStenn.
 * CID 1341684: Nit in tests/ntpd/t-ntp_signd.c.  HStenn.
 * [Bug 2829] Look at pipe_fds in ntpd.c  (did so. perlinger@ntp.org)
-* [Bug 2882] Look at ntp_request.c:list_peers_sum(). perlinger@ntp.org
 * [Bug 2887] stratum -1 config results as showing value 99
   - fudge stratum should only accept values [0..16]. perlinger@ntp.org
 * [Bug 2932] Update leapsecond file info in miscopt.html.  CWoodbury, HStenn.
