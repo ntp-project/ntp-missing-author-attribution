@@ -846,6 +846,10 @@ getresponse(
 	fd_set fds;
 	int n;
 	int errcode;
+	/* absolute timeout checks. Not 'time_t' by intention! */
+	uint32_t tobase;	/* base value for timeout */
+	uint32_t tospan;	/* timeout span (max delay) */
+	uint32_t todiff;	/* current delay */
 
 	/*
 	 * This is pretty tricky.  We may get between 1 and MAXFRAG packets
@@ -862,6 +866,8 @@ getresponse(
 	numfrags = 0;
 	seenlastfrag = 0;
 
+	tobase = (uint32_t)time(NULL);
+	
 	FD_ZERO(&fds);
 
 	/*
@@ -874,13 +880,40 @@ getresponse(
 			tvo = tvout;
 		else
 			tvo = tvsout;
+		tospan = (uint32_t)tvo.tv_sec + (tvo.tv_usec != 0);
 
 		FD_SET(sockfd, &fds);
 		n = select(sockfd+1, &fds, NULL, NULL, &tvo);
 		if (n == -1) {
+#if !defined(SYS_WINNT) && defined(EINTR)
+			/* Windows does not know about EINTR (until very
+			 * recently) and the handling of console events
+			 * is *very* different from POSIX/UNIX signal
+			 * handling anyway.
+			 *
+			 * Under non-windows targets we map EINTR as
+			 * 'last packet was received' and try to exit
+			 * the receive sequence.
+			 */
+			if (errno == EINTR) {
+				seenlastfrag = 1;
+				goto maybe_final;
+			}
+#endif
 			warning("select fails");
 			return -1;
 		}
+
+		/*
+		 * Check if this is already too late. Trash the data and
+		 * fake a timeout if this is so.
+		 */
+		todiff = (((uint32_t)time(NULL)) - tobase) & 0x7FFFFFFFu;
+		if ((n > 0) && (todiff > tospan)) {
+			n = recv(sockfd, (char *)&rpkt, sizeof(rpkt), 0);
+			n = 0; /* faked timeout return from 'select()'*/
+		}
+		
 		if (n == 0) {
 			/*
 			 * Timed out.  Return what we have
@@ -1143,14 +1176,17 @@ getresponse(
 		}
 
 		/*
-		 * Copy the data into the data buffer.
+		 * Copy the data into the data buffer, and bump the
+		 * timout base in case we need more.
 		 */
 		memcpy((char *)pktdata + offset, &rpkt.u, count);
-
+		tobase = (uint32_t)time(NULL);
+		
 		/*
 		 * If we've seen the last fragment, look for holes in the sequence.
 		 * If there aren't any, we're done.
 		 */
+	  maybe_final:
 		if (seenlastfrag && offsets[0] == 0) {
 			for (f = 1; f < numfrags; f++)
 				if (offsets[f-1] + counts[f-1] !=
@@ -2956,6 +2992,8 @@ nextvar(
 	len = srclen;
 	while (len > 0 && isspace((unsigned char)cp[len - 1]))
 		len--;
+	if (len >= sizeof(name))
+	    return 0;
 	if (len > 0)
 		memcpy(name, cp, len);
 	name[len] = '\0';

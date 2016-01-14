@@ -1,5 +1,34 @@
 ---
 
+* [Sec 2935] Deja Vu: Replay attack on authenticated broadcast mode. HStenn.
+* [Sec 2937] ntpq: nextvar() missing length check. perlinger@ntp.org
+* [Sec 2938] ntpq saveconfig command allows dangerous characters
+  in filenames. perlinger@ntp.org
+* [Sec 2939] reslist NULL pointer dereference.  perlinger@ntp.org
+* [Sec 2940] Stack exhaustion in recursive traversal of restriction
+  list. perlinger@ntp.org
+* [Sec 2945] Zero Origin Timestamp Bypass. perlinger@ntp.org
+* [Sec 2948] Potential Infinite Loop in ntpq ( and ntpdc) perlinger@ntp.org
+* [Bug 2772] adj_systime overflows tv_usec. perlinger@ntp.org
+* [Bug 2814] msyslog deadlock when signaled. perlinger@ntp.org
+  - applied patch by shenpeng11@huawei.com with minor adjustments
+* [Bug 2882] Look at ntp_request.c:list_peers_sum(). perlinger@ntp.org
+* [Bug 2891] Deadlock in deferred DNS lookup framework. perlinger@ntp.org
+* [Bug 2892] Several test cases assume IPv6 capabilities even when
+             IPv6 is disabled in the build. perlinger@ntp.org
+  - Found this already fixed, but validation led to cleanup actions.
+* [Bug 2905] DNS lookups broken. perlinger@ntp.org
+  - added limits to stack consumption, fixed some return code handling
+* [Bug 2971] ntpq bails on ^C: select fails: Interrupted system call
+  - changed stacked/nested handling of CTRL-C. perlinger@ntp.org
+  - make CTRL-C work for retrieval and printing od MRU list. perlinger@ntp.org
+* [Bug 2980] reduce number of warnings. perlinger@ntp.org
+  - integrated several patches from Havard Eidnes (he@uninett.no)
+* Make leapsec_query debug messages less verbose.  Harlan Stenn.
+
+---
+(4.2.8p5) 2016/01/07 Released by Harlan Stenn <stenn@ntp.org>
+
 * [Sec 2956] small-step/big-step.  Close the panic gate earlier.  HStenn.
 * CID 1339955: Free allocated memory in caljulian test.  HStenn.
 * CID 1339962: Explicitly initialize variable in caljulian test.  HStenn.
@@ -19,11 +48,12 @@
 * CID 1341684: Nit in tests/ntpd/t-ntp_signd.c.  HStenn.
 * [Bug 2829] Look at pipe_fds in ntpd.c  (did so. perlinger@ntp.org)
 * [Bug 2887] stratum -1 config results as showing value 99
-  - fudge stratum only accepts values [0..16]. perlinger@ntp.org
+  - fudge stratum should only accept values [0..16]. perlinger@ntp.org
 * [Bug 2932] Update leapsecond file info in miscopt.html.  CWoodbury, HStenn.
 * [Bug 2934] tests/ntpd/t-ntp_scanner.c has a magic constant wired in.  HMurray
 * [Bug 2944] errno is not preserved properly in ntpdate after sendto call.
   - applied patch by Christos Zoulas.  perlinger@ntp.org
+* [Bug 2952] Symmetric active/passive mode is broken.  HStenn.
 * [Bug 2954] Version 4.2.8p4 crashes on startup with sig fault
   - fixed data race conditions in threaded DNS worker. perlinger@ntp.org
   - limit threading warm-up to linux; FreeBSD bombs on it. perlinger@ntp.org
@@ -45,16 +75,17 @@
               lots of clients. perlinger@ntp.org
 * [Bug 2971] ntpq bails on ^C: select fails: Interrupted system call
   - changed stacked/nested handling of CTRL-C. perlinger@ntp.org
-* [Bug 2980] reduce number of warnings. perlinger@ntp.org
-  - integrated several patches from Havard Eidnes (he@uninett.no)
+  - make CTRL-C work for retrieval and printing od MRU list. perlinger@ntp.org
 * Unity cleanup for FreeBSD-6.4.  Harlan Stenn.
 * Unity test cleanup.  Harlan Stenn.
 * Libevent autoconf pthread fixes for FreeBSD-10.  Harlan Stenn.
 * Header cleanup in tests/sandbox/uglydate.c.  Harlan Stenn.
 * Header cleanup in tests/libntp/sfptostr.c.  Harlan Stenn.
+* Quiet a warning from clang.  Harlan Stenn.
+* Update the NEWS file.  Harlan Stenn.
+* Update scripts/calc_tickadj/Makefile.am.  Harlan Stenn.
+
 ---
-(4.2.8p4) 2015/10/21 Released by Harlan Stenn <stenn@ntp.org>
-(4.2.8p4-RC1) 2015/10/06 Released by Harlan Stenn <stenn@ntp.org>
 
 * [Sec 2899] CVE-2014-9297  perlinger@ntp.org
 * [Sec 2901] Drop invalid packet before checking KoD. Check for all KoD's.
