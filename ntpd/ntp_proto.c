@@ -153,6 +153,19 @@ u_long	sys_declined;		/* declined */
 u_long	sys_limitrejected;	/* rate exceeded */
 u_long	sys_kodsent;		/* KoD sent */
 
+/*
+ * Mechanism knobs: how soon do we unpeer()?
+ *
+ * The default way is "on-receipt".  If this was a packet from a
+ * well-behaved source, on-receipt will offer the fastest recovery.
+ * If this was from a DoS attack, the default way makes it easier
+ * for a bad-guy to DoS us.  So look and see what bites you harder
+ * and choose according to your environment.
+ */
+int unpeer_crypto_early		= 1;	/* bad crypto (TEST9) */
+int unpeer_crypto_nak_early	= 1;	/* crypto_NAK (TEST5) */
+int unpeer_digest_early		= 1;	/* bad digest (TEST5) */
+
 static int kiss_code_check(u_char hisleap, u_char hisstratum, u_char hismode, u_int32 refid);
 static	double	root_distance	(struct peer *);
 static	void	clock_combine	(peer_select *, int, int);
@@ -1499,7 +1512,9 @@ receive(
 		peer->flash |= TEST5;		/* bad auth */
 		peer->badauth++;
 		if (peer->flags & FLAG_PREEMPT) {
-			unpeer(peer);
+			if (unpeer_crypto_nak_early) {
+				unpeer(peer);
+			}
 			return;
 		}
 #ifdef AUTOKEY
@@ -1525,7 +1540,9 @@ receive(
 		    && (hismode == MODE_ACTIVE || hismode == MODE_PASSIVE))
 			fast_xmit(rbufp, MODE_ACTIVE, 0, restrict_mask);
 		if (peer->flags & FLAG_PREEMPT) {
-			unpeer(peer);
+			if (unpeer_digest_early) {
+				unpeer(peer);
+			}
 			return;
 		}
 #ifdef AUTOKEY
@@ -1636,8 +1653,11 @@ receive(
 				    "crypto error");
 				peer_clear(peer, "CRYP");
 				peer->flash |= TEST9;	/* bad crypt */
-				if (peer->flags & FLAG_PREEMPT)
-					unpeer(peer);
+				if (peer->flags & FLAG_PREEMPT) {
+					if (unpeer_crypto_early) {
+						unpeer(peer);
+					}
+				}
 			}
 			return;
 		}
@@ -4432,6 +4452,22 @@ proto_config(
 	case PROTO_MULTICAST_DEL: /* delete group address */
 		if (svalue != NULL)
 			io_multicast_del(svalue);
+		break;
+
+	/*
+	 * Unpeer Early policy choices
+	 */
+
+	case PROTO_UECRYPTO:	/* Crypto */
+		unpeer_crypto_early = value;
+		break;
+
+	case PROTO_UECRYPTONAK:	/* Crypto_NAK */
+		unpeer_crypto_nak_early = value;
+		break;
+
+	case PROTO_UEDIGEST:	/* Digest */
+		unpeer_digest_early = value;
 		break;
 
 	default:

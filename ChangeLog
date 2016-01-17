@@ -7,6 +7,7 @@
 * [Sec 2939] reslist NULL pointer dereference.  perlinger@ntp.org
 * [Sec 2940] Stack exhaustion in recursive traversal of restriction
   list. perlinger@ntp.org
+* [Sec 2942]: Off-path DoS attack on auth broadcast mode.  HStenn.
 * [Sec 2945] Zero Origin Timestamp Bypass. perlinger@ntp.org
 * [Sec 2948] Potential Infinite Loop in ntpq ( and ntpdc) perlinger@ntp.org
 * [Bug 2772] adj_systime overflows tv_usec. perlinger@ntp.org

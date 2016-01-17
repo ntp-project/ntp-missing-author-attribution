@@ -2983,6 +2983,18 @@ apply_enable_disable(
 			proto_config(PROTO_FILEGEN, enable, 0., NULL);
 			break;
 
+		case T_UEcrypto:
+			proto_config(PROTO_UECRYPTO, enable, 0., NULL);
+			break;
+
+		case T_UEcryptonak:
+			proto_config(PROTO_UECRYPTONAK, enable, 0., NULL);
+			break;
+
+		case T_UEdigest:
+			proto_config(PROTO_UEDIGEST, enable, 0., NULL);
+			break;
+
 #ifdef BC_LIST_FRAMEWORK_NOT_YET_USED
 		case T_Bc_bugXXXX:
 			pentry = bc_list;
