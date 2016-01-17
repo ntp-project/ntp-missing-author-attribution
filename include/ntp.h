@@ -708,6 +708,9 @@ struct pkt {
 #define	PROTO_ORPHAN		26
 #define	PROTO_ORPHWAIT		27
 #define	PROTO_MODE7		28
+#define	PROTO_UECRYPTO		29
+#define	PROTO_UECRYPTONAK	30
+#define	PROTO_UEDIGEST		31
 
 /*
  * Configuration items for the loop filter

@@ -1,4 +1,8 @@
 ---
+
+* [Sec 2942]: Off-path DoS attack on auth broadcast mode.  HStenn.
+
+---
 (4.2.8p5) 2016/01/07 Released by Harlan Stenn <stenn@ntp.org>
 
 * [Sec 2956] small-step/big-step.  Close the panic gate earlier.  HStenn.
