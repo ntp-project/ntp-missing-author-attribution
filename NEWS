@@ -77,6 +77,28 @@ following X low- and Y medium-severity vulnerabilities:
 		Monitor your ntpd instances.
    Credit: This weakness was discovered by Stephen Gray at Cisco ASIG.
 
+* Off-path Denial of Service (!DoS) attack on authenticated broadcast mode
+   Date Resolved: Stable (4.2.8p6) 19 Jan 2016
+   References: Sec 2942 / CVE-2015-7979
+   Affects: All ntp-4 releases up to, but not including 4.2.8p6, and
+	4.3.0 up to, but not including 4.3.XX
+   CVSS: (AV:N/AC:M/Au:N/C:N/I:P/A:P) Base Score: 5.8
+   Summary: An off-path attacker can send broadcast packets with bad
+	authentication (wrong key, mismatched key, incorrect MAC, etc)
+	to broadcast clients. It is observed that the broadcast client
+	tears down the association with the broadcast server upon
+	receiving just one bad packet.
+   Mitigation:
+	Implement BCP-38.
+	Upgrade to 4.2.8p6, or later, from the NTP Project Download Page
+	or the NTP Public Services Project Download Page.
+	Monitor your 'ntpd' instances.
+	If this sort of attack is an active problem for you, you have
+	    deeper problems to investigate.  In this case also consider
+	    having smaller NTP broadcast domains.
+   Credit: This weakness was discovered by Aanchal Malhotra of Boston
+   	University.
+
 * reslist NULL pointer dereference
    Date Resolved: Stable (4.2.8p6) 19 Jan 2016
    References: Sec 2939 / CVE-2015-7977
