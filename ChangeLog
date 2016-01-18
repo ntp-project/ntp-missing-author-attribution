@@ -1,6 +1,7 @@
 ---
 
 * [Sec 2935] Deja Vu: Replay attack on authenticated broadcast mode. HStenn.
+* [Sec 2936] Skeleton Key: Any trusted key system can serve time. HStenn.
 * [Sec 2937] ntpq: nextvar() missing length check. perlinger@ntp.org
 * [Sec 2938] ntpq saveconfig command allows dangerous characters
   in filenames. perlinger@ntp.org

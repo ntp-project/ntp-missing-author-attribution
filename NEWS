@@ -171,6 +171,46 @@ following X low- and Y medium-severity vulnerabilities:
 	    This is potentially more dangerous if ntpq is run as root. 
     Credit: This weakness was discovered by Jonathan Gardner at Cisco ASIG.
 
+* Skeleton Key: Any trusted key system can serve time
+   Date Resolved: Stable (4.2.8p6) 19 Jan 2016
+   References: Sec 2936 / CVE-2015-7974
+   Affects: All ntp-4 releases up to, but not including 4.2.8p6, and
+	4.3.0 up to, but not including 4.3.XX
+   CVSS: (AV:N/AC:H/Au:S/C:N/I:C/A:N) Base Score: 4.9
+   Summary: Symmetric key encryption uses a shared trusted key. The
+	reported title for this issue was "Missing key check allows
+	impersonation between authenticated peers" and the report claimed
+	"A key specified only for one server should only work to
+	authenticate that server, other trusted keys should be refused."
+	Except there has never been any correlation between this trusted
+	key and server v. clients machines and there has never been any
+	way to specify a key only for one server. We have treated this as
+	an enhancement request, and ntp-4.2.8p6 includes other checks and
+	tests to strengthen clients against attacks coming from broadcast
+	servers.
+   Mitigation:
+	Implement BCP-38.
+	If this scenario represents a real or a potential issue for you,
+	    upgrade to 4.2.8p6, or later, from the NTP Project Download
+	    Page or the NTP Public Services Project Download Page, and
+	    use the new field in the ntp.keys file that specifies the list
+	    of IPs that are allowed to serve time. Note that this alone
+	    will not protect against time packets with forged source IP
+	    addresses, however other changes in ntp-4.2.8p6 provide
+	    significant mitigation against broadcast attacks. MITM attacks
+	    are a different story.
+	If you are unable to upgrade:
+	    Don't use broadcast mode if you cannot monitor your client
+	    	servers.
+	    If you choose to use symmetric keys to authenticate time
+	    	packets in a hostile environment where ephemeral time
+		servers can be created, or if it is expected that malicious
+		time servers will participate in an NTP broadcast domain,
+		limit the number of participating systems that participate
+		in the shared-key group. 
+	Monitor your ntpd instances. 
+   Credit: This weakness was discovered by Matt Street of Cisco ASIG. 
+
 * Deja Vu: Replay attack on authenticated broadcast mode
    Date Resolved: Stable (4.2.8p6) 19 Jan 2016
    References: Sec 2935 / CVE-2015-7973

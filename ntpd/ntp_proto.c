@@ -1597,6 +1597,40 @@ receive(
 		return;		/* Drop any other kiss code packets */
 	}
 
+	/*
+	 * If:
+	 *	- this is a *cast (uni-, broad-, or m-) server packet
+	 *	- and it's authenticated
+	 * then see if the sender's IP is trusted for this keyid.
+	 * If it is, great - nothing special to do here.
+	 * Otherwise, we should report and bail.
+	 */
+
+	switch (hismode) {
+	    case MODE_SERVER:		/* server mode */
+	    case MODE_BROADCAST:	/* broadcast mode */
+	    case MODE_ACTIVE:		/* symmetric active mode */
+		if (   is_authentic == AUTH_OK
+		    && !authistrustedip(skeyid, &peer->srcadr)) {
+			report_event(PEVNT_AUTH, peer, "authIP");
+			peer->badauth++;
+			return;
+		}
+	    	break;
+
+	    case MODE_UNSPEC:		/* unspecified (old version) */
+	    case MODE_PASSIVE:		/* symmetric passive mode */
+	    case MODE_CLIENT:		/* client mode */
+#if 0		/* At this point, MODE_CONTROL is overloaded by MODE_BCLIENT */
+	    case MODE_CONTROL:		/* control mode */
+#endif
+	    case MODE_PRIVATE:		/* private mode */
+	    case MODE_BCLIENT:		/* broadcast client mode */
+	    	break;
+	    default:
+	    	break;
+	}
+
 
 	/*
 	 * That was hard and I am sweaty, but the packet is squeaky

@@ -15,6 +15,7 @@
 #include "ntp_string.h"
 #include "ntp_malloc.h"
 #include "ntp_stdlib.h"
+#include "ntp_keyacc.h"
 
 /*
  * Structure to store keys in in the hash table.
@@ -25,6 +26,7 @@ struct savekey {
 	symkey *	hlink;		/* next in hash bucket */
 	DECL_DLIST_LINK(symkey, llink);	/* for overall & free lists */
 	u_char *	secret;		/* shared secret */
+	KeyAccT *	keyacclist;	/* Private key access list */
 	u_long		lifetime;	/* remaining lifetime */
 	keyid_t		keyid;		/* key identifier */
 	u_short		type;		/* OpenSSL digest NID */
@@ -50,8 +52,8 @@ symkey_alloc *	authallocs;
 
 static u_short	auth_log2(size_t);
 static void	auth_resize_hashtable(void);
-static void	allocsymkey(symkey **, keyid_t,	u_short,
-			    u_short, u_long, u_short, u_char *);
+static void	allocsymkey(symkey **, keyid_t,	u_short, u_short,
+			    u_long, u_short, u_char *, KeyAccT *);
 static void	freesymkey(symkey *, symkey **);
 #ifdef DEBUG
 static void	free_auth_mem(void);
@@ -97,6 +99,7 @@ u_char *cache_secret;		/* secret */
 u_short	cache_secretsize;	/* secret length */
 int	cache_type;		/* OpenSSL digest NID */
 u_short cache_flags;		/* flags that wave */
+KeyAccT *cache_keyacclist;	/* key access list */
 
 
 /*
@@ -142,6 +145,7 @@ free_auth_mem(void)
 	key_hash = NULL;
 	cache_keyid = 0;
 	cache_flags = 0;
+	cache_keyacclist = NULL;
 	for (alloc = authallocs; alloc != NULL; alloc = next_alloc) {
 		next_alloc = alloc->link;
 		free(alloc->mem);	
@@ -290,7 +294,8 @@ allocsymkey(
 	u_short		type,
 	u_long		lifetime,
 	u_short		secretsize,
-	u_char *	secret
+	u_char *	secret,
+	KeyAccT *	ka
 	)
 {
 	symkey *	sk;
@@ -304,6 +309,7 @@ allocsymkey(
 	sk->type = type;
 	sk->secretsize = secretsize;
 	sk->secret = secret;
+	sk->keyacclist = ka;
 	sk->lifetime = lifetime;
 	LINK_SLIST(*bucket, sk, hlink);
 	LINK_TAIL_DLIST(key_listhead, sk, llink);
@@ -435,6 +441,7 @@ authhavekey(
 	cache_flags = sk->flags;
 	cache_secret = sk->secret;
 	cache_secretsize = sk->secretsize;
+	cache_keyacclist = sk->keyacclist;
 
 	return TRUE;
 }
@@ -474,6 +481,7 @@ authtrust(
 		if (cache_keyid == id) {
 			cache_flags = 0;
 			cache_keyid = 0;
+			cache_keyacclist = NULL;
 		}
 
 		/*
@@ -503,7 +511,7 @@ authtrust(
 	} else {
 		lifetime = 0;
 	}
-	allocsymkey(bucket, id, KEY_TRUSTED, 0, lifetime, 0, NULL);
+	allocsymkey(bucket, id, KEY_TRUSTED, 0, lifetime, 0, NULL, NULL);
 }
 
 
@@ -534,6 +542,49 @@ authistrusted(
 	return TRUE;
 }
 
+
+/*
+ * authistrustedip - determine if the IP is OK for the keyid
+ */
+ int
+ authistrustedip(
+ 	keyid_t		keyno,
+	sockaddr_u *	sau
+	)
+{
+	symkey *	sk;
+	symkey **	bucket;
+	KeyAccT *	kal;
+	KeyAccT *	k;
+
+	if (keyno == cache_keyid)
+		kal = cache_keyacclist;
+	else {
+		authkeyuncached++;
+		bucket = &key_hash[KEYHASH(keyno)];
+		for (sk = *bucket; sk != NULL; sk = sk->hlink) {
+			if (keyno == sk->keyid)
+				break;
+		}
+		if (NULL == sk || !(KEY_TRUSTED & sk->flags)) {
+			INSIST(!"authistrustedip: keyid not found/trusted!");
+			return FALSE;
+		}
+		kal = sk->keyacclist;
+	}
+
+	if (NULL == kal)
+		return TRUE;
+
+	for (k = kal; k; k = k->next) {
+		if (SOCK_EQ(&k->addr, sau))
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+
 /* Note: There are two locations below where 'strncpy()' is used. While
  * this function is a hazard by itself, it's essential that it is used
  * here. Bug 1243 involved that the secret was filled with NUL bytes
@@ -550,7 +601,8 @@ MD5auth_setkey(
 	keyid_t keyno,
 	int	keytype,
 	const u_char *key,
-	size_t len
+	size_t	len,
+	KeyAccT *ka
 	)
 {
 	symkey *	sk;
@@ -576,6 +628,7 @@ MD5auth_setkey(
 			sk->type = (u_short)keytype;
 			secretsize = len;
 			sk->secretsize = (u_short)secretsize;
+			sk->keyacclist = ka;
 #ifndef DISABLE_BUG1243_FIX
 			memcpy(sk->secret, key, secretsize);
 #else
@@ -586,6 +639,7 @@ MD5auth_setkey(
 			if (cache_keyid == keyno) {
 				cache_flags = 0;
 				cache_keyid = 0;
+				cache_keyacclist = NULL;
 			}
 			return;
 		}
@@ -603,7 +657,7 @@ MD5auth_setkey(
 	strncpy((char *)secret, (const char *)key, secretsize);
 #endif
 	allocsymkey(bucket, keyno, 0, (u_short)keytype, 0,
-		    (u_short)secretsize, secret);
+		    (u_short)secretsize, secret, ka);
 #ifdef DEBUG
 	if (debug >= 4) {
 		size_t	j;
