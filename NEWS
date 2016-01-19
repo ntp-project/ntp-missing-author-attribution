@@ -36,7 +36,7 @@ following X low- and Y medium-severity vulnerabilities:
 
 * 0rigin: Zero Origin Timestamp Bypass
    Date Resolved: Stable (4.2.8p6) 19 Jan 2016; Dev (4.3.XX) 19 Jan 2016
-   References: Sec 2545 / CVE-2015-8138
+   References: Sec 2945 / CVE-2015-8138
    Affects: All ntp-4 releases up to, but not including 4.2.8p6, and
 	4.3.0 up to, but not including 4.3.XX
    CVSS2: (AV:N/AC:L/Au:N/C:N/I:P/A:N) Base Score: 5.0 - MEDIUM
