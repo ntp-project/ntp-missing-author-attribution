@@ -1,9 +1,9 @@
-.Dd January 8 2016
+.Dd January 20 2016
 .Dt NTPTRACE @NTPTRACE_MS@ User Commands
 .Os
 .\"  EDIT THIS FILE WITH CAUTION  (ntptrace-opts.mdoc)
 .\"
-.\"  It has been AutoGen-ed  January  8, 2016 at 11:54:28 AM by AutoGen 5.18.5
+.\"  It has been AutoGen-ed  January 20, 2016 at 11:55:21 AM by AutoGen 5.18.5
 .\"  From the definitions    ntptrace-opts.def
 .\"  and the template file   agmdoc-cmd.tpl
 .Sh NAME
