@@ -1,6 +1,6 @@
 (4.3.89) 2016/01/08 Released by Harlan Stenn <stenn@ntp.org>
 ntp-4.2.8p5
-* [Sec 2956] small-step/big-step.  Close the panic gate earlier.  HStenn.
+No changes since 4.3.88.
 (4.3.88) 2015/12/06 Released by Harlan Stenn <stenn@ntp.org>
 Below are from 4.2.8p5:
 * Quiet a warning from clang.  Harlan Stenn.
