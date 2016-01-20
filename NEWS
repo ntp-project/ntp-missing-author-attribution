@@ -10,10 +10,10 @@ In addition to bug fixes and enhancements, this release fixes the
 following X low- and Y medium-severity vulnerabilities:
 
 * Potential Infinite Loop in 'ntpq'
-   Date Resolved: Stable (4.2.8p6) 19 Jan 2016; Dev (4.3.XX) 19 Jan 2016
+   Date Resolved: Stable (4.2.8p6) 19 Jan 2016; Dev (4.3.90) 19 Jan 2016
    References: Sec 2548 / CVE-2015-8158
    Affects: All ntp-4 releases up to, but not including 4.2.8p6, and
-	4.3.0 up to, but not including 4.3.XX
+	4.3.0 up to, but not including 4.3.90
    CVSS2: (AV:N/AC:M/Au:N/C:N/I:N/A:P) Base Score: 4.3 - MEDIUM
    CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N Base Score: 5.3 - MEDIUM
    Summary: 'ntpq' processes incoming packets in a loop in 'getresponse()'.
@@ -35,10 +35,10 @@ following X low- and Y medium-severity vulnerabilities:
    Credit: This weakness was discovered by Jonathan Gardner of Cisco ASIG.
 
 * 0rigin: Zero Origin Timestamp Bypass
-   Date Resolved: Stable (4.2.8p6) 19 Jan 2016; Dev (4.3.XX) 19 Jan 2016
+   Date Resolved: Stable (4.2.8p6) 19 Jan 2016; Dev (4.3.90) 19 Jan 2016
    References: Sec 2945 / CVE-2015-8138
    Affects: All ntp-4 releases up to, but not including 4.2.8p6, and
-	4.3.0 up to, but not including 4.3.XX
+	4.3.0 up to, but not including 4.3.90
    CVSS2: (AV:N/AC:L/Au:N/C:N/I:P/A:N) Base Score: 5.0 - MEDIUM
    CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N Base Score: 5.3 - MEDIUM
 	(3.7 - LOW if you score AC:L)
@@ -59,7 +59,7 @@ following X low- and Y medium-severity vulnerabilities:
    Date Resolved: Stable (4.2.8p6) 19 Jan 2016
    References: Sec 2940 / CVE-2015-7978
    Affects: All ntp-4 releases up to, but not including 4.2.8p6, and
-	4.3.0 up to, but not including 4.3.XX
+	4.3.0 up to, but not including 4.3.90
    CVSS: (AV:N/AC:M/Au:N/C:N/I:N/A:P) Base Score: 4.3 - MEDIUM
    Summary: An unauthenticated 'ntpdc reslist' command can cause a
    	segmentation fault in ntpd by exhausting the call stack.
@@ -78,10 +78,10 @@ following X low- and Y medium-severity vulnerabilities:
    Credit: This weakness was discovered by Stephen Gray at Cisco ASIG.
 
 * Off-path Denial of Service (!DoS) attack on authenticated broadcast mode
-   Date Resolved: Stable (4.2.8p6) 19 Jan 2016
+   Date Resolved: Stable (4.2.8p6) 19 Jan 2016; Dev (4.3.90) 19 Jan 2016
    References: Sec 2942 / CVE-2015-7979
    Affects: All ntp-4 releases up to, but not including 4.2.8p6, and
-	4.3.0 up to, but not including 4.3.XX
+	4.3.0 up to, but not including 4.3.90
    CVSS: (AV:N/AC:M/Au:N/C:N/I:P/A:P) Base Score: 5.8
    Summary: An off-path attacker can send broadcast packets with bad
 	authentication (wrong key, mismatched key, incorrect MAC, etc)
@@ -100,10 +100,10 @@ following X low- and Y medium-severity vulnerabilities:
    	University.
 
 * reslist NULL pointer dereference
-   Date Resolved: Stable (4.2.8p6) 19 Jan 2016
+   Date Resolved: Stable (4.2.8p6) 19 Jan 2016; Dev (4.3.90) 19 Jan 2016
    References: Sec 2939 / CVE-2015-7977
    Affects: All ntp-4 releases up to, but not including 4.2.8p6, and
-	4.3.0 up to, but not including 4.3.XX
+	4.3.0 up to, but not including 4.3.90
    CVSS: (AV:N/AC:M/Au:N/C:N/I:N/A:P) Base Score: 4.3 - MEDIUM
    Summary: An unauthenticated 'ntpdc reslist' command can cause a
 	segmentation fault in ntpd by causing a NULL pointer dereference.
@@ -122,10 +122,10 @@ following X low- and Y medium-severity vulnerabilities:
    Credit: This weakness was discovered by Stephen Gray of Cisco ASIG.
 
 * 'ntpq saveconfig' command allows dangerous characters in filenames.
-   Date Resolved: Stable (4.2.8p6) 19 Jan 2016
+   Date Resolved: Stable (4.2.8p6) 19 Jan 2016; Dev (4.3.90) 19 Jan 2016
    References: Sec 2938 / CVE-2015-7976
    Affects: All ntp-4 releases up to, but not including 4.2.8p6, and
-	4.3.0 up to, but not including 4.3.XX
+	4.3.0 up to, but not including 4.3.90
    CVSS: (AV:N/AC:L/Au:S/C:N/I:P/A:N) Base Score: 4.0 - MEDIUM
    Summary: The ntpq saveconfig command does not do adequate filtering
    	of special characters from the supplied filename.
@@ -149,33 +149,33 @@ following X low- and Y medium-severity vulnerabilities:
    Credit: This weakness was discovered by Jonathan Gardner of Cisco ASIG.
 
 * nextvar() missing length check in ntpq
-    Date Resolved: Stable (4.2.8p6) 19 Jan 2016
-    References: Sec 2937 / CVE-2015-7975
-    Affects: All ntp-4 releases up to, but not including 4.2.8p6, and
-	4.3.0 up to, but not including 4.3.XX
-    CVSS: (AV:L/AC:H/Au:N/C:N/I:N/A:P) Base Score: 1.2 - LOW
+   Date Resolved: Stable (4.2.8p6) 19 Jan 2016; Dev (4.3.90) 19 Jan 2016
+   References: Sec 2937 / CVE-2015-7975
+   Affects: All ntp-4 releases up to, but not including 4.2.8p6, and
+	4.3.0 up to, but not including 4.3.90
+   CVSS: (AV:L/AC:H/Au:N/C:N/I:N/A:P) Base Score: 1.2 - LOW
 	If you score A:C, this becomes 4.0.
-    CVSSv3: (CVSS:3.0/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L) Base Score 2.9, LOW
-    Summary: ntpq may call nextvar() which executes a memcpy() into the
+   CVSSv3: (CVSS:3.0/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L) Base Score 2.9, LOW
+   Summary: ntpq may call nextvar() which executes a memcpy() into the
 	name buffer without a proper length check against its maximum
 	length of 256 bytes. Note well that we're taking about ntpq here.
 	The usual worst-case effect of this vulnerability is that the
 	specific instance of ntpq will crash and the person or process
 	that did this will have stopped themselves.
-    Mitigation:
+   Mitigation:
 	Upgrade to 4.2.8p6, or later, from the NTP Project Download Page
 	    or the NTP Public Services Project Download Page.
 	If you are unable to upgrade:
 	    If you have scripts that feed input to ntpq make sure there are
 		some sanity checks on the input received from the "outside".
 	    This is potentially more dangerous if ntpq is run as root. 
-    Credit: This weakness was discovered by Jonathan Gardner at Cisco ASIG.
+   Credit: This weakness was discovered by Jonathan Gardner at Cisco ASIG.
 
 * Skeleton Key: Any trusted key system can serve time
-   Date Resolved: Stable (4.2.8p6) 19 Jan 2016
+   Date Resolved: Stable (4.2.8p6) 19 Jan 2016; Dev (4.3.90) 19 Jan 2016
    References: Sec 2936 / CVE-2015-7974
    Affects: All ntp-4 releases up to, but not including 4.2.8p6, and
-	4.3.0 up to, but not including 4.3.XX
+	4.3.0 up to, but not including 4.3.90
    CVSS: (AV:N/AC:H/Au:S/C:N/I:C/A:N) Base Score: 4.9
    Summary: Symmetric key encryption uses a shared trusted key. The
 	reported title for this issue was "Missing key check allows
@@ -212,10 +212,10 @@ following X low- and Y medium-severity vulnerabilities:
    Credit: This weakness was discovered by Matt Street of Cisco ASIG. 
 
 * Deja Vu: Replay attack on authenticated broadcast mode
-   Date Resolved: Stable (4.2.8p6) 19 Jan 2016
+   Date Resolved: Stable (4.2.8p6) 19 Jan 2016; Dev (4.3.90) 19 Jan 2016
    References: Sec 2935 / CVE-2015-7973
    Affects: All ntp-4 releases up to, but not including 4.2.8p6, and
-   	4.3.0 up to, but not including 4.3.XX
+   	4.3.0 up to, but not including 4.3.90
    CVSS: (AV:A/AC:M/Au:N/C:N/I:P/A:P) Base Score: 4.3 - MEDIUM
    Summary: If an NTP network is configured for broadcast operations then
    	either a man-in-the-middle attacker or a malicious participant
