@@ -1,4 +1,5 @@
 ---
+(4.2.8p6) 2016/01/20 Released by Harlan Stenn <stenn@ntp.org>
 
 * [Sec 2935] Deja Vu: Replay attack on authenticated broadcast mode. HStenn.
 * [Sec 2936] Skeleton Key: Any trusted key system can serve time. HStenn.
