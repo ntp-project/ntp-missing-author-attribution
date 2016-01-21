@@ -62,10 +62,6 @@
 # endif
 #endif
 
-#if defined(HAVE_SIGNALED_IO) && defined(DEBUG_TIMING)
-# undef DEBUG_TIMING
-#endif
-
 /*
  * setsockopt does not always have the same arg declaration
  * across all platforms. If it's not defined we make it empty
