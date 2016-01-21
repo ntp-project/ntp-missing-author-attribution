@@ -3141,7 +3141,8 @@ sendpkt(
 }
 
 
-#if !defined(HAVE_IO_COMPLETION_PORT) && !defined(HAVE_SIGNALED_IO)
+#if !defined(HAVE_IO_COMPLETION_PORT)
+#if !defined(HAVE_SIGNALED_IO)
 /*
  * fdbits - generate ascii representation of fd_set (FAU debug support)
  * HFDF format - highest fd first.
@@ -3789,7 +3790,7 @@ input_handler_scan(
 			lfptoms(&ts_e, 6));
 #endif /* DEBUG_TIMING */
 }
-
+#endif /* !HAVE_IO_COMPLETION_PORT */
 
 /*
  * find an interface suitable for the src address
