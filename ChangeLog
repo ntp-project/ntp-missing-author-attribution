@@ -1,5 +1,6 @@
 ---
 
+* [Bug 2994] Systems with HAVE_SIGNALED_IO fail to compile. perlinger@ntp.org
 * [Bug 2995] Fixes to compile on Windows
 
 ---
