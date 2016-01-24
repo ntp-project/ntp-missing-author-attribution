@@ -547,25 +547,27 @@ authistrusted(
 	KeyAccT *	kal;
 	KeyAccT *	k;
 
-	if (keyno == cache_keyid)
+	if (keyno == cache_keyid) {
 		kal = cache_keyacclist;
-	else {
+	} else {
 		authkeyuncached++;
 
-	sk = auth_findkey(keyno);
-	if (NULL == sk || !(KEY_TRUSTED & sk->flags)) {
+		sk = auth_findkey(keyno);
+		if (NULL == sk || !(KEY_TRUSTED & sk->flags)) {
 			INSIST(!"authistrustedip: keyid not found/trusted!");
 			return FALSE;
 		}
 		kal = sk->keyacclist;
 	}
 
-	if (NULL == kal)
-	return TRUE;
+	if (NULL == kal) {
+		return TRUE;
+	}
 
 	for (k = kal; k; k = k->next) {
-		if (SOCK_EQ(&k->addr, sau))
+		if (SOCK_EQ(&k->addr, sau)) {
 			return TRUE;
+		}
 	}
 
 	return FALSE;
@@ -611,18 +613,17 @@ MD5auth_setkey(
 		sk->type = (u_short)keytype;
 		sk->secretsize = secretsize;
 		sk->keyacclist = ka;
-#
 #ifndef DISABLE_BUG1243_FIX
 		memcpy(sk->secret, key, secretsize);
 #else
-			/* >MUST< use 'strncpy()' here! See above! */
-			strncpy((char *)sk->secret, (const char *)key,
-				secretsize);
+		/* >MUST< use 'strncpy()' here! See above! */
+		strncpy((char *)sk->secret, (const char *)key,
+			secretsize);
 #endif
 		if (cache_keyid == keyno) {
 			cache_flags = 0;
 			cache_keyid = 0;
-				cache_keyacclist = NULL;
+			cache_keyacclist = NULL;
 		}
 		return;
 	}
@@ -645,8 +646,9 @@ MD5auth_setkey(
 
 		printf("auth_setkey: key %d type %d len %d ", (int)keyno,
 		    keytype, (int)secretsize);
-		for (j = 0; j < secretsize; j++)
+		for (j = 0; j < secretsize; j++) {
 			printf("%02x", secret[j]);
+		}
 		printf("\n");
 	}	
 #endif
