@@ -1,3 +1,4 @@
+(4.3.91) 2016/01/24 Released by Harlan Stenn <stenn@ntp.org>
 From ntp-4.2.8p7:
 * [Bug 2994] Systems with HAVE_SIGNALED_IO fail to compile. perlinger@ntp.org
 * [Bug 2995] Fixes to compile on Windows
