@@ -119,11 +119,11 @@ typedef struct blocking_child_tag {
 	int			resp_write_pipe;	/* child */
 	int			ispipe;
 	void *			resp_read_ctx;		/* child */
-	volatile u_int		resp_ready_seen;	/* signal/scan */
-	volatile u_int		resp_ready_done;	/* consumer/mainloop */
 #else
 	sem_ref			responses_pending;	/* signalling */
 #endif
+	volatile u_int		resp_ready_seen;	/* signal/scan */
+	volatile u_int		resp_ready_done;	/* consumer/mainloop */
 	sema_type		sem_table[4];
 	thread_type		thr_table[1];
 } blocking_child;

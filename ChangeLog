@@ -1,3 +1,6 @@
+From ntp-4.2.8p7:
+* [Bug 2994] Systems with HAVE_SIGNALED_IO fail to compile. perlinger@ntp.org
+* [Bug 2995] Fixes to compile on Windows
 (4.3.90) 2016/01/20 Released by Harlan Stenn <stenn@ntp.org>
 From ntp-4.2.8p6:
 * [Sec 2935] Deja Vu: Replay attack on authenticated broadcast mode. HStenn.
@@ -609,6 +612,12 @@ From 4.2.8p2:
 * [Bug 2747] Upgrade libevent to 2.1.5-beta.
 
 ntp-4.3 begins.
+
+---
+
+* [Bug 2994] Systems with HAVE_SIGNALED_IO fail to compile. perlinger@ntp.org
+* [Bug 2995] Fixes to compile on Windows
+
 ---
 (4.2.8p6) 2016/01/20 Released by Harlan Stenn <stenn@ntp.org>
 

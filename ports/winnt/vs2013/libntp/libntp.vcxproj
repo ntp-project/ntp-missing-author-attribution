@@ -238,6 +238,7 @@
     <ClCompile Include="..\..\..\..\libntp\humandate.c" />
     <ClCompile Include="..\..\..\..\libntp\icom.c" />
     <ClCompile Include="..\..\..\..\libntp\iosignal.c" />
+    <ClCompile Include="..\..\..\..\libntp\is_ip_address.c" />
     <ClCompile Include="..\..\..\..\libntp\lib_strbuf.c" />
     <ClCompile Include="..\..\..\..\libntp\machines.c" />
     <ClCompile Include="..\..\..\..\libntp\mktime.c" />
